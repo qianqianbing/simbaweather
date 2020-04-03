@@ -9,9 +9,17 @@ import java.io.Serializable;
  */
 public class GeneralResponse<T> implements Serializable {
 
-
+    //"code": 0,
+//  "data": [
+//    {
+//
+//    }
+//  ],
+//  "message": "string",
+//  "success": true
     public int code;
-    public String msg;
+    public String message;
+    public boolean success;
     /**
      * 数据
      */
@@ -21,7 +29,8 @@ public class GeneralResponse<T> implements Serializable {
     public String toString() {
         return "GeneralResponse{" +
                 "code=" + code +
-                ", msg='" + msg + '\'' +
+                ", message='" + message + '\'' +
+                ", success=" + success +
                 ", data=" + data +
                 '}';
     }
