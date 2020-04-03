@@ -7,4 +7,5 @@
     <color name="white">#FFFFFF</color>
     <color name="start_bg">#0f151d</color>
     <color name="end_bg">#747b93</color>
+    <color name="tab_line_color">#6CF8FC</color>
 </resources>
