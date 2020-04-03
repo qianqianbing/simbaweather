@@ -1,0 +1,20 @@
+
+android {
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+
+            def SEP = "-"
+            def rootName = rootProject.name
+			def moduleName = project.name
+            def flavor = variant.productFlavors[0].name
+            def buildType = variant.variantData.variantConfiguration.buildType.name
+            def version = variant.versionName
+            def versionCode = variant.versionCode
+            def date = new Date();
+            def formattedDate = date.format('ddMMyy_HHmm')
+
+            outputFileName = "${rootName}${SEP}${moduleName}${SEP}${flavor}${SEP}${buildType}.apk"
+        }
+    }
+}
+

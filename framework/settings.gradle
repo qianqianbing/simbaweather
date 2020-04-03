@@ -1,0 +1,2 @@
+include ':base', ':commonui'
+rootProject.name='framework'
