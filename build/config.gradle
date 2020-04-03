@@ -1,0 +1,16 @@
+allprojects {
+    repositories {
+        jcenter()
+        google()
+    }
+}
+
+ext {
+
+    dependencies = [
+           
+            gson               : "com.google.code.gson:gson:2.8.0",
+
+    ]
+   
+}
