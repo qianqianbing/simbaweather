@@ -4,11 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/app_bg"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="60px"
+    android:paddingRight="60px">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="46dp"
+        android:layout_height="100px"
         android:orientation="horizontal">
 
 
@@ -16,38 +18,52 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginRight="20px"
             android:layout_toLeftOf="@+id/layout"
-            app:tabMode="scrollable" />
+            app:tabIndicatorColor="@color/tab_line_color"
+            app:tabMode="scrollable"
+            app:tabTextAppearance="@style/TabLayoutTextStyle"
+            app:tabTextColor="@color/white" />
 
         <LinearLayout
             android:id="@+id/layout"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:orientation="horizontal"
- >
+            android:visibility="gone">
 
-            <TextView
-                android:id="@+id/title"
+            <Button
+                android:id="@+id/btn_add_car_info"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-
+                android:layout_height="wrap_content"
+                android:background="@drawable/option_menu_bg"
                 android:gravity="center"
-                android:minHeight="?actionBarSize"
                 android:onClick="add"
-                android:text="add"
-                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
+                android:paddingLeft="44px"
+                android:paddingTop="17px"
+                android:paddingRight="44px"
+                android:paddingBottom="17px"
+                android:text="添加车辆"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size" />
 
-            <TextView
-                android:id="@+id/delete"
+            <Button
+                android:id="@+id/btn_car_management"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="15dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:background="@drawable/option_menu_bg"
                 android:gravity="center"
-
                 android:onClick="delete"
-                android:text="delete"
-                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
+                android:paddingLeft="44px"
+                android:paddingTop="17px"
+                android:paddingRight="44px"
+                android:paddingBottom="17px"
+                android:text="管理车辆"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size" />
         </LinearLayout>
 
 
@@ -57,11 +73,9 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
+        android:visibility="gone"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <include
-        layout="@layout/empty_view"
-        android:visibility="gone" />
+    <include layout="@layout/empty_view" />
 
 </LinearLayout>
