@@ -1,0 +1,3 @@
+rootProject.name='ViolationEnquiry'
+include ':app'
+include ':dialoglibrary'

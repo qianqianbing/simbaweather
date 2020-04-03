@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/simba/violationenquiry/net/callback/JsonCallback.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/simba/violationenquiry/net/callback/JsonConvert.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/simba/violationenquiry/net/model/base/GeneralResponse.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/simba/violationenquiry/net/model/base/GeneralResponse.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/simba/violationenquiry/net/model/base/SimpleResponse.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/simba/violationenquiry/net/model/base/SimpleResponse.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/simba/violationenquiry/net/utils/Convert.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/simba/violationenquiry/net/utils/HttpUtils.java" charset="GBK" />
+  </component>
+</project>
