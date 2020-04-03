@@ -9,14 +9,6 @@ import java.io.Serializable;
  */
 public class GeneralResponse<T> implements Serializable {
 
-    //"code": 0,
-//  "data": [
-//    {
-//
-//    }
-//  ],
-//  "message": "string",
-//  "success": true
     public int code;
     public String message;
     public boolean success;
