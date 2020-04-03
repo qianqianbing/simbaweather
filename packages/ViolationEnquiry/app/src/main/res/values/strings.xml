@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">违章查询</string>
+    <string name="add_info">当前无车辆信息,请先添加车辆</string>
+    <string name="tab_text_2">Tab 2</string>
+
+
+</resources>
