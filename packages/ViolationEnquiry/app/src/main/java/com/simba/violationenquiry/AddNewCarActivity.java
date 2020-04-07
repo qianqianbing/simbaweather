@@ -13,7 +13,7 @@ import com.simba.violationenquiry.base.BaseActivity;
 /**
  * @Author : chenjianbo
  * @Date : 2020/4/3
- * @Desc :
+ * @Desc : 新增车辆信息
  */
 public class AddNewCarActivity extends BaseActivity {
     private InputView mInputView;

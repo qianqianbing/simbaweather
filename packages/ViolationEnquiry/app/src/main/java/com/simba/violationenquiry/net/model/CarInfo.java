@@ -8,12 +8,6 @@ import java.io.Serializable;
  * @Desc :
  */
 public class CarInfo implements Serializable {
-    //    "createdate": "2020-04-03T05:09:02.202Z",
-//      "deviceid": "string",
-//      "engineno": "string",
-//      "id": "string",
-//      "plateno": "string",
-//      "vin": "string"
     /**
      * 创建时间
      */
@@ -26,6 +20,13 @@ public class CarInfo implements Serializable {
     private String id;
     private String plateno;
     private String vin;
+
+    public CarInfo() {
+    }
+
+    public CarInfo(String plateno) {
+        this.plateno = plateno;
+    }
 
     public String getCreatedate() {
         return createdate;

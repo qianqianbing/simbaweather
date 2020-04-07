@@ -31,8 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:orientation="horizontal"
-            android:visibility="gone">
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn_add_car_info"
@@ -69,13 +68,15 @@
 
     </RelativeLayout>
 
-    <androidx.viewpager.widget.ViewPager
+    <com.simba.violationenquiry.ui.view.NoScrollViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <include layout="@layout/empty_view" />
+    <include
+        layout="@layout/empty_view"
+        android:visibility="gone" />
 
 </LinearLayout>

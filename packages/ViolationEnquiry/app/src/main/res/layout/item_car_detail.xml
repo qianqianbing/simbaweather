@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/item_bg"
+    android:orientation="vertical"
+    android:paddingLeft="40px"
+    android:paddingTop="40px"
+    android:paddingRight="40px">
+
+    <include
+        layout="@layout/item_empty"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_score_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/icon_detail_dot"
+            android:drawablePadding="20px"
+            android:text="违章扣分:"
+            android:textColor="@color/white_trans_66"
+            android:textSize="@dimen/regular_text_size" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30px"
+            android:layout_toRightOf="@+id/tv_score_label"
+            android:text="3分"
+            android:textColor="@color/white"
+            android:textSize="@dimen/regular_text_size" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="待处理"
+            android:textColor="@color/yellow_fdc53e"
+            android:textSize="@dimen/regular_text_size" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/icon_detail_dot"
+            android:drawablePadding="20px"
+            android:text="罚款金额:"
+            android:textColor="@color/white_trans_66"
+            android:textSize="@dimen/regular_text_size" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30px"
+            android:text="150元"
+            android:textColor="@color/white"
+            android:textSize="@dimen/regular_text_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/icon_detail_dot"
+            android:drawablePadding="20px"
+            android:text="违章时间:"
+            android:textColor="@color/white_trans_66"
+            android:textSize="@dimen/regular_text_size" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30px"
+            android:text="2020-02-24 13:35"
+            android:textColor="@color/white"
+            android:textSize="@dimen/regular_text_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/icon_detail_dot"
+            android:drawablePadding="20px"
+            android:text="违章地点:"
+            android:textColor="@color/white_trans_66"
+            android:textSize="@dimen/regular_text_size" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30px"
+
+            android:text="南京新城路（要新路至耀华路路段）"
+            android:textColor="@color/white"
+            android:textSize="@dimen/regular_text_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/icon_detail_dot"
+            android:drawablePadding="20px"
+            android:text="违章内容:"
+            android:textColor="@color/white_trans_66"
+            android:textSize="@dimen/regular_text_size" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30px"
+            android:text="被交通技术监控设备记录了“机动车违反禁令标志指示”的违法行为。请收
+到本告知之日起30日内接受处理。"
+            android:textColor="@color/white"
+            android:textSize="@dimen/regular_text_size" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

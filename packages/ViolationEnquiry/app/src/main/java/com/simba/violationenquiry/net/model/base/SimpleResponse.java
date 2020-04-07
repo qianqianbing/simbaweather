@@ -27,18 +27,9 @@ public class SimpleResponse implements Serializable {
     private static final long serialVersionUID = -1477609349345966116L;
 
 
-    /**
-     * 页码
-     */
-    public int pageIndex;
-    /**
-     * 分页的大小
-     */
-    public int pageSize;
-    /**
-     * 总条数
-     */
-    public long total;
+    public int code;
+    public String message;
+    public boolean success;
 
     public GeneralResponse toGeneralResponse() {
         GeneralResponse lzyResponse = new GeneralResponse();

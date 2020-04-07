@@ -9,20 +9,23 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.simba.violationenquiry.net.model.CarInfo;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A [FragmentPagerAdapter] that returns a fragment corresponding to
- * one of the sections/tabs/pages.
+ * @Author : chenjianbo
+ * @Date : 2020/4/3
+ * @Desc :
  */
 public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
 
-    private List<String> mData;
+    private List<CarInfo> mData;
     private final Context mContext;
 
-    public SectionsPagerAdapter(@NonNull FragmentManager fm, List<String> mData, Context mContext) {
+    public SectionsPagerAdapter(@NonNull FragmentManager fm, List<CarInfo> mData, Context mContext) {
         super(fm);
         if (mData == null) {
             mData = new ArrayList<>();
@@ -47,12 +50,11 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return mData.get(position);
+        return mData.get(position).getPlateno();
     }
 
     @Override
     public int getCount() {
-        // Show 2 total pages.
         return mData.size();
     }
 

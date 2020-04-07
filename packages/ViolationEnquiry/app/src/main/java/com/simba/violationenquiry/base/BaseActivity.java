@@ -14,12 +14,15 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * @Author : chenjianbo
  * @Date : 2020/4/3
  * @Desc :
  */
 public abstract class BaseActivity extends AppCompatActivity {
+    protected Disposable mDisposable;
     //获取TAG的activity名称
     protected final String TAG = this.getClass().getSimpleName();
     //是否显示标题栏
@@ -28,12 +31,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     private boolean isShowStatusBar = true;
     //封装Toast对象
     private static Toast toast;
-    public Context context;
+    public Context mContext;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context = this;
+        mContext = this;
         //activity管理
         //    ActivityCollector.addActivity(this);
         if (!isShowTitle) {
@@ -132,7 +135,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void showToast(String msg) {
         try {
             if (null == toast) {
-                toast = Toast.makeText(context, msg, Toast.LENGTH_SHORT);
+                toast = Toast.makeText(mContext, msg, Toast.LENGTH_SHORT);
             } else {
                 toast.setText(msg);
             }
@@ -146,7 +149,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             e.printStackTrace();
             //解决在子线程中调用Toast的异常情况处理
             Looper.prepare();
-            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
             Looper.loop();
         }
     }
@@ -175,6 +178,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (mDisposable != null) {
+            if (mDisposable.isDisposed()) {
+                mDisposable.dispose();
+            }
+        }
         //activity管理
         //   ActivityCollector.removeActivity(this);
     }

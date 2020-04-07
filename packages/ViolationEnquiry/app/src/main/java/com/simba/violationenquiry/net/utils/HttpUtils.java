@@ -92,6 +92,7 @@ public class HttpUtils<T> {
         }
         throw new IllegalStateException(response.getException());
     }
+
     public T post(Type type, RequestBody body) throws Exception {
 
         Call<T> call = OkGo.<T>post(httpUrl)
@@ -107,13 +108,40 @@ public class HttpUtils<T> {
     }
 
 
-
     public T post(JSONObject json, Type type) throws Exception {
 
         Call<T> call = OkGo.<T>post(httpUrl)
                 .tag(context)
                 .upJson(json)
                 .converter(new JsonConvert<T>(type))
+                .adapt();
+        Response<T> response = call.execute();
+        if (response.isSuccessful()) {
+            return response.body();
+        }
+        throw new IllegalStateException(response.getException());
+    }
+
+    public T post(String json, Type type) throws Exception {
+
+        Call<T> call = OkGo.<T>post(httpUrl)
+                .tag(context)
+                .upJson(json)
+                .converter(new JsonConvert<T>(type))
+                .adapt();
+        Response<T> response = call.execute();
+        if (response.isSuccessful()) {
+            return response.body();
+        }
+        throw new IllegalStateException(response.getException());
+    }
+
+    public T post(String json) throws Exception {
+
+        Call<T> call = OkGo.<T>post(httpUrl)
+                .tag(context)
+                .upJson(json)
+                .converter(new JsonConvert<T>())
                 .adapt();
         Response<T> response = call.execute();
         if (response.isSuccessful()) {
