@@ -3,14 +3,14 @@ package com.simba.violationenquiry.net;
 import android.content.Context;
 
 import com.google.gson.reflect.TypeToken;
+import com.simba.base.network.OkGoUtil;
+import com.simba.base.network.SimbaUrl;
+import com.simba.base.network.model.GeneralResponse;
+import com.simba.base.network.model.SimpleResponse;
+import com.simba.base.network.utils.Convert;
 import com.simba.violationenquiry.net.callback.ResultCallBack;
 import com.simba.violationenquiry.net.model.CarInfo;
-import com.simba.violationenquiry.net.model.base.GeneralResponse;
-import com.simba.violationenquiry.net.model.base.SimpleResponse;
 import com.simba.violationenquiry.net.model.detail.ViolateResData;
-import com.simba.violationenquiry.net.utils.Convert;
-import com.simba.violationenquiry.net.utils.HttpParameters;
-import com.simba.violationenquiry.net.utils.HttpUtils;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -29,10 +29,10 @@ public class HttpRequest {
      * @return
      * @throws Exception
      */
-    public static void getCarInfoList(ResultCallBack<List<CarInfo>> callBack,Context cxt, String deviceID) {
+    public static void getCarInfoList(ResultCallBack<List<CarInfo>> callBack, Context cxt, String deviceID) {
         Type type = new TypeToken<List<CarInfo>>() {
         }.getType();
-        HttpUtils<List<CarInfo>> communicator = new HttpUtils<>(cxt, HttpParameters.REQUEST_CAR_LIST + deviceID);
+        OkGoUtil<List<CarInfo>> communicator = new OkGoUtil<>(cxt, SimbaUrl.REQUEST_CAR_LIST + deviceID);
         try {
             List<CarInfo> carInfoList = communicator.get(type);
             callBack.onLoaded(carInfoList);
@@ -46,20 +46,20 @@ public class HttpRequest {
     public static GeneralResponse<ViolateResData> getDetail(Context cxt, CarInfo carInfo) throws Exception {
         Type type = new TypeToken<GeneralResponse<ViolateResData>>() {
         }.getType();
-        HttpUtils<GeneralResponse<ViolateResData>> communicator = new HttpUtils<>(cxt, HttpParameters.REQUEST_CAR_DETAIL);
+        OkGoUtil<GeneralResponse<ViolateResData>> communicator = new OkGoUtil<>(cxt, SimbaUrl.REQUEST_CAR_DETAIL);
         String value = Convert.toJson(carInfo);
         return communicator.post(value, type);
     }
 
     public static SimpleResponse add(Context cxt, CarInfo carInfo) throws Exception {
 
-        HttpUtils<SimpleResponse> communicator = new HttpUtils<>(cxt, HttpParameters.REQUEST_ADD_CAR_INFO);
+        OkGoUtil<SimpleResponse> communicator = new OkGoUtil<>(cxt, SimbaUrl.REQUEST_ADD_CAR_INFO);
         String value = Convert.toJson(carInfo);
         return communicator.post(value);
     }
 
     public static SimpleResponse delete(Context cxt, String id) throws Exception {
-        HttpUtils<SimpleResponse> communicator = new HttpUtils<>(cxt, HttpParameters.REQUEST_DELETE_CAR);
+        OkGoUtil<SimpleResponse> communicator = new OkGoUtil<>(cxt, SimbaUrl.REQUEST_DELETE_CAR);
         return communicator.post(id);
     }
 }

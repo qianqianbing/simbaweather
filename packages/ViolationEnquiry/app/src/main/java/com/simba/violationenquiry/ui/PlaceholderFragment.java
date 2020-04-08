@@ -4,9 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.simba.violationenquiry.R;
 import com.simba.violationenquiry.ui.adapter.DetailAdapter;
 import com.simba.violationenquiry.ui.itemdecoration.CommonDecoration;
+import com.simba.violationenquiry.utils.AppUtils;
 
 /**
  * @Author : chenjianbo
@@ -33,6 +31,7 @@ public class PlaceholderFragment extends Fragment {
     private ImageView ivRefresh;
     private ImageView ivProgress;
     private RecyclerView recyclerView;
+    private ImageView ivLoading;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -74,6 +73,9 @@ public class PlaceholderFragment extends Fragment {
         ivRefresh = root.findViewById(R.id.iv_refresh);
         ivProgress = root.findViewById(R.id.iv_progress);
         recyclerView = root.findViewById(R.id.recyclerView);
+        ivLoading = root.findViewById(R.id.iv_loading);
+
+     //   AppUtils.startLoadingAnimation(ivLoading);
         //  startAnimation(ivProgress);
     }
 
@@ -84,21 +86,5 @@ public class PlaceholderFragment extends Fragment {
         recyclerView.addItemDecoration(new CommonDecoration(getContext(), R.drawable.drawable_item_decoration));
     }
 
-    private void startAnimation(ImageView imageView) {
-        RotateAnimation animation;
-        int magnify = 10000;
-        int toDegrees = 360;
-        int duration = 2000;
-        toDegrees *= magnify;
-        duration *= magnify;
-        animation = new RotateAnimation(0, toDegrees,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        animation.setDuration(duration);
-        LinearInterpolator lir = new LinearInterpolator();
-        animation.setInterpolator(lir);
-        animation.setRepeatCount(Animation.INFINITE);
-        animation.setRepeatMode(Animation.RESTART);
-        imageView.startAnimation(animation);
 
-    }
 }

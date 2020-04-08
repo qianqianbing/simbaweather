@@ -12,11 +12,12 @@ package com.simba.base.network;
  */
 public class SimbaUrl {
 
+
     //环境类型
     private static String SERVER_TYPE = "debug";
 
     //主机
-    private static String BASE_HOST;
+    public static String BASE_HOST;
 
     /**
      * 设置服务器环境
@@ -40,5 +41,22 @@ public class SimbaUrl {
      */
     public static final String GET_USER_INFO = BASE_HOST + "/record/holter-order/check-device-state";
 
+    //********************************************* 违章App模块 ******************************************
+    /**
+     * 新增车辆基本信息
+     */
+    public final static String REQUEST_ADD_CAR_INFO = BASE_HOST + "/violate/addinfo";
+    /**
+     * 删除车辆基本信息
+     */
+    public final static String REQUEST_DELETE_CAR = BASE_HOST + "/violate/delete";
+    /**
+     * 查询车辆列表
+     */
+    public final static String REQUEST_CAR_LIST = BASE_HOST + "/violate/get/";
 
+    /**
+     * 获取违章详情
+     */
+    public final static String REQUEST_CAR_DETAIL = BASE_HOST + "/violate/getViolate";
 }

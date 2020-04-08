@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.simba.violationenquiry.net.callback;
+package com.simba.base.network.utils;
 
 import com.google.gson.stream.JsonReader;
 import com.lzy.okgo.convert.Converter;
-import com.simba.violationenquiry.net.model.base.GeneralResponse;
-import com.simba.violationenquiry.net.model.base.SimpleResponse;
-import com.simba.violationenquiry.net.utils.Convert;
+import com.simba.base.network.model.GeneralResponse;
+import com.simba.base.network.model.SimpleResponse;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -31,13 +30,9 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 /**
- * ================================================
- * 作    者：jeasonlzy（廖子尧）Github地址：https://github.com/jeasonlzy
- * 版    本：1.0
- * 创建日期：16/9/11
- * 描    述：
- * 修订历史：
- * ================================================
+ * @Author : chenjianbo
+ * @Date : 2020/4/8
+ * @Desc :
  */
 public class JsonConvert<T> implements Converter<T> {
 
@@ -62,14 +57,6 @@ public class JsonConvert<T> implements Converter<T> {
      */
     @Override
     public T convertResponse(Response response) throws Throwable {
-
-        // 重要的事情说三遍，不同的业务，这里的代码逻辑都不一样，如果你不修改，那么基本不可用
-        // 重要的事情说三遍，不同的业务，这里的代码逻辑都不一样，如果你不修改，那么基本不可用
-        // 重要的事情说三遍，不同的业务，这里的代码逻辑都不一样，如果你不修改，那么基本不可用
-
-        // 如果你对这里的代码原理不清楚，可以看这里的详细原理说明: https://github.com/jeasonlzy/okhttp-OkGo/wiki/JsonCallback
-        // 如果你对这里的代码原理不清楚，可以看这里的详细原理说明: https://github.com/jeasonlzy/okhttp-OkGo/wiki/JsonCallback
-        // 如果你对这里的代码原理不清楚，可以看这里的详细原理说明: https://github.com/jeasonlzy/okhttp-OkGo/wiki/JsonCallback
 
         if (type == null) {
             if (clazz == null) {

@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">违章查询</string>
     <string name="add_info">当前无车辆信息,请先添加车辆</string>
-    <string name="tab_text_2">Tab 2</string>
+    <string name="plate_no">车&#160;&#160;牌&#160;&#160;号</string>
+    <string name="plate_no_hint">燃油车6位新能源车7位</string>
+
+
 
 
 </resources>

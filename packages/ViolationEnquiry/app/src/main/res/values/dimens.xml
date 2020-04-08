@@ -13,4 +13,6 @@
     <dimen name="btn_text_size">34sp</dimen>
     <dimen name="default_marin">25px</dimen>
     <dimen name="default_padding">25px</dimen>
+
+    <dimen name="dialog_margin">50px</dimen>
 </resources>

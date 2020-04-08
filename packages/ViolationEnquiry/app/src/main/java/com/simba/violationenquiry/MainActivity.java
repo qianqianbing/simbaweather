@@ -1,11 +1,12 @@
 package com.simba.violationenquiry;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.google.android.material.tabs.TabLayout;
+import com.lzy.okgo.OkGo;
 import com.simba.violationenquiry.base.BaseActivity;
+import com.simba.violationenquiry.dialog.SinglePickerManager;
 import com.simba.violationenquiry.net.HttpRequest;
 import com.simba.violationenquiry.net.callback.ResultCallBack;
 import com.simba.violationenquiry.net.model.CarInfo;
@@ -36,13 +37,6 @@ public class MainActivity extends BaseActivity {
     private TabLayout tabs;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-    }
-
-    @Override
     protected int initLayout() {
         return R.layout.activity_main;
     }
@@ -69,18 +63,23 @@ public class MainActivity extends BaseActivity {
     }
 
     public void add(View view) {
-        mData.add(new CarInfo("苏A20V3W"));
-        sectionsPagerAdapter.notifyDataSetChanged();
-
-
+        startActivity(AddNewCarActivity.class);
+//        mData.add(new CarInfo("苏A20V3W"));
+//        sectionsPagerAdapter.notifyDataSetChanged();
     }
 
     public void delete(View view) {
-        mData.remove(sectionsPagerAdapter.getCount() - 1);
-        sectionsPagerAdapter.notifyDataSetChanged();
+        List<CarInfo> data = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            data.add(new CarInfo("苏A20V3" + i));
+        }
+        SinglePickerManager singlePickerManager = new SinglePickerManager(this, data);
+        singlePickerManager.show();
+
     }
 
     private void loadData() {
+
         Observable.create(new ObservableOnSubscribe<List<CarInfo>>() {
             @Override
             public void subscribe(final ObservableEmitter<List<CarInfo>> emitter) throws Exception {

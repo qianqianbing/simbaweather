@@ -1,11 +1,11 @@
-package com.simba.violationenquiry.net.model.base;
+package com.simba.base.network.model;
 
 import java.io.Serializable;
 
 /**
- * BASE
- *
- * @param <T>
+ * @Author : chenjianbo
+ * @Date : 2020/4/8
+ * @Desc : 返回数据结构
  */
 public class GeneralResponse<T> implements Serializable {
 

@@ -22,7 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddNewCarActivity" />
+        <activity
+            android:name=".AddNewCarActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
     </application>
 
 </manifest>

@@ -4,15 +4,23 @@ import android.app.Application;
 import android.content.Context;
 
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.adapter.Call;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.cookie.CookieJarImpl;
 import com.lzy.okgo.cookie.store.SPCookieStore;
 import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
+import com.lzy.okgo.model.Response;
+import com.simba.base.network.utils.JsonConvert;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -23,6 +31,7 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509TrustManager;
 
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 
 /**
  * ================================================
@@ -33,7 +42,198 @@ import okhttp3.OkHttpClient;
  * 修订历史：
  * ================================================
  */
-public class OkGoUtil {
+public class OkGoUtil<T> {
+    public final static String TAG = OkGoUtil.class.getSimpleName();
+    private Context context;
+    private String httpUrl;
+    /**
+     * @param cxt
+     * @param httpUrl
+     */
+    public OkGoUtil(Context cxt, String httpUrl) {
+        this.context = cxt;
+        if (!httpUrl.startsWith("http")) {
+            httpUrl = SimbaUrl.BASE_HOST + httpUrl;
+        }
+        this.httpUrl = httpUrl;
+
+    }
+    /**
+     * @param type
+     * @return
+     * @throws Exception
+     */
+    public T get(Type type) throws Exception {
+        Call<T> call = OkGo.<T>get(httpUrl)
+                .tag(context)
+                .converter(new JsonConvert<T>(type))
+                .adapt();
+        Response<T> response = call.execute();
+        if (response.isSuccessful()) {
+            return response.body();
+        }
+        throw new IllegalStateException(response.getException());
+    }
+
+    /**
+     * @param params
+     * @return
+     * @throws Exception
+     */
+    public T get(HashMap<String, String> params, Type type) throws Exception {
+        Call<T> call = OkGo.<T>get(httpUrl)
+                .tag(context)
+                .params(params)
+                .converter(new JsonConvert<T>(type))
+                .adapt();
+        Response<T> response = call.execute();
+        if (response.isSuccessful()) {
+            return response.body();
+        }
+        throw new IllegalStateException(response.getException());
+    }
+
+    /**
+     * @param type
+     * @return
+     * @throws Exception
+     */
+    public T post(Type type) throws Exception {
+
+        Call<T> call = OkGo.<T>post(httpUrl)
+                .tag(context)
+                .converter(new JsonConvert<T>(type))
+                .adapt();
+        Response<T> response = call.execute();
+        if (response.isSuccessful()) {
+            return response.body();
+        }
+        throw new IllegalStateException(response.getException());
+    }
+
+    public T post(Type type, RequestBody body) throws Exception {
+
+        Call<T> call = OkGo.<T>post(httpUrl)
+                .tag(context)
+
+                .converter(new JsonConvert<T>(type))
+                .adapt();
+        Response<T> response = call.execute();
+        if (response.isSuccessful()) {
+            return response.body();
+        }
+        throw new IllegalStateException(response.getException());
+    }
+
+
+    public T post(JSONObject json, Type type) throws Exception {
+
+        Call<T> call = OkGo.<T>post(httpUrl)
+                .tag(context)
+                .upJson(json)
+                .converter(new JsonConvert<T>(type))
+                .adapt();
+        Response<T> response = call.execute();
+        if (response.isSuccessful()) {
+            return response.body();
+        }
+        throw new IllegalStateException(response.getException());
+    }
+
+    public T post(String json, Type type) throws Exception {
+
+        Call<T> call = OkGo.<T>post(httpUrl)
+                .tag(context)
+                .upJson(json)
+                .converter(new JsonConvert<T>(type))
+                .adapt();
+        Response<T> response = call.execute();
+        if (response.isSuccessful()) {
+            return response.body();
+        }
+        throw new IllegalStateException(response.getException());
+    }
+
+    public T post(String json) throws Exception {
+
+        Call<T> call = OkGo.<T>post(httpUrl)
+                .tag(context)
+                .upJson(json)
+                .converter(new JsonConvert<T>())
+                .adapt();
+        Response<T> response = call.execute();
+        if (response.isSuccessful()) {
+            return response.body();
+        }
+        throw new IllegalStateException(response.getException());
+    }
+
+    public T post(HashMap<String, String> params, Type type) throws Exception {
+        Call<T> call = OkGo.<T>post(httpUrl)
+                .tag(context)
+                .isSpliceUrl(true)
+                .params(params)
+                .converter(new JsonConvert<T>(type))
+                .adapt();
+        Response<T> response = call.execute();
+        if (response.isSuccessful()) {
+            return response.body();
+        }
+        throw new IllegalStateException(response.getException());
+    }
+
+    public T post(JSONObject json, HashMap<String, String> params, Type type) throws Exception {
+
+        Call<T> call = OkGo.<T>post(httpUrl)
+                .tag(context)
+                .isSpliceUrl(true)
+                .params(params)
+                .upJson(json)
+                .converter(new JsonConvert<T>(type))
+                .adapt();
+        Response<T> response = call.execute();
+        if (response.isSuccessful()) {
+            return response.body();
+        }
+        throw new IllegalStateException(response.getException());
+    }
+
+
+    /**
+     * @param params
+     * @return
+     * @throws Exception
+     */
+    public Response<JSONObject> getJSONObject(HashMap<String, String> params) throws Exception {
+        Call<JSONObject> call = OkGo.<JSONObject>get(httpUrl)
+                .tag(context)
+                .params(params)
+                .converter(new JsonConvert<JSONObject>(JSONObject.class))
+                .adapt();
+        Response<JSONObject> response = call.execute();
+        if (response.isSuccessful()) {
+            return response;
+        }
+        throw new IllegalStateException(response.getException());
+    }
+
+    /**
+     * @param params
+     * @return
+     * @throws Exception
+     */
+    public Response<JSONArray> getJSONArray(HashMap<String, String> params) throws Exception {
+        Call<JSONArray> call = OkGo.<JSONArray>get(httpUrl)
+                .tag(context)
+                .params(params)
+                .converter(new JsonConvert<JSONArray>(JSONArray.class))
+                .adapt();
+        Response<JSONArray> response = call.execute();
+        if (response.isSuccessful()) {
+            return response;
+        }
+        throw new IllegalStateException(response.getException());
+    }
 
     public static <T> void get(String url, Object tag, Map<String, String> map, JsonCallback<T> callback) {
         OkGo.<T>get(url)
@@ -53,8 +253,8 @@ public class OkGoUtil {
     /**
      * okgo 初始化
      *
-     * @param application   application 对象
-     * @param debug         是否输出网络请求的log信息
+     * @param application application 对象
+     * @param debug       是否输出网络请求的log信息
      */
     public static void init(Application application, boolean debug) {
         //以下设置的所有参数是全局参数,同样的参数可以在请求的时候再设置一遍,那么对于该请求来讲,请求中的参数会覆盖全局参数

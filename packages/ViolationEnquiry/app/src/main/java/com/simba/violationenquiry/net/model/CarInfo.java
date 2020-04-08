@@ -1,5 +1,7 @@
 package com.simba.violationenquiry.net.model;
 
+import com.simba.violationenquiry.dialog.KeyValue;
+
 import java.io.Serializable;
 
 /**
@@ -7,7 +9,7 @@ import java.io.Serializable;
  * @Date : 2020/4/3
  * @Desc :
  */
-public class CarInfo implements Serializable {
+public class CarInfo implements Serializable, KeyValue {
     /**
      * 创建时间
      */
@@ -74,5 +76,20 @@ public class CarInfo implements Serializable {
 
     public void setVin(String vin) {
         this.vin = vin;
+    }
+
+    @Override
+    public String getKey() {
+        return getId();
+    }
+
+    @Override
+    public String getValue() {
+        return getPlateno();
+    }
+
+    @Override
+    public String getHint() {
+        return null;
     }
 }

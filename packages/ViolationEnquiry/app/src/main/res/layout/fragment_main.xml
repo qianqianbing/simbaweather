@@ -7,6 +7,11 @@
     android:paddingTop="40px"
     android:paddingBottom="40px">
 
+    <include
+        android:id="@+id/rl_loading"
+        layout="@layout/loading_view"
+        android:visibility="gone" />
+
     <RelativeLayout
         android:id="@+id/rl_card"
         android:layout_width="420px"

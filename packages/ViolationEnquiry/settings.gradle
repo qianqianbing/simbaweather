@@ -1,3 +1,5 @@
 rootProject.name='ViolationEnquiry'
 include ':app'
 include ':keyboard'
+include ':base'
+project (':base').projectDir = new File('../../framework/base')

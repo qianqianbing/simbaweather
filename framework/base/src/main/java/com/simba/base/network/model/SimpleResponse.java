@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.simba.violationenquiry.net.model.base;
+package com.simba.base.network.model;
 
 import java.io.Serializable;
 
 /**
  * @Author : chenjianbo
- * @Date : 2020/2/27
- * @Desc :
+ * @Date : 2020/4/8
+ * @Desc : 数据结构
  */
 public class SimpleResponse implements Serializable {
 

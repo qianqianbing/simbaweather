@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.simba.violationenquiry.ui.view.CheckableRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100px">
+
+    <com.simba.violationenquiry.ui.view.SingleCheckBox
+        android:id="@+id/cb_single"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="@color/transparent"
+        android:button="@null"
+        android:drawableRight="@drawable/cb_dialog_bg"
+        android:drawablePadding="15px"
+        android:duplicateParentState="true"
+        android:text="选项一"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size" />
+
+</com.simba.violationenquiry.ui.view.CheckableRelativeLayout>
