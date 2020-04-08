@@ -23,9 +23,11 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "androidx.appcompat:appcompat:${dependVersion.appcompat}"
     implementation "androidx.constraintlayout:constraintlayout:${dependVersion.constraintlayout}"
     testImplementation "junit:junit:${dependVersion.junit}"
     androidTestImplementation "androidx.test.espresso:espresso-core:${dependVersion.espresso_core}"
+    //必须使用
+    implementation "com.lzy.net:okgo:${dependVersion.okgo}"
+    implementation "com.google.code.gson:gson:${dependVersion.gson}"
 }

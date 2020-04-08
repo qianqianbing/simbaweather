@@ -1,0 +1,76 @@
+
+本网络工具基于okgo的二次封装，提供JsonCallback封装，有如下功能
+       1.对json数据类型直接转换到javabean
+       2.网络请求自动弹框
+       3.对多个并发请求支持共享统一个等待框，以第一个请求发出后弹框，最后一个请求结束小时弹框。
+       4.统一处理网络请求异常，使用者只需处理成功时的业务
+
+
+        /** ============= 网络框架初始化 ============== */
+        OkGoUtils.init(this, true);
+        
+
+        /**
+         *单个post请求 （再带进度条）
+         */
+        OkGo.<String>post("https://www.baidu.com/")
+                .tag(this)                   //必传项 注意，Activity里传Activity对象 和 Fragment 里传Fragment对象。
+                .params("", "")
+                .execute(new JsonCallback<String>() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        if (isCode200() && response != null) {
+                           //do something
+                        }
+                    }
+                });
+
+
+     // 多个请求共享统一进度条，以第一个请求发出后弹框，最后一个请求结束小时弹框。
+      DialogUtil recordUploadDialog = DialogUtil.buildProgress(this, R.string.network_load_wait);
+
+      OkGo.<List<BuyService>>post(EcgUrl.GET_SERVICE_CARD_LIST)
+              .tag(this)
+              .params("app_type", "android")
+              .execute(new JsonCallback<List<String>>(this,recordUploadDialog) {
+                @Override
+                public void onSuccess(Response<List<String>> response) {
+
+                }
+              });
+
+      OkGo.<List<BuyService>>post(EcgUrl.GET_SERVICE_CARD_LIST)
+              .tag(this)
+              .params("app_type", "android")
+              .execute(new JsonCallback<List<String>>(this,recordUploadDialog) {
+                @Override
+                public void onSuccess(Response<List<String>> response) {
+
+                }
+              });
+
+
+       /**
+        * 注意：在onSuccess()中，还可以使用如下方法
+        *                         isCode200(),          响应中code值是否是200
+        *                         getHttpCode();        获取http的code状态码
+        *                         getResponse();        获取完整响应字符串
+        *                         getResponseCode();    获取响应中code的值
+        *                         getResponseData();    获取响应中data的值
+        *                         getResponseMessage(); 获取响应中message的值
+        *                         getHttpHeaders()      获取响应头信息
+        */
+
+//另：可以使用封装类OkGoUtil的静态方法，更加简便
+OkGoUtil.post("", this, null, new JsonCallback<String>() {
+            @Override
+            public void onSuccess(Response<String> response) {
+
+            }
+        });
+OkGoUtil.get("", this, null, new JsonCallback<String>() {
+            @Override
+            public void onSuccess(Response<String> response) {
+
+            }
+        });

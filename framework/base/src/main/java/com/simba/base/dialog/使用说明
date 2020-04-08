@@ -1,0 +1,156 @@
+        /**
+         * 基本信息弹框
+         */
+        DialogUtil.build(this)
+                .content("阿伐季艾莉！")
+                .show();
+        DialogUtil.build(this)
+                .title("提示")
+                .content("阿里扩大解放了阿康点解啊点附近啊卢卡斯的附近啊领导分厘！")
+                .show();
+        DialogUtil.build(this)
+                .title("提示")
+                .content("里扩大解放了阿康点解啊点附近啊卢卡斯的附近啊领导分厘卡决定付了款接撒点路口附近啊塑料口袋解放了卡降低森林砍伐季！")
+                .positiveText("确定")
+                .negativeText("取消")
+                .setDelayTimeShow(500) //延时500毫秒显示进度条
+                .show();
+
+
+*******************************************************************分割线***************************************************************************
+
+        /**
+         * 常用网络等待进度条
+         */
+        DialogUtil.buildProgress(this, "网络正在加载中！").show();
+
+
+*******************************************************************分割线***************************************************************************
+
+
+        /**
+         * 点击事件回调
+         */
+        DialogUtil.build(this)
+                .title("提示")
+                .content("阿里扩大解放了阿康点啊塑料口袋解放了卡降低森林砍伐季艾莉！")
+                .positiveText("确定")
+                .onPositive(new DialogUtil.SingleButtonCallback() {
+                    @Override
+                    public void onClick(DialogUtil dialogUtil, DialogUtil.DialogAction dialogAction) {
+                        LogUtil.e(dialogAction + "");
+                    }
+                })
+                .negativeText("否定")
+                .onNegative(new DialogUtil.SingleButtonCallback() {
+                    @Override
+                    public void onClick(DialogUtil dialogUtil, DialogUtil.DialogAction dialogAction) {
+                        LogUtil.e(dialogAction + "");
+                    }
+                })
+                .onAny(new DialogUtil.SingleButtonCallback() {
+                    @Override
+                    public void onClick(DialogUtil dialogUtil, DialogUtil.DialogAction dialogAction) {
+                        LogUtil.e(dialogAction + "这个无论点击确认还是否认，都调用");
+                    }
+                })
+                .show();
+
+
+*******************************************************************分割线***************************************************************************
+
+                   /**
+                    * 自定义dialog视图
+                    */
+                   TextView textView = new TextView(this);
+                   textView.setTextColor(Color.RED);
+                   textView.setText("12121212121");
+
+                   DialogUtil.build(this)
+                           .title("提示")
+                           .content("里扩大解放！")
+                           .appendView(textView)
+                           .positiveText("确定")
+                           .negativeText("取消")
+                           .show();
+
+
+
+*******************************************************************分割线***************************************************************************
+
+                   /**
+                    * 输入框通用弹框
+                    */
+                    DialogUtil.build(this)
+                            .title("为了让医生能了解您身体状况，请记录晨起血压（6点至10点）")
+                            .appendEditLine(new EditLine("高压", "mmHg", "请输入高压值", ""))
+                            .appendEditLine(new EditLine("低压", "mmHg", "请输入低压值", "121212"))
+                            .positiveText("提交")
+                            .onPositive(new DialogUtil.SingleButtonCallback() {
+                                @Override
+                                public void onClick(DialogUtil dialogUtil, DialogUtil.DialogAction dialogAction) {
+                                    LogUtil.e(dialogAction + "");
+                                    LogUtil.e(dialogUtil.getEditLine().get("高压").getValue());
+                                    LogUtil.e(dialogUtil.getEditLine().get("低压").getValue());
+                                }
+                            })
+                            .negativeText("暂不记录")
+                            .show();
+
+
+*******************************************************************分割线***************************************************************************
+
+                   /**
+                    * 完整方法范例
+                    */
+                        DialogUtil.build(this)                                   //普通信息对话框
+                //                .buildProgress(this, R.string.network_load_wait) //进度条对话框
+                                .title("提示")
+                                .titleColor(R.color.white)
+                                .titleBgColor(R.color.red)
+                                .content("阿里扩大解放了阿康点啊塑料口袋解放了卡降低森林砍伐季艾莉！")
+                                .contentColor(R.color.black)
+                                .positiveText("确定")
+                                .positiveTextColor(R.color.black)
+                                .onPositive(new DialogUtil.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(DialogUtil dialogUtil, DialogUtil.DialogAction dialogAction) {
+                                        LogUtil.e(dialogAction + "");
+                                    }
+                                })
+                                .negativeText("否定")
+                                .negativeTextColor(R.color.black)
+                                .onNegative(new DialogUtil.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(DialogUtil dialogUtil, DialogUtil.DialogAction dialogAction) {
+                                        LogUtil.e(dialogAction + "");
+                                    }
+                                })
+                                .onAny(new DialogUtil.SingleButtonCallback() {  //无论点击 确认、取消 都执行的回调
+                                    @Override
+                                    public void onClick(DialogUtil dialogUtil, DialogUtil.DialogAction dialogAction) {
+                                        LogUtil.e(dialogAction + "这个无论点击确认还是否认，都调用");
+                                    }
+                                })
+                                .onDismiss(new DialogUtil.SingleButtonCallback() { //对话框消失  执行的回调
+                                    @Override
+                                    public void onClick(DialogUtil dialogUtil, DialogUtil.DialogAction dialogAction) {
+
+                                    }
+                                })
+                //               .appendEditLine(new EditLine("高压", "mmHg", "请输入高压值", ""))
+                //               .appendEditLine(new EditLine("低压", "mmHg", "请输入低压值", "121212"))
+                                .setDelayTimeShow(5000)                                     //调用show()后 延迟5000毫秒再显示
+                                .setDelayTimeDismiss(5000)                                  //调用show()后 延迟5000毫秒自动消失
+                                .onDelayTimeDismiss(new DialogUtil.SingleButtonCallback() {  //自动消失时候的监听回调
+                                    @Override
+                                    public void onClick(DialogUtil dialogUtil, DialogUtil.DialogAction dialogAction) {
+
+                                    }
+                                })
+                                .cancelDelayShowPlan()          // 取消 延迟显示 计划
+                                .cancelDelayDismissPlan()       // 取消 延迟消失 计划
+                                .show();
+
+
+

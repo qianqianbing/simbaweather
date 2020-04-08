@@ -1,0 +1,40 @@
+<resources>
+
+    <!-- 标题栏，输入框高度 -->
+    <dimen name="intro_margin_1">1dp</dimen>
+    <dimen name="intro_margin_2">2dp</dimen>
+    <dimen name="intro_margin_3">3dp</dimen>
+    <dimen name="intro_margin_5">5dp</dimen>
+    <dimen name="intro_margin_8">8dp</dimen>
+    <dimen name="intro_margin_10">10dp</dimen>
+    <dimen name="intro_margin_12">12dp</dimen>
+    <dimen name="intro_margin_14">14dp</dimen>
+    <dimen name="intro_margin_15">15dp</dimen>
+    <dimen name="intro_margin_16">16dp</dimen>
+    <dimen name="intro_margin_18">18dp</dimen>
+    <dimen name="intro_margin_20">20dp</dimen>
+    <dimen name="intro_margin_25">25dp</dimen>
+    <dimen name="intro_margin_30">30dp</dimen>
+    <dimen name="intro_margin_35">35dp</dimen>
+    <dimen name="intro_margin_40">40dp</dimen>
+    <dimen name="intro_margin_50">50dp</dimen>
+    <dimen name="intro_head">50dp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <!-- layout高度 -->
+    <dimen name="ly_height">48dp</dimen>
+    <!-- star 宽度 -->
+    <!-- 字体适配 从小到大 -->
+    <dimen name="base_text_size_mix">11sp</dimen>
+    <dimen name="base_text_size_tiny">12sp</dimen>
+    <dimen name="base_text_size_micro">15sp</dimen>
+    <dimen name="base_text_size_small">14sp</dimen>
+    <dimen name="base_text_size_medium">18sp</dimen>
+    <dimen name="base_text_size_large">22sp</dimen>
+    <dimen name="base_text_size_max">32sp</dimen>
+    <dimen name="base_text_size_super">40sp</dimen>
+d
+
+    <dimen name="base_dialog_radius">8dp</dimen>
+
+</resources>

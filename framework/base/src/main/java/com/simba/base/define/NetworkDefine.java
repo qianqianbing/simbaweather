@@ -1,4 +1,4 @@
-package com.simba.framework.define;
+package com.simba.base.define;
 
 public class NetworkDefine {
 
