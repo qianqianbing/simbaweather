@@ -307,7 +307,7 @@ public class Toasty {
         if (shouldTint)
             drawableFrame = tint9PatchDrawableFrame(context, tintColor);
         else
-            drawableFrame = getDrawable(context, R.mipmap.toast_frame);
+            drawableFrame = getDrawable(context, R.mipmap.base_toast_frame);
         setBackground(toastLayout, drawableFrame);
 
         if (withIcon) {
@@ -395,7 +395,7 @@ public class Toasty {
     }
 
     static Drawable tint9PatchDrawableFrame(@NonNull Context context, @ColorInt int tintColor) {
-        final NinePatchDrawable toastDrawable = (NinePatchDrawable) getDrawable(context, R.mipmap.toast_frame);
+        final NinePatchDrawable toastDrawable = (NinePatchDrawable) getDrawable(context, R.mipmap.base_toast_frame);
         return tintIcon(toastDrawable, tintColor);
     }
 
