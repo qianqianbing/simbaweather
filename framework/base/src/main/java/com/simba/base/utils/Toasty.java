@@ -1,4 +1,4 @@
-package com.simba.base.toast;
+package com.simba.base.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

@@ -9,8 +9,8 @@ import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 import com.simba.base.R;
 import com.simba.base.dialog.DialogUtil;
-import com.simba.base.log.LogUtil;
-import com.simba.base.toast.Toasty;
+import com.simba.base.utils.LogUtil;
+import com.simba.base.utils.Toasty;
 
 import org.json.JSONException;
 import org.json.JSONObject;
