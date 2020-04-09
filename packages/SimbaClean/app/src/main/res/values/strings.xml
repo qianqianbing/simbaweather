@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SimbaClean</string>
+    <string name="tv_currentMemory">实时内存</string>
+    <string name="tv_calculating">正在计算</string>
+
+
 </resources>
