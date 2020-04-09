@@ -36,8 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:visibility="invisible"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="invisible">
 
             <Button
                 android:id="@+id/btn_add_car_info"
@@ -50,7 +50,7 @@
                 android:paddingTop="17px"
                 android:paddingRight="44px"
                 android:paddingBottom="17px"
-                android:text="添加车辆"
+                android:text="@string/add_car"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size" />
 
@@ -66,7 +66,7 @@
                 android:paddingTop="17px"
                 android:paddingRight="44px"
                 android:paddingBottom="17px"
-                android:text="管理车辆"
+                android:text="@string/vehicle_management"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size" />
         </LinearLayout>

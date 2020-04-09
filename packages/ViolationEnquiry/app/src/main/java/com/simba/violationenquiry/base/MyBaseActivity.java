@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.annotation.StringRes;
+
 import com.simba.base.base.BaseActivity;
 import com.simba.base.dialog.DialogUtil;
 import com.simba.base.utils.Toasty;
@@ -26,6 +28,10 @@ public abstract class MyBaseActivity extends BaseActivity {
 
 
     protected void showToast(String msg) {
+        Toasty.info(this, msg);
+    }
+
+    protected void showToast(@StringRes int msg) {
         Toasty.info(this, msg);
     }
 

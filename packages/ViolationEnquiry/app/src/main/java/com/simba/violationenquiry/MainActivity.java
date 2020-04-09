@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.tabs.TabLayout;
+import com.simba.base.network.model.SimpleResponse;
 import com.simba.violationenquiry.base.MyBaseActivity;
 import com.simba.violationenquiry.dialog.SinglePickerManager;
 import com.simba.violationenquiry.event.AddCarInfoEvent;
@@ -87,14 +88,15 @@ public class MainActivity extends MyBaseActivity {
 
     public void delete(View view) {
 
-        SinglePickerManager singlePickerManager = new SinglePickerManager(this, mData);
+        final SinglePickerManager singlePickerManager = new SinglePickerManager(this, mData);
         singlePickerManager.show();
         singlePickerManager.setOnConfirmListener(new SinglePickerManager.onConfirmClickListener() {
             @Override
             public void onClick(int checkedItemPosition) {
-                deleteCar(checkedItemPosition);
+                deleteCar(checkedItemPosition, singlePickerManager);
             }
         });
+
     }
 
     private void loadData() {
@@ -147,7 +149,51 @@ public class MainActivity extends MyBaseActivity {
                 });
     }
 
-    private void deleteCar(int pos) {
+    private void deleteCar(final int pos, final SinglePickerManager singlePickerManager) {
+        Observable.create(new ObservableOnSubscribe<SimpleResponse>() {
+            @Override
+            public void subscribe(final ObservableEmitter<SimpleResponse> emitter) throws Exception {
+
+                HttpRequest.add(new ResultCallBack<SimpleResponse>() {
+                    @Override
+                    public void onLoaded(SimpleResponse wrapper) {
+                        emitter.onNext(wrapper);
+                    }
+
+                    @Override
+                    public void onDataLoadedFailure(Exception e) {
+                        emitter.onError(e);
+                    }
+                }, mContext, mData.get(pos));
+            }
+        }).subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        mDisposable = disposable;
+                        showProgressDialog();
+                    }
+                }).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<SimpleResponse>() {
+                    @Override
+                    public void accept(SimpleResponse response) throws Exception {
+                        dismissProgressDialog();
+                        if (response.success) {
+                            singlePickerManager.dismiss();
+                            showToast(R.string.delete_success);
+                            loadData();
+
+                        } else {
+                            showToast(R.string.delete_fail);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        dismissProgressDialog();
+                        showToast(R.string.delete_fail);
+                    }
+                });
 
     }
 

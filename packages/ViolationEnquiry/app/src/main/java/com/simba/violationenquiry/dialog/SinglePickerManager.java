@@ -118,7 +118,7 @@ public class SinglePickerManager {
             public void onClick(View v) {
                 int checkedItemPosition = mLvSingle.getCheckedItemPosition();
                 if (mConfirmListener != null && checkedItemPosition != ListView.INVALID_POSITION) {
-                    dismiss();
+
                     mConfirmListener.onClick(checkedItemPosition);
                 }
             }

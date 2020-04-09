@@ -38,7 +38,7 @@
             android:layout_weight="1"
             android:gravity="center"
 
-            android:text="取消"
+            android:text="@string/cancel"
             android:textColor="@color/white_trans_4d"
             android:textSize="@dimen/text_size" />
 
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="修改车辆信息"
+            android:text="@string/modify_car_info"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size" />
 

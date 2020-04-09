@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +29,7 @@ import com.simba.violationenquiry.net.model.detail.ViolateResDetail;
 import com.simba.violationenquiry.ui.adapter.DetailAdapter;
 import com.simba.violationenquiry.ui.itemdecoration.CommonDecoration;
 import com.simba.violationenquiry.utils.AppUtils;
+import com.simba.violationenquiry.utils.ResourceUtils;
 
 import java.util.List;
 
@@ -168,8 +170,7 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
         tvBeProcessed.setText(detailData.getViolatesum());
         tvScore.setText(detailData.getScoresum());
         tvTotalMoney.setText(detailData.getAmountsum());
-        tvUpdateTime.setText("更新于：" + detailData.getUpdatetime());
-
+        tvUpdateTime.setText(String.format(ResourceUtils.getString(R.string.update_time), detailData.getUpdatetime()));
         tvErrorPlateNo.setText(detailData.getCph());
 
     }
@@ -221,7 +222,7 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        showToast("查询失败,请稍后重试");
+                        showToast(R.string.query_fail);
                         showItemError(true);
                         if (isFirst) {
                             showLoadingView(false);//进度对话框
@@ -277,7 +278,7 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
     }
 
     private void showErrorDialog() {
-        CommonDialog commonDialog = new CommonDialog(getContext(), "当前车辆信息无法查询到结果，请确认车辆信息是否正确。");
+        CommonDialog commonDialog = new CommonDialog(getContext(), ResourceUtils.getString(R.string.query_fail_please_make_confirm));
         commonDialog.show();
         commonDialog.setCanceledOnTouchOutside(false);
         commonDialog.setOnConfirmListener(new CommonDialog.OnConfirmListener() {
@@ -319,6 +320,10 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
     }
 
     private void showToast(String msg) {
+        Toasty.info(getContext(), msg);
+    }
+
+    private void showToast(@StringRes int msg) {
         Toasty.info(getContext(), msg);
     }
 }
