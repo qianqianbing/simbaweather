@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.simba.violationenquiry.R;
-import com.simba.violationenquiry.ui.view.adapter.viewholder.KeyViewHolder;
+import com.simba.violationenquiry.ui.view.adapter.viewholder.KeyViewViewHolder;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import java.util.List;
  * @Date : 2020/4/8
  * @Desc :
  */
-public class ProvicesAdapter extends RecyclerView.Adapter<KeyViewHolder> {
+public class ProvicesAdapter extends RecyclerView.Adapter<KeyViewViewHolder> {
 
     private List<String> mData;
     private OnItemClickListener onItemClickListener;
@@ -29,12 +29,12 @@ public class ProvicesAdapter extends RecyclerView.Adapter<KeyViewHolder> {
 
     @NonNull
     @Override
-    public KeyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new KeyViewHolder(parent, R.layout.item_keyboard);
+    public KeyViewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new KeyViewViewHolder(parent, R.layout.item_keyboard);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final KeyViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final KeyViewViewHolder holder, final int position) {
         holder.setData(mData.get(position));
         holder.setBackground(checkPos == position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {

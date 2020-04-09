@@ -3,8 +3,8 @@ package com.simba.violationenquiry.ui.view.adapter.viewholder;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.simba.base.base.BaseViewHolder;
 import com.simba.violationenquiry.R;
-import com.simba.violationenquiry.base.BaseHolder;
 import com.simba.violationenquiry.utils.ResourceUtils;
 
 /**
@@ -12,10 +12,10 @@ import com.simba.violationenquiry.utils.ResourceUtils;
  * @Date : 2020/4/7
  * @Desc :
  */
-public class KeyViewHolder extends BaseHolder<String> {
+public class KeyViewViewHolder extends BaseViewHolder<String> {
     private TextView btnKey;
 
-    public KeyViewHolder(ViewGroup parent, int resId) {
+    public KeyViewViewHolder(ViewGroup parent, int resId) {
         super(parent, resId);
         btnKey = getView(R.id.tv_key);
     }

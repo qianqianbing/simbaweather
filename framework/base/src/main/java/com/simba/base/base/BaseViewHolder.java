@@ -1,4 +1,4 @@
-package com.simba.violationenquiry.base;
+package com.simba.base.base;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
  * @Date : 2020/3/20
  * @Desc :
  */
-public abstract class BaseHolder<M> extends RecyclerView.ViewHolder {
+public abstract class BaseViewHolder<M> extends RecyclerView.ViewHolder {
 
-    public BaseHolder(ViewGroup parent, @LayoutRes int resId) {
+    public BaseViewHolder(ViewGroup parent, @LayoutRes int resId) {
         super(LayoutInflater.from(parent.getContext()).inflate(resId, parent, false));
     }
 

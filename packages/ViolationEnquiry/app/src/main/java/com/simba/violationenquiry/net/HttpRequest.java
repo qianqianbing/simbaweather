@@ -31,6 +31,17 @@ public class HttpRequest {
      * @throws Exception
      */
     public static void getCarInfoList(ResultCallBack<List<CarInfo>> callBack, Context cxt, String deviceID) {
+        if (MyApplication.isDebug) {
+            try {
+                Thread.sleep(5000);
+                // callBack.onDataLoadedFailure(new Exception());
+                callBack.onLoaded(DataTest.getCarInfoList());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
+
         Type type = new TypeToken<List<CarInfo>>() {
         }.getType();
         OkGoUtil<List<CarInfo>> communicator = new OkGoUtil<>(cxt, SimbaUrl.REQUEST_CAR_LIST + deviceID);

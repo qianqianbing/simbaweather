@@ -8,8 +8,7 @@ import android.widget.RelativeLayout;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.tabs.TabLayout;
-import com.simba.violationenquiry.base.BaseActivity;
-import com.simba.violationenquiry.dialog.CommonDialog;
+import com.simba.base.base.BaseActivity;
 import com.simba.violationenquiry.dialog.SinglePickerManager;
 import com.simba.violationenquiry.event.AddCarInfoEvent;
 import com.simba.violationenquiry.net.HttpRequest;
@@ -22,7 +21,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -53,7 +51,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected int initLayout() {
+    protected int getLayoutId() {
         return R.layout.activity_main;
     }
 
@@ -77,24 +75,23 @@ public class MainActivity extends BaseActivity {
         sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), mData, this);
         viewPager.setAdapter(sectionsPagerAdapter);
         tabs.setupWithViewPager(viewPager);
-        //  loadData();
+        loadData();
     }
 
     public void add(View view) {
-        mData = new ArrayList<>();
-        mData.add(new CarInfo("苏A20V3W"));
-        sectionsPagerAdapter.refresh(mData);
-        //  startActivity(AddNewCarActivity.class);
+        startActivity(AddNewCarActivity.class);
     }
 
     public void delete(View view) {
-        List<CarInfo> data = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            data.add(new CarInfo("苏A20V3" + i));
-        }
-        SinglePickerManager singlePickerManager = new SinglePickerManager(this, data);
-        singlePickerManager.show();
 
+        SinglePickerManager singlePickerManager = new SinglePickerManager(this, mData);
+        singlePickerManager.show();
+        singlePickerManager.setOnConfirmListener(new SinglePickerManager.onConfirmClickListener() {
+            @Override
+            public void onClick(int checkedItemPosition) {
+
+            }
+        });
     }
 
     private void loadData() {

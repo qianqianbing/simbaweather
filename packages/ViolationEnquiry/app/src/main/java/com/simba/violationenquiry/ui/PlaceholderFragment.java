@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.simba.base.utils.Toasty;
 import com.simba.violationenquiry.AddNewCarActivity;
 import com.simba.violationenquiry.R;
 import com.simba.violationenquiry.dialog.CommonDialog;
@@ -207,6 +208,7 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
                 .subscribe(new Consumer<ViolateResData>() {
                     @Override
                     public void accept(ViolateResData violateResData) throws Exception {
+
                         if (isFirst) {
                             showLoadingView(false);
                         } else {
@@ -219,6 +221,7 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        showToast("查询失败,请稍后重试");
                         showItemError(true);
                         if (isFirst) {
                             showLoadingView(false);//进度对话框
@@ -313,5 +316,9 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
                 modifyCarInfo();
             }
         }
+    }
+
+    private void showToast(String msg) {
+        Toasty.info(getContext(), msg);
     }
 }

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.simba.violationenquiry.R;
 import com.simba.violationenquiry.net.model.detail.ViolateResDetail;
-import com.simba.violationenquiry.ui.adapter.viewholder.CarInfoViewHolder;
+import com.simba.violationenquiry.ui.adapter.viewholder.CarInfoViewViewHolder;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import java.util.List;
  * @Date : 2020/4/7
  * @Desc :
  */
-public class DetailAdapter extends RecyclerView.Adapter<CarInfoViewHolder> {
+public class DetailAdapter extends RecyclerView.Adapter<CarInfoViewViewHolder> {
 
     private List<ViolateResDetail> mData;
     private boolean isEmpty = false;
@@ -32,14 +32,14 @@ public class DetailAdapter extends RecyclerView.Adapter<CarInfoViewHolder> {
 
     @NonNull
     @Override
-    public CarInfoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CarInfoViewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        CarInfoViewHolder viewHolder = new CarInfoViewHolder(parent, R.layout.item_car_detail);
+        CarInfoViewViewHolder viewHolder = new CarInfoViewViewHolder(parent, R.layout.item_car_detail);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CarInfoViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CarInfoViewViewHolder holder, int position) {
         if (isEmpty) {
             holder.setEmptyView();
         } else {

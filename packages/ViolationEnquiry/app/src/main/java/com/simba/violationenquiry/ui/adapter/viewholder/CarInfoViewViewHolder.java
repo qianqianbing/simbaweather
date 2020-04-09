@@ -5,8 +5,8 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.simba.base.base.BaseViewHolder;
 import com.simba.violationenquiry.R;
-import com.simba.violationenquiry.base.BaseHolder;
 import com.simba.violationenquiry.net.model.detail.ViolateResDetail;
 import com.simba.violationenquiry.utils.ResourceUtils;
 
@@ -15,7 +15,7 @@ import com.simba.violationenquiry.utils.ResourceUtils;
  * @Date : 2020/4/7
  * @Desc :
  */
-public class CarInfoViewHolder extends BaseHolder<ViolateResDetail> {
+public class CarInfoViewViewHolder extends BaseViewHolder<ViolateResDetail> {
 
     private RelativeLayout rlDetailEmpty;
     private TextView tvScore;
@@ -25,7 +25,7 @@ public class CarInfoViewHolder extends BaseHolder<ViolateResDetail> {
     private TextView tvDetail;
     private TextView tvStatus;
 
-    public CarInfoViewHolder(ViewGroup parent, int resId) {
+    public CarInfoViewViewHolder(ViewGroup parent, int resId) {
         super(parent, resId);
         rlDetailEmpty = getView(R.id.rl_detail_empty);
         tvScore = getView(R.id.tv_score);

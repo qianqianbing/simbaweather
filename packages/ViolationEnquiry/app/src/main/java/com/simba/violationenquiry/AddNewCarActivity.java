@@ -9,8 +9,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.simba.base.base.BaseActivity;
 import com.simba.base.network.model.SimpleResponse;
-import com.simba.violationenquiry.base.BaseActivity;
 import com.simba.violationenquiry.event.AddCarInfoEvent;
 import com.simba.violationenquiry.net.HttpRequest;
 import com.simba.violationenquiry.net.callback.ResultCallBack;
@@ -47,7 +47,7 @@ public class AddNewCarActivity extends BaseActivity implements View.OnClickListe
     private ProvincesKeyBoardView provincesKeyBoardView;
 
     @Override
-    protected int initLayout() {
+    protected int getLayoutId() {
         return R.layout.activity_addnewcar;
     }
 
