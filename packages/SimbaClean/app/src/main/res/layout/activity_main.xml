@@ -1,18 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/base_bg_app"
+    android:paddingLeft="60px"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="580px"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40px"
+            android:layout_marginTop="130px"
+            android:layout_marginLeft="85px"
+            android:orientation="horizontal"
+            >
+
+            <View
+                android:id="@+id/view_tag"
+                android:layout_width="4px"
+                android:layout_height="20px"
+                android:layout_gravity="center_vertical"
+                android:background="@color/colorTag"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/colorWhite"
+                android:layout_marginLeft="12px"
+                android:textSize="30px"
+                android:text="@string/tv_currentMemory"
+                />
+        </LinearLayout>
+
+
+        <FrameLayout
+            android:layout_width="360px"
+            android:layout_height="360px"
+            android:layout_marginTop="195px"
+            android:layout_marginLeft="119px"
+            >
+
+            <com.simba.clean.WaveProgressView
+                android:layout_width="324px"
+                android:layout_height="324px"
+                android:layout_gravity="center"
+                app:radius="324px"
+                />
+
+            <ImageView
+                android:id="@+id/iv_loading_memory"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_loading_memory"
+                />
+
+            <ImageView
+                android:layout_width="260px"
+                android:layout_height="260px"
+                android:src="@drawable/ic_circle"
+                android:layout_gravity="center"
+                />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40px"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="@string/tv_calculating"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="26px"
+                    />
+
+                <ProgressBar
+                    android:id="@+id/progress1"
+                    android:layout_width="24px"
+                    android:layout_height="24px"
+                    android:layout_marginLeft="10px"
+                    android:layout_gravity="center_vertical"
+                    android:indeterminateDrawable="@drawable/bg_loading_progressbar"
+                    />
+
+            </LinearLayout>
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
