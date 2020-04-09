@@ -31,3 +31,7 @@
 #okgo
 -dontwarn com.lzy.okgo.**
 -keep class com.lzy.okgo.**{*;}
+
+#immersionbar
+-keep class com.gyf.immersionbar.* {*;}
+-dontwarn com.gyf.immersionbar.**
