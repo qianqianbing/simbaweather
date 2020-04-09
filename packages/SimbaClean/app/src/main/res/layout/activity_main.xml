@@ -65,8 +65,8 @@
                 />
 
             <ImageView
-                android:layout_width="260px"
-                android:layout_height="260px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/ic_circle"
                 android:layout_gravity="center"
                 />
@@ -99,6 +99,27 @@
             </LinearLayout>
         </FrameLayout>
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="90px"
+            android:background="@drawable/selector_clean"
+            android:text="@string/tv_clean"
+            android:textColor="@color/colorWhite"
+            android:textSize="30px"
+            />
+
     </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_splitline"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="581px"
+        />
 
 </RelativeLayout>
