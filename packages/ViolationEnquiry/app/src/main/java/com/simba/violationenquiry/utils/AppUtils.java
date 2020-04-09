@@ -1,8 +1,14 @@
 package com.simba.violationenquiry.utils;
 
+import android.app.Activity;
+import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 
 /**
@@ -13,6 +19,7 @@ import android.widget.ImageView;
 public class AppUtils {
     /**
      * loading加载
+     *
      * @param imageView
      */
     public static void startLoadingAnimation(ImageView imageView) {
@@ -35,4 +42,7 @@ public class AppUtils {
     public static void endLoadingAnimation(ImageView imageView) {
         imageView.clearAnimation();
     }
+
+
+
 }

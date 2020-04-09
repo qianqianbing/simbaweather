@@ -8,6 +8,11 @@
     android:paddingLeft="60px"
     android:paddingRight="60px">
 
+    <include
+        android:id="@+id/rl_empty"
+        layout="@layout/empty_view"
+        android:visibility="gone" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100px"
@@ -75,8 +80,5 @@
 
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <include
-        layout="@layout/empty_view"
-        android:visibility="gone" />
 
 </LinearLayout>

@@ -42,9 +42,7 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        // getItem is called to instantiate the fragment for the given page.
-        // Return a PlaceholderFragment (defined as a static inner class below).
-        return PlaceholderFragment.newInstance(position + 1);
+        return PlaceholderFragment.newInstance(position, mData.get(position));
     }
 
     @Nullable
@@ -61,5 +59,13 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getItemPosition(@NonNull Object object) {
         return PagerAdapter.POSITION_NONE;
+    }
+
+    public void refresh(List<CarInfo> mData) {
+        if (mData == null) {
+            mData = new ArrayList<>();
+        }
+        this.mData = mData;
+        notifyDataSetChanged();
     }
 }

@@ -5,6 +5,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
+
+import com.simba.violationenquiry.net.model.CarInfo;
+
 /**
  * @Author : chenjianbo
  * @Date : 2020/4/3
@@ -12,19 +15,19 @@ import androidx.lifecycle.ViewModel;
  */
 public class PageViewModel extends ViewModel {
 
-    private MutableLiveData<Integer> mIndex = new MutableLiveData<>();
-    private LiveData<String> mText = Transformations.map(mIndex, new Function<Integer, String>() {
+    private MutableLiveData<CarInfo> mIndex = new MutableLiveData<>();
+    private LiveData<CarInfo> mText = Transformations.map(mIndex, new Function<CarInfo, CarInfo>() {
         @Override
-        public String apply(Integer input) {
-            return "Hello world from section: " + input;
+        public CarInfo apply(CarInfo input) {
+            return input;
         }
     });
 
-    public void setIndex(int index) {
+    public void setIndex(CarInfo index) {
         mIndex.setValue(index);
     }
 
-    public LiveData<String> getText() {
+    public LiveData<CarInfo> getText() {
         return mText;
     }
 }

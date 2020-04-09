@@ -113,8 +113,18 @@ public class CommonDialog extends Dialog {
         mTvYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                dismiss();
                 yesListener.setOnConfirmClick(CommonDialog.this);
+            }
+        });
+    }
+
+    public void setOnCancelListener(final OnCancelListener cancelListener) {
+        mTvNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+                cancelListener.setOnCancelClick(CommonDialog.this);
             }
         });
     }
@@ -122,5 +132,10 @@ public class CommonDialog extends Dialog {
     public interface OnConfirmListener {
 
         void setOnConfirmClick(CommonDialog instance);
+    }
+
+    public interface OnCancelListener {
+
+        void setOnCancelClick(CommonDialog instance);
     }
 }

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rl_detail_empty"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <TextView
+        android:id="@+id/tv_key"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="当前车辆无违章信息"
+        android:gravity="center"
         android:textColor="@color/white"
-        android:textSize="@dimen/regular_text_size" />
+        android:textSize="@dimen/mid_text_size" />
+
 </RelativeLayout>

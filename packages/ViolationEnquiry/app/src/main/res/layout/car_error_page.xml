@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_error_car"
     android:layout_width="420px"
     android:layout_height="480px"
     android:background="@mipmap/item_car_bg"
@@ -16,6 +17,7 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/tv_error_plate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -28,7 +30,7 @@
 
 
             <ImageView
-                android:id="@+id/iv_refresh"
+                android:id="@+id/iv_error_refresh"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -36,7 +38,7 @@
                 android:src="@mipmap/icon_refresh" />
 
             <LinearLayout
-                android:id="@+id/ll_loading"
+                android:id="@+id/ll_error_loading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -53,7 +55,7 @@
                     android:textSize="@dimen/regular_text_size" />
 
                 <ImageView
-                    android:id="@+id/iv_progress"
+                    android:id="@+id/iv_error_progress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="14px"
@@ -78,12 +80,13 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/btn_modify"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="修改车辆信息"
         android:background="@mipmap/icon_btn_bg"
+        android:text="修改车辆信息"
         android:textColor="@color/white"
         android:textSize="@dimen/small_text_size" />
 

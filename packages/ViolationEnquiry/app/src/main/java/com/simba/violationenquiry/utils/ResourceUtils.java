@@ -1,9 +1,11 @@
 package com.simba.violationenquiry.utils;
 
+import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import com.simba.violationenquiry.MyApplication;
 
@@ -50,5 +52,12 @@ public class ResourceUtils {
         Drawable drawable = MyApplication.sContext.getResources().getDrawable(resID);
 
         return drawable;
+    }
+
+    /**
+     * 获取activity的根view
+     */
+    public static View getActivityRoot(Activity activity) {
+        return ((ViewGroup) activity.findViewById(Window.ID_ANDROID_CONTENT)).getChildAt(0);
     }
 }

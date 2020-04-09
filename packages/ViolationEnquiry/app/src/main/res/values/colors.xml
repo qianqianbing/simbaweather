@@ -9,7 +9,7 @@
     <color name="end_bg">#747b93</color>
     <color name="tab_line_color">#6CF8FC</color>
 
-    <color name="yellow_fdc53e">#FDC53E</color>
+
     <color name="red_fd4d50">#FD4D50</color>
     <color name="white_trans_4d">#4DFFFFFF</color>
     <color name="white_trans_66">#66FFFFFF</color>
@@ -22,4 +22,9 @@
     <color name="white_trans_80">#80FFFFFF</color>
     <color name="black_trans_4d">#4d000000</color>
     <color name="white_trans_1a">#1affffff</color>
+    <color name="black_39404e">#39404E</color>
+
+    <color name="yellow_fdc53e">#FDC53E</color>
+    <color name="red_fdc53e">#FD4D50</color>
+    <color name="green_78b202">#78B202</color>
 </resources>

@@ -33,7 +33,9 @@ public class SimpleResponse implements Serializable {
 
     public GeneralResponse toGeneralResponse() {
         GeneralResponse lzyResponse = new GeneralResponse();
-
+        lzyResponse.code = code;
+        lzyResponse.message = message;
+        lzyResponse.success = success;
         return lzyResponse;
     }
 }

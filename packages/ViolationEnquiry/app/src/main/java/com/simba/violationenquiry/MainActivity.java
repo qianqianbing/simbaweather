@@ -1,17 +1,26 @@
 package com.simba.violationenquiry;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+
+import androidx.annotation.Nullable;
 
 import com.google.android.material.tabs.TabLayout;
-import com.lzy.okgo.OkGo;
 import com.simba.violationenquiry.base.BaseActivity;
+import com.simba.violationenquiry.dialog.CommonDialog;
 import com.simba.violationenquiry.dialog.SinglePickerManager;
+import com.simba.violationenquiry.event.AddCarInfoEvent;
 import com.simba.violationenquiry.net.HttpRequest;
 import com.simba.violationenquiry.net.callback.ResultCallBack;
 import com.simba.violationenquiry.net.model.CarInfo;
 import com.simba.violationenquiry.ui.SectionsPagerAdapter;
 import com.simba.violationenquiry.ui.view.NoScrollViewPager;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +44,13 @@ public class MainActivity extends BaseActivity {
     private NoScrollViewPager viewPager;
     private ImageView ivAdd;
     private TabLayout tabs;
+    private RelativeLayout rlEmpty;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
 
     @Override
     protected int initLayout() {
@@ -46,6 +62,7 @@ public class MainActivity extends BaseActivity {
         viewPager = findViewById(R.id.view_pager);
         tabs = findViewById(R.id.tabs);
         ivAdd = findViewById(R.id.iv_add_car_info);
+        rlEmpty = findViewById(R.id.rl_empty);
         ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,16 +73,18 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        mData = new ArrayList<>();
+
         sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), mData, this);
         viewPager.setAdapter(sectionsPagerAdapter);
         tabs.setupWithViewPager(viewPager);
+        //  loadData();
     }
 
     public void add(View view) {
-        startActivity(AddNewCarActivity.class);
-//        mData.add(new CarInfo("苏A20V3W"));
-//        sectionsPagerAdapter.notifyDataSetChanged();
+        mData = new ArrayList<>();
+        mData.add(new CarInfo("苏A20V3W"));
+        sectionsPagerAdapter.refresh(mData);
+        //  startActivity(AddNewCarActivity.class);
     }
 
     public void delete(View view) {
@@ -102,23 +121,47 @@ public class MainActivity extends BaseActivity {
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-
                         mDisposable = disposable;
-
+                        showProgressDialog();
                     }
                 }).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<CarInfo>>() {
                     @Override
-                    public void accept(List<CarInfo> empSchedules) throws Exception {
-
+                    public void accept(List<CarInfo> carInfoList) throws Exception {
+                        dismissProgressDialog();
+                        if (carInfoList == null || carInfoList.size() == 0) {
+                            setEmptyViewVisibility(true);
+                            return;
+                        }
+                        mData = carInfoList;
+                        sectionsPagerAdapter.refresh(mData);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-
+                        dismissProgressDialog();
+                        setEmptyViewVisibility(true);
                     }
                 });
     }
 
+
+    private void setEmptyViewVisibility(boolean visible) {
+        rlEmpty.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onAdd(AddCarInfoEvent carInfoEvent) {
+        if (carInfoEvent.success) {
+            loadData();
+        }
+
+    }
 
 }

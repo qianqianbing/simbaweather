@@ -26,6 +26,19 @@ public class CarInfo implements Serializable, KeyValue {
     public CarInfo() {
     }
 
+    /**
+     * @param deviceid
+     * @param engineno
+     * @param plateno
+     * @param vin
+     */
+    public CarInfo(String deviceid, String engineno, String plateno, String vin) {
+        this.deviceid = deviceid;
+        this.engineno = engineno;
+        this.plateno = plateno;
+        this.vin = vin;
+    }
+
     public CarInfo(String plateno) {
         this.plateno = plateno;
     }

@@ -28,6 +28,7 @@
             android:textSize="@dimen/text_size" />
 
         <TextView
+            android:id="@+id/tv_provinces"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginLeft="10px"
@@ -35,7 +36,6 @@
             android:drawableRight="@mipmap/icon_arrow"
             android:drawablePadding="19px"
             android:gravity="center_vertical"
-
             android:minWidth="120px"
             android:paddingLeft="@dimen/default_padding"
             android:paddingRight="@dimen/default_padding"
@@ -45,6 +45,7 @@
             android:textSize="@dimen/text_size" />
 
         <EditText
+            android:id="@+id/et_car_plate_no"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginLeft="10px"
@@ -72,7 +73,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="车&#160;&#160;架&#160;&#160;号"
+            android:text="@string/car_vin"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size" />
 
@@ -83,7 +84,7 @@
             android:layout_marginLeft="10px"
             android:background="@drawable/edit_bg"
             android:gravity="center_vertical"
-            android:hint="最多十七位车架号"
+            android:hint="@string/car_vin_hint"
             android:maxLength="17"
             android:minWidth="500px"
             android:paddingLeft="@dimen/default_padding"
@@ -104,17 +105,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="发动机号"
+            android:text="@string/car_engine_no"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size" />
 
         <EditText
+            android:id="@+id/et_engine_no"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginLeft="10px"
             android:background="@drawable/edit_bg"
             android:gravity="center_vertical"
-            android:hint="最多9位发动机号"
+            android:hint="@string/car_engine_no_hint"
             android:minWidth="500px"
             android:paddingLeft="@dimen/default_padding"
             android:paddingRight="@dimen/default_padding"
@@ -130,7 +132,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50px"
         android:background="@mipmap/icon_submit"
-        android:text="确定"
+        android:text="@string/confirm"
         android:textColor="@color/white"
         android:textSize="@dimen/btn_text_size" />
 

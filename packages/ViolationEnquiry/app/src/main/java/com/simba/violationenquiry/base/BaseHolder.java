@@ -46,4 +46,7 @@ public abstract class BaseHolder<M> extends RecyclerView.ViewHolder {
      * @param data 要显示的数据对象
      */
     public abstract void setData(M data);
+
+    public void setEmptyView() {
+    }
 }

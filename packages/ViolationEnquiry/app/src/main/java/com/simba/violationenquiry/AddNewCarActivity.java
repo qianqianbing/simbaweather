@@ -1,15 +1,35 @@
 package com.simba.violationenquiry;
 
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.parkingwang.keyboard.KeyboardInputController;
-import com.parkingwang.keyboard.OnInputChangedListener;
-import com.parkingwang.keyboard.PopupKeyboard;
-import com.parkingwang.keyboard.view.InputView;
+import com.simba.base.network.model.SimpleResponse;
 import com.simba.violationenquiry.base.BaseActivity;
+import com.simba.violationenquiry.event.AddCarInfoEvent;
+import com.simba.violationenquiry.net.HttpRequest;
+import com.simba.violationenquiry.net.callback.ResultCallBack;
+import com.simba.violationenquiry.net.model.CarInfo;
+import com.simba.violationenquiry.ui.view.ProvincesKeyBoardView;
+import com.simba.violationenquiry.utils.KeyBoardListener;
+import com.simba.violationenquiry.utils.KeyboardHelper;
+import com.simba.violationenquiry.utils.PopupHelper;
+
+import org.greenrobot.eventbus.EventBus;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+
 
 /**
  * @Author : chenjianbo
@@ -17,12 +37,14 @@ import com.simba.violationenquiry.base.BaseActivity;
  * @Desc : 新增车辆信息
  */
 public class AddNewCarActivity extends BaseActivity implements View.OnClickListener {
-    private InputView mInputView;
-  //  private PopupKeyboard mPopupKeyboard;
-    private Button newLicensePlate;
+    public final static String CAR_INFO = "CAR_INFO";
     private Button submit;
-    private EditText etVIN;
     private ImageView ivClose;
+    private TextView tvProvinces;
+    private EditText etPlateNo;
+    private EditText etVIN;
+    private EditText etEngineNo;
+    private ProvincesKeyBoardView provincesKeyBoardView;
 
     @Override
     protected int initLayout() {
@@ -31,49 +53,17 @@ public class AddNewCarActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     protected void initView() {
-//        newLicensePlate = findViewById(R.id.iv_new);
-//        mInputView = findViewById(R.id.input_view);
         submit = findViewById(R.id.btn_submit);
-        etVIN = findViewById(R.id.et_vin);
+
         ivClose = findViewById(R.id.iv_close);
+        tvProvinces = findViewById(R.id.tv_provinces);
+        etPlateNo = findViewById(R.id.et_car_plate_no);
+        etVIN = findViewById(R.id.et_vin);
+        etEngineNo = findViewById(R.id.et_engine_no);
 
-        // 创建弹出键盘
-//        mPopupKeyboard = new PopupKeyboard(this);
-//        // 弹出键盘内部包含一个KeyboardView，在此绑定输入两者关联。
-//        mPopupKeyboard.attach(mInputView, this);
-//
-//        // 隐藏确定按钮
-//        mPopupKeyboard.getKeyboardEngine().setHideOKKey(false);
-//
-//        //     KeyboardInputController提供一个默认实现的新能源车牌锁定按钮
-//        mPopupKeyboard.getController()
-//                .setDebugEnabled(true)
-//
-//                .bindLockTypeProxy(new KeyboardInputController.ButtonProxyImpl(newLicensePlate) {
-//                    @Override
-//                    public void onNumberTypeChanged(boolean isNewEnergyType) {
-//                        super.onNumberTypeChanged(isNewEnergyType);
-////                        if (isNewEnergyType) {
-////                            lockTypeButton.setTextColor(getResources().getColor(android.R.color.holo_green_light));
-////                        } else {
-////                            lockTypeButton.setTextColor(getResources().getColor(android.R.color.black));
-////                        }
-//                    }
-//                });
-//        mPopupKeyboard.getController().addOnInputChangedListener(new OnInputChangedListener() {
-//            @Override
-//            public void onChanged(String number, boolean isCompleted) {
-//                if (isCompleted) {
-//                    mPopupKeyboard.dismiss(AddNewCarActivity.this);
-//                }
-//            }
-//
-//            @Override
-//            public void onCompleted(String number, boolean isAutoCompleted) {
-//                mPopupKeyboard.dismiss(AddNewCarActivity.this);
-//            }
-//        });
 
+        provincesKeyBoardView = new ProvincesKeyBoardView(this, tvProvinces);
+        tvProvinces.setOnClickListener(this);
         submit.setOnClickListener(this);
         ivClose.setOnClickListener(this);
     }
@@ -81,17 +71,102 @@ public class AddNewCarActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
-        // 默认选中第一个车牌号码输入框
-        //  mInputView.performFirstFieldView();
     }
 
     @Override
     protected void initData() {
+        if (getIntent() != null && getIntent().getExtras() != null) {
+            Bundle bundle = getIntent().getExtras();
+            CarInfo carInfo = (CarInfo) bundle.getSerializable(CAR_INFO);
+            if (carInfo != null) {
+                if (!TextUtils.isEmpty(carInfo.getPlateno()) && carInfo.getPlateno().length() > 0) {
+                    String keyChar = String.valueOf(carInfo.getPlateno().charAt(0));
+                    tvProvinces.setText(keyChar);
+                    etPlateNo.setText(carInfo.getPlateno().substring(1));
+                }
+                etVIN.setText(carInfo.getVin());
+                etEngineNo.setText(carInfo.getEngineno());
+            }
+        }
+        KeyBoardListener.setListener(this, new KeyBoardListener.OnSoftKeyBoardChangeListener() {
+            @Override
+            public void keyBoardShow(int height) {
+                dismissProvincesKeyBoard();
+            }
 
+            @Override
+            public void keyBoardHide(int height) {
+            }
+        });
     }
 
     private void submit() {
-        etVIN.setError("请输入正确的车架号");
+        if (check()) {
+            Observable.create(new ObservableOnSubscribe<SimpleResponse>() {
+                @Override
+                public void subscribe(final ObservableEmitter<SimpleResponse> emitter) throws Exception {
+                    CarInfo carInfo = new CarInfo("deviceid",
+                            etEngineNo.getText().toString(),
+                            tvProvinces.getText().toString() + etPlateNo.getText().toString(),
+                            etVIN.getText().toString());
+                    HttpRequest.add(new ResultCallBack<SimpleResponse>() {
+                        @Override
+                        public void onLoaded(SimpleResponse wrapper) {
+                            emitter.onNext(wrapper);
+                        }
+
+                        @Override
+                        public void onDataLoadedFailure(Exception e) {
+                            emitter.onError(e);
+                        }
+                    }, mContext, carInfo);
+                }
+            }).subscribeOn(Schedulers.io())
+                    .doOnSubscribe(new Consumer<Disposable>() {
+                        @Override
+                        public void accept(Disposable disposable) throws Exception {
+                            mDisposable = disposable;
+                            showProgressDialog();
+                        }
+                    }).observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<SimpleResponse>() {
+                        @Override
+                        public void accept(SimpleResponse response) throws Exception {
+                            dismissProgressDialog();
+                            if (response.success) {
+                                showToast("绑定成功");
+                                finish();
+                                EventBus.getDefault().post(new AddCarInfoEvent(true));
+                            } else {
+                                showToast("绑定失败，请重试");
+                            }
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
+                            dismissProgressDialog();
+                            showToast("绑定失败，请重试");
+                        }
+                    });
+
+
+        }
+    }
+
+    private boolean check() {
+        if (etPlateNo.getText().toString().length() < 6) {
+            etPlateNo.setError("请输入正确的车牌号信息");
+            return false;
+        }
+        if (etVIN.getText().toString().length() > 16) {
+            etVIN.setError("请输入正确的车架号信息");
+            return false;
+        }
+        if (etEngineNo.getText().toString().length() > 9) {
+            etEngineNo.setError("请输入正确的发动机号信息");
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -104,6 +179,31 @@ public class AddNewCarActivity extends BaseActivity implements View.OnClickListe
             case R.id.btn_submit:
                 submit();
                 break;
+            case R.id.tv_provinces: {
+                if (KeyboardHelper.isKeyboardVisible(this)) {
+                    KeyboardHelper.hideKeyboard(etPlateNo);
+                }
+                PopupHelper.showToActivity(this, provincesKeyBoardView);
+            }
+
+            break;
         }
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            return dismissProvincesKeyBoard();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private boolean dismissProvincesKeyBoard() {
+        if (provincesKeyBoardView.isShown()) {
+            PopupHelper.dismiss(this);
+            return true;
+        }
+        return false;
     }
 }

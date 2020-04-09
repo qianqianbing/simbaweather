@@ -12,7 +12,7 @@ import com.simba.base.network.OkGoUtil;
  */
 public class MyApplication extends Application {
     public static Context sContext;
-    public static final boolean isDebug = false;
+    public static final boolean isDebug = true;
 
     @Override
     public void onCreate() {

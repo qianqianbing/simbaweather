@@ -3,8 +3,9 @@
     <string name="add_info">当前无车辆信息,请先添加车辆</string>
     <string name="plate_no">车&#160;&#160;牌&#160;&#160;号</string>
     <string name="plate_no_hint">燃油车6位新能源车7位</string>
-
-
-
-
+    <string name="car_vin">车&#160;&#160;架&#160;&#160;号</string>
+    <string name="car_vin_hint">最多十七位车架号</string>
+    <string name="car_engine_no">发动机号</string>
+    <string name="car_engine_no_hint">最多9位发动机号</string>
+    <string name="confirm">确定</string>
 </resources>

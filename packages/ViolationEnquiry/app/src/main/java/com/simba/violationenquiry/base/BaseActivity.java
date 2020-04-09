@@ -1,18 +1,18 @@
 package com.simba.violationenquiry.base;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Looper;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.simba.base.dialog.DialogUtil;
+import com.simba.base.utils.Toasty;
 
 import io.reactivex.disposables.Disposable;
 
@@ -29,9 +29,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     private boolean isShowTitle = true;
     //是否显示状态栏
     private boolean isShowStatusBar = true;
-    //封装Toast对象
-    private static Toast toast;
-    public Context mContext;
+
+    protected Context mContext;
+    private DialogUtil publicDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -126,34 +126,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * 显示提示  toast
-     *
-     * @param msg 提示信息
-     */
-    @SuppressLint("ShowToast")
-    public void showToast(String msg) {
-        try {
-            if (null == toast) {
-                toast = Toast.makeText(mContext, msg, Toast.LENGTH_SHORT);
-            } else {
-                toast.setText(msg);
-            }
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    toast.show();
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-            //解决在子线程中调用Toast的异常情况处理
-            Looper.prepare();
-            Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
-            Looper.loop();
-        }
+    protected void showToast(String msg) {
+        Toasty.info(this, msg);
     }
-
 
     /**
      * 隐藏软键盘
@@ -179,7 +154,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         if (mDisposable != null) {
-            if (mDisposable.isDisposed()) {
+            if (!mDisposable.isDisposed()) {
                 mDisposable.dispose();
             }
         }
@@ -187,8 +162,25 @@ public abstract class BaseActivity extends AppCompatActivity {
         //   ActivityCollector.removeActivity(this);
     }
 
+    protected void startActivity(Class<?> cls, Bundle bundle) {
+        Intent intent = new Intent(this, cls);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
     protected void startActivity(Class<?> cls) {
         Intent intent = new Intent(this, cls);
         startActivity(intent);
+    }
+
+    protected void showProgressDialog() {
+        if (publicDialog == null) {
+            publicDialog = DialogUtil.buildProgress(this, com.simba.base.R.string.base_network_load_wait);
+        }
+        publicDialog.show();
+    }
+
+    protected void dismissProgressDialog() {
+        publicDialog.dismiss();
     }
 }

@@ -9,6 +9,7 @@
     android:paddingRight="40px">
 
     <include
+        android:id="@+id/rl_detail_empty"
         layout="@layout/item_empty"
         android:visibility="gone" />
 
@@ -27,6 +28,7 @@
             android:textSize="@dimen/regular_text_size" />
 
         <TextView
+            android:id="@+id/tv_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30px"
@@ -36,6 +38,7 @@
             android:textSize="@dimen/regular_text_size" />
 
         <TextView
+            android:id="@+id/tv_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -59,7 +62,7 @@
             android:textSize="@dimen/regular_text_size" />
 
         <TextView
-
+            android:id="@+id/tv_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30px"
@@ -84,7 +87,7 @@
             android:textSize="@dimen/regular_text_size" />
 
         <TextView
-
+            android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30px"
@@ -109,7 +112,7 @@
             android:textSize="@dimen/regular_text_size" />
 
         <TextView
-
+            android:id="@+id/tv_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30px"
@@ -135,7 +138,7 @@
             android:textSize="@dimen/regular_text_size" />
 
         <TextView
-
+            android:id="@+id/tv_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30px"
