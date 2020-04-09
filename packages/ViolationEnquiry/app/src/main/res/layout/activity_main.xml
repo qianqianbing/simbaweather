@@ -24,18 +24,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginRight="20px"
-            android:layout_toLeftOf="@+id/layout"
+            android:layout_toLeftOf="@+id/ll_option"
             app:tabIndicatorColor="@color/tab_line_color"
             app:tabMode="scrollable"
             app:tabTextAppearance="@style/TabLayoutTextStyle"
             app:tabTextColor="@color/white" />
 
         <LinearLayout
-            android:id="@+id/layout"
+            android:id="@+id/ll_option"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:visibility="invisible"
             android:orientation="horizontal">
 
             <Button

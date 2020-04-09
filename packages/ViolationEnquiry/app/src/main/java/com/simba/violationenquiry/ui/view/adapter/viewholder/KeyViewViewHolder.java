@@ -3,8 +3,8 @@ package com.simba.violationenquiry.ui.view.adapter.viewholder;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.simba.base.base.BaseViewHolder;
 import com.simba.violationenquiry.R;
+import com.simba.violationenquiry.base.BaseViewHolder;
 import com.simba.violationenquiry.utils.ResourceUtils;
 
 /**

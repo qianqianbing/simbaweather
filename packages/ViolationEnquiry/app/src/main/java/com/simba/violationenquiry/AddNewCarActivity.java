@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.simba.base.base.BaseActivity;
 import com.simba.base.network.model.SimpleResponse;
+import com.simba.violationenquiry.base.MyBaseActivity;
 import com.simba.violationenquiry.event.AddCarInfoEvent;
 import com.simba.violationenquiry.net.HttpRequest;
 import com.simba.violationenquiry.net.callback.ResultCallBack;
@@ -36,7 +37,7 @@ import io.reactivex.schedulers.Schedulers;
  * @Date : 2020/4/3
  * @Desc : 新增车辆信息
  */
-public class AddNewCarActivity extends BaseActivity implements View.OnClickListener {
+public class AddNewCarActivity extends MyBaseActivity implements View.OnClickListener {
     public final static String CAR_INFO = "CAR_INFO";
     private Button submit;
     private ImageView ivClose;

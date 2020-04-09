@@ -3,12 +3,14 @@ package com.simba.violationenquiry;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
 
 import com.google.android.material.tabs.TabLayout;
 import com.simba.base.base.BaseActivity;
+import com.simba.violationenquiry.base.MyBaseActivity;
 import com.simba.violationenquiry.dialog.SinglePickerManager;
 import com.simba.violationenquiry.event.AddCarInfoEvent;
 import com.simba.violationenquiry.net.HttpRequest;
@@ -36,13 +38,14 @@ import io.reactivex.schedulers.Schedulers;
  * @Date : 2020/4/3
  * @Desc : 主界面
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends MyBaseActivity {
     private SectionsPagerAdapter sectionsPagerAdapter;
     private List<CarInfo> mData;
     private NoScrollViewPager viewPager;
     private ImageView ivAdd;
     private TabLayout tabs;
     private RelativeLayout rlEmpty;
+    private LinearLayout optionLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,6 +64,7 @@ public class MainActivity extends BaseActivity {
         tabs = findViewById(R.id.tabs);
         ivAdd = findViewById(R.id.iv_add_car_info);
         rlEmpty = findViewById(R.id.rl_empty);
+        optionLayout = findViewById(R.id.ll_option);
         ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,6 +124,7 @@ public class MainActivity extends BaseActivity {
                     public void accept(Disposable disposable) throws Exception {
                         mDisposable = disposable;
                         showProgressDialog();
+                        optionLayout.setVisibility(View.INVISIBLE);
                     }
                 }).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<CarInfo>>() {
@@ -130,6 +135,7 @@ public class MainActivity extends BaseActivity {
                             setEmptyViewVisibility(true);
                             return;
                         }
+                        optionLayout.setVisibility(View.VISIBLE);
                         mData = carInfoList;
                         sectionsPagerAdapter.refresh(mData);
                     }

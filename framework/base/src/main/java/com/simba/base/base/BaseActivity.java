@@ -15,8 +15,6 @@ import com.simba.base.R;
 import com.simba.base.dialog.DialogUtil;
 import com.simba.base.utils.Toasty;
 
-import io.reactivex.disposables.Disposable;
-
 /**
  * ================================================
  * 作    者：谢广胜
@@ -27,14 +25,9 @@ import io.reactivex.disposables.Disposable;
  * ================================================
  */
 public abstract class BaseActivity extends AppCompatActivity {
-    protected Disposable mDisposable;
+
     //获取TAG的activity名称
     protected final String TAG = getClass().getSimpleName();
-    //是否显示标题栏
-    private boolean isShowTitle = true;
-    //是否显示状态栏
-    private boolean isShowStatusBar = true;
-
     protected Context mContext;
     private DialogUtil publicDialog;
 
@@ -86,18 +79,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mDisposable != null) {
-            if (!mDisposable.isDisposed()) {
-                mDisposable.dispose();
-            }
-        }
-        //activity管理
-        //   ActivityCollector.removeActivity(this);
-    }
-
     protected void startActivity(Class<?> cls, Bundle bundle) {
         Intent intent = new Intent(this, cls);
         intent.putExtras(bundle);
@@ -111,7 +92,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void showProgressDialog() {
         if (publicDialog == null) {
-            publicDialog = DialogUtil.buildProgress(this,  R.string.base_is_loading);
+            publicDialog = DialogUtil.buildProgress(this, R.string.base_is_loading);
         }
         publicDialog.show();
     }
