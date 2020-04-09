@@ -9,7 +9,6 @@ import android.widget.RelativeLayout;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.tabs.TabLayout;
-import com.simba.base.base.BaseActivity;
 import com.simba.violationenquiry.base.MyBaseActivity;
 import com.simba.violationenquiry.dialog.SinglePickerManager;
 import com.simba.violationenquiry.event.AddCarInfoEvent;
@@ -93,7 +92,7 @@ public class MainActivity extends MyBaseActivity {
         singlePickerManager.setOnConfirmListener(new SinglePickerManager.onConfirmClickListener() {
             @Override
             public void onClick(int checkedItemPosition) {
-
+                deleteCar(checkedItemPosition);
             }
         });
     }
@@ -148,6 +147,9 @@ public class MainActivity extends MyBaseActivity {
                 });
     }
 
+    private void deleteCar(int pos) {
+
+    }
 
     private void setEmptyViewVisibility(boolean visible) {
         rlEmpty.setVisibility(visible ? View.VISIBLE : View.GONE);

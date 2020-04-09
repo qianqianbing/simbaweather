@@ -35,7 +35,7 @@ public class HttpRequest {
             try {
                 Thread.sleep(5000);
                 // callBack.onDataLoadedFailure(new Exception());
-                callBack.onLoaded(DataTest.getCarInfoList());
+             callBack.onLoaded(DataTest.getCarInfoList());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
