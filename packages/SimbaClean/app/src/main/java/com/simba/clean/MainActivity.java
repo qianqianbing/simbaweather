@@ -9,19 +9,17 @@ import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
-public class MainActivity extends Activity {
+import com.simba.base.base.BaseActivity;
+
+public class MainActivity extends BaseActivity {
 
     private ImageView iv_loading_memory;
     private ObjectAnimator animator;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setFullScreen();
-        setContentView(R.layout.activity_main);
-        iv_loading_memory = findViewById(R.id.iv_loading_memory);
-        startMemoryLoadingAnim();
+//        setFullScreen();
 
     }
 
@@ -50,5 +48,22 @@ public class MainActivity extends Activity {
                             | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         }
     }
+
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void initView() {
+        iv_loading_memory = findViewById(R.id.iv_loading_memory);
+    }
+
+    @Override
+    protected void initData() {
+        startMemoryLoadingAnim();
+    }
+
 
 }
