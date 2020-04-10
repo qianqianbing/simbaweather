@@ -79,6 +79,9 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
 
     private DetailAdapter detailAdapter;
     private List<ViolateResDetail> mData;
+    private CommonDialog commonDialog;
+    private boolean isPrepared = false;
+    private int index = 0;
 
     public static PlaceholderFragment newInstance(int index, CarInfo carInfo) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -92,7 +95,9 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
+            index = getArguments().getInt(ARG_SECTION_NUMBER);
             carInfo = (CarInfo) getArguments().getSerializable(CAR_INFO);
         }
     }
@@ -104,7 +109,7 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
         root = inflater.inflate(R.layout.fragment_main, container, false);
         initView();
         initData();
-
+        isPrepared = true;
         return root;
     }
 
@@ -158,7 +163,11 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
         recyclerView.setAdapter(detailAdapter);
         recyclerView.addItemDecoration(new CommonDecoration(getContext(), R.drawable.drawable_item_decoration));
 
-        loadData(true, false);
+        tvErrorPlateNo.setText(carInfo.getPlateno());
+
+        if (index == 0) {
+            loadData(true, false);
+        }
     }
 
     /**
@@ -172,13 +181,22 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
         detailAdapter.refresh(mData, true);
 
 
-        tvPlateNo.setText(detailData.getCph());
+        tvPlateNo.setText(carInfo.getPlateno());
         tvBeProcessed.setText(detailData.getViolatesum());
         tvScore.setText(detailData.getScoresum());
         tvTotalMoney.setText(detailData.getAmountsum());
         tvUpdateTime.setText(String.format(ResourceUtils.getString(R.string.update_time), detailData.getUpdatetime()));
-        tvErrorPlateNo.setText(detailData.getCph());
 
+
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if (isPrepared && isVisibleToUser) {
+            loadData(true, false);
+        }
     }
 
     /**
@@ -311,7 +329,10 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
      * 显示加载失败的dialog
      */
     private void showErrorDialog() {
-        CommonDialog commonDialog = new CommonDialog(getContext(), ResourceUtils.getString(R.string.query_fail_please_make_confirm));
+        if (commonDialog != null && commonDialog.isShowing()) {
+            commonDialog.dismiss();
+        }
+        commonDialog = new CommonDialog(getContext(), ResourceUtils.getString(R.string.query_fail_please_make_confirm));
         commonDialog.show();
         commonDialog.setCanceledOnTouchOutside(false);
         commonDialog.setOnConfirmListener(new CommonDialog.OnConfirmListener() {
@@ -325,6 +346,7 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
 
     /**
      * 刷新
+     *
      * @param isErrorItem 是否是error
      */
     private void refresh(boolean isErrorItem) {

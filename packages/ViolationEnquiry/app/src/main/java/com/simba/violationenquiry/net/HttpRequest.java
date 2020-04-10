@@ -5,6 +5,7 @@ import android.content.Context;
 import com.google.gson.reflect.TypeToken;
 import com.simba.base.network.OkGoUtil;
 import com.simba.base.network.SimbaUrl;
+import com.simba.base.network.model.GeneralResponse;
 import com.simba.base.network.model.SimpleResponse;
 import com.simba.base.network.utils.Convert;
 import com.simba.violationenquiry.MyApplication;
@@ -42,12 +43,12 @@ public class HttpRequest {
             return;
         }
 
-        Type type = new TypeToken<List<CarInfo>>() {
+        Type type = new TypeToken<GeneralResponse<List<CarInfo>>>() {
         }.getType();
-        OkGoUtil<List<CarInfo>> communicator = new OkGoUtil<>(cxt, SimbaUrl.REQUEST_CAR_LIST + deviceID);
+        OkGoUtil<GeneralResponse<List<CarInfo>>> communicator = new OkGoUtil<>(cxt, SimbaUrl.REQUEST_CAR_LIST);
         try {
-            List<CarInfo> carInfoList = communicator.post(type);
-            callBack.onLoaded(carInfoList);
+            GeneralResponse<List<CarInfo>> response = communicator.post(deviceID, type);
+            callBack.onLoaded(response.data);
         } catch (Exception e) {
             e.printStackTrace();
             callBack.onDataLoadedFailure(e);
@@ -74,13 +75,13 @@ public class HttpRequest {
             }
             return;
         }
-        Type type = new TypeToken<ViolateResData>() {
+        Type type = new TypeToken<GeneralResponse<ViolateResData>>() {
         }.getType();
-        OkGoUtil<ViolateResData> communicator = new OkGoUtil<>(cxt, SimbaUrl.REQUEST_CAR_DETAIL);
+        OkGoUtil<GeneralResponse<ViolateResData>> communicator = new OkGoUtil<>(cxt, SimbaUrl.REQUEST_CAR_DETAIL);
         String value = Convert.toJson(carInfo);
         try {
-            ViolateResData violateResData = communicator.post(value, type);
-            callBack.onLoaded(violateResData);
+            GeneralResponse<ViolateResData> response = communicator.post(value, type);
+            callBack.onLoaded(response.data);
         } catch (Exception e) {
             e.printStackTrace();
             callBack.onDataLoadedFailure(e);
@@ -96,11 +97,12 @@ public class HttpRequest {
      * @throws Exception
      */
     public static void add(ResultCallBack<SimpleResponse> callBack, Context cxt, CarInfo carInfo) {
-
+        Type type = new TypeToken<SimpleResponse>() {
+        }.getType();
         OkGoUtil<SimpleResponse> communicator = new OkGoUtil<>(cxt, SimbaUrl.REQUEST_ADD_CAR_INFO);
         String value = Convert.toJson(carInfo);
         try {
-            SimpleResponse response = communicator.post(value);
+            SimpleResponse response = communicator.post(value,type);
             callBack.onLoaded(response);
         } catch (Exception e) {
             e.printStackTrace();
@@ -109,9 +111,11 @@ public class HttpRequest {
     }
 
     public static void delete(ResultCallBack<SimpleResponse> callBack, Context cxt, String id) throws Exception {
+        Type type = new TypeToken<SimpleResponse>() {
+        }.getType();
         OkGoUtil<SimpleResponse> communicator = new OkGoUtil<>(cxt, SimbaUrl.REQUEST_DELETE_CAR);
         try {
-            SimpleResponse response = communicator.post(id);
+            SimpleResponse response = communicator.post(id, type);
             callBack.onLoaded(response);
         } catch (Exception e) {
             e.printStackTrace();

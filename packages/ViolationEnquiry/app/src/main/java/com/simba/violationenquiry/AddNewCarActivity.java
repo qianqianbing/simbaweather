@@ -47,6 +47,8 @@ public class AddNewCarActivity extends MyBaseActivity implements View.OnClickLis
     private EditText etVIN;
     private EditText etEngineNo;
     private ProvincesKeyBoardView provincesKeyBoardView;
+    private CarInfo newCarInfo;
+    private String carID;
 
     @Override
     protected int getLayoutId() {
@@ -77,10 +79,12 @@ public class AddNewCarActivity extends MyBaseActivity implements View.OnClickLis
 
     @Override
     protected void initData() {
+        carID = "";
         if (getIntent() != null && getIntent().getExtras() != null) {
             Bundle bundle = getIntent().getExtras();
             CarInfo carInfo = (CarInfo) bundle.getSerializable(CAR_INFO);
             if (carInfo != null) {
+                carID = carInfo.getId();
                 if (!TextUtils.isEmpty(carInfo.getPlateno()) && carInfo.getPlateno().length() > 0) {
                     String keyChar = String.valueOf(carInfo.getPlateno().charAt(0));
                     tvProvinces.setText(keyChar);
@@ -110,8 +114,8 @@ public class AddNewCarActivity extends MyBaseActivity implements View.OnClickLis
             Observable.create(new ObservableOnSubscribe<SimpleResponse>() {
                 @Override
                 public void subscribe(final ObservableEmitter<SimpleResponse> emitter) throws Exception {
-                    CarInfo carInfo = new CarInfo("deviceid",
-                            etEngineNo.getText().toString(),
+                    newCarInfo = new CarInfo("1",
+                            etEngineNo.getText().toString(), carID,
                             tvProvinces.getText().toString() + etPlateNo.getText().toString(),
                             etVIN.getText().toString());
                     HttpRequest.add(new ResultCallBack<SimpleResponse>() {
@@ -124,7 +128,7 @@ public class AddNewCarActivity extends MyBaseActivity implements View.OnClickLis
                         public void onDataLoadedFailure(Exception e) {
                             emitter.onError(e);
                         }
-                    }, mContext, carInfo);
+                    }, mContext, newCarInfo);
                 }
             }).subscribeOn(Schedulers.io())
                     .doOnSubscribe(new Consumer<Disposable>() {
@@ -204,7 +208,10 @@ public class AddNewCarActivity extends MyBaseActivity implements View.OnClickLis
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            return dismissProvincesKeyBoard();
+            boolean flag = dismissProvincesKeyBoard();
+            if (flag) {
+                return true;
+            }
         }
         return super.onKeyDown(keyCode, event);
     }

@@ -115,7 +115,7 @@ public class MainActivity extends MyBaseActivity {
                     public void onDataLoadedFailure(Exception e) {
                         emitter.onError(new Exception(e.getMessage()));
                     }
-                }, mContext, "deviceID");
+                }, mContext, "1");
 
 
             }
@@ -139,6 +139,7 @@ public class MainActivity extends MyBaseActivity {
                         optionLayout.setVisibility(View.VISIBLE);
                         mData = carInfoList;
                         sectionsPagerAdapter.refresh(mData);
+                        viewPager.setCurrentItem(0);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

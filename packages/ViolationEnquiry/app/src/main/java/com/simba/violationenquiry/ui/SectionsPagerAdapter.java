@@ -56,10 +56,12 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
         return mData.size();
     }
 
+
     @Override
     public int getItemPosition(@NonNull Object object) {
         return PagerAdapter.POSITION_NONE;
     }
+
 
     public void refresh(List<CarInfo> mData) {
         if (mData == null) {

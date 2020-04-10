@@ -39,6 +39,15 @@ public class CarInfo implements Serializable, KeyValue {
         this.vin = vin;
     }
 
+    public CarInfo(String deviceid, String engineno, String id, String plateno, String vin) {
+
+        this.deviceid = deviceid;
+        this.engineno = engineno;
+        this.id = id;
+        this.plateno = plateno;
+        this.vin = vin;
+    }
+
     public CarInfo(String plateno) {
         this.plateno = plateno;
     }
