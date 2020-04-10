@@ -139,18 +139,18 @@ public class AddNewCarActivity extends MyBaseActivity implements View.OnClickLis
                         public void accept(SimpleResponse response) throws Exception {
                             dismissProgressDialog();
                             if (response.success) {
-                                showToast("绑定成功");
+                                showToast(R.string.binding_success);
                                 finish();
                                 EventBus.getDefault().post(new AddCarInfoEvent(true));
                             } else {
-                                showToast("绑定失败，请重试");
+                                showToast(R.string.binding_fail);
                             }
                         }
                     }, new Consumer<Throwable>() {
                         @Override
                         public void accept(Throwable throwable) throws Exception {
                             dismissProgressDialog();
-                            showToast("绑定失败，请重试");
+                            showToast(R.string.binding_fail);
                         }
                     });
 
@@ -164,7 +164,7 @@ public class AddNewCarActivity extends MyBaseActivity implements View.OnClickLis
      * @return
      */
     private boolean check() {
-        if (etPlateNo.getText().toString().length() > 0 && etPlateNo.getText().toString().length() < 6) {
+        if (etPlateNo.getText().toString().length() < 6) {
             etPlateNo.setError(ResourceUtils.getString(R.string.please_input_right_plate_no_info));
             return false;
         }
