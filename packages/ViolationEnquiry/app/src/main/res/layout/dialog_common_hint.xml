@@ -16,7 +16,7 @@
         android:paddingTop="88px"
         android:paddingRight="60px"
         android:paddingBottom="88px"
-        android:text="提示信息"
+        android:text="@string/tips_info"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size" />
 

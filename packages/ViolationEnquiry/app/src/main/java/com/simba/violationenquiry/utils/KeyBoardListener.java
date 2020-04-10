@@ -4,10 +4,11 @@ import android.app.Activity;
 import android.graphics.Rect;
 import android.view.View;
 import android.view.ViewTreeObserver;
+
 /**
  * @Author : chenjianbo
  * @Date : 2020/4/8
- * @Desc :
+ * @Desc : 键盘监听事件
  */
 public class KeyBoardListener {
     private View rootView;

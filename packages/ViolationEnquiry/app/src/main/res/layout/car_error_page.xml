@@ -72,7 +72,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="当前车辆信息无法查询到结果，请确认车辆信息是否正确。"
+                android:text="@string/query_fail_please_make_confirm"
                 android:textColor="@color/white"
                 android:textSize="@dimen/regular_text_size" />
         </RelativeLayout>
@@ -86,7 +86,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@mipmap/icon_btn_bg"
-        android:text="修改车辆信息"
+        android:text="@string/modify_car_info"
         android:textColor="@color/white"
         android:textSize="@dimen/small_text_size" />
 

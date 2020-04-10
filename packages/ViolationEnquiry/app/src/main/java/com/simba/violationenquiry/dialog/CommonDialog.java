@@ -15,17 +15,37 @@ import com.simba.violationenquiry.utils.ResourceUtils;
 /**
  * @Author : chenjianbo
  * @Date : 2020/4/8
- * @Desc :
+ * @Desc :通用提示类
  */
 public class CommonDialog extends Dialog {
-
+    /**
+     * 内容
+     */
     private TextView mTvHint;
+    /**
+     * 确定（在右边）
+     */
     private TextView mTvYes;
+    /**
+     * 取消
+     */
     private TextView mTvNo;
+    /**
+     * 提示内容
+     */
     private String mHintMsg;
+    /**
+     * 按钮间的分割线 只显示一个的时候不用显示分割线
+     */
     private View line;
+    /**
+     * 取消按钮
+     */
     private String noMsg;
-    private int yesVisuble = View.VISIBLE;
+    /**
+     * 是否显示确定按钮
+     */
+    private int yesVisible = View.VISIBLE;
 
     public CommonDialog(@NonNull Context context, String hintMsg) {
 
@@ -38,7 +58,7 @@ public class CommonDialog extends Dialog {
         super(context, R.style.MyBaseDialog);
         mHintMsg = hintMsg;
         this.noMsg = noMsg;
-        this.yesVisuble = yesVisible;
+        this.yesVisible = yesVisible;
     }
 
     @Override
@@ -51,48 +71,74 @@ public class CommonDialog extends Dialog {
         mTvNo = findViewById(R.id.tv_no);
         line = findViewById(R.id.line);
         mTvHint.setText(mHintMsg);
-        setYesVisbile(yesVisuble);
+        setYesVisible(yesVisible);
         if (!TextUtils.isEmpty(noMsg)) {
             setNoMsg(noMsg);
         }
         mTvNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 dismiss();
-
             }
         });
     }
 
-    public void setNoVisbile(int visbile) {
-        mTvNo.setVisibility(visbile);
-        line.setVisibility(visbile);
+    /**
+     * 取消按钮显示
+     *
+     * @param visible
+     */
+    public void setNoVisible(int visible) {
+        mTvNo.setVisibility(visible);
+        line.setVisibility(visible);
     }
 
-    public void setYesVisbile(int visbile) {
-        mTvYes.setVisibility(visbile);
-        line.setVisibility(visbile);
-        if (visbile == View.GONE) {
+    /**
+     * 确定按钮显示
+     *
+     * @param visible
+     */
+    public void setYesVisible(int visible) {
+        mTvYes.setVisibility(visible);
+        line.setVisibility(visible);
+        if (visible == View.GONE) {
             mTvNo.setTextColor(ResourceUtils.getColor(R.color.colorPrimary));
         }
     }
 
+    /**
+     * 提示信息
+     *
+     * @param hintMsg
+     */
     public void setHintMessage(String hintMsg) {
 
         mTvHint.setText(hintMsg);
     }
 
+    /**
+     * 确定按钮显示
+     *
+     * @param yesMsg
+     */
     public void setYesMessage(String yesMsg) {
 
         mTvYes.setText(yesMsg);
     }
 
+    /**
+     * 取消按钮
+     *
+     * @param noMsg
+     */
     public void setNoMsg(String noMsg) {
 
         mTvNo.setText(noMsg);
     }
 
+    /**
+     * @param hintMsg
+     */
     public void setHintMessage(int hintMsg) {
 
         mTvHint.setText(hintMsg);
@@ -108,6 +154,11 @@ public class CommonDialog extends Dialog {
         mTvNo.setText(noMsg);
     }
 
+    /**
+     * 确定监听事件
+     *
+     * @param yesListener
+     */
     public void setOnConfirmListener(final OnConfirmListener yesListener) {
 
         mTvYes.setOnClickListener(new View.OnClickListener() {
@@ -119,6 +170,11 @@ public class CommonDialog extends Dialog {
         });
     }
 
+    /**
+     * 取消监听事件
+     *
+     * @param cancelListener
+     */
     public void setOnCancelListener(final OnCancelListener cancelListener) {
         mTvNo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,11 +185,17 @@ public class CommonDialog extends Dialog {
         });
     }
 
+    /**
+     * 确认listener
+     */
     public interface OnConfirmListener {
 
         void setOnConfirmClick(CommonDialog instance);
     }
 
+    /**
+     * 取消listener
+     */
     public interface OnCancelListener {
 
         void setOnCancelClick(CommonDialog instance);

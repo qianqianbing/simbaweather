@@ -154,7 +154,7 @@ public class MainActivity extends MyBaseActivity {
             @Override
             public void subscribe(final ObservableEmitter<SimpleResponse> emitter) throws Exception {
 
-                HttpRequest.add(new ResultCallBack<SimpleResponse>() {
+                HttpRequest.delete(new ResultCallBack<SimpleResponse>() {
                     @Override
                     public void onLoaded(SimpleResponse wrapper) {
                         emitter.onNext(wrapper);
@@ -164,7 +164,7 @@ public class MainActivity extends MyBaseActivity {
                     public void onDataLoadedFailure(Exception e) {
                         emitter.onError(e);
                     }
-                }, mContext, mData.get(pos));
+                }, mContext, mData.get(pos).getId());
             }
         }).subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {

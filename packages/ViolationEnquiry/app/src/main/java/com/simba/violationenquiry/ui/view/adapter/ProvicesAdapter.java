@@ -14,14 +14,27 @@ import java.util.List;
 /**
  * @Author : chenjianbo
  * @Date : 2020/4/8
- * @Desc :
+ * @Desc : 键盘适配器
  */
 public class ProvicesAdapter extends RecyclerView.Adapter<KeyViewViewHolder> {
-
+    /**
+     * 数据源
+     */
     private List<String> mData;
+    /**
+     * 单个点击监听
+     */
     private OnItemClickListener onItemClickListener;
+    /**
+     * 选中的位置
+     */
     private int checkPos = -1;
 
+    /**
+     *
+     * @param mData
+     * @param onItemClickListener
+     */
     public ProvicesAdapter(List<String> mData, OnItemClickListener onItemClickListener) {
         this.mData = mData;
         this.onItemClickListener = onItemClickListener;

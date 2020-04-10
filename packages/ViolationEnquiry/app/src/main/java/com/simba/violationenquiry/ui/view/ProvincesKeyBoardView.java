@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * @Author : chenjianbo
  * @Date : 2020/4/8
- * @Desc :
+ * @Desc : 键盘控件
  */
 public class ProvincesKeyBoardView extends LinearLayout {
     private RecyclerView recyclerView;

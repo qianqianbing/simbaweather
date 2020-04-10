@@ -116,6 +116,9 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
         }
     }
 
+    /**
+     * 初始化界面
+     */
     private void initView() {
         ivRefresh = root.findViewById(R.id.iv_refresh);
         ivProgress = root.findViewById(R.id.iv_progress);
@@ -146,6 +149,9 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
 
     }
 
+    /**
+     * 初始化数据
+     */
     private void initData() {
         detailAdapter = new DetailAdapter(mData);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -175,6 +181,10 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
 
     }
 
+    /**
+     * @param isFirst 是否第一次加载
+     * @param isError 是否左边item异常
+     */
     private void loadData(final boolean isFirst, final boolean isError) {
 
         Observable.create(new ObservableOnSubscribe<ViolateResData>() {
@@ -235,7 +245,11 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
                 });
     }
 
-
+    /**
+     * 显示/隐藏加载中View
+     *
+     * @param show
+     */
     private void showLoadingView(boolean show) {
         rlLoading.setVisibility(show ? View.VISIBLE : View.GONE);
         if (show) {
@@ -246,11 +260,22 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
 
     }
 
+    /**
+     * 显示左边item error的View
+     *
+     * @param show
+     */
     private void showItemError(boolean show) {
         rlItemError.setVisibility(show ? View.VISIBLE : View.GONE);
         rlItemNormal.setVisibility(show ? View.GONE : View.VISIBLE);
     }
 
+    /**
+     * 显示左边item加载
+     *
+     * @param show
+     * @param isError 是否是error状态的item
+     */
     private void showItemLoading(boolean show, boolean isError) {
         if (isError) {
             showItemErrorLoading(show);
@@ -266,6 +291,11 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
 
     }
 
+    /**
+     * 显示左边error item的加载
+     *
+     * @param show
+     */
     private void showItemErrorLoading(boolean show) {
         llErrorLoading.setVisibility(show ? View.VISIBLE : View.GONE);
         ivErrorRefresh.setVisibility(show ? View.GONE : View.VISIBLE);
@@ -277,6 +307,9 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
 
     }
 
+    /**
+     * 显示加载失败的dialog
+     */
     private void showErrorDialog() {
         CommonDialog commonDialog = new CommonDialog(getContext(), ResourceUtils.getString(R.string.query_fail_please_make_confirm));
         commonDialog.show();
@@ -290,10 +323,17 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
 
     }
 
+    /**
+     * 刷新
+     * @param isErrorItem 是否是error
+     */
     private void refresh(boolean isErrorItem) {
         loadData(false, isErrorItem);
     }
 
+    /**
+     * 修改车辆信息
+     */
     private void modifyCarInfo() {
         Bundle bundle = new Bundle();
         bundle.putSerializable(AddNewCarActivity.CAR_INFO, carInfo);

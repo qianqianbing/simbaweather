@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * @Author : chenjianbo
  * @Date : 2020/4/3
- * @Desc :
+ * @Desc :车辆信息
  */
 public class CarInfo implements Serializable, KeyValue {
     /**

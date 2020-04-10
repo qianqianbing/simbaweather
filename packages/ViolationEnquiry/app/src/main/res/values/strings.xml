@@ -27,4 +27,10 @@
     <string name="fines">罚款(元)</string>
     <string name="cancel">取消</string>
     <string name="modify_car_info">修改车辆信息</string>
+    <string name="please_input_right_plate_no_info">请输入正确的车牌号信息</string>
+    <string name="please_input_right_vin">请输入正确的车架号信息</string>
+    <string name="please_input_right_engine_no">请输入正确的发动机号信息</string>
+    <string name="tips_info">提示信息</string>
+    <string name="current_vehicle_no_illegal_information">当前车辆无违章信息</string>
+<string name="input_car_info">请输入您的车辆信息</string>
 </resources>

@@ -10,7 +10,7 @@ import com.simba.violationenquiry.utils.ResourceUtils;
 /**
  * @Author : chenjianbo
  * @Date : 2020/4/7
- * @Desc :
+ * @Desc : 键盘的ViewHolder
  */
 public class KeyViewViewHolder extends BaseViewHolder<String> {
     private TextView btnKey;
@@ -25,6 +25,11 @@ public class KeyViewViewHolder extends BaseViewHolder<String> {
         btnKey.setText(data);
     }
 
+    /**
+     * 背景
+     *
+     * @param isChecked
+     */
     public void setBackground(boolean isChecked) {
         btnKey.setBackground(ResourceUtils.getDrawable(isChecked ? R.drawable.icon_key_press : R.drawable.icon_key_normal));
     }

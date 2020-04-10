@@ -24,13 +24,25 @@ public abstract class MyBaseActivity extends BaseActivity {
     //获取TAG的activity名称
     protected final String TAG = getClass().getSimpleName();
     protected Context mContext;
+    /**
+     * 进度dialog
+     */
     private DialogUtil publicDialog;
 
-
+    /**
+     * tips
+     *
+     * @param msg
+     */
     protected void showToast(String msg) {
         Toasty.info(this, msg);
     }
 
+    /**
+     * tips
+     *
+     * @param msg
+     */
     protected void showToast(@StringRes int msg) {
         Toasty.info(this, msg);
     }
@@ -55,17 +67,27 @@ public abstract class MyBaseActivity extends BaseActivity {
         }
     }
 
+    /**
+     * @param cls
+     * @param bundle
+     */
     protected void startActivity(Class<?> cls, Bundle bundle) {
         Intent intent = new Intent(this, cls);
         intent.putExtras(bundle);
         startActivity(intent);
     }
 
+    /**
+     * @param cls
+     */
     protected void startActivity(Class<?> cls) {
         Intent intent = new Intent(this, cls);
         startActivity(intent);
     }
 
+    /**
+     * 显示dialog
+     */
     protected void showProgressDialog() {
         if (publicDialog == null) {
             publicDialog = DialogUtil.buildProgress(this, com.simba.base.R.string.base_is_loading);

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * @Author : chenjianbo
  * @Date : 2020/4/7
- * @Desc : 分割线
+ * @Desc : 分割线 左间距 首个没有间距
  */
 public class CommonDecoration extends RecyclerView.ItemDecoration {
 

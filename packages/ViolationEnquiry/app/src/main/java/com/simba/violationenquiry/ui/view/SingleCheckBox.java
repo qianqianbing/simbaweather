@@ -12,7 +12,7 @@ import com.simba.violationenquiry.utils.ResourceUtils;
 /**
  * @Author : chenjianbo
  * @Date : 2020/4/8
- * @Desc :
+ * @Desc : 单选
  */
 public class SingleCheckBox extends AppCompatCheckBox {
 

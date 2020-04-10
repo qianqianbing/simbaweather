@@ -117,6 +117,7 @@
             android:background="@drawable/edit_bg"
             android:gravity="center_vertical"
             android:hint="@string/car_engine_no_hint"
+            android:maxLength="9"
             android:minWidth="500px"
             android:paddingLeft="@dimen/default_padding"
             android:paddingRight="@dimen/default_padding"

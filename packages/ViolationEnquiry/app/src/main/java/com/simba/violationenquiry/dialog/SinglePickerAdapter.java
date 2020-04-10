@@ -15,15 +15,23 @@ import java.util.List;
 /**
  * @Author : chenjianbo
  * @Date : 2020/4/8
- * @Desc :
+ * @Desc :单选dialog 列表适配器
  */
 public class SinglePickerAdapter<T extends KeyValue> extends BaseAdapter {
 
-
+    /**
+     * 数据源
+     */
     private List<T> mData;
-
+    /**
+     * 不同的style
+     */
     private int resLayout;
 
+    /**
+     * @param data
+     * @param markStyle icon位置 0左边 1右边
+     */
     public SinglePickerAdapter(List<T> data, int markStyle) {
         resLayout = R.layout.item_single_choose;
         if (markStyle == SinglePickerManager.STYLE_RIGHT) {
@@ -36,6 +44,9 @@ public class SinglePickerAdapter<T extends KeyValue> extends BaseAdapter {
         mData = data;
     }
 
+    /**
+     * @param data
+     */
     public SinglePickerAdapter(List<T> data) {
         this(data, SinglePickerManager.STYLE_NORMAL);
     }
@@ -77,6 +88,11 @@ public class SinglePickerAdapter<T extends KeyValue> extends BaseAdapter {
         return convertView;
     }
 
+    /**
+     * 刷新
+     *
+     * @param data
+     */
     public void refresh(List<T> data) {
         if (data == null) {
             data = new ArrayList<>();

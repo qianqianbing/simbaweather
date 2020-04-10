@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.simba.base.base.BaseActivity;
 import com.simba.base.network.model.SimpleResponse;
 import com.simba.violationenquiry.base.MyBaseActivity;
 import com.simba.violationenquiry.event.AddCarInfoEvent;
@@ -20,6 +19,8 @@ import com.simba.violationenquiry.ui.view.ProvincesKeyBoardView;
 import com.simba.violationenquiry.utils.KeyBoardListener;
 import com.simba.violationenquiry.utils.KeyboardHelper;
 import com.simba.violationenquiry.utils.PopupHelper;
+import com.simba.violationenquiry.utils.ResourceUtils;
+import com.simba.violationenquiry.utils.VinUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -101,6 +102,9 @@ public class AddNewCarActivity extends MyBaseActivity implements View.OnClickLis
         });
     }
 
+    /**
+     * 提交
+     */
     private void submit() {
         if (check()) {
             Observable.create(new ObservableOnSubscribe<SimpleResponse>() {
@@ -154,17 +158,22 @@ public class AddNewCarActivity extends MyBaseActivity implements View.OnClickLis
         }
     }
 
+    /**
+     * 输入校验
+     *
+     * @return
+     */
     private boolean check() {
-        if (etPlateNo.getText().toString().length() < 6) {
-            etPlateNo.setError("请输入正确的车牌号信息");
+        if (etPlateNo.getText().toString().length() > 0 && etPlateNo.getText().toString().length() < 6) {
+            etPlateNo.setError(ResourceUtils.getString(R.string.please_input_right_plate_no_info));
             return false;
         }
-        if (etVIN.getText().toString().length() > 16) {
-            etVIN.setError("请输入正确的车架号信息");
+        if (!VinUtil.isValidVin(etVIN.getText().toString())) {
+            etVIN.setError(ResourceUtils.getString(R.string.please_input_right_vin));
             return false;
         }
-        if (etEngineNo.getText().toString().length() > 9) {
-            etEngineNo.setError("请输入正确的发动机号信息");
+        if (etEngineNo.getText().toString().length() == 0) {
+            etEngineNo.setError(ResourceUtils.getString(R.string.please_input_right_engine_no));
             return false;
         }
         return true;

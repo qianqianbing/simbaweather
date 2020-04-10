@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * @Author : chenjianbo
  * @Date : 2020/4/7
- * @Desc :
+ * @Desc :网络请求Utils
  */
 public class HttpRequest {
     /**

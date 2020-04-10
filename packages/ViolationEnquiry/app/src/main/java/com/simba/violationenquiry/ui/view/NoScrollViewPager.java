@@ -9,7 +9,7 @@ import androidx.viewpager.widget.ViewPager;
 /**
  * @Author : chenjianbo
  * @Date : 2020/4/7
- * @Desc :
+ * @Desc : 禁止滑动的Viewpager
  */
 public class NoScrollViewPager extends ViewPager {
     private boolean isScroll = false;

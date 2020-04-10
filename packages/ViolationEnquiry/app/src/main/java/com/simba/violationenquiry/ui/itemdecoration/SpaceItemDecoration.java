@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * @Author : chenjianbo
  * @Date : 2020/4/8
- * @Desc :
+ * @Desc :上下间距
  */
 public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
     private Context mContext;

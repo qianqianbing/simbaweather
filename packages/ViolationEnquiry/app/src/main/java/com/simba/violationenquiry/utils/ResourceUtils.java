@@ -12,7 +12,7 @@ import com.simba.violationenquiry.MyApplication;
 /**
  * @Author : chenjianbo
  * @Date : 2020/4/8
- * @Desc :
+ * @Desc :资源工具类
  */
 public class ResourceUtils {
 

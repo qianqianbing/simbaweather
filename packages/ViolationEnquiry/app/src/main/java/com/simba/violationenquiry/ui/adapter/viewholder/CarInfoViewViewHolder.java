@@ -13,18 +13,42 @@ import com.simba.violationenquiry.utils.ResourceUtils;
 /**
  * @Author : chenjianbo
  * @Date : 2020/4/7
- * @Desc :
+ * @Desc : 违章详情ViewHolder
  */
 public class CarInfoViewViewHolder extends BaseViewHolder<ViolateResDetail> {
-
+    /**
+     * 没有查到数据的空布局
+     */
     private RelativeLayout rlDetailEmpty;
+    /**
+     * 扣分
+     */
     private TextView tvScore;
+    /**
+     * 钱
+     */
     private TextView tvMoney;
+    /**
+     * 违章时间
+     */
     private TextView tvTime;
+    /**
+     * 违章地点
+     */
     private TextView tvLocation;
+    /**
+     * 违章详情
+     */
     private TextView tvDetail;
+    /**
+     * 处理状态
+     */
     private TextView tvStatus;
 
+    /**
+     * @param parent
+     * @param resId
+     */
     public CarInfoViewViewHolder(ViewGroup parent, int resId) {
         super(parent, resId);
         rlDetailEmpty = getView(R.id.rl_detail_empty);
@@ -48,6 +72,12 @@ public class CarInfoViewViewHolder extends BaseViewHolder<ViolateResDetail> {
         tvStatus.setTextColor(setStatusColor(data.getHandletag()));
     }
 
+    /**
+     * 获取处理状态的文字颜色
+     *
+     * @param sTag
+     * @return
+     */
     private int setStatusColor(String sTag) {
         int res = ResourceUtils.getColor(R.color.yellow_fdc53e);
         int tag = Integer.parseInt(sTag);

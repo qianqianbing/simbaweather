@@ -34,7 +34,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void initData();
 
     //视图事件监听
-    protected abstract void initListener();
+    protected void initListener() {
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

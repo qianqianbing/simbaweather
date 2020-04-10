@@ -16,7 +16,7 @@
         android:drawableLeft="@drawable/cb_dialog_bg"
         android:drawablePadding="15px"
         android:duplicateParentState="true"
-        android:text="选项一"
+
         android:textColor="@color/white"
         android:textSize="@dimen/text_size" />
 

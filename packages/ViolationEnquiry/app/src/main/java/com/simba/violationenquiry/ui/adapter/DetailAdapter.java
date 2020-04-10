@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * @Author : chenjianbo
  * @Date : 2020/4/7
- * @Desc :
+ * @Desc :违章详情适配器
  */
 public class DetailAdapter extends RecyclerView.Adapter<CarInfoViewViewHolder> {
 

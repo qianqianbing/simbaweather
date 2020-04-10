@@ -17,7 +17,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="管理车辆"
+            android:text="@string/vehicle_management"
             android:textColor="@color/white"
             android:textSize="@dimen/mid_text_size" />
     </LinearLayout>
