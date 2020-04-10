@@ -21,11 +21,12 @@ ext {
             runner       : "1.0.2",
             espresso_core: "3.2.0",
             okhttp3      : "3.8.1",
-			okio      : "1.13.0",
-			okgo      : "3.0.4",
+		    okio      : "1.13.0",
+		    okgo      : "3.0.4",
             retrofit2    : "2.4.0",
-			gson		: "2.8.6",
-			immersionbar		: "3.0.0"
+		    gson		: "2.8.6",
+		    immersionbar		: "3.0.0",
+            mpandroidchart   : "v3.1.0"   
     ]
 
 }
