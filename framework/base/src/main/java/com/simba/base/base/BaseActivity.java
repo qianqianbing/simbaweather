@@ -33,6 +33,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     //视图数据初始化
     protected abstract void initData();
 
+    //视图事件监听
+    protected abstract void initListener();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,5 +44,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         ImmersionBar.with(this).init();
         initView();
         initData();
+        initListener();
     }
 }

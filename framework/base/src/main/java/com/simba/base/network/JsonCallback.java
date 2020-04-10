@@ -165,7 +165,7 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
             //这里我们既然都已经拿到了泛型的真实类型，即对应的 class ，那么当然可以开始解析数据了，我们采用 Gson 解析
             //以下代码是根据泛型解析数据，返回对象，返回的对象自动以参数的形式传递到 onSuccess 中，可以直接使用
             //有数据类型，表示有data
-            data = gson.fromJson(this.response, type);
+            data = gson.fromJson(responseData, type);
         }
         return data;
     }
