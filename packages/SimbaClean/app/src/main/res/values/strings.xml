@@ -1,8 +1,19 @@
 <resources>
     <string name="app_name">SimbaClean</string>
     <string name="tv_currentMemory">实时内存</string>
+    <string name="tv_currentspace">实时空间</string>
     <string name="tv_calculating">正在计算</string>
     <string name="tv_clean">一键加速</string>
+    <string name="tv_remainMemory">一键加速</string>
+
+
+    <string name="tv_module1">系统固件</string>
+    <string name="tv_module2">应用和数据</string>
+    <string name="tv_module3">图片、视频</string>
+    <string name="tv_module4">音乐文件</string>
+    <string name="tv_module5">缓存数据</string>
+    <string name="tv_module6">其他文件</string>
+
 
 
 </resources>

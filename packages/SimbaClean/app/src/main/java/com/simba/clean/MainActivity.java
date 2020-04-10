@@ -1,28 +1,28 @@
 package com.simba.clean;
 
 import android.animation.ObjectAnimator;
-import android.app.Activity;
-import android.os.Bundle;
+import android.graphics.Color;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
+import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.utils.MPPointF;
 import com.simba.base.base.BaseActivity;
+
+import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity {
 
     private ImageView iv_loading_memory;
     private ObjectAnimator animator;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        setFullScreen();
-
-    }
-
+    private PieChart mPieChart;
+    private GridView gv_memory;
 
     public void startMemoryLoadingAnim() {
         animator = ObjectAnimator.ofFloat(iv_loading_memory, "rotation", 0f, 360f);//旋转360度
@@ -32,13 +32,8 @@ public class MainActivity extends BaseActivity {
         animator.start();//动画开始
     }
 
-    public void setFullScreen() {
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-    }
-
-        @Override
+    @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
@@ -58,11 +53,59 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initView() {
         iv_loading_memory = findViewById(R.id.iv_loading_memory);
+        mPieChart = findViewById(R.id.chart);
+        mPieChart.getLegend().setEnabled(false);
+        mPieChart.setDrawEntryLabels(false);
+        mPieChart.setDrawCenterText(false);
+        mPieChart.getDescription().setEnabled(false);
+        mPieChart.setRotationEnabled(false);
+        mPieChart.setHighlightPerTapEnabled(false);
+
+        gv_memory = findViewById(R.id.gv_memory);
+        gv_memory.setAdapter(new MemoryAdapter());
+
     }
 
     @Override
     protected void initData() {
         startMemoryLoadingAnim();
+        setData(7, 99);
+    }
+
+
+    private void setData(int count, float range) {
+        ArrayList<PieEntry> entries = new ArrayList<>();
+
+        PieDataSet dataSet = new PieDataSet(entries, "");
+        for (int i = 0; i < count; i++) {
+            entries.add(new PieEntry((float) ((Math.random() * range) + range / 5)));
+        }
+
+        dataSet.setDrawIcons(false);
+        dataSet.setSliceSpace(0f);   //NEED1 设置边距
+        dataSet.setIconsOffset(new MPPointF(0, 40));
+        dataSet.setSelectionShift(5f);
+
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(getResources().getColor(R.color.colorModule1));
+        colors.add(getResources().getColor(R.color.colorModule2));
+        colors.add(getResources().getColor(R.color.colorModule3));
+        colors.add(getResources().getColor(R.color.colorModule4));
+        colors.add(getResources().getColor(R.color.colorModule5));
+        colors.add(getResources().getColor(R.color.colorModule6));
+        colors.add(getResources().getColor(R.color.colorModule7));
+
+        dataSet.setColors(colors);
+        //dataSet.setSelectionShift(0f);
+
+        PieData data = new PieData(dataSet);
+        data.setValueFormatter(new PercentFormatter(mPieChart));
+        data.setValueTextSize(11f);
+        data.setValueTextColor(Color.WHITE);
+        data.setDrawValues(false);
+        mPieChart.setData(data);
+        mPieChart.highlightValues(null);
+        mPieChart.invalidate();
     }
 
 

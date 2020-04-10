@@ -7,6 +7,15 @@
     <color name="colorLoadingProgress">#6CF8FC</color>
     <color name="colorRadius">#2D313B</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorTotalMemoryText">#1EFFFFFF</color>
+
+    <color name="colorModule1">#0EA983</color>
+    <color name="colorModule2">#CF390F</color>
+    <color name="colorModule3">#D06A06</color>
+    <color name="colorModule4">#F6AC13</color>
+    <color name="colorModule5">#78B202</color>
+    <color name="colorModule6">#0E8FA6</color>
+    <color name="colorModule7">#2D313B</color>
 
 
 

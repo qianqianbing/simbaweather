@@ -5,96 +5,86 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/base_bg_app"
-    android:paddingLeft="60px"
     tools:context=".MainActivity">
 
 
     <RelativeLayout
         android:layout_width="580px"
         android:layout_height="match_parent"
+        android:layout_marginLeft="120px"
         >
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="40px"
-            android:layout_marginTop="130px"
             android:layout_marginLeft="85px"
-            android:orientation="horizontal"
-            >
+            android:layout_marginTop="130px"
+            android:orientation="horizontal">
 
             <View
-                android:id="@+id/view_tag"
                 android:layout_width="4px"
                 android:layout_height="20px"
                 android:layout_gravity="center_vertical"
-                android:background="@color/colorTag"
-                />
+                android:background="@color/colorTag" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:textColor="@color/colorWhite"
                 android:layout_marginLeft="12px"
-                android:textSize="30px"
                 android:text="@string/tv_currentMemory"
-                />
+                android:textColor="@color/colorWhite"
+                android:textSize="30px" />
         </LinearLayout>
 
 
         <FrameLayout
             android:layout_width="360px"
             android:layout_height="360px"
-            android:layout_marginTop="195px"
             android:layout_marginLeft="119px"
-            >
+            android:layout_marginTop="195px">
 
             <com.simba.clean.WaveProgressView
                 android:layout_width="324px"
                 android:layout_height="324px"
                 android:layout_gravity="center"
-                app:radius="324px"
-                />
+                app:radius="324px" />
 
             <ImageView
                 android:id="@+id/iv_loading_memory"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:background="@drawable/ic_loading_memory"
-                />
+                android:background="@drawable/ic_loading_memory" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_circle"
                 android:layout_gravity="center"
-                />
+                android:src="@drawable/ic_circle" />
 
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="40px"
                 android:layout_gravity="center"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:text="@string/tv_calculating"
                     android:textColor="@color/colorWhite"
-                    android:textSize="26px"
-                    />
+                    android:textSize="26px" />
 
                 <ProgressBar
                     android:id="@+id/progress1"
                     android:layout_width="24px"
                     android:layout_height="24px"
-                    android:layout_marginLeft="10px"
                     android:layout_gravity="center_vertical"
-                    android:indeterminateDrawable="@drawable/bg_loading_progressbar"
-                    />
+                    android:layout_marginLeft="10px"
+                    android:indeterminateDrawable="@drawable/bg_loading_progressbar" />
 
             </LinearLayout>
         </FrameLayout>
@@ -102,24 +92,188 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginBottom="90px"
             android:background="@drawable/selector_clean"
+            android:gravity="center"
             android:text="@string/tv_clean"
             android:textColor="@color/colorWhite"
-            android:textSize="30px"
-            />
+            android:textSize="30px" />
 
     </RelativeLayout>
 
     <ImageView
+        android:id="@+id/iv_spliteline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_splitline"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="581px"
-        />
+        android:layout_marginLeft="720px"
+        android:src="@drawable/ic_splitline" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="720px">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40px"
+            android:layout_marginLeft="85px"
+            android:layout_marginTop="130px"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="4px"
+                android:layout_height="20px"
+                android:layout_gravity="center_vertical"
+                android:background="@color/colorTag" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="12px"
+                android:text="@string/tv_currentspace"
+                android:textColor="@color/colorWhite"
+                android:textSize="30px" />
+        </LinearLayout>
+
+
+        <FrameLayout
+            android:layout_width="360px"
+            android:layout_height="360px"
+            android:layout_marginLeft="119px"
+            android:layout_marginTop="195px">
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/chart"
+                android:layout_width="320px"
+                android:layout_height="320px"
+                android:layout_gravity="center" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_circle" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40px"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="@string/tv_calculating"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="26px" />
+
+                <ProgressBar
+                    android:id="@+id/progress2"
+                    android:layout_width="24px"
+                    android:layout_height="24px"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10px"
+                    android:indeterminateDrawable="@drawable/bg_loading_progressbar" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="260px"
+                android:layout_height="260px"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="76px"
+                    android:text="81%"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="65px" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="40px"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="162px"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="13GB"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="22px"
+                        />
+
+                    <TextView
+                        android:layout_width="24px"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="/"
+                        android:textColor="@color/colorTotalMemoryText"
+                        android:textSize="30px" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="16GB"
+                        android:textColor="@color/colorTotalMemoryText"
+                        android:textSize="22px" />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="585px"
+            android:layout_marginLeft="215px"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
+                android:text="@string/tv_remainMemory"
+                android:textSize="26px"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
+                android:layout_marginLeft="3px"
+                android:textSize="26px"
+                android:text="3GB"
+                />
+
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/gv_memory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="2"
+            android:verticalSpacing="40px"
+            android:layout_marginLeft="544px"
+            android:layout_marginTop="293px"
+            />
+
+    </RelativeLayout>
 
 </RelativeLayout>
