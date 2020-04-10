@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">个人中心</string>
+    <string name="loading">加载中</string>
+    <string name="QR_login">扫码登陆</string>
+    <string name="Account_login">账号登陆</string>
+    <string name="account">账号</string>
+    <string name="password">密码</string>
+    <string name="aggre_agreement">同意用户协议</string>
+    <string name="login">登陆</string>
+    <string name="deivce_activation">设备激活</string>
+    <string name="device_activation_note">尊敬的用户，为了设备能够正常使用，请绑定设备和实名认证，这将花费几分钟时间，请耐心等待。</string>
+    <string name="use_wechat_scan">请用微信扫码进行设备激活</string>
+    <string name="check_activation_state">查询激活状态</string>
+    <string name="consult_phone_number">025-88888888</string>
+    <string name="consult_phone">咨询电话:</string>
+    <string name="close">关闭:</string>
+    <string name="message">消息</string>
+
+</resources>

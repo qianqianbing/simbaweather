@@ -1,0 +1,5 @@
+rootProject.name='MemberCenter'
+include ':app'
+
+include ':base'
+project (':base').projectDir = new File('../../framework/base')
