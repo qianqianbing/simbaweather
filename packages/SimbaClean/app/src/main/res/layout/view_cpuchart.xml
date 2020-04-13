@@ -31,49 +31,68 @@
             android:layout_centerInParent="true"
             android:src="@drawable/ic_circle" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_cpu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="81%"
+                android:textColor="@color/colorWhite"
+                android:textSize="65px" />
+
+
+            <LinearLayout
+                android:id="@+id/ll_cpuper"
+                android:layout_width="wrap_content"
+                android:layout_height="40px"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="5.2GB"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="22px" />
+
+                <TextView
+                    android:layout_width="24px"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="/"
+                    android:textColor="@color/white30"
+                    android:textSize="30px" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="8GB"
+                    android:textColor="@color/white30"
+                    android:textSize="22px" />
+
+            </LinearLayout>
+        </LinearLayout>
+
         <TextView
+            android:id="@+id/tv_cleanok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="76px"
-            android:text="81%"
-            android:textColor="@color/colorWhite"
-            android:textSize="65px" />
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="40px"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="162px"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="5.2GB"
-                android:textColor="@color/colorWhite"
-                android:textSize="22px" />
-
-            <TextView
-                android:layout_width="24px"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="/"
-                android:textColor="@color/colorTotalMemoryText"
-                android:textSize="30px" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="8GB"
-                android:textColor="@color/colorTotalMemoryText"
-                android:textSize="22px" />
-
-        </LinearLayout>
+            android:layout_marginTop="182px"
+            android:text="@string/tv_cleanok"
+            android:textColor="@color/white30"
+            android:textSize="22px"
+            android:visibility="invisible"
+            />
 
     </RelativeLayout>
 </RelativeLayout>

@@ -4,6 +4,8 @@
     <string name="tv_currentspace">实时空间</string>
     <string name="tv_calculating">正在计算</string>
     <string name="tv_clean">一键加速</string>
+    <string name="tv_cleaning">加速中...</string>
+    <string name="tv_cleanok">已成功释放</string>
     <string name="tv_remainMemory">可用容量</string>
     <string name="tv_memcounting">正在计算类别大小</string>
 

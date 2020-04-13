@@ -44,6 +44,9 @@ public class MainActivity extends BaseActivity {
     private LinearLayout ll_remainmemcount;
     private TextView tv_remainmem;
     private MemoryAdapter mMemoryAdapter;
+    private TextView tv_cpu;
+    private LinearLayout ll_cpuper;
+    private TextView tv_cleanok;
 
     private Handler mHandler = new Handler(new Handler.Callback() {
         @Override
@@ -81,14 +84,69 @@ public class MainActivity extends BaseActivity {
         mWaveProgressView = findViewById(R.id.waveProgressView);
         iv_loading_memory = findViewById(R.id.iv_loading_memory);
 
-
         ll_memcountnum = findViewById(R.id.ll_memcountnum);
         ll_remainmemcount = findViewById(R.id.ll_remainmemcount);
         tv_remainmem = findViewById(R.id.tv_remainmem);
-
         gv_memory = findViewById(R.id.gv_memory);
+        tv_cpu = findViewById(R.id.tv_cpu);
+        ll_cpuper = findViewById(R.id.ll_cpuper);
+        tv_cleanok = findViewById(R.id.tv_cleanok);
+
         mMemoryAdapter = new MemoryAdapter();
         gv_memory.setAdapter(mMemoryAdapter);
+
+        bt_clean.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bt_clean.setText(R.string.tv_cleaning);
+                bt_clean.setBackgroundResource(R.drawable.ic_clean_unable);
+                bt_clean.setEnabled(false);
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mWaveProgressView.setCurentProgress(50);
+                        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mWaveProgressView, "progress", 0f, 100f);
+                        objectAnimator.setDuration(1500);
+                        objectAnimator.setInterpolator(new LinearInterpolator());
+
+                        objectAnimator.addListener(new Animator.AnimatorListener() {
+                            @Override
+                            public void onAnimationStart(Animator animator) {
+                                tv_cpu.setText("112M");
+                                tv_cleanok.setVisibility(View.VISIBLE);
+                                ll_cpuper.setVisibility(View.INVISIBLE);
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animator animator) {
+                                bt_clean.setBackgroundResource(R.drawable.selector_clean);
+                                bt_clean.setEnabled(true);
+                                tv_cpu.setText("50%");
+                                tv_cleanok.setVisibility(View.INVISIBLE);
+                                ll_cpuper.setVisibility(View.VISIBLE);
+
+                                bt_clean.setBackgroundResource(R.drawable.selector_clean);
+                                bt_clean.setEnabled(true);
+                                bt_clean.setText(R.string.tv_clean);
+
+                            }
+
+                            @Override
+                            public void onAnimationCancel(Animator animator) {
+
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animator animator) {
+
+                            }
+                        });
+
+                        objectAnimator.start();
+                    }
+                },3000);
+            }
+        });
 
         initPieChart();
 

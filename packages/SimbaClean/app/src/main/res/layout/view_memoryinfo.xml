@@ -49,7 +49,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="/"
-                android:textColor="@color/colorTotalMemoryText"
+                android:textColor="@color/white30"
                 android:textSize="30px" />
 
 
@@ -58,7 +58,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:text="16GB"
-                android:textColor="@color/colorTotalMemoryText"
+                android:textColor="@color/white30"
                 android:textSize="22px" />
 
         </LinearLayout>

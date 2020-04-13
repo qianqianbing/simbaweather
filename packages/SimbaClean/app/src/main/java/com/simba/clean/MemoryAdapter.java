@@ -40,7 +40,7 @@ public class MemoryAdapter extends BaseAdapter {
         memoryItemVoList = new ArrayList<>();
         for(int i=0;i<6;i++){
             MemoryItemVo memoryItemVo = new MemoryItemVo();
-            memoryItemVo.memory = i+"GB";
+            memoryItemVo.memory = "";
             memoryItemVo.color = colors[i];
             memoryItemVo.name  = names[i];
             memoryItemVoList.add(memoryItemVo);

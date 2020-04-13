@@ -146,6 +146,10 @@ public class WaveProgressView extends View {
         return currentProgress;
     }
 
+    public void setCurentProgress(float progress){
+        currentProgress =  progress;
+    }
+
     public void setProgress(float progress) {
 //        this.currentProgress = Float.valueOf(df.format(progress));
         float  per = progress/100;
