@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -57,4 +58,16 @@ public abstract class BaseFragment extends Fragment {
     public abstract void initView();
 
     public abstract void initData();
+
+    /**
+     * 获取View
+     *
+     * @param viewId
+     * @param <T>
+     * @return
+     */
+    protected <T extends View> T getView(@IdRes int viewId) {
+        return (T) (mRootView.findViewById(viewId));
+    }
+
 }

@@ -71,6 +71,7 @@ public class MainActivity extends MyBaseActivity {
                 startActivity(AddNewCarActivity.class);
             }
         });
+
     }
 
     @Override

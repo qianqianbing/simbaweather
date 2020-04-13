@@ -101,7 +101,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="2"
                     android:textColor="@color/yellow_fdc53e"
                     android:textSize="@dimen/text_size" />
             </RelativeLayout>

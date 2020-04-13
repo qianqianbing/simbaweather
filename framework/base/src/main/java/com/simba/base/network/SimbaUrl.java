@@ -24,7 +24,7 @@ public class SimbaUrl {
      */
     static {
         if ("debug".equals(SERVER_TYPE)) {                    //测试环境
-            BASE_HOST = "http://cp.simbalink.cn";
+            BASE_HOST = "http://cp.simbalink.cn/backend";
         } else if ("gray".equals(SERVER_TYPE)) {              //灰度环境
             BASE_HOST = "";
         } else {

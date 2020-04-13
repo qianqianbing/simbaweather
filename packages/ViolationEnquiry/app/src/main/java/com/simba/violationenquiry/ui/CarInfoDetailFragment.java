@@ -2,24 +2,19 @@ package com.simba.violationenquiry.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.simba.base.utils.Toasty;
 import com.simba.violationenquiry.AddNewCarActivity;
 import com.simba.violationenquiry.R;
+import com.simba.violationenquiry.base.BaseLazyLoadFragment;
 import com.simba.violationenquiry.dialog.CommonDialog;
 import com.simba.violationenquiry.net.HttpRequest;
 import com.simba.violationenquiry.net.callback.ResultCallBack;
@@ -46,19 +41,18 @@ import io.reactivex.schedulers.Schedulers;
  * @Date : 2020/4/3
  * @Desc :
  */
-public class PlaceholderFragment extends Fragment implements View.OnClickListener {
+public class CarInfoDetailFragment extends BaseLazyLoadFragment implements View.OnClickListener {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     private static final String CAR_INFO = "CAR_INFO";
-    //  private PageViewModel pageViewModel;
-    private View root;
+
     private ImageView ivRefresh;
     private ImageView ivProgress;
     private RecyclerView recyclerView;
     private ImageView ivLoading;
     private RelativeLayout rlLoading;
     private LinearLayout llItemLoading;
-    private Disposable mDisposable;
+
     private CarInfo carInfo;
     private ViolateResData detailData;
     private RelativeLayout rlItemError;
@@ -80,11 +74,11 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
     private DetailAdapter detailAdapter;
     private List<ViolateResDetail> mData;
     private CommonDialog commonDialog;
-   private boolean isPrepared = false;
+
     private int index = 0;
 
-    public static PlaceholderFragment newInstance(int index, CarInfo carInfo) {
-        PlaceholderFragment fragment = new PlaceholderFragment();
+    public static CarInfoDetailFragment newInstance(int index, CarInfo carInfo) {
+        CarInfoDetailFragment fragment = new CarInfoDetailFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(ARG_SECTION_NUMBER, index);
         bundle.putSerializable(CAR_INFO, carInfo);
@@ -103,50 +97,35 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
     }
 
     @Override
-    public View onCreateView(
-            @NonNull LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.fragment_main, container, false);
-        initView();
-        initData();
-
-        isPrepared = true;
-        return root;
+    protected int getLayoutId() {
+        return R.layout.fragment_main;
     }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mDisposable != null && !mDisposable.isDisposed()) {
-            mDisposable.dispose();
-        }
-    }
-
     /**
      * 初始化界面
      */
-    private void initView() {
-        ivRefresh = root.findViewById(R.id.iv_refresh);
-        ivProgress = root.findViewById(R.id.iv_progress);
-        recyclerView = root.findViewById(R.id.recyclerView);
-        ivLoading = root.findViewById(R.id.iv_loading);
-        rlLoading = root.findViewById(R.id.rl_loading);
-        llItemLoading = root.findViewById(R.id.ll_loading);
-        rlItemError = root.findViewById(R.id.rl_error_car);
-        rlItemNormal = root.findViewById(R.id.rl_card);
+    @Override
+    protected void initView() {
+        ivRefresh = getView(R.id.iv_refresh);
+        ivProgress = getView(R.id.iv_progress);
+        recyclerView = getView(R.id.recyclerView);
+        ivLoading = getView(R.id.iv_loading);
+        rlLoading = getView(R.id.rl_loading);
+        llItemLoading = getView(R.id.ll_loading);
+        rlItemError = getView(R.id.rl_error_car);
+        rlItemNormal = getView(R.id.rl_card);
 
-        tvPlateNo = root.findViewById(R.id.tv_plate_no);
-        tvBeProcessed = root.findViewById(R.id.tv_be_processed);
-        tvScore = root.findViewById(R.id.tv_total_score);
-        tvTotalMoney = root.findViewById(R.id.tv_total_money);
-        tvUpdateTime = root.findViewById(R.id.tv_update_time);
+        tvPlateNo = getView(R.id.tv_plate_no);
+        tvBeProcessed = getView(R.id.tv_be_processed);
+        tvScore = getView(R.id.tv_total_score);
+        tvTotalMoney = getView(R.id.tv_total_money);
+        tvUpdateTime = getView(R.id.tv_update_time);
 
         //异常item
-        btnModify = root.findViewById(R.id.btn_modify);
-        tvErrorPlateNo = root.findViewById(R.id.tv_error_plate);
-        ivErrorRefresh = root.findViewById(R.id.iv_error_refresh);
-        llErrorLoading = root.findViewById(R.id.ll_error_loading);
-        ivErrorProgress = root.findViewById(R.id.iv_error_progress);
+        btnModify = getView(R.id.btn_modify);
+        tvErrorPlateNo = getView(R.id.tv_error_plate);
+        ivErrorRefresh = getView(R.id.iv_error_refresh);
+        llErrorLoading = getView(R.id.ll_error_loading);
+        ivErrorProgress = getView(R.id.iv_error_progress);
 
         ivRefresh.setOnClickListener(this);
         ivErrorRefresh.setOnClickListener(this);
@@ -158,7 +137,8 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
     /**
      * 初始化数据
      */
-    private void initData() {
+    @Override
+    protected void initData() {
         detailAdapter = new DetailAdapter(mData);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setAdapter(detailAdapter);
@@ -171,6 +151,12 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
             loadData(true, false);
         }
     }
+
+    @Override
+    protected void lazyLoad() {
+        loadData(true, false);
+    }
+
 
     /**
      * 正确返回的页面
@@ -191,16 +177,6 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
 
 
     }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-
-        if (isPrepared && isVisibleToUser) {
-            loadData(true, false);
-        }
-    }
-
 
     /**
      * @param isFirst 是否第一次加载
@@ -240,28 +216,30 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
                 .subscribe(new Consumer<ViolateResData>() {
                     @Override
                     public void accept(ViolateResData violateResData) throws Exception {
-
-                        if (isFirst) {
-                            showLoadingView(false);
-                        } else {
-                            showItemLoading(false, isError);
+                        if (getUserVisibleHint()) {
+                            if (isFirst) {
+                                showLoadingView(false);
+                            } else {
+                                showItemLoading(false, isError);
+                            }
+                            showItemError(false);
+                            detailData = violateResData;
+                            initPageData();
                         }
-                        showItemError(false);
-                        detailData = violateResData;
-                        initPageData();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        showToast(R.string.query_fail);
-                        showItemError(true);
-                        if (isFirst) {
-                            showLoadingView(false);//进度对话框
-                            showErrorDialog();
-                        } else {
-                            showItemLoading(false, isError);
+                        if (getUserVisibleHint()) {
+                            showToast(R.string.query_fail);
+                            showItemError(true);
+                            if (isFirst) {
+                                showLoadingView(false);//进度对话框
+                                showErrorDialog();
+                            } else {
+                                showItemLoading(false, isError);
+                            }
                         }
-
                     }
                 });
     }
@@ -384,11 +362,5 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
         }
     }
 
-    private void showToast(String msg) {
-        Toasty.info(getContext(), msg);
-    }
 
-    private void showToast(@StringRes int msg) {
-        Toasty.info(getContext(), msg);
-    }
 }

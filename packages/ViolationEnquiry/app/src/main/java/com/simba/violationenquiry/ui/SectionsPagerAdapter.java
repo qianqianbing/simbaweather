@@ -42,7 +42,7 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return PlaceholderFragment.newInstance(position, mData.get(position));
+        return CarInfoDetailFragment.newInstance(position, mData.get(position));
     }
 
     @Nullable

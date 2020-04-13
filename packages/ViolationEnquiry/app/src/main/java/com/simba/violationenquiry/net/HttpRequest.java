@@ -68,8 +68,8 @@ public class HttpRequest {
         if (MyApplication.isDebug) {
             try {
                 Thread.sleep(2000);
-                // callBack.onDataLoadedFailure(new Exception());
-                callBack.onLoaded(DataTest.getDetail());
+                callBack.onDataLoadedFailure(new Exception());
+                //  callBack.onLoaded(DataTest.getDetail());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -102,7 +102,7 @@ public class HttpRequest {
         OkGoUtil<SimpleResponse> communicator = new OkGoUtil<>(cxt, SimbaUrl.REQUEST_ADD_CAR_INFO);
         String value = Convert.toJson(carInfo);
         try {
-            SimpleResponse response = communicator.post(value,type);
+            SimpleResponse response = communicator.post(value, type);
             callBack.onLoaded(response);
         } catch (Exception e) {
             e.printStackTrace();
