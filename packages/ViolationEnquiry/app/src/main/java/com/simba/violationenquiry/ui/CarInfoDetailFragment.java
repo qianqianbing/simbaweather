@@ -146,10 +146,6 @@ public class CarInfoDetailFragment extends BaseLazyLoadFragment implements View.
 
         tvErrorPlateNo.setText(carInfo.getPlateno());
 
-
-        if (index == 0) {
-            loadData(true, false);
-        }
     }
 
     @Override
