@@ -34,7 +34,7 @@ public class HttpRequest {
     public static void getCarInfoList(ResultCallBack<List<CarInfo>> callBack, Context cxt, String deviceID) {
         if (MyApplication.isDebug) {
             try {
-                Thread.sleep(5000);
+                Thread.sleep(2000);
                 // callBack.onDataLoadedFailure(new Exception());
                 callBack.onLoaded(DataTest.getCarInfoList());
             } catch (InterruptedException e) {
@@ -67,7 +67,7 @@ public class HttpRequest {
     public static void getDetail(ResultCallBack<ViolateResData> callBack, Context cxt, CarInfo carInfo) {
         if (MyApplication.isDebug) {
             try {
-                Thread.sleep(5000);
+                Thread.sleep(2000);
                 // callBack.onDataLoadedFailure(new Exception());
                 callBack.onLoaded(DataTest.getDetail());
             } catch (InterruptedException e) {

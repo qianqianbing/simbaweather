@@ -7,6 +7,7 @@ import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import com.simba.violationenquiry.net.model.CarInfo;
+import com.simba.violationenquiry.net.model.detail.ViolateResData;
 
 /**
  * @Author : chenjianbo
@@ -15,19 +16,19 @@ import com.simba.violationenquiry.net.model.CarInfo;
  */
 public class PageViewModel extends ViewModel {
 
-    private MutableLiveData<CarInfo> mIndex = new MutableLiveData<>();
-    private LiveData<CarInfo> mText = Transformations.map(mIndex, new Function<CarInfo, CarInfo>() {
+    private MutableLiveData<Integer> mIndex = new MutableLiveData<>();
+    private LiveData<ViolateResData> mText = Transformations.map(mIndex, new Function<Integer, ViolateResData>() {
         @Override
-        public CarInfo apply(CarInfo input) {
-            return input;
+        public ViolateResData apply(Integer input) {
+            return null;
         }
     });
 
-    public void setIndex(CarInfo index) {
+    public void setIndex(int index) {
         mIndex.setValue(index);
     }
 
-    public LiveData<CarInfo> getText() {
+    public LiveData<ViolateResData> getText() {
         return mText;
     }
 }

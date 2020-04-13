@@ -43,9 +43,12 @@ import okhttp3.RequestBody;
  * ================================================
  */
 public class OkGoUtil<T> {
+
+    public static final int SUCCESS_CODE = 200;
     public final static String TAG = OkGoUtil.class.getSimpleName();
     private Context context;
     private String httpUrl;
+
     /**
      * @param cxt
      * @param httpUrl
@@ -58,6 +61,7 @@ public class OkGoUtil<T> {
         this.httpUrl = httpUrl;
 
     }
+
     /**
      * @param type
      * @return

@@ -17,6 +17,7 @@ package com.simba.base.network.utils;
 
 import com.google.gson.stream.JsonReader;
 import com.lzy.okgo.convert.Converter;
+import com.simba.base.network.OkGoUtil;
 import com.simba.base.network.model.GeneralResponse;
 import com.simba.base.network.model.SimpleResponse;
 
@@ -145,7 +146,7 @@ public class JsonConvert<T> implements Converter<T> {
         Type rawType = type.getRawType();                     // 泛型的实际类型
         Type typeArgument = type.getActualTypeArguments()[0]; // 泛型的参数
 
-        if (response.code() == 200) {
+        if (response.code() == OkGoUtil.SUCCESS_CODE) {
 
             if (rawType != GeneralResponse.class) {
                 // 泛型格式如下： new JsonCallback<外层BaseBean<内层JavaBean>>(this)

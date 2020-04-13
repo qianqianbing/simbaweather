@@ -80,7 +80,7 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
     private DetailAdapter detailAdapter;
     private List<ViolateResDetail> mData;
     private CommonDialog commonDialog;
-    private boolean isPrepared = false;
+   private boolean isPrepared = false;
     private int index = 0;
 
     public static PlaceholderFragment newInstance(int index, CarInfo carInfo) {
@@ -109,6 +109,7 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
         root = inflater.inflate(R.layout.fragment_main, container, false);
         initView();
         initData();
+
         isPrepared = true;
         return root;
     }
@@ -165,6 +166,7 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
 
         tvErrorPlateNo.setText(carInfo.getPlateno());
 
+
         if (index == 0) {
             loadData(true, false);
         }
@@ -198,6 +200,7 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
             loadData(true, false);
         }
     }
+
 
     /**
      * @param isFirst 是否第一次加载

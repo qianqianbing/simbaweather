@@ -16,15 +16,15 @@ public class SimbaUrl {
     //环境类型
     private static String SERVER_TYPE = "debug";
 
-    //主机
-    public static String BASE_HOST="";
+    //主机 结尾不要带/
+    public static String BASE_HOST = "";
 
     /**
      * 设置服务器环境
      */
     static {
         if ("debug".equals(SERVER_TYPE)) {                    //测试环境
-            BASE_HOST = "http://192.168.12.58:8982";
+            BASE_HOST = "http://cp.simbalink.cn";
         } else if ("gray".equals(SERVER_TYPE)) {              //灰度环境
             BASE_HOST = "";
         } else {
