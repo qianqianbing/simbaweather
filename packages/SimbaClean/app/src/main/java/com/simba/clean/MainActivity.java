@@ -1,11 +1,20 @@
 package com.simba.clean;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -20,18 +29,28 @@ import java.util.ArrayList;
 public class MainActivity extends BaseActivity {
 
     private ImageView iv_loading_memory;
-    private ObjectAnimator animator;
     private PieChart mPieChart;
     private GridView gv_memory;
+    private WaveProgressView mWaveProgressView;
+    private View view_cpunting;
+    private View view_cpuchart;
+    private ImageView iv_loading_cpu;
+    private Button bt_clean;
+    private ObjectAnimator animator;
+    private ObjectAnimator animator2;
+    private View view_memcounting;
+    private View view_memchart;
+    private LinearLayout ll_memcountnum;
+    private LinearLayout ll_remainmemcount;
+    private TextView tv_remainmem;
+    private MemoryAdapter mMemoryAdapter;
 
-    public void startMemoryLoadingAnim() {
-        animator = ObjectAnimator.ofFloat(iv_loading_memory, "rotation", 0f, 360f);//旋转360度
-        animator.setInterpolator(new LinearInterpolator());
-        animator.setRepeatCount(-1);//无限循环
-        animator.setDuration(2000);//设置持续时间
-        animator.start();//动画开始
-    }
-
+    private Handler mHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message message) {
+            return false;
+        }
+    });
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -52,7 +71,30 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+
+        view_cpunting = findViewById(R.id.view_cpucounting);
+        view_cpuchart = findViewById(R.id.view_cpuchart);
+        iv_loading_cpu = findViewById(R.id.iv_loading_cpu);
+        bt_clean = findViewById(R.id.bt_clean);
+        view_memcounting = findViewById(R.id.view_memcounting);
+        view_memchart = findViewById(R.id.view_memchart);
+        mWaveProgressView = findViewById(R.id.waveProgressView);
         iv_loading_memory = findViewById(R.id.iv_loading_memory);
+
+
+        ll_memcountnum = findViewById(R.id.ll_memcountnum);
+        ll_remainmemcount = findViewById(R.id.ll_remainmemcount);
+        tv_remainmem = findViewById(R.id.tv_remainmem);
+
+        gv_memory = findViewById(R.id.gv_memory);
+        mMemoryAdapter = new MemoryAdapter();
+        gv_memory.setAdapter(mMemoryAdapter);
+
+        initPieChart();
+
+    }
+
+    public void initPieChart() {
         mPieChart = findViewById(R.id.chart);
         mPieChart.getLegend().setEnabled(false);
         mPieChart.setDrawEntryLabels(false);
@@ -60,16 +102,125 @@ public class MainActivity extends BaseActivity {
         mPieChart.getDescription().setEnabled(false);
         mPieChart.setRotationEnabled(false);
         mPieChart.setHighlightPerTapEnabled(false);
-
-        gv_memory = findViewById(R.id.gv_memory);
-        gv_memory.setAdapter(new MemoryAdapter());
-
     }
+
 
     @Override
     protected void initData() {
-        startMemoryLoadingAnim();
+        showCPUCountingView();
+        showMemView();
         setData(7, 99);
+    }
+
+
+    public void showMemView() {
+
+        view_memcounting.setVisibility(View.VISIBLE);
+        view_memchart.setVisibility(View.GONE);
+        iv_loading_memory.setVisibility(View.VISIBLE);
+        ll_memcountnum.setVisibility(View.VISIBLE);
+        ll_remainmemcount.setVisibility(View.GONE);
+
+
+        animator2 = ObjectAnimator.ofFloat(iv_loading_memory, "rotation", 0f, 360f);//旋转360度
+        animator2.setInterpolator(new LinearInterpolator());
+        animator2.setRepeatCount(3);//无限循环
+        animator2.setDuration(1000);//设置持续时间
+
+        animator2.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                view_memcounting.setVisibility(View.GONE);
+                view_memchart.setVisibility(View.VISIBLE);
+                iv_loading_memory.setVisibility(View.GONE);
+                ll_memcountnum.setVisibility(View.GONE);
+                ll_remainmemcount.setVisibility(View.VISIBLE);
+                mPieChart.animateX(1400);
+                tv_remainmem.setText("3GB");
+                mMemoryAdapter.updateData();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
+        animator2.start();//动画开始
+
+    }
+
+    public void showCPUCountingView() {
+
+        startCPULoadingAnim();
+
+        view_cpunting.setVisibility(View.VISIBLE);
+        view_cpuchart.setVisibility(View.GONE);
+        iv_loading_cpu.setVisibility(View.VISIBLE);
+        bt_clean.setBackgroundResource(R.drawable.ic_clean_unable);
+        bt_clean.setEnabled(false);
+
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                if (animator != null) animator.cancel();
+
+                view_cpunting.setVisibility(View.GONE);
+                view_cpuchart.setVisibility(View.VISIBLE);
+                iv_loading_cpu.setVisibility(View.GONE);
+
+                ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mWaveProgressView, "progress", 0f, 100f);
+                objectAnimator.setDuration(1500);
+                objectAnimator.setInterpolator(new LinearInterpolator());
+
+                objectAnimator.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+                        bt_clean.setBackgroundResource(R.drawable.selector_clean);
+                        bt_clean.setEnabled(true);
+
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animator) {
+
+                    }
+                });
+
+                objectAnimator.start();
+
+            }
+        }, 5000);
+
+    }
+
+
+    public void startCPULoadingAnim() {
+        animator = ObjectAnimator.ofFloat(iv_loading_cpu, "rotation", 0f, 360f);//旋转360度
+        animator.setInterpolator(new LinearInterpolator());
+        animator.setRepeatCount(-1);//无限循环
+        animator.setDuration(2000);//设置持续时间
+        animator.start();//动画开始
     }
 
 

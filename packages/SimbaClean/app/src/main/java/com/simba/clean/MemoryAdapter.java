@@ -1,16 +1,15 @@
 package com.simba.clean;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.drawable.GradientDrawable;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +40,7 @@ public class MemoryAdapter extends BaseAdapter {
         memoryItemVoList = new ArrayList<>();
         for(int i=0;i<6;i++){
             MemoryItemVo memoryItemVo = new MemoryItemVo();
+            memoryItemVo.memory = i+"GB";
             memoryItemVo.color = colors[i];
             memoryItemVo.name  = names[i];
             memoryItemVoList.add(memoryItemVo);
@@ -67,16 +67,36 @@ public class MemoryAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         Context context = viewGroup.getContext();
+        MemoryItemVo memoryItemVo = memoryItemVoList.get(i);
         View contentView = View.inflate(viewGroup.getContext(),R.layout.adapter_memory,null);
         ImageView ic_iconlogo =  contentView.findViewById(R.id.ic_iconlogo);
         TextView  tv_modulename =  contentView.findViewById(R.id.tv_modulename);
+        TextView  item_mem = contentView.findViewById(R.id.item_mem);
+        ProgressBar mProgress = contentView.findViewById(R.id.item_progress);
 
         GradientDrawable drawable = (GradientDrawable) ic_iconlogo.getBackground();
         drawable.setColor(context.getResources().getColor(colors[i]));
         tv_modulename.setText(names[i]);
+        Log.i("MemoryAdapter","memoryItemVo.memory:"+memoryItemVo.memory);
+        if(!TextUtils.isEmpty(memoryItemVo.memory)){
+            item_mem.setText(memoryItemVo.memory);
+            mProgress.setVisibility(View.GONE);
+        }else{
+            mProgress.setVisibility(View.VISIBLE);
+        }
+
         return contentView;
     }
 
+
+    public void updateData(){
+
+        for(MemoryItemVo mMemoryItemVo : memoryItemVoList){
+            mMemoryItemVo.memory = 1+"GB";
+        }
+        Log.i("MemoryAdapter","memoryItemVoList .size2:"+memoryItemVoList.size());
+        notifyDataSetChanged();
+    }
 
 
 

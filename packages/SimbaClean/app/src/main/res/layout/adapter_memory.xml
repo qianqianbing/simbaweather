@@ -23,22 +23,21 @@
         android:textSize="28px" />
 
     <TextView
+        android:id="@+id/item_mem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorWhite"
         android:layout_marginLeft="5px"
         android:textSize="28px"
-        android:text="2.1GB"
         />
 
     <ProgressBar
-        android:id="@+id/progress1"
+        android:id="@+id/item_progress"
         android:layout_width="24px"
         android:layout_height="24px"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="10px"
         android:indeterminateDrawable="@drawable/bg_loading_progressbar"
-        android:visibility="gone"
         />
 
 </LinearLayout>

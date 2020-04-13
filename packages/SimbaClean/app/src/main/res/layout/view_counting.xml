@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_bgcircle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/bg_countingcircle"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_circle" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="40px"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/tv_calculating"
+            android:textColor="@color/colorWhite"
+            android:textSize="26px" />
+
+        <ProgressBar
+            android:id="@+id/progress1"
+            android:layout_width="24px"
+            android:layout_height="24px"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10px"
+            android:indeterminateDrawable="@drawable/bg_loading_progressbar" />
+
+    </LinearLayout>
+</RelativeLayout>

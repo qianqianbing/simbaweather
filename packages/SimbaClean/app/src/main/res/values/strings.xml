@@ -4,8 +4,8 @@
     <string name="tv_currentspace">实时空间</string>
     <string name="tv_calculating">正在计算</string>
     <string name="tv_clean">一键加速</string>
-    <string name="tv_remainMemory">一键加速</string>
-
+    <string name="tv_remainMemory">可用容量</string>
+    <string name="tv_memcounting">正在计算类别大小</string>
 
     <string name="tv_module1">系统固件</string>
     <string name="tv_module2">应用和数据</string>
