@@ -1,5 +1,6 @@
-package com.simba.violationenquiry;
+package com.simba.violationenquiry.add;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -9,11 +10,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.simba.base.network.model.SimpleResponse;
-import com.simba.violationenquiry.base.MyBaseActivity;
+import com.simba.base.mvp.BaseMActivity;
+import com.simba.violationenquiry.R;
+import com.simba.violationenquiry.add.contract.AddCarInfoContract;
+import com.simba.violationenquiry.add.presenter.AddCarPresenter;
 import com.simba.violationenquiry.event.AddCarInfoEvent;
-import com.simba.violationenquiry.net.HttpRequest;
-import com.simba.violationenquiry.net.callback.ResultCallBack;
 import com.simba.violationenquiry.net.model.CarInfo;
 import com.simba.violationenquiry.ui.view.ProvincesKeyBoardView;
 import com.simba.violationenquiry.utils.KeyBoardListener;
@@ -24,21 +25,13 @@ import com.simba.violationenquiry.utils.VinUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
-
 
 /**
  * @Author : chenjianbo
  * @Date : 2020/4/3
  * @Desc : 新增车辆信息
  */
-public class AddNewCarActivity extends MyBaseActivity implements View.OnClickListener {
+public class AddNewCarActivity extends BaseMActivity<AddCarPresenter> implements View.OnClickListener, AddCarInfoContract.AddView {
     public final static String CAR_INFO = "CAR_INFO";
     private Button submit;
     private ImageView ivClose;
@@ -106,59 +99,22 @@ public class AddNewCarActivity extends MyBaseActivity implements View.OnClickLis
         });
     }
 
+    @Override
+    protected AddCarPresenter initPresenter() {
+        return new AddCarPresenter();
+    }
+
     /**
      * 提交
      */
     private void submit() {
         if (check()) {
-            Observable.create(new ObservableOnSubscribe<SimpleResponse>() {
-                @Override
-                public void subscribe(final ObservableEmitter<SimpleResponse> emitter) throws Exception {
-                    newCarInfo = new CarInfo("1",
-                            etEngineNo.getText().toString(), carID,
-                            tvProvinces.getText().toString() + etPlateNo.getText().toString(),
-                            etVIN.getText().toString());
-                    HttpRequest.add(new ResultCallBack<SimpleResponse>() {
-                        @Override
-                        public void onLoaded(SimpleResponse wrapper) {
-                            emitter.onNext(wrapper);
-                        }
+            newCarInfo = new CarInfo("1",
+                    etEngineNo.getText().toString(), carID,
+                    tvProvinces.getText().toString() + etPlateNo.getText().toString(),
+                    etVIN.getText().toString());
 
-                        @Override
-                        public void onDataLoadedFailure(Exception e) {
-                            emitter.onError(e);
-                        }
-                    }, mContext, newCarInfo);
-                }
-            }).subscribeOn(Schedulers.io())
-                    .doOnSubscribe(new Consumer<Disposable>() {
-                        @Override
-                        public void accept(Disposable disposable) throws Exception {
-                            mDisposable = disposable;
-                            showProgressDialog();
-                        }
-                    }).observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<SimpleResponse>() {
-                        @Override
-                        public void accept(SimpleResponse response) throws Exception {
-                            dismissProgressDialog();
-                            if (response.success) {
-                                showToast(R.string.binding_success);
-                                finish();
-                                EventBus.getDefault().post(new AddCarInfoEvent(true));
-                            } else {
-                                showToast(R.string.binding_fail);
-                            }
-                        }
-                    }, new Consumer<Throwable>() {
-                        @Override
-                        public void accept(Throwable throwable) throws Exception {
-                            dismissProgressDialog();
-                            showToast(R.string.binding_fail);
-                        }
-                    });
-
-
+            getP().onAdd(newCarInfo);
         }
     }
 
@@ -222,5 +178,31 @@ public class AddNewCarActivity extends MyBaseActivity implements View.OnClickLis
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onAddSuccess() {
+        finish();
+        EventBus.getDefault().post(new AddCarInfoEvent(true));
+    }
+
+    @Override
+    public void showLoading() {
+        super.showLoading();
+    }
+
+    @Override
+    public void dismissLoading() {
+        super.dismissLoading();
+    }
+
+    @Override
+    public void showToast(String msg) {
+        super.showToast(msg);
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 }

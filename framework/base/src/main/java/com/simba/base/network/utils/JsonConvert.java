@@ -22,6 +22,7 @@ import com.simba.base.network.model.GeneralResponse;
 import com.simba.base.network.model.SimpleResponse;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.ParameterizedType;

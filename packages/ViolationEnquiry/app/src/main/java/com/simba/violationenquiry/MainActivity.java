@@ -1,20 +1,16 @@
 package com.simba.violationenquiry;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.google.android.material.tabs.TabLayout;
 import com.simba.base.network.model.SimpleResponse;
+import com.simba.violationenquiry.add.AddNewCarActivity;
 import com.simba.violationenquiry.base.MyBaseActivity;
 import com.simba.violationenquiry.dialog.SinglePickerManager;
 import com.simba.violationenquiry.event.AddCarInfoEvent;

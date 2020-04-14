@@ -30,4 +30,8 @@ public class CacheHelper {
     public static ViolateResData getCarInfoDetail(String carID) {
         return (ViolateResData) ACache.get(MyApplication.sContext).getAsObject(carID);
     }
+
+    public static void clear() {
+        ACache.get(MyApplication.sContext).clear();
+    }
 }

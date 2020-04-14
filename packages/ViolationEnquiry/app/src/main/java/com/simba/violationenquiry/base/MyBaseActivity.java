@@ -23,7 +23,7 @@ public abstract class MyBaseActivity extends BaseActivity {
     protected Disposable mDisposable;
     //获取TAG的activity名称
     protected final String TAG = getClass().getSimpleName();
-    protected Context mContext;
+
     /**
      * 进度dialog
      */

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.simba.violationenquiry.AddNewCarActivity;
+import com.simba.violationenquiry.add.AddNewCarActivity;
 import com.simba.violationenquiry.R;
 import com.simba.violationenquiry.base.BaseLazyLoadFragment;
 import com.simba.violationenquiry.dialog.CommonDialog;

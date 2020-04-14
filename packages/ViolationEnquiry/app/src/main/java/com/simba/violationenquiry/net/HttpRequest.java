@@ -1,7 +1,6 @@
 package com.simba.violationenquiry.net;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
 import com.simba.base.network.OkGoUtil;
@@ -84,6 +83,9 @@ public class HttpRequest {
             if (violateResData != null) {//取到了直接返回
                 callBack.onLoaded(violateResData);
                 return;
+            } else {
+                callBack.onDataLoadedFailure(new Exception(""));
+                return;
             }
         }
         Type type = new TypeToken<GeneralResponse<ViolateResData>>() {
@@ -94,6 +96,10 @@ public class HttpRequest {
             GeneralResponse<ViolateResData> response = communicator.post(value, type);
             //更新缓存
             CacheHelper.saveCarInfoDetail(carInfo.getId(), response.data);
+            if (response.data == null) {
+                callBack.onDataLoadedFailure(new Exception(""));
+                return;
+            }
             callBack.onLoaded(response.data);
         } catch (Exception e) {
             e.printStackTrace();

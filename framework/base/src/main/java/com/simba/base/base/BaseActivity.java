@@ -1,5 +1,6 @@
 package com.simba.base.base;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.CallSuper;
@@ -18,6 +19,7 @@ import com.gyf.immersionbar.ImmersionBar;
  * ================================================
  */
 public abstract class BaseActivity extends AppCompatActivity {
+    protected Context mContext;
 
     //在布局之前处理
     @CallSuper
@@ -42,6 +44,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         initWindow();
         setContentView(getLayoutId());
+        mContext = this;
         ImmersionBar.with(this).init();
         initView();
         initData();
