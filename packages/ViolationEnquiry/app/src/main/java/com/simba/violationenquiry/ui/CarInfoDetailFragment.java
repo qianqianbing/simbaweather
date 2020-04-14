@@ -77,6 +77,7 @@ public class CarInfoDetailFragment extends BaseLazyLoadFragment implements View.
 
     private int index = 0;
 
+
     public static CarInfoDetailFragment newInstance(int index, CarInfo carInfo) {
         CarInfoDetailFragment fragment = new CarInfoDetailFragment();
         Bundle bundle = new Bundle();
@@ -100,6 +101,7 @@ public class CarInfoDetailFragment extends BaseLazyLoadFragment implements View.
     protected int getLayoutId() {
         return R.layout.fragment_main;
     }
+
     /**
      * 初始化界面
      */
@@ -150,7 +152,9 @@ public class CarInfoDetailFragment extends BaseLazyLoadFragment implements View.
 
     @Override
     protected void lazyLoad() {
+
         loadData(true, false);
+
     }
 
 
@@ -193,7 +197,7 @@ public class CarInfoDetailFragment extends BaseLazyLoadFragment implements View.
                     public void onDataLoadedFailure(Exception e) {
                         emitter.onError(e);
                     }
-                }, getContext(), carInfo);
+                }, getContext(), carInfo, !isFirst);
 
 
             }

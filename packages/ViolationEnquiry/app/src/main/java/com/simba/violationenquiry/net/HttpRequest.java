@@ -1,6 +1,7 @@
 package com.simba.violationenquiry.net;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
 import com.simba.base.network.OkGoUtil;
@@ -12,6 +13,7 @@ import com.simba.violationenquiry.MyApplication;
 import com.simba.violationenquiry.net.callback.ResultCallBack;
 import com.simba.violationenquiry.net.model.CarInfo;
 import com.simba.violationenquiry.net.model.detail.ViolateResData;
+import com.simba.violationenquiry.utils.CacheHelper;
 import com.simba.violationenquiry.utils.DataTest;
 
 import java.lang.reflect.Type;
@@ -59,12 +61,12 @@ public class HttpRequest {
     /**
      * 获取车辆违章详情
      *
+     * @param callBack
      * @param cxt
      * @param carInfo
-     * @return
-     * @throws Exception
+     * @param mustRefresh 是否必须刷新
      */
-    public static void getDetail(ResultCallBack<ViolateResData> callBack, Context cxt, CarInfo carInfo) {
+    public static void getDetail(ResultCallBack<ViolateResData> callBack, Context cxt, CarInfo carInfo, boolean mustRefresh) {
         if (MyApplication.isDebug) {
             try {
                 Thread.sleep(2000);
@@ -75,12 +77,23 @@ public class HttpRequest {
             }
             return;
         }
+
+        if (!mustRefresh) {//不是必须刷新 先取缓存
+
+            ViolateResData violateResData = CacheHelper.getCarInfoDetail(carInfo.getId());
+            if (violateResData != null) {//取到了直接返回
+                callBack.onLoaded(violateResData);
+                return;
+            }
+        }
         Type type = new TypeToken<GeneralResponse<ViolateResData>>() {
         }.getType();
         OkGoUtil<GeneralResponse<ViolateResData>> communicator = new OkGoUtil<>(cxt, SimbaUrl.REQUEST_CAR_DETAIL);
         String value = Convert.toJson(carInfo);
         try {
             GeneralResponse<ViolateResData> response = communicator.post(value, type);
+            //更新缓存
+            CacheHelper.saveCarInfoDetail(carInfo.getId(), response.data);
             callBack.onLoaded(response.data);
         } catch (Exception e) {
             e.printStackTrace();

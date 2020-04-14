@@ -1,12 +1,17 @@
 package com.simba.violationenquiry;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.tabs.TabLayout;
 import com.simba.base.network.model.SimpleResponse;
@@ -47,11 +52,32 @@ public class MainActivity extends MyBaseActivity {
     private RelativeLayout rlEmpty;
     private LinearLayout optionLayout;
 
+//    private static final int PERMISSIONS_REQUEST_CODE = 10;
+//    private static final String[] PERMISSIONS_REQUIRED = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+//        if (allPermissionsGranted()) {
+//
+//        } else {
+//            ActivityCompat.requestPermissions(this, PERMISSIONS_REQUIRED, PERMISSIONS_REQUEST_CODE);
+//        }
     }
+
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        if (requestCode == PERMISSIONS_REQUEST_CODE) {
+//            if (allPermissionsGranted()) {
+//
+//            } else {
+//                showToast("未授权");
+//                finish();
+//            }
+//        }
+//    }
 
     @Override
     protected int getLayoutId() {
@@ -217,4 +243,12 @@ public class MainActivity extends MyBaseActivity {
 
     }
 
+ /*   private boolean allPermissionsGranted() {
+        for (String permission : PERMISSIONS_REQUIRED) {
+            if (ContextCompat.checkSelfPermission(getBaseContext(), permission) != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
+    }*/
 }
