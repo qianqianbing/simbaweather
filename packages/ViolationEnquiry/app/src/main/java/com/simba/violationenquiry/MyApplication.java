@@ -11,7 +11,7 @@ import com.simba.base.base.BaseApplication;
  */
 public class MyApplication extends BaseApplication {
     public static Context sContext;
-    public static final boolean isDebug =true;
+    public static final boolean isDebug =false;
 
     @Override
     public void onCreate() {
