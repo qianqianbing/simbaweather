@@ -48,7 +48,7 @@ public class SinglePickerAdapter<T extends KeyValue> extends BaseAdapter {
      * @param data
      */
     public SinglePickerAdapter(List<T> data) {
-        this(data, SinglePickerManager.STYLE_NORMAL);
+        this(data, SinglePickerManager.STYLE_RIGHT);
     }
 
 

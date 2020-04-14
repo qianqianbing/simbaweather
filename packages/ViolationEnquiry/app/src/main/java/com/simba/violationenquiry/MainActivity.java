@@ -1,6 +1,7 @@
 package com.simba.violationenquiry;
 
 import android.os.Bundle;
+import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -12,7 +13,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.simba.base.network.model.SimpleResponse;
 import com.simba.violationenquiry.add.AddNewCarActivity;
 import com.simba.violationenquiry.base.MyBaseActivity;
-import com.simba.violationenquiry.dialog.SinglePickerManager;
+import com.simba.violationenquiry.dialog.MultiplePickerManager;
 import com.simba.violationenquiry.event.AddCarInfoEvent;
 import com.simba.violationenquiry.net.HttpRequest;
 import com.simba.violationenquiry.net.callback.ResultCallBack;
@@ -111,14 +112,15 @@ public class MainActivity extends MyBaseActivity {
 
     public void delete(View view) {
 
-        final SinglePickerManager singlePickerManager = new SinglePickerManager(this, mData);
-        singlePickerManager.show();
-        singlePickerManager.setOnConfirmListener(new SinglePickerManager.onConfirmClickListener() {
+        final MultiplePickerManager pickerManager = new MultiplePickerManager(this, mData);
+        pickerManager.show();
+        pickerManager.setOnConfirmListener(new MultiplePickerManager.onConfirmClickListener() {
             @Override
-            public void onClick(int checkedItemPosition) {
-                deleteCar(checkedItemPosition, singlePickerManager);
+            public void onClick(SparseBooleanArray checkedItemPositions, int count) {
+                deleteCar(checkedItemPositions, pickerManager);
             }
         });
+
 
     }
 
@@ -173,7 +175,7 @@ public class MainActivity extends MyBaseActivity {
                 });
     }
 
-    private void deleteCar(final int pos, final SinglePickerManager singlePickerManager) {
+    private void deleteCar(final SparseBooleanArray checkedItemPositions, final MultiplePickerManager singlePickerManager) {
         Observable.create(new ObservableOnSubscribe<SimpleResponse>() {
             @Override
             public void subscribe(final ObservableEmitter<SimpleResponse> emitter) throws Exception {
@@ -188,7 +190,7 @@ public class MainActivity extends MyBaseActivity {
                     public void onDataLoadedFailure(Exception e) {
                         emitter.onError(e);
                     }
-                }, mContext, mData.get(pos).getId());
+                }, mContext, checkedItemPositions, mData);
             }
         }).subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {

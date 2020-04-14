@@ -12,8 +12,8 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.simba.violationenquiry.add.AddNewCarActivity;
 import com.simba.violationenquiry.R;
+import com.simba.violationenquiry.add.AddNewCarActivity;
 import com.simba.violationenquiry.base.BaseLazyLoadFragment;
 import com.simba.violationenquiry.dialog.CommonDialog;
 import com.simba.violationenquiry.net.HttpRequest;
@@ -235,7 +235,9 @@ public class CarInfoDetailFragment extends BaseLazyLoadFragment implements View.
                             showItemError(true);
                             if (isFirst) {
                                 showLoadingView(false);//进度对话框
-                                showErrorDialog();
+                                if (!HttpRequest.IS_CACHE.equals(throwable.getMessage())) {
+                                    showErrorDialog();
+                                }
                             } else {
                                 showItemLoading(false, isError);
                             }

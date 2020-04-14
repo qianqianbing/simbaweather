@@ -2,6 +2,7 @@ package com.simba.violationenquiry.ui.adapter.viewholder;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -45,6 +46,8 @@ public class CarInfoViewViewHolder extends BaseViewHolder<ViolateResDetail> {
      */
     private TextView tvStatus;
 
+    private LinearLayout llMain;
+
     /**
      * @param parent
      * @param resId
@@ -52,6 +55,7 @@ public class CarInfoViewViewHolder extends BaseViewHolder<ViolateResDetail> {
     public CarInfoViewViewHolder(ViewGroup parent, int resId) {
         super(parent, resId);
         rlDetailEmpty = getView(R.id.rl_detail_empty);
+        llMain = getView(R.id.ll_main);
         tvScore = getView(R.id.tv_score);
         tvMoney = getView(R.id.tv_money);
         tvTime = getView(R.id.tv_time);
@@ -63,6 +67,7 @@ public class CarInfoViewViewHolder extends BaseViewHolder<ViolateResDetail> {
     @Override
     public void setData(ViolateResDetail data) {
         rlDetailEmpty.setVisibility(View.GONE);
+        llMain.setVisibility(View.VISIBLE);
         tvScore.setText(data.getViolatescore());
         tvMoney.setText(data.getViolateamount());
         tvTime.setText(data.getViolatetime());
@@ -98,5 +103,6 @@ public class CarInfoViewViewHolder extends BaseViewHolder<ViolateResDetail> {
     @Override
     public void setEmptyView() {
         rlDetailEmpty.setVisibility(View.VISIBLE);
+        llMain.setVisibility(View.GONE);
     }
 }

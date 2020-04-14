@@ -21,6 +21,26 @@ public class ViolateResData implements Serializable {
     private List<ViolateResDetail> violateResDataList;
     private String violatesum;
     private String updatetime;
+    /**
+     * 是否是从缓存中取出来
+     */
+    private boolean isCache = false;
+
+    public ViolateResData() {
+    }
+
+    public ViolateResData(boolean isCache) {
+        this.isCache = isCache;
+    }
+
+
+    public boolean isCache() {
+        return isCache;
+    }
+
+    public void setCache(boolean cache) {
+        isCache = cache;
+    }
 
     public String getAmountsum() {
         return amountsum;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@mipmap/item_bg"
@@ -13,138 +13,144 @@
         layout="@layout/item_empty"
         android:visibility="gone" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tv_score_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/icon_detail_dot"
-            android:drawablePadding="20px"
-            android:text="@string/illegal_points"
-            android:textColor="@color/white_trans_66"
-            android:textSize="@dimen/regular_text_size" />
-
-        <TextView
-            android:id="@+id/tv_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30px"
-            android:layout_toRightOf="@+id/tv_score_label"
-
-            android:textColor="@color/white"
-            android:textSize="@dimen/regular_text_size" />
-
-        <TextView
-            android:id="@+id/tv_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-
-            android:textColor="@color/yellow_fdc53e"
-            android:textSize="@dimen/regular_text_size" />
-    </RelativeLayout>
-
     <LinearLayout
+        android:id="@+id/ll_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_score_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/icon_detail_dot"
+                android:drawablePadding="20px"
+                android:text="@string/illegal_points"
+                android:textColor="@color/white_trans_66"
+                android:textSize="@dimen/regular_text_size" />
+
+            <TextView
+                android:id="@+id/tv_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:layout_toRightOf="@+id/tv_score_label"
+
+                android:textColor="@color/white"
+                android:textSize="@dimen/regular_text_size" />
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+
+                android:textColor="@color/yellow_fdc53e"
+                android:textSize="@dimen/regular_text_size" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/icon_detail_dot"
-            android:drawablePadding="20px"
-            android:text="@string/amount_of_penalty"
-            android:textColor="@color/white_trans_66"
-            android:textSize="@dimen/regular_text_size" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_money"
-            android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/icon_detail_dot"
+                android:drawablePadding="20px"
+                android:text="@string/amount_of_penalty"
+                android:textColor="@color/white_trans_66"
+                android:textSize="@dimen/regular_text_size" />
+
+            <TextView
+                android:id="@+id/tv_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:textColor="@color/white"
+                android:textSize="@dimen/regular_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30px"
-            android:textColor="@color/white"
-            android:textSize="@dimen/regular_text_size" />
+            android:orientation="horizontal">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/icon_detail_dot"
+                android:drawablePadding="20px"
+                android:text="@string/violation_time"
+                android:textColor="@color/white_trans_66"
+                android:textSize="@dimen/regular_text_size" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+
+                android:textColor="@color/white"
+                android:textSize="@dimen/regular_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/icon_detail_dot"
+                android:drawablePadding="20px"
+                android:text="@string/violation_location"
+                android:textColor="@color/white_trans_66"
+                android:textSize="@dimen/regular_text_size" />
+
+            <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+
+                android:textColor="@color/white"
+                android:textSize="@dimen/regular_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/icon_detail_dot"
+                android:drawablePadding="20px"
+                android:text="@string/violation_content"
+                android:textColor="@color/white_trans_66"
+                android:textSize="@dimen/regular_text_size" />
+
+            <TextView
+                android:id="@+id/tv_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+
+                android:textColor="@color/white"
+                android:textSize="@dimen/regular_text_size" />
+
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/icon_detail_dot"
-            android:drawablePadding="20px"
-            android:text="@string/violation_time"
-            android:textColor="@color/white_trans_66"
-            android:textSize="@dimen/regular_text_size" />
-
-        <TextView
-            android:id="@+id/tv_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30px"
-
-            android:textColor="@color/white"
-            android:textSize="@dimen/regular_text_size" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/icon_detail_dot"
-            android:drawablePadding="20px"
-            android:text="@string/violation_location"
-            android:textColor="@color/white_trans_66"
-            android:textSize="@dimen/regular_text_size" />
-
-        <TextView
-            android:id="@+id/tv_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30px"
-
-            android:textColor="@color/white"
-            android:textSize="@dimen/regular_text_size" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/icon_detail_dot"
-            android:drawablePadding="20px"
-            android:text="@string/violation_content"
-            android:textColor="@color/white_trans_66"
-            android:textSize="@dimen/regular_text_size" />
-
-        <TextView
-            android:id="@+id/tv_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30px"
-
-            android:textColor="@color/white"
-            android:textSize="@dimen/regular_text_size" />
-
-    </LinearLayout>
-
-
-</LinearLayout>
+</RelativeLayout>

@@ -1,6 +1,7 @@
 package com.simba.violationenquiry.net;
 
 import android.content.Context;
+import android.util.SparseBooleanArray;
 
 import com.google.gson.reflect.TypeToken;
 import com.simba.base.network.OkGoUtil;
@@ -15,6 +16,8 @@ import com.simba.violationenquiry.net.model.detail.ViolateResData;
 import com.simba.violationenquiry.utils.CacheHelper;
 import com.simba.violationenquiry.utils.DataTest;
 
+import org.json.JSONArray;
+
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -24,6 +27,8 @@ import java.util.List;
  * @Desc :网络请求Utils
  */
 public class HttpRequest {
+    public static final String IS_CACHE = "IS_CACHE";
+
     /**
      * 获取车辆列表
      *
@@ -80,11 +85,12 @@ public class HttpRequest {
         if (!mustRefresh) {//不是必须刷新 先取缓存
 
             ViolateResData violateResData = CacheHelper.getCarInfoDetail(carInfo.getId());
-            if (violateResData != null) {//取到了直接返回
-                callBack.onLoaded(violateResData);
-                return;
-            } else {
-                callBack.onDataLoadedFailure(new Exception(""));
+            if (violateResData != null) {
+                if (violateResData.isCache()) {//是否是请求之后的null
+                    callBack.onDataLoadedFailure(new Exception(IS_CACHE));
+                } else {
+                    callBack.onLoaded(violateResData);
+                }
                 return;
             }
         }
@@ -95,11 +101,13 @@ public class HttpRequest {
         try {
             GeneralResponse<ViolateResData> response = communicator.post(value, type);
             //更新缓存
-            CacheHelper.saveCarInfoDetail(carInfo.getId(), response.data);
-            if (response.data == null) {
+
+            if (response.data == null) {//没有查到数据，缓存一个标记位
+                CacheHelper.saveCarInfoDetail(carInfo.getId(), new ViolateResData(true));
                 callBack.onDataLoadedFailure(new Exception(""));
                 return;
             }
+            CacheHelper.saveCarInfoDetail(carInfo.getId(), response.data);
             callBack.onLoaded(response.data);
         } catch (Exception e) {
             e.printStackTrace();
@@ -129,12 +137,18 @@ public class HttpRequest {
         }
     }
 
-    public static void delete(ResultCallBack<SimpleResponse> callBack, Context cxt, String id) throws Exception {
+    public static void delete(ResultCallBack<SimpleResponse> callBack, Context cxt, SparseBooleanArray checkedItemPositions, List<CarInfo> carInfoList) throws Exception {
         Type type = new TypeToken<SimpleResponse>() {
         }.getType();
         OkGoUtil<SimpleResponse> communicator = new OkGoUtil<>(cxt, SimbaUrl.REQUEST_DELETE_CAR);
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0, j = carInfoList.size(); i < j; i++) {
+            if (checkedItemPositions.get(i)) {
+                jsonArray.put(carInfoList.get(i).getId());
+            }
+        }
         try {
-            SimpleResponse response = communicator.post(id, type);
+            SimpleResponse response = communicator.post(jsonArray.toString(), type);
             callBack.onLoaded(response);
         } catch (Exception e) {
             e.printStackTrace();
