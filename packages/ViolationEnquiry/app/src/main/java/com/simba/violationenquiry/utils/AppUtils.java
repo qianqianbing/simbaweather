@@ -1,14 +1,9 @@
 package com.simba.violationenquiry.utils;
 
-import android.app.Activity;
-import android.content.Context;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
-import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 /**
@@ -43,6 +38,11 @@ public class AppUtils {
         imageView.clearAnimation();
     }
 
-
+    public static String getUpperValue(EditText editText) {
+        if (editText == null || editText.getText() == null) {
+            return "";
+        }
+        return editText.getText().toString().trim().toUpperCase();
+    }
 
 }

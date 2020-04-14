@@ -17,6 +17,8 @@ import com.simba.violationenquiry.add.presenter.AddCarPresenter;
 import com.simba.violationenquiry.event.AddCarInfoEvent;
 import com.simba.violationenquiry.net.model.CarInfo;
 import com.simba.violationenquiry.ui.view.ProvincesKeyBoardView;
+import com.simba.violationenquiry.utils.AlphabetReplaceMethod;
+import com.simba.violationenquiry.utils.AppUtils;
 import com.simba.violationenquiry.utils.KeyBoardListener;
 import com.simba.violationenquiry.utils.KeyboardHelper;
 import com.simba.violationenquiry.utils.PopupHelper;
@@ -58,6 +60,9 @@ public class AddNewCarActivity extends BaseMActivity<AddCarPresenter> implements
         etVIN = findViewById(R.id.et_vin);
         etEngineNo = findViewById(R.id.et_engine_no);
 
+        etPlateNo.setTransformationMethod(new AlphabetReplaceMethod());
+        etVIN.setTransformationMethod(new AlphabetReplaceMethod());
+        etEngineNo.setTransformationMethod(new AlphabetReplaceMethod());
 
         provincesKeyBoardView = new ProvincesKeyBoardView(this, tvProvinces);
         tvProvinces.setOnClickListener(this);
@@ -110,9 +115,9 @@ public class AddNewCarActivity extends BaseMActivity<AddCarPresenter> implements
     private void submit() {
         if (check()) {
             newCarInfo = new CarInfo("1",
-                    etEngineNo.getText().toString(), carID,
-                    tvProvinces.getText().toString() + etPlateNo.getText().toString(),
-                    etVIN.getText().toString());
+                    AppUtils.getUpperValue(etEngineNo), carID,
+                    tvProvinces.getText().toString() + AppUtils.getUpperValue(etPlateNo),
+                    AppUtils.getUpperValue(etVIN));
 
             getP().onAdd(newCarInfo);
         }
