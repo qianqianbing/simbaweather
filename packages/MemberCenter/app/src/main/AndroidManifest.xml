@@ -23,5 +23,6 @@
         <service android:name=".MemberCenterService"/>
         <activity android:name=".view.MainActivity"/>
         <activity android:name=".view.MessageActivity"/>
+        <activity android:name=".view.VersionDetailsActivity"/>
     </application>
 </manifest>

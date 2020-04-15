@@ -25,7 +25,7 @@ public class MyApplication extends Application {
         setDatabase();
     }
 
-    public static MyApplication getmApplication(){
+    public static MyApplication getMyApplication(){
         return mApplication;
     }
     @Override

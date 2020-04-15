@@ -3,22 +3,79 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="800dp"
     android:layout_height="300dp"
-    android:background="@color/colorAccent"
+    android:background="@drawable/background_popup"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/popupwin_padding_top"
+        android:layout_marginTop="@dimen/popup_text_padding_top"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/textColorBlack"
+        android:textColor="@color/base_default_text_color"
+        android:textSize="@dimen/base_text_size_max"
         android:text="@string/deivce_activation"/>
+
     <ImageView
         android:id="@+id/iv_help"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="@dimen/popupwin_padding_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/popup_icon_padding_top"
+        android:layout_marginRight="@dimen/popup_icon_padding_right"
         android:layout_alignParentRight="true"
-        android:src="@drawable/icon_test"/>
+        android:src="@drawable/icon_help"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_line"
+        android:background="@color/base_black"
+        android:layout_marginTop="@dimen/popup_dividing_padding_right" />
+    <ImageView
+        android:id="@+id/iv_QRCode_activation"
+        android:layout_width="@dimen/QRCode_width"
+        android:layout_height="@dimen/QRCode_height"
+        android:layout_marginTop="@dimen/QRCode_margin_top"
+        android:layout_marginLeft="@dimen/QRCode_margin_left"/>
+    <TextView
+        android:layout_width="@dimen/QRCode_text_scan_width"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/base_text_size_max"
+        android:layout_marginTop="@dimen/QRCode_text_margin_top"
+        android:layout_marginLeft="@dimen/QRCode_margin_left"
+        android:textColor="@color/base_default_text_color"
+        android:lines="2"
+        android:text="@string/use_wechat_scan"/>
+
+    <TextView
+        android:layout_width="@dimen/QRCode_help_text_width"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/base_text_size_max"
+        android:layout_marginTop="@dimen/QRCode_margin_top"
+        android:layout_marginLeft="@dimen/QRCode_help_text_margin_left"
+        android:lines="2"
+        android:text="@string/device_activation_note"/>
+    <ImageView
+        android:id="@+id/iv_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/QRCode_phone_margin_top"
+        android:layout_marginLeft="@dimen/QRCode_phone_margin_left"
+        android:src="@drawable/icon_phone"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/base_text_size_max"
+        android:layout_toRightOf="@+id/iv_phone"
+        android:layout_alignTop="@+id/iv_phone"
+        android:layout_marginLeft="@dimen/QRCode_phone_text_margin_left"
+        android:text="@string/consult_phone"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/base_text_size_max"
+        android:layout_alignLeft="@+id/iv_phone"
+        android:layout_below="@+id/iv_phone"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/base_selected_text_color"
+        android:text="@string/check_activation_state"/>
 
 </RelativeLayout>

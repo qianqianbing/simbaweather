@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="800dp"
+    android:layout_height="300dp"
+    android:background="@drawable/background_popup"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/iv_QRCode_unbind"
+        android:layout_width="@dimen/QRCode_width"
+        android:layout_height="@dimen/QRCode_height"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp"/>
+    <TextView
+        android:layout_below="@id/iv_QRCode_unbind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="47dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/base_default_text_color"
+        android:textSize="@dimen/base_text_size_max"
+        android:text="@string/unbind_account"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_line"
+        android:background="@color/base_black"
+        android:layout_marginTop="@dimen/popup_dividing_padding_right" />
+    <TextView
+        android:id="@+id/tv_iknow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/base_text_size_max"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="44dp"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/base_default_text_color"
+        android:text="@string/i_know"/>
+
+</RelativeLayout>
