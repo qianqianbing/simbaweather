@@ -17,7 +17,7 @@ public class SimbaUrl {
     private static String SERVER_TYPE = "debug";
 
     //主机 结尾不要带/
-    public static String BASE_HOST = "";
+    public static String BASE_HOST;
 
     /**
      * 设置服务器环境
@@ -36,10 +36,6 @@ public class SimbaUrl {
     //********************************************* 在下面注册各模块的api地址 ******************************************
     //********************************************* 在下面注册各模块的api地址 ******************************************
 
-    /**
-     * 获取用户信息
-     */
-    public static final String GET_USER_INFO = BASE_HOST + "/record/holter-order/check-device-state";
 
     //********************************************* 违章App模块 ******************************************
     /**
@@ -54,9 +50,18 @@ public class SimbaUrl {
      * 查询车辆列表
      */
     public final static String REQUEST_CAR_LIST = BASE_HOST + "/violate/get/";
-
     /**
      * 获取违章详情
      */
     public final static String REQUEST_CAR_DETAIL = BASE_HOST + "/violate/getViolate";
+
+    //********************************************* 日历App模块 ******************************************
+    /**
+     * 查询某天黄历信息
+     */
+    public final static String CALENDAR_GET_ALMANAC_BY_DATE = BASE_HOST + "/almanac/getOneAlmanacByDate";
+    /**
+     * 根据年份查询法定节假日
+     */
+    public final static String CALENDAR_GET_HOLIDAY_BY_YEAR = BASE_HOST + "/almanac/getHolidayByYear";
 }

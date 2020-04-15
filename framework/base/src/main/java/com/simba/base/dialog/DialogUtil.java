@@ -56,6 +56,7 @@ public class DialogUtil extends Dialog implements View.OnClickListener {
 
     Context context;
     TextView tv_title;
+    View title_divider;
     TextView tv_content;
     TextView tv_negative;
     TextView tv_positive;
@@ -89,6 +90,7 @@ public class DialogUtil extends Dialog implements View.OnClickListener {
         this.context = context;
         setContentView(R.layout.base_dialog);
         tv_title = ((TextView) findViewById(R.id.tv_title));
+        title_divider = ((View) findViewById(R.id.title_divider));
         progressBar = ((ProgressBar) findViewById(R.id.progress));
         tv_content = ((TextView) findViewById(R.id.tv_content));
         append_layout = ((LinearLayout) findViewById(R.id.content_layout));
@@ -126,12 +128,14 @@ public class DialogUtil extends Dialog implements View.OnClickListener {
     public DialogUtil title(String titleName) {
         tv_title.setText(titleName);
         tv_title.setVisibility(View.VISIBLE);
+        title_divider.setVisibility(View.VISIBLE);
         return this;
     }
 
     public DialogUtil title(int titleNameId) {
         tv_title.setText(titleNameId);
         tv_title.setVisibility(View.VISIBLE);
+        title_divider.setVisibility(View.VISIBLE);
         return this;
     }
 

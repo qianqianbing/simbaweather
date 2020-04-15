@@ -8,6 +8,7 @@
     <color name="base_black">#000000</color>
     <color name="base_day_common_line">#d9d9d9</color>
     <color name="base_simbacolor">#49BDCC</color>
+    <color name="base_dialog_bg">#1C1D23</color>
 
     <color name="base_default_text_color">#FFFFFF</color>
     <color name="base_selected_text_color">#6CF8FC</color>

@@ -35,6 +35,6 @@
     <dimen name="base_text_size_super">40sp</dimen>
 
 
-    <dimen name="base_dialog_radius">8dp</dimen>
+    <dimen name="base_dialog_radius">10dp</dimen>
 
 </resources>

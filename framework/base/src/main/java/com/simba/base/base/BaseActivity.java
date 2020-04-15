@@ -2,6 +2,7 @@ package com.simba.base.base;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.Nullable;
@@ -24,6 +25,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     //在布局之前处理
     @CallSuper
     public void initWindow() {
+        //禁止黑屏
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     //返回布局id  R.layout.main
