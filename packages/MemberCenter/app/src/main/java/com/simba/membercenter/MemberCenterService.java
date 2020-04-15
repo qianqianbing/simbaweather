@@ -36,7 +36,7 @@ public class MemberCenterService extends Service implements IDeviceActivationVie
         Log.e(TAG, "onCreate");
         HttpRequest.getIntance().registerDeviceActivationViews(this);
         initMessageReceiver();
-        messageBeanDao = MyApplication.getmApplication().getDaoSession().getMessageBeanDao();
+        messageBeanDao = MyApplication.getMyApplication().getDaoSession().getMessageBeanDao();
         super.onCreate();
     }
 
@@ -67,7 +67,7 @@ public class MemberCenterService extends Service implements IDeviceActivationVie
 
     private void showActivationDialog() {
         final GlobalPopupWindow deviceActivationPopupWindow = new DeviceActivationPopupWindow();
-        deviceActivationPopupWindow.showPopupWindow(MyApplication.getmApplication().getApplicationContext());
+        deviceActivationPopupWindow.showPopupWindow(MyApplication.getMyApplication().getApplicationContext());
     }
 
     private void initMessageReceiver(){
@@ -78,7 +78,7 @@ public class MemberCenterService extends Service implements IDeviceActivationVie
     }
 
     //测试代码，生成消息的逻辑
-    Long messageTime = 1L;
+    Long messageTime = 100L;
     class MessageReceiver extends BroadcastReceiver{
         @Override
         public void onReceive(Context context, Intent intent) {

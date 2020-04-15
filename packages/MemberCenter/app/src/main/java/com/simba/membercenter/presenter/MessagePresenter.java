@@ -2,7 +2,10 @@ package com.simba.membercenter.presenter;
 
 import com.greendao.gen.MessageBeanDao;
 import com.simba.membercenter.MyApplication;
+import com.simba.membercenter.accountDB.MessageBean;
 import com.simba.membercenter.view.IMessageView;
+
+import java.util.List;
 
 public class MessagePresenter {
     IMessageView mMessageView;
@@ -17,7 +20,7 @@ public class MessagePresenter {
     }
 
     private MessagePresenter() {
-        mMessageBeanDao = MyApplication.getmApplication().getDaoSession().getMessageBeanDao();
+        mMessageBeanDao = MyApplication.getMyApplication().getDaoSession().getMessageBeanDao();
     }
 
     public void registerMessageView(IMessageView messageView){
@@ -29,6 +32,17 @@ public class MessagePresenter {
     }
 
     public void getMessageList(){
+        if(mMessageView != null ){
+            mMessageView.onLoadAllMessage(mMessageBeanDao.loadAll());
+        }
+    }
+
+    public void deleteMessage(List<MessageBean> messageBeanList){
+        for(MessageBean messageBean : messageBeanList){
+            if(messageBean.isSelected()){
+                mMessageBeanDao.delete(messageBean);
+            }
+        }
         if(mMessageView != null ){
             mMessageView.onLoadAllMessage(mMessageBeanDao.loadAll());
         }

@@ -20,7 +20,7 @@ public class HttpRequest {
     public void getDeviceActivationState(){
         if(mDeviceActivationViews != null ){
             for(IDeviceActivationView deviceActivationView : mDeviceActivationViews){
-                deviceActivationView.onDeviceActivation();
+                deviceActivationView.onDeviceNotActivation();
             }
         }
     }

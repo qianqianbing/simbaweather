@@ -1,20 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="800dp"
-    android:layout_height="300dp"
-    android:background="@color/colorAccent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_popup"
     android:orientation="vertical">
-
-    <Button
-        android:id="@+id/bt_close"
+    <ImageView
+        android:id="@+id/iv_QR_help"
+        android:layout_width="@dimen/QRCode_width"
+        android:layout_height="@dimen/QRCode_height"
+        android:layout_marginTop="@dimen/QRCode_help_margin_top"
+        android:layout_centerHorizontal="true"/>
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/popupwin_padding_top"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/textColorBlack"
+        android:layout_below="@+id/iv_QR_help"
+        android:layout_marginTop="@dimen/QRCode_more_help_text_margin_top"
+        android:textSize="@dimen/base_text_size_medium"
+        android:textColor="@color/base_default_text_color"
+        android:text="@string/more_help"/>
+    <TextView
+        android:id="@+id/tv_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/iv_QR_help"
+        android:layout_marginTop="@dimen/QRCode_close_text_margin_top"
+        android:textSize="@dimen/base_text_size_medium"
+        android:textColor="@color/base_default_text_color"
         android:text="@string/close"/>
-
-
 </RelativeLayout>

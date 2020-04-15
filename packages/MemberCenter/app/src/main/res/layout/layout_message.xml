@@ -3,45 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="800dp"
     android:layout_height="300dp"
-    android:background="@color/colorAccent"
     android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/tv_message_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/popupwin_padding_top"
+    <com.simba.membercenter.view.MessageLayoutView
+        android:id="@+id/ml_message0"
+        android:layout_width="820dp"
+        android:layout_height="215dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:textSize="@dimen/base_text_size_max"
-        android:textColor="@color/textColorBlack"/>
-
-    <TextView
-        android:id="@+id/tv_message_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/popupwin_padding_top"
+        android:visibility="gone"
+        />
+    <com.simba.membercenter.view.MessageLayoutView
+        android:id="@+id/ml_message1"
+        android:layout_width="820dp"
+        android:layout_height="215dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:textSize="@dimen/base_text_size_max"
-        android:textColor="@color/textColorBlack"/>
-    <TextView
-        android:id="@+id/tv_message_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/popupwin_padding_top"
+        android:visibility="gone"
+        />
+    <com.simba.membercenter.view.MessageLayoutView
+        android:id="@+id/ml_message2"
+        android:layout_width="820dp"
+        android:layout_height="215dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:textSize="@dimen/base_text_size_max"
-        android:textColor="@color/textColorBlack"/>
-    <TextView
-        android:id="@+id/tv_message_4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/popupwin_padding_top"
+        android:visibility="gone"
+        />
+    <com.simba.membercenter.view.MessageLayoutView
+        android:id="@+id/ml_message3"
+        android:layout_width="820dp"
+        android:layout_height="215dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:textSize="@dimen/base_text_size_max"
-        android:textColor="@color/textColorBlack"/>
+        android:visibility="gone"
+        />
 
 </RelativeLayout>

@@ -28,7 +28,7 @@ public class MessageBean {
     private String messageDescription ;
 
     @Transient
-    private int tempUsageCount; // not persisted
+    private boolean isSelected; // not persisted
     
     @Keep
     public MessageBean( Long time, String messageTitle,
@@ -79,5 +79,13 @@ public class MessageBean {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 }

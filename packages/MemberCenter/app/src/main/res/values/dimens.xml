@@ -1,7 +1,42 @@
 <resources>
 
+    <dimen name="popup_text_padding_top">48dp</dimen>
+    <dimen name="popup_icon_padding_top">35dp</dimen>
+    <dimen name="popup_icon_padding_right">70dp</dimen>
 
+    <dimen name="popup_dividing_padding_right">120dp</dimen>
+    <dimen name="height_line">1dp</dimen>
+
+    <dimen name="QRCode_width">184dp</dimen>
+    <dimen name="QRCode_height">184dp</dimen>
+
+    <dimen name="QRCode_margin_top">160dp</dimen>
+    <dimen name="QRCode_margin_left">80dp</dimen>
+
+    <dimen name="QRCode_text_margin_top">394dp</dimen>
+    <dimen name="QRCode_text_scan_width">184dp</dimen>
+
+    <dimen name="QRCode_help_text_width">800dp</dimen>
+    <dimen name="QRCode_help_text_margin_left">346dp</dimen>
+
+    <dimen name="QRCode_phone_margin_top">283dp</dimen>
+    <dimen name="QRCode_phone_margin_left">349dp</dimen>
+
+    <dimen name="QRCode_phone_text_margin_left">15dp</dimen>
+
+    <dimen name="QRCode_help_margin_top">80dp</dimen>
 
     <dimen name="popupwin_padding_top">20dp</dimen>
 
+    <dimen name="QRCode_more_help_text_margin_top">47dp</dimen>
+
+    <dimen name="QRCode_close_text_margin_top">149dp</dimen>
+
+    <dimen name="login_cancel_margin_top">34dp</dimen>
+    <dimen name="login_cancel_margin_left">51dp</dimen>
+
+    <dimen name="backbtn_margin_left">44dp</dimen>
+    <dimen name="backbtn_margin_top">30dp</dimen>
+    <dimen name="text_margin_left_backbtn">22dp</dimen>
+    <dimen name="text_margin_top">10dp</dimen>
 </resources>
