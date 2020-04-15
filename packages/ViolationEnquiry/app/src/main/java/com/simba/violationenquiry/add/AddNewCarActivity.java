@@ -64,7 +64,7 @@ public class AddNewCarActivity extends BaseMActivity<AddCarPresenter> implements
         etVIN.setTransformationMethod(new AlphabetReplaceMethod());
         etEngineNo.setTransformationMethod(new AlphabetReplaceMethod());
 
-        provincesKeyBoardView = new ProvincesKeyBoardView(this, tvProvinces);
+
         tvProvinces.setOnClickListener(this);
         submit.setOnClickListener(this);
         ivClose.setOnClickListener(this);
@@ -102,6 +102,7 @@ public class AddNewCarActivity extends BaseMActivity<AddCarPresenter> implements
             public void keyBoardHide(int height) {
             }
         });
+        provincesKeyBoardView = new ProvincesKeyBoardView(this, tvProvinces);
     }
 
     @Override

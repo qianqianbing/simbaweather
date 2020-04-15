@@ -18,11 +18,12 @@ package com.simba.base.network.utils;
 import com.google.gson.stream.JsonReader;
 import com.lzy.okgo.convert.Converter;
 import com.simba.base.network.OkGoUtil;
+import com.simba.base.network.exception.ExceptionHelper;
+import com.simba.base.network.exception.ServerException;
 import com.simba.base.network.model.GeneralResponse;
 import com.simba.base.network.model.SimpleResponse;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.ParameterizedType;
@@ -52,13 +53,10 @@ public class JsonConvert<T> implements Converter<T> {
         this.clazz = clazz;
     }
 
-    /**
-     * 该方法是子线程处理，不能做ui相关的工作
-     * 主要作用是解析网络返回的 response 对象，生成onSuccess回调中需要的数据对象
-     * 这里的解析工作不同的业务逻辑基本都不一样,所以需要自己实现,以下给出的时模板代码,实际使用根据需要修改
-     */
+
     @Override
     public T convertResponse(Response response) throws Throwable {
+
 
         if (type == null) {
             if (clazz == null) {
@@ -80,62 +78,37 @@ public class JsonConvert<T> implements Converter<T> {
     }
 
     private T parseClass(Response response, Class<?> rawType) throws Exception {
-        if (rawType == null) {
-            return null;
-        }
+        if (rawType == null) return null;
         ResponseBody body = response.body();
-        if (body == null) {
-            return null;
-        }
+        if (body == null) return null;
         JsonReader jsonReader = new JsonReader(body.charStream());
-        if (response.code() == 200) {
-            if (rawType == String.class) {
-                return (T) body.string();
-            } else if (rawType == JSONObject.class) {
-                return (T) new JSONObject(body.string());
-            } else if (rawType == JSONArray.class) {
-                return (T) new JSONArray(body.string());
-            } else {
-                T t = Convert.fromJson(jsonReader, rawType);
-                response.close();
-                return t;
-            }
+
+        if (rawType == String.class) {
+            //noinspection unchecked
+            return (T) body.string();
+        } else if (rawType == JSONObject.class) {
+            //noinspection unchecked
+            return (T) new JSONObject(body.string());
+        } else if (rawType == JSONArray.class) {
+            //noinspection unchecked
+            return (T) new JSONArray(body.string());
         } else {
-            throw new IllegalStateException("数据异常");
-//            try {
-//                JSONObject jsonObject = new JSONObject(body.string());
-//            //    throw new IllegalStateException(ResourceUtils.getString(R.string.error_code) + jsonObject.optString("error_code") + "\n" + ResourceUtils.getString(R.string.error_msg) + jsonObject.optString("error_message"));
-//            } catch (JSONException e) {
-//              //  throw new IllegalStateException(ResourceUtils.getString(R.string.error_msg) + body.string());
-//            }
+            T t = Convert.fromJson(jsonReader, rawType);
+            response.close();
+            return t;
         }
     }
 
     private T parseType(Response response, Type type) throws Exception {
-        if (type == null) {
-            return null;
-        }
+        if (type == null) return null;
         ResponseBody body = response.body();
-        if (body == null) {
-            return null;
-        }
+        if (body == null) return null;
         JsonReader jsonReader = new JsonReader(body.charStream());
 
         // 泛型格式如下： new JsonCallback<任意JavaBean>(this)
-        if (response.code() == 200) {
-            T t = Convert.fromJson(jsonReader, type);
-            response.close();
-            return t;
-        } else {
-            //   {"error_code":10001, "error_message": "xxxxx"}
-            throw new IllegalStateException("数据异常");
-//            try {
-//                JSONObject jsonObject = new JSONObject(body.string());
-//                throw new IllegalStateException(ResourceUtils.getString(R.string.error_code) + jsonObject.optString("error_code") + "\n" + ResourceUtils.getString(R.string.error_msg) + jsonObject.optString("error_message"));
-//            } catch (JSONException e) {
-//                throw new IllegalStateException(ResourceUtils.getString(R.string.error_msg) + body.string());
-//            }
-        }
+        T t = Convert.fromJson(jsonReader, type);
+        response.close();
+        return t;
     }
 
     private T parseParameterizedType(Response response, ParameterizedType type) throws Exception {
@@ -146,36 +119,31 @@ public class JsonConvert<T> implements Converter<T> {
 
         Type rawType = type.getRawType();                     // 泛型的实际类型
         Type typeArgument = type.getActualTypeArguments()[0]; // 泛型的参数
-
-        if (response.code() == OkGoUtil.SUCCESS_CODE) {
-
-            if (rawType != GeneralResponse.class) {
-                // 泛型格式如下： new JsonCallback<外层BaseBean<内层JavaBean>>(this)
-                T t = Convert.fromJson(jsonReader, type);
+        if (rawType != GeneralResponse.class) {
+            // 泛型格式如下： new JsonCallback<外层BaseBean<内层JavaBean>>(this)
+            T t = Convert.fromJson(jsonReader, type);
+            response.close();
+            return t;
+        } else {
+            if (typeArgument == Void.class) {
+                // 泛型格式如下： new JsonCallback<LzyResponse<Void>>(this)
+                SimpleResponse simpleResponse = Convert.fromJson(jsonReader, SimpleResponse.class);
                 response.close();
-                return t;
+                //noinspection unchecked
+                return (T) simpleResponse.toGeneralResponse();
             } else {
-                if (typeArgument == Void.class) {
-                    // 泛型格式如下： new JsonCallback<LzyResponse<Void>>(this)
-                    SimpleResponse simpleResponse = Convert.fromJson(jsonReader, SimpleResponse.class);
-                    response.close();
+                // 泛型格式如下： new JsonCallback<LzyResponse<内层JavaBean>>(this)
+                GeneralResponse generalResponse = Convert.fromJson(jsonReader, type);
+                response.close();
+                int code = generalResponse.code;
+                //返回成功
+                if (code == OkGoUtil.SUCCESS_CODE) {
                     //noinspection unchecked
-                    return (T) simpleResponse.toGeneralResponse();
+                    return (T) generalResponse;
                 } else {
-                    // 泛型格式如下： new JsonCallback<LzyResponse<内层JavaBean>>(this)
-                    GeneralResponse lzyResponse = Convert.fromJson(jsonReader, type);
-                    response.close();
-                    return (T) lzyResponse;
+                    throw ExceptionHelper.handleException(new ServerException(code, generalResponse.message));
                 }
             }
-        } else {
-            throw new IllegalStateException("数据异常");
-//            try {
-//                JSONObject jsonObject = new JSONObject(body.string());
-//                throw new IllegalStateException(ResourceUtils.getString(R.string.error_code) + jsonObject.optString("error_code") + "\n" + ResourceUtils.getString(R.string.error_msg) + jsonObject.optString("error_message"));
-//            } catch (JSONException e) {
-//                throw new IllegalStateException(ResourceUtils.getString(R.string.error_msg) + body.string());
-//            }
         }
     }
 }

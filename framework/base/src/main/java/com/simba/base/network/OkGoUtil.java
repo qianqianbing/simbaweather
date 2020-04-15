@@ -12,6 +12,7 @@ import com.lzy.okgo.cookie.store.SPCookieStore;
 import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.Response;
+import com.simba.base.network.exception.ExceptionHelper;
 import com.simba.base.network.utils.JsonConvert;
 
 import org.json.JSONArray;
@@ -76,7 +77,7 @@ public class OkGoUtil<T> {
         if (response.isSuccessful()) {
             return response.body();
         }
-        throw new IllegalStateException(response.getException());
+        throw ExceptionHelper.handleException(response.getException());
     }
 
     /**
@@ -94,7 +95,7 @@ public class OkGoUtil<T> {
         if (response.isSuccessful()) {
             return response.body();
         }
-        throw new IllegalStateException(response.getException());
+        throw ExceptionHelper.handleException(response.getException());
     }
 
     /**
@@ -112,7 +113,7 @@ public class OkGoUtil<T> {
         if (response.isSuccessful()) {
             return response.body();
         }
-        throw new IllegalStateException(response.getException());
+        throw ExceptionHelper.handleException(response.getException());
     }
 
     public T post(Type type, RequestBody body) throws Exception {
@@ -126,7 +127,7 @@ public class OkGoUtil<T> {
         if (response.isSuccessful()) {
             return response.body();
         }
-        throw new IllegalStateException(response.getException());
+        throw ExceptionHelper.handleException(response.getException());
     }
 
 
@@ -141,7 +142,7 @@ public class OkGoUtil<T> {
         if (response.isSuccessful()) {
             return response.body();
         }
-        throw new IllegalStateException(response.getException());
+        throw ExceptionHelper.handleException(response.getException());
     }
 
     public T post(String json, Type type) throws Exception {
@@ -155,7 +156,7 @@ public class OkGoUtil<T> {
         if (response.isSuccessful()) {
             return response.body();
         }
-        throw new IllegalStateException(response.getException());
+        throw ExceptionHelper.handleException(response.getException());
     }
 
     public T post(String json) throws Exception {
@@ -169,7 +170,7 @@ public class OkGoUtil<T> {
         if (response.isSuccessful()) {
             return response.body();
         }
-        throw new IllegalStateException(response.getException());
+        throw ExceptionHelper.handleException(response.getException());
     }
 
     public T post(HashMap<String, String> params, Type type) throws Exception {
@@ -183,7 +184,7 @@ public class OkGoUtil<T> {
         if (response.isSuccessful()) {
             return response.body();
         }
-        throw new IllegalStateException(response.getException());
+        throw ExceptionHelper.handleException(response.getException());
     }
 
     public T post(JSONObject json, HashMap<String, String> params, Type type) throws Exception {
@@ -199,7 +200,7 @@ public class OkGoUtil<T> {
         if (response.isSuccessful()) {
             return response.body();
         }
-        throw new IllegalStateException(response.getException());
+        throw ExceptionHelper.handleException(response.getException());
     }
 
 
@@ -218,7 +219,7 @@ public class OkGoUtil<T> {
         if (response.isSuccessful()) {
             return response;
         }
-        throw new IllegalStateException(response.getException());
+        throw ExceptionHelper.handleException(response.getException());
     }
 
     /**
@@ -236,7 +237,7 @@ public class OkGoUtil<T> {
         if (response.isSuccessful()) {
             return response;
         }
-        throw new IllegalStateException(response.getException());
+        throw ExceptionHelper.handleException(response.getException());
     }
 
     public static <T> void get(String url, Object tag, Map<String, String> map, JsonCallback<T> callback) {

@@ -1,6 +1,7 @@
 package com.simba.violationenquiry.ui.view;
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
@@ -10,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.simba.base.utils.Tuple;
 import com.simba.violationenquiry.R;
 import com.simba.violationenquiry.ui.itemdecoration.SpaceItemDecoration;
 import com.simba.violationenquiry.ui.view.adapter.ProvicesAdapter;
@@ -26,7 +28,7 @@ import java.util.List;
 public class ProvincesKeyBoardView extends LinearLayout {
     private RecyclerView recyclerView;
     private TextView tvKey;
-    private final List<String> mData;
+    private List<String> mData;
     private String provinceStr = "京沪津渝鲁冀晋蒙辽吉黑苏浙皖闽赣豫湘鄂粤桂琼川贵云藏陕甘青宁新港澳台";
     private Activity activity;
     private ProvicesAdapter adapter;
@@ -45,8 +47,9 @@ public class ProvincesKeyBoardView extends LinearLayout {
         recyclerView = findViewById(R.id.recyclerView);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(activity, 12);
         recyclerView.setLayoutManager(gridLayoutManager);
-        mData = mkEntitiesOf(provinceStr);
-        adapter = new ProvicesAdapter(mData, onItemClickListener);
+        Tuple<List<String>, Integer> tuple = mkEntitiesOf(provinceStr);
+        mData = tuple._1;
+        adapter = new ProvicesAdapter(mData, onItemClickListener, tuple._2);
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new SpaceItemDecoration(activity, 30));
 
@@ -66,12 +69,20 @@ public class ProvincesKeyBoardView extends LinearLayout {
         super.onLayout(changed, l, t, r, b);
     }
 
-    public static List<String> mkEntitiesOf(String keysStr) {
+    private Tuple<List<String>, Integer> mkEntitiesOf(String keysStr) {
         List<String> mList = new ArrayList<>();
+        String sP = tvKey.getText().toString();
+        int pos = -1;
+        boolean flag = !TextUtils.isEmpty(sP);
         for (int i = 0; i < keysStr.length(); i++) {
             String keyChar = String.valueOf(keysStr.charAt(i));
+            if (flag && sP.equals(keyChar)) {
+                pos = i;
+            }
+
             mList.add(keyChar);
         }
-        return mList;
+
+        return new Tuple<>(mList, pos);
     }
 }

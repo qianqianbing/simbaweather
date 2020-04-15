@@ -40,6 +40,12 @@ public class ProvicesAdapter extends RecyclerView.Adapter<KeyViewViewHolder> {
         this.onItemClickListener = onItemClickListener;
     }
 
+    public ProvicesAdapter(List<String> mData, OnItemClickListener onItemClickListener, int checkPos) {
+        this.mData = mData;
+        this.onItemClickListener = onItemClickListener;
+        this.checkPos = checkPos;
+    }
+
     @NonNull
     @Override
     public KeyViewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -69,4 +75,11 @@ public class ProvicesAdapter extends RecyclerView.Adapter<KeyViewViewHolder> {
         void onItemClick(int position);
     }
 
+    public int getCheckPos() {
+        return checkPos;
+    }
+
+    public void setCheckPos(int checkPos) {
+        this.checkPos = checkPos;
+    }
 }
