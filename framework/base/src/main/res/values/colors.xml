@@ -10,6 +10,7 @@
     <color name="base_simbacolor">#49BDCC</color>
 
     <color name="base_default_text_color">#FFFFFF</color>
+    <color name="base_selected_text_color">#6CF8FC</color>
     <color name="base_error_color">#D50000</color>
     <color name="base_info_color">#3F51B5</color>
     <color name="base_success_color">#388E3C</color>

@@ -33,5 +33,7 @@ public class AccountManager {
         return "1234566778";
     }
 
-
+    public static boolean isRealNameAuthentication(){
+        return false;
+    }
 }
