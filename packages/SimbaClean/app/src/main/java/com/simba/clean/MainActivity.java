@@ -25,7 +25,9 @@ import com.simba.base.base.BaseActivity;
 
 import java.util.ArrayList;
 
+
 public class MainActivity extends BaseActivity {
+
 
     private ImageView iv_loading_memory;
     private PieChart mPieChart;
@@ -182,7 +184,7 @@ public class MainActivity extends BaseActivity {
         animator2 = ObjectAnimator.ofFloat(iv_loading_memory, "rotation", 0f, 360f);//旋转360度
         animator2.setInterpolator(new LinearInterpolator());
         animator2.setRepeatCount(3);//无限循环
-        animator2.setDuration(1000);//设置持续时间
+        animator2.setDuration(1500);//设置持续时间
 
         animator2.addListener(new Animator.AnimatorListener() {
             @Override

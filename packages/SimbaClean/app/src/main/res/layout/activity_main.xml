@@ -184,7 +184,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="26px"
                 android:textColor="@color/colorWhite"
-                android:text="@string/tv_memcounting"
+                android:text="@string/tv_remainMemory"
                 />
 
             <TextView
