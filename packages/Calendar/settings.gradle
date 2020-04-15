@@ -1,5 +1,5 @@
 rootProject.name='Calendar'
-include ':app',':calendarview'
+include ':app',':calendarview',':pickerview'
 
 include ':base'
 project (':base').projectDir = new File('../../framework/base')

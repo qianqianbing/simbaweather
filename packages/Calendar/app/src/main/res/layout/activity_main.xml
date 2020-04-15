@@ -1,9 +1,256 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/base_bg_app"
+    android:padding="32dp"
     tools:context=".MainActivity">
 
-</android.support.constraint.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginBottom="5dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.093"
+        app:srcCompat="@drawable/ic_main_left_bg" />
+
+    <TextView
+        android:id="@+id/tv_main_left_today"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="40dp"
+        android:text="TextView"
+        android:textColor="@color/base_white"
+        android:textSize="160sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        tools:text="23" />
+
+    <TextView
+        android:id="@+id/tv_main_left_year_month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="40dp"
+        android:text="TextView"
+        android:textColor="@color/base_white"
+        android:textSize="38sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/tv_main_left_today"
+        app:layout_constraintTop_toTopOf="@+id/tv_main_left_today"
+        tools:text="2020年3月" />
+
+    <TextView
+        android:id="@+id/tv_main_week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="@color/base_white"
+        android:textSize="38sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_main_left_today"
+        app:layout_constraintStart_toStartOf="@+id/tv_main_left_year_month"
+        app:layout_constraintTop_toTopOf="@+id/tv_main_left_year_month"
+        tools:text="周一" />
+
+    <TextView
+        android:id="@+id/tv_main_lunar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:text="TextView"
+        android:textColor="@color/base_white"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_main_trunk_and_branch"
+        app:layout_constraintStart_toEndOf="@+id/tv_main_trunk_and_branch"
+        app:layout_constraintTop_toTopOf="@+id/tv_main_trunk_and_branch"
+        tools:text="农历二月三十" />
+
+    <TextView
+        android:id="@+id/tv_main_trunk_and_branch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="TextView"
+        android:textColor="@color/base_white"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tv_main_left_today"
+        app:layout_constraintTop_toBottomOf="@+id/tv_main_left_today"
+        tools:text="庚子年（鼠年）" />
+
+    <TextView
+        android:id="@+id/tv_main_should"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:text="TextView"
+        android:textColor="@color/base_white"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        tools:text="祭祀 开光 嫁娶 解除 纳财 入宅" />
+
+    <TextView
+        android:id="@+id/tv_main_a_word_a_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="每日一言"
+        android:textColor="@color/base_white"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tv_main_a_word_a_day_str"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        tools:text="每日一言" />
+
+    <TextView
+        android:id="@+id/tv_main_a_word_a_day_str"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:text="人，第一要有志，第二要有识，第三要有恒，有志则断不甘为下流。"
+        android:textColor="@color/base_white"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/tv_main_should"
+        app:layout_constraintStart_toStartOf="@+id/tv_main_a_word_a_day"
+        tools:text="人，第一要有志，第二要有识，第三要有恒，有志则断不甘为下流。" />
+
+
+    <TextView
+        android:id="@+id/tv_main_right_year_month"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_main_btn_bg"
+        android:drawableRight="@drawable/ic_main_down_arrow"
+        android:drawablePadding="8dp"
+        android:gravity="center"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:text="TextView"
+        android:textColor="@color/base_white"
+        android:textSize="28sp"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        tools:text="2020年3月" />
+
+    <TextView
+        android:id="@+id/tv_main_year_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginLeft="70dp"
+        android:background="@drawable/ic_main_btn_bg"
+        android:gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="年视图"
+        android:textColor="@color/base_white"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_main_right_year_month"
+        app:layout_constraintStart_toEndOf="@+id/tv_main_right_year_month"
+        app:layout_constraintTop_toTopOf="@+id/tv_main_right_year_month"
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="年视图" />
+
+    <com.haibin.calendarview.CalendarView
+        android:id="@+id/cv_main_calendar_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        app:calendar_match_parent="true"
+        app:current_day_lunar_text_color="#4D8289"
+        app:current_day_text_color="#79F8FD"
+        app:current_month_lunar_text_color="#7E838C"
+        app:current_month_text_color="#fff"
+        app:day_text_size="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/iv_main_setting"
+        app:layout_constraintStart_toStartOf="@+id/tv_main_right_year_month"
+        app:layout_constraintTop_toBottomOf="@+id/tv_main_right_year_month"
+        app:lunar_text_size="18sp"
+        app:max_year="2099"
+        app:min_year="1900"
+        app:month_view="com.simba.calendar.view.CustomMonthView"
+        app:month_view_show_mode="mode_only_current"
+        app:other_month_lunar_text_color="#e1e1e1"
+        app:other_month_text_color="#e1e1e1"
+        app:selected_lunar_text_color="#7E838C"
+        app:selected_text_color="#fff"
+        app:week_background="#0000"
+        app:week_start_with="sun"
+        app:week_text_color="#7E838C"
+        app:week_text_size="24sp"
+        app:week_view="com.simba.calendar.view.CustomWeekView"
+        app:year_view="com.simba.calendar.view.CustomYearView"
+        app:year_view_background="#0000"
+        app:year_view_month_text_color="#fff"
+        app:year_view_month_text_size="52sp" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="宜"
+        android:textColor="@color/base_white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tv_main_trunk_and_branch"
+        app:layout_constraintTop_toBottomOf="@+id/tv_main_trunk_and_branch" />
+
+    <ImageView
+        android:id="@+id/iv_main_today"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="60dp"
+        android:layout_marginRight="60dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_main_year_view"
+        app:layout_constraintEnd_toStartOf="@+id/iv_main_setting"
+        app:layout_constraintTop_toTopOf="@+id/tv_main_year_view"
+        app:srcCompat="@drawable/selector_main_today_bg" />
+
+    <ImageView
+        android:id="@+id/iv_main_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_main_today"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_main_today"
+        app:srcCompat="@drawable/ic_main_setting" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

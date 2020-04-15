@@ -1,0 +1,45 @@
+apply plugin: 'com.android.library'
+apply from: '../../../config.gradle'
+
+android {
+    compileSdkVersion android.compileSdkVersion
+    buildToolsVersion android.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion android.minSdkVersion
+        //noinspection OldTargetApi
+        targetSdkVersion android.targetSdkVersion
+        versionCode 367
+        versionName "3.6.7"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled android.minifyEnabled
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    android {
+        lintOptions {
+            abortOnError false
+        }
+    }
+//    task intoJar(type: Copy) {
+//        delete 'build/libs/CalendarView.jar'
+//        from('build/intermediates/bundles/release/')
+//        into('build/libs/')
+//        include('classes.jar')
+//        rename ('classes.jar', 'CalendarView.jar')
+//    }
+//    intoJar.dependsOn(build)
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "androidx.recyclerview:recyclerview:${dependVersion.recyclerview}"
+    implementation "androidx.appcompat:appcompat:${dependVersion.appcompat}"
+    implementation "androidx.constraintlayout:constraintlayout:${dependVersion.constraintlayout}"
+
+    testImplementation "junit:junit:${dependVersion.junit}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${dependVersion.espresso_core}"
+}

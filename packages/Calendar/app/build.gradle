@@ -26,11 +26,15 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "androidx.appcompat:appcompat:${dependVersion.appcompat}"
-    implementation "androidx.constraintlayout:constraintlayout:${dependVersion.constraintlayout}"
+    implementation project(path: ':base')
+    implementation project(path: ':calendarview')
+    implementation project(path: ':pickerview')
     testImplementation "junit:junit:${dependVersion.junit}"
     androidTestImplementation "androidx.test.espresso:espresso-core:${dependVersion.espresso_core}"
-    implementation "com.squareup.okhttp3:okhttp:${dependVersion.okhttp3}"
-    implementation "com.squareup.retrofit2:retrofit:${dependVersion.retrofit2}"
 
+    implementation "androidx.appcompat:appcompat:${dependVersion.appcompat}"
+    implementation "androidx.constraintlayout:constraintlayout:${dependVersion.constraintlayout}"
+    implementation "com.squareup.okhttp3:okhttp:${dependVersion.okhttp3}"
+    implementation "com.lzy.net:okgo:${dependVersion.okgo}"
+    implementation "com.google.code.gson:gson:${dependVersion.gson}"
 }

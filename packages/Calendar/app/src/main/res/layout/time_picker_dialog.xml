@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/intro_margin_10"
+    android:layout_marginTop="@dimen/intro_margin_50"
+    android:layout_marginRight="@dimen/intro_margin_10"
+    android:layout_marginBottom="@dimen/intro_margin_50"
+    android:background="@drawable/base_dialog_wait_bg"
+    android:gravity="center"
+    android:minWidth="200dp"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="日期选择"
+        android:textColor="@color/base_white"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <View
+        android:id="@+id/divider_line1"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="#303238"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+
+    <!--此部分需要完整复制过去，删减或者更改ID会导致初始化找不到内容而报空-->
+    <LinearLayout
+        android:id="@+id/timepicker"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:minHeight="150dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/divider_line2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_line1">
+
+        <com.contrarywind.view.WheelView
+            android:id="@+id/year"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <com.contrarywind.view.WheelView
+            android:id="@+id/month"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <com.contrarywind.view.WheelView
+            android:id="@+id/day"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <com.contrarywind.view.WheelView
+            android:id="@+id/hour"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+
+        <com.contrarywind.view.WheelView
+            android:id="@+id/min"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+
+        <com.contrarywind.view.WheelView
+            android:id="@+id/second"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/divider_line2"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="#303238"
+        app:layout_constraintBottom_toTopOf="@+id/tv_positive"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <TextView
+        android:id="@+id/tv_negative"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="20dp"
+        android:textColor="#FF7C7D84"
+        android:textSize="34sp"
+        android:text="取消"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/divider_line3"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/divider_line3"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="#303238"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_negative"
+        app:layout_constraintEnd_toEndOf="@+id/tv_positive"
+        app:layout_constraintStart_toStartOf="@+id/tv_negative"
+        app:layout_constraintTop_toTopOf="@+id/tv_negative" />
+
+
+    <TextView
+        android:id="@+id/tv_positive"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="20dp"
+        android:textColor="@color/base_white"
+        android:textSize="34sp"
+        android:text="确定"
+        app:layout_constraintBottom_toBottomOf="@+id/divider_line3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/divider_line3"
+        app:layout_constraintTop_toTopOf="@+id/divider_line3" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

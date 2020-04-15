@@ -26,7 +26,8 @@ ext {
             retrofit2    : "2.4.0",
 		    gson		: "2.8.6",
 		    immersionbar		: "3.0.0",
-            mpandroidchart   : "v3.1.0"   
+            mpandroidchart   : "v3.1.0",  
+			annotation   : "1.1.0"   
     ]
 
 }
