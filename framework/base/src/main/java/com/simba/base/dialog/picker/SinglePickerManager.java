@@ -1,4 +1,4 @@
-package com.simba.violationenquiry.dialog;
+package com.simba.base.dialog.picker;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -10,7 +10,11 @@ import android.view.WindowManager;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.simba.violationenquiry.R;
+import androidx.annotation.StringRes;
+
+import com.simba.base.R;
+import com.simba.base.dialog.adapter.SinglePickerAdapter;
+import com.simba.base.dialog.model.KeyValue;
 
 import java.util.List;
 
@@ -143,7 +147,23 @@ public class SinglePickerManager {
 
     }
 
-    public void setTitle(int text) {
+    public void setConfirmText(@StringRes int text) {
+        mTvConfirm.setText(text);
+    }
+
+    public void setConfirmText(String text) {
+        mTvConfirm.setText(text);
+    }
+
+    public void setCancelText(@StringRes int text) {
+        mTvCancel.setText(text);
+    }
+
+    public void setCancelText(String text) {
+        mTvCancel.setText(text);
+    }
+
+    public void setTitle(@StringRes int text) {
         mTvTitle.setText(text);
     }
 

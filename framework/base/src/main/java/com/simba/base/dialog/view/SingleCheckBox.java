@@ -1,4 +1,4 @@
-package com.simba.violationenquiry.ui.view;
+package com.simba.base.dialog.view;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -6,8 +6,8 @@ import android.util.AttributeSet;
 
 import androidx.appcompat.widget.AppCompatCheckBox;
 
-import com.simba.violationenquiry.R;
-import com.simba.violationenquiry.utils.ResourceUtils;
+import com.simba.base.R;
+import com.simba.base.utils.ResourceUtils;
 
 /**
  * @Author : chenjianbo
@@ -29,8 +29,8 @@ public class SingleCheckBox extends AppCompatCheckBox {
         //设置drawable 的位置属性     left top 代表drawable的位置（坐标）  距离左边和上方的距离
         //right  bottom 相当于宽和高
 
-        int widthDimen = ResourceUtils.getDimen(R.dimen.dialog_margin);
-        int heightDimen = ResourceUtils.getDimen(R.dimen.dialog_margin);
+        int widthDimen = ResourceUtils.getDimen(R.dimen.base_dialog_margin);
+        int heightDimen = ResourceUtils.getDimen(R.dimen.base_dialog_margin);
 
         drawable.setBounds(0, 0, widthDimen, heightDimen);
         if (isRight) {

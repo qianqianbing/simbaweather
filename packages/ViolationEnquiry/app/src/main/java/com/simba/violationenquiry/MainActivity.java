@@ -10,10 +10,10 @@ import android.widget.RelativeLayout;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.tabs.TabLayout;
+import com.simba.base.dialog.picker.MultiplePickerManager;
 import com.simba.base.network.model.SimpleResponse;
 import com.simba.violationenquiry.add.AddNewCarActivity;
 import com.simba.violationenquiry.base.MyBaseActivity;
-import com.simba.violationenquiry.dialog.MultiplePickerManager;
 import com.simba.violationenquiry.event.AddCarInfoEvent;
 import com.simba.violationenquiry.net.HttpRequest;
 import com.simba.violationenquiry.net.callback.ResultCallBack;
@@ -114,6 +114,7 @@ public class MainActivity extends MyBaseActivity {
 
         final MultiplePickerManager pickerManager = new MultiplePickerManager(this, mData);
         pickerManager.show();
+        pickerManager.setTitle(R.string.vehicle_management);
         pickerManager.setOnConfirmListener(new MultiplePickerManager.onConfirmClickListener() {
             @Override
             public void onClick(SparseBooleanArray checkedItemPositions, int count) {

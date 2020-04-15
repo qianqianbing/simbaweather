@@ -1,6 +1,7 @@
 package com.simba.violationenquiry.net.model;
 
-import com.simba.violationenquiry.dialog.KeyValue;
+
+import com.simba.base.dialog.model.KeyValue;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.simba.violationenquiry.dialog;
+package com.simba.base.dialog.model;
 
 /**
  * @Author : chenjianbo

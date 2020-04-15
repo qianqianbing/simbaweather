@@ -10,13 +10,11 @@ import com.simba.base.base.BaseApplication;
  * @Desc :
  */
 public class MyApplication extends BaseApplication {
-    public static Context sContext;
     public static final boolean isDebug = false;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        sContext = this;
     }
 
 }

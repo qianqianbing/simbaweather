@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.simba.base.utils.ResourceUtils;
 import com.simba.violationenquiry.R;
 import com.simba.violationenquiry.add.AddNewCarActivity;
 import com.simba.violationenquiry.base.BaseLazyLoadFragment;
@@ -24,7 +25,6 @@ import com.simba.violationenquiry.net.model.detail.ViolateResDetail;
 import com.simba.violationenquiry.ui.adapter.DetailAdapter;
 import com.simba.violationenquiry.ui.itemdecoration.CommonDecoration;
 import com.simba.violationenquiry.utils.AppUtils;
-import com.simba.violationenquiry.utils.ResourceUtils;
 
 import java.util.List;
 

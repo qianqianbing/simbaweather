@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.simba.violationenquiry.ui.view.CheckableRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.simba.base.dialog.view.CheckableRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:layout_height="wrap_content">
 
-    <com.simba.violationenquiry.ui.view.SingleCheckBox
+    <com.simba.base.dialog.view.SingleCheckBox
         android:id="@+id/cb_single"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15px"
         android:layout_marginTop="15px"
         android:layout_marginBottom="15px"
-        android:background="@color/transparent"
+        android:background="@android:color/transparent"
         android:button="@null"
         android:drawableLeft="@drawable/cb_dialog_bg"
         android:drawablePadding="15px"
         android:duplicateParentState="true"
+        android:textColor="@color/base_white"
+        android:textSize="@dimen/base_text_size_max" />
 
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size" />
-
-</com.simba.violationenquiry.ui.view.CheckableRelativeLayout>
+</com.simba.base.dialog.view.CheckableRelativeLayout>

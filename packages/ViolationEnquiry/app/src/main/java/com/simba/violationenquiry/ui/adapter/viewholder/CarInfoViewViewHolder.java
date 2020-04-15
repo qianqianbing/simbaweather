@@ -6,10 +6,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.simba.base.utils.ResourceUtils;
 import com.simba.violationenquiry.R;
 import com.simba.violationenquiry.base.BaseViewHolder;
 import com.simba.violationenquiry.net.model.detail.ViolateResDetail;
-import com.simba.violationenquiry.utils.ResourceUtils;
 
 /**
  * @Author : chenjianbo

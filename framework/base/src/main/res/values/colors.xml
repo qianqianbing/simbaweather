@@ -17,5 +17,10 @@
     <color name="base_success_color">#388E3C</color>
     <color name="base_warning_color">#FFA900</color>
     <color name="base_normal_color">#353A3E</color>
-
+    <color name="base_dialog_bg_start">#171920</color>
+    <color name="base_dialog_bg_end">#D91D1F27</color>
+    <color name="base_grey_trans_1a">#1AEEEEEE</color>
+    <color name="base_grey_trans_00">#00EEEEEE</color>
+    <color name="base_grey_eeeeee">#EEEEEE</color>
+    <color name="base_white_trans_4d">#4DFFFFFF</color>
 </resources>

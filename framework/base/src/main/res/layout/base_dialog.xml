@@ -6,9 +6,9 @@
     android:layout_marginTop="@dimen/intro_margin_50"
     android:layout_marginRight="@dimen/intro_margin_10"
     android:layout_marginBottom="@dimen/intro_margin_50"
-    android:background="@drawable/base_dialog_wait_bg"
+    android:background="@mipmap/dialog_loading_bg"
     android:gravity="center"
-    android:minWidth="200dp"
+
     android:orientation="vertical">
 
 
@@ -54,7 +54,7 @@
                     style="@style/base_progressBarStyleLarge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/intro_margin_20"
+
                     android:visibility="gone" />
 
                 <TextView

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.simba.base.mvp.BaseMActivity;
+import com.simba.base.utils.ResourceUtils;
 import com.simba.violationenquiry.R;
 import com.simba.violationenquiry.add.contract.AddCarInfoContract;
 import com.simba.violationenquiry.add.presenter.AddCarPresenter;
@@ -22,7 +23,6 @@ import com.simba.violationenquiry.utils.AppUtils;
 import com.simba.violationenquiry.utils.KeyBoardListener;
 import com.simba.violationenquiry.utils.KeyboardHelper;
 import com.simba.violationenquiry.utils.PopupHelper;
-import com.simba.violationenquiry.utils.ResourceUtils;
 import com.simba.violationenquiry.utils.VinUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -68,6 +68,7 @@ public class AddNewCarActivity extends BaseMActivity<AddCarPresenter> implements
         tvProvinces.setOnClickListener(this);
         submit.setOnClickListener(this);
         ivClose.setOnClickListener(this);
+
     }
 
     @Override

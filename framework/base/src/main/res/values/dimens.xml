@@ -37,4 +37,6 @@
 
     <dimen name="base_dialog_radius">10dp</dimen>
 
+    <dimen name="base_text_size_dialog">36sp</dimen>
+    <dimen name="base_dialog_margin">50px</dimen>
 </resources>

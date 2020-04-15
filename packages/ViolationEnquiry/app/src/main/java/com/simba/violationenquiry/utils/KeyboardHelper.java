@@ -27,6 +27,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.simba.base.dialog.DensityUtil;
+import com.simba.base.utils.ResourceUtils;
 
 /**
  * @Author : chenjianbo

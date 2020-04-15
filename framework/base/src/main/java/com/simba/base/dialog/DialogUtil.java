@@ -85,8 +85,9 @@ public class DialogUtil extends Dialog implements View.OnClickListener {
         void onClick(DialogUtil dialogUtil, DialogAction dialogAction);
     }
 
-    private DialogUtil(Context context) {
-        super(context, R.style.base_BaseDialog);
+    private DialogUtil(Context context, int style) {
+
+        super(context, style);
         this.context = context;
         setContentView(R.layout.base_dialog);
         tv_title = ((TextView) findViewById(R.id.tv_title));
@@ -103,6 +104,11 @@ public class DialogUtil extends Dialog implements View.OnClickListener {
         tv_negative.setOnClickListener(this);
         tv_positive.setOnClickListener(this);
         setCanceledOnTouchOutside(true);
+
+    }
+
+    private DialogUtil(Context context) {
+        this(context, R.style.base_BaseDialog);
     }
 
     //普通信息弹框
@@ -119,7 +125,8 @@ public class DialogUtil extends Dialog implements View.OnClickListener {
     public static DialogUtil buildProgress(Context context, String content) {
         DialogUtil dialogUtil = new DialogUtil(context);
         dialogUtil.progress(0);
-        dialogUtil.content(content);
+
+       // dialogUtil.content(content);
         dialogUtil.setCanceledOnTouchOutside(false);
 //        ecgDialog.disableKeyBack();
         return dialogUtil;

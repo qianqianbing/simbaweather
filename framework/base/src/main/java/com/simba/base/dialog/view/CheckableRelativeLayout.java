@@ -1,4 +1,4 @@
-package com.simba.violationenquiry.ui.view;
+package com.simba.base.dialog.view;
 
 import android.content.Context;
 import android.util.AttributeSet;

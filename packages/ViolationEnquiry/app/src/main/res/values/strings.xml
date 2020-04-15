@@ -35,4 +35,5 @@
     <string name="input_car_info">请输入您的车辆信息</string>
     <string name="binding_success">绑定成功</string>
     <string name="binding_fail">绑定失败，请重试</string>
+    <string name="delete">删除</string>
 </resources>

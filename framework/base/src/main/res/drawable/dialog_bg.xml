@@ -4,7 +4,7 @@
     <!--left to right-->
     <gradient
         android:angle="90"
-        android:endColor="@color/dialog_bg_start"
-        android:startColor="@color/dialog_bg_end" />
+        android:endColor="@color/base_dialog_bg_start"
+        android:startColor="@color/base_dialog_bg_end" />
     <corners android:radius="20px" />
 </shape>

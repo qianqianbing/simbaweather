@@ -1,6 +1,7 @@
 package com.simba.base.base;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.simba.base.network.OkGoUtil;
 
@@ -15,9 +16,12 @@ import com.simba.base.network.OkGoUtil;
  */
 public class BaseApplication extends Application {
 
+    public static Context sContext;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        sContext = this;
         OkGoUtil.init(this, true);
     }
 }

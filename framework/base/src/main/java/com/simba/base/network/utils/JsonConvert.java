@@ -18,7 +18,6 @@ package com.simba.base.network.utils;
 import com.google.gson.stream.JsonReader;
 import com.lzy.okgo.convert.Converter;
 import com.simba.base.network.OkGoUtil;
-import com.simba.base.network.exception.ExceptionHelper;
 import com.simba.base.network.exception.ServerException;
 import com.simba.base.network.model.GeneralResponse;
 import com.simba.base.network.model.SimpleResponse;
@@ -141,7 +140,7 @@ public class JsonConvert<T> implements Converter<T> {
                     //noinspection unchecked
                     return (T) generalResponse;
                 } else {
-                    throw ExceptionHelper.handleException(new ServerException(code, generalResponse.message));
+                    throw new ServerException(code, generalResponse.message);
                 }
             }
         }

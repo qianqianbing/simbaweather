@@ -17,9 +17,9 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/vehicle_management"
-            android:textColor="@color/white"
-            android:textSize="@dimen/mid_text_size" />
+
+            android:textColor="@color/base_white"
+            android:textSize="@dimen/base_text_size_dialog" />
     </LinearLayout>
 
     <View
@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_below="@+id/ll_title"
-        android:background="@color/grey_trans_1a" />
+        android:background="@color/base_grey_trans_1a" />
 
     <ListView
         android:id="@+id/lv_single"
@@ -48,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_above="@+id/ll_option"
-        android:background="@color/grey_trans_1a" />
+        android:background="@color/base_grey_trans_1a" />
 
     <LinearLayout
         android:id="@+id/ll_option"
@@ -64,15 +64,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/cancel"
-            android:textColor="@color/white_trans_4d"
-            android:textSize="@dimen/text_size" />
+            android:text="@string/base_cancel"
+            android:textColor="@color/base_white_trans_4d"
+            android:textSize="@dimen/base_text_size_max" />
 
         <View
             android:id="@+id/line"
             android:layout_width="1px"
             android:layout_height="match_parent"
-            android:background="@color/grey_trans_1a" />
+            android:background="@color/base_grey_trans_1a" />
 
         <TextView
             android:id="@+id/tv_yes"
@@ -80,9 +80,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="删除"
-            android:textColor="@color/white_trans_4d"
-            android:textSize="@dimen/text_size" />
+            android:text="@string/base_delete"
+            android:textColor="@color/base_white_trans_4d"
+            android:textSize="@dimen/base_text_size_max" />
 
     </LinearLayout>
 </RelativeLayout>
