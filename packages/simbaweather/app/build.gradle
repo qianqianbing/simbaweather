@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
-
+apply from: '../../../config.gradle'
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion android.compileSdkVersion
+    buildToolsVersion android.buildToolsVersion
 
     defaultConfig {
         applicationId "com.simba.simbaweather"
-        minSdkVersion 16
-        targetSdkVersion 29
+        minSdkVersion android.minSdkVersion
+        targetSdkVersion android.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
@@ -20,15 +20,32 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+    implementation project(path: ':base')
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+
+    implementation "com.lzy.net:okgo:${dependVersion.okgo}"
+    implementation "com.google.code.gson:gson:${dependVersion.gson}"
+    implementation "com.lzy.net:okgo:${dependVersion.okgo}"
+    implementation "com.google.code.gson:gson:${dependVersion.gson}"
+    implementation "com.gyf.immersionbar:immersionbar:${dependVersion.immersionbar}"//沉浸状态栏
+    //butterkniffe
+    implementation 'com.jakewharton:butterknife:10.0.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
+    //recyclerview快速适配器
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    //recyclerview
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 }
