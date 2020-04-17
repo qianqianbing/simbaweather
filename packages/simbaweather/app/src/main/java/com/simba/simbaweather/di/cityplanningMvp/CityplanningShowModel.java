@@ -5,6 +5,7 @@ import android.util.Log;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 import com.simba.base.network.JsonCallback;
+import com.simba.base.network.SimbaUrl;
 import com.simba.simbaweather.data.bean.CityplanningBean;
 import com.simba.simbaweather.data.bean.SearchBean;
 
@@ -24,7 +25,7 @@ public class CityplanningShowModel implements CityplanningContract.ICityplanning
     @Override
     public void RequestCityplanningData(CityplanningShowBack cityplanningShowBack) {
 
-        OkGo.<List<CityplanningBean.DataBean>>post("http://cp.simbalink.cn/backend/weather/recommendCityList")
+        OkGo.<List<CityplanningBean.DataBean>>post(SimbaUrl.WEATHER_GET_WEATHER_RECOMMENDCITYLIST)
                 .tag(this)
                 .execute(new JsonCallback<List<CityplanningBean.DataBean>>() {
                     @Override
@@ -45,7 +46,7 @@ public class CityplanningShowModel implements CityplanningContract.ICityplanning
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        OkGo.<List<SearchBean.DataBean>>post("http://cp.simbalink.cn/backend/weather/matchingCity")
+        OkGo.<List<SearchBean.DataBean>>post(SimbaUrl.WEATHER_GET_WEATHER_MATCHINGCITY)
                 .upJson(jsonObject)
                 .execute(new JsonCallback<List<SearchBean.DataBean>>() {
                     @Override
