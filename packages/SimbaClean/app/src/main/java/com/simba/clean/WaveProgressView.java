@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
@@ -82,6 +83,9 @@ public class WaveProgressView extends View {
         pathPaint.setColor(progressColor);
         pathPaint.setDither(true);
         pathPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+
+        bitmap = Bitmap.createBitmap(350, 350, Bitmap.Config.ARGB_8888);
+        bitmapCanvas = new Canvas(bitmap);
     }
 
     @Override
@@ -108,15 +112,18 @@ public class WaveProgressView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (bitmap == null) {
-            bitmap = Bitmap.createBitmap(this.width, this.height, Bitmap.Config.ARGB_8888);
-            bitmapCanvas = new Canvas(bitmap);
-        }
+
+
+        bitmap.eraseColor(Color.parseColor("#00000000"));
+
+
         bitmapCanvas.save();
         //移动坐标系
         bitmapCanvas.translate(minPadding, minPadding);
 
         bitmapCanvas.drawCircle(radius, radius, radius, circlePaint);
+
+
 
 
         //绘制PATH
