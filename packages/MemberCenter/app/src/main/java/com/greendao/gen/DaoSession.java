@@ -8,9 +8,9 @@ import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.identityscope.IdentityScopeType;
 import org.greenrobot.greendao.internal.DaoConfig;
 
-import com.simba.membercenter.accountDB.AccountBean;
-import com.simba.membercenter.accountDB.DeviceStateBean;
-import com.simba.membercenter.accountDB.MessageBean;
+import com.simba.membercenter.DB.AccountBean;
+import com.simba.membercenter.DB.DeviceStateBean;
+import com.simba.membercenter.DB.MessageBean;
 
 import com.greendao.gen.AccountBeanDao;
 import com.greendao.gen.DeviceStateBeanDao;

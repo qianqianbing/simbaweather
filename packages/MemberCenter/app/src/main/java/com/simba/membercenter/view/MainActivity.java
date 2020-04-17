@@ -1,6 +1,5 @@
 package com.simba.membercenter.view;
 
-import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -18,8 +17,8 @@ import com.greendao.gen.DeviceStateBeanDao;
 import com.simba.base.DeviceAccountManager.DeviceAccountManager;
 import com.simba.membercenter.MyApplication;
 import com.simba.membercenter.R;
-import com.simba.membercenter.accountDB.AccountBean;
-import com.simba.membercenter.accountDB.DeviceStateBean;
+import com.simba.membercenter.DB.AccountBean;
+import com.simba.membercenter.DB.DeviceStateBean;
 import com.simba.membercenter.presenter.LocalAccountManager;
 import com.simba.membercenter.ui.popupwindow.RealNameAuthenticationPopupWindow;
 import com.simba.membercenter.ui.popupwindow.SwitchAccountPopupWindow;

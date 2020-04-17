@@ -4,8 +4,8 @@ import com.greendao.gen.AccountBeanDao;
 import com.greendao.gen.DeviceStateBeanDao;
 import com.simba.base.DeviceAccountManager.DeviceAccountManager;
 import com.simba.membercenter.MyApplication;
-import com.simba.membercenter.accountDB.AccountBean;
-import com.simba.membercenter.accountDB.DeviceStateBean;
+import com.simba.membercenter.DB.AccountBean;
+import com.simba.membercenter.DB.DeviceStateBean;
 import com.simba.membercenter.view.IDeviceActivationView;
 import com.simba.membercenter.view.ILoginView;
 

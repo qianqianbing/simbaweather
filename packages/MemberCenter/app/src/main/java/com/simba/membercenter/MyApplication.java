@@ -32,10 +32,6 @@ public class MyApplication extends Application {
     public static MyApplication getMyApplication(){
         return mApplication;
     }
-    @Override
-    public Context getApplicationContext() {
-        return super.getApplicationContext();
-    }
 
     /**
      * 设置greenDAO

@@ -1,6 +1,6 @@
 package com.simba.membercenter.view;
 
-import com.simba.membercenter.accountDB.MessageBean;
+import com.simba.membercenter.DB.MessageBean;
 
 import java.util.List;
 

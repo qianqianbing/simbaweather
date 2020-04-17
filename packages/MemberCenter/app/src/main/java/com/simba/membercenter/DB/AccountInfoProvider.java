@@ -1,4 +1,4 @@
-package com.simba.membercenter.accountDB;
+package com.simba.membercenter.DB;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;

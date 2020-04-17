@@ -1,8 +1,6 @@
 package com.simba.membercenter.view;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,11 +19,10 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 
-import com.simba.base.base.BaseActivity;
 import com.simba.base.dialog.DialogUtil;
 import com.simba.membercenter.MyApplication;
 import com.simba.membercenter.R;
-import com.simba.membercenter.accountDB.MessageBean;
+import com.simba.membercenter.DB.MessageBean;
 import com.simba.membercenter.presenter.MessagePresenter;
 
 import java.util.ArrayList;
@@ -37,7 +34,7 @@ public class MessageActivity extends Activity implements  IMessageView, View.OnC
     private ViewPager vp_message;
     private RelativeLayout rl_back, rl_nomessage;
     private TextView tv_back_title;
-    private MessagePagerAdapter messagePagerAdapter = new MessagePagerAdapter();
+    private MessagePagerAdapter messagePagerAdapter ;
     private LinearLayout ll_viewGroup;
     private ImageView[] imageViews;
     private Button bt_select_all,bt_delete,bt_edit;
@@ -70,10 +67,12 @@ public class MessageActivity extends Activity implements  IMessageView, View.OnC
         tv_back_title.setText(R.string.message);
 
         ll_viewGroup = findViewById(R.id.ll_viewGroup);
+        messagePagerAdapter = new MessagePagerAdapter();
 
         MessagePresenter.getInstance().registerMessageView(this);
         MessagePresenter.getInstance().getMessageList();
         vp_message.setAdapter(messagePagerAdapter );
+
         vp_message.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
@@ -93,6 +92,7 @@ public class MessageActivity extends Activity implements  IMessageView, View.OnC
             @Override
             public void onPageScrollStateChanged(int state) { }
         });
+
         super.onCreate(savedInstanceState);
     }
 
@@ -107,11 +107,20 @@ public class MessageActivity extends Activity implements  IMessageView, View.OnC
         if(messageBeanList == null || messageBeanList.size() == 0){
             vp_message.setVisibility(View.GONE);
             rl_nomessage.setVisibility(View.VISIBLE);
+            bt_edit.setVisibility(View.GONE);
             return;
         }
+
+        bt_edit.setVisibility(View.VISIBLE);
         vp_message.setVisibility(View.VISIBLE);
         rl_nomessage.setVisibility(View.GONE);
+
         Log.e(TAG, "messageBeanList size " + messageBeanList.size());
+        if(messageBeanList.size() <= 4){
+            ll_viewGroup.setVisibility(View.GONE);
+        }else {
+            ll_viewGroup.setVisibility(View.VISIBLE);
+        }
         messagePagerAdapter.setMessageBeanList(messageBeanList);
         messagePagerAdapter.notifyDataSetChanged();
         initPointer();
@@ -124,7 +133,7 @@ public class MessageActivity extends Activity implements  IMessageView, View.OnC
                 finish();
                 break;
             case R.id.bt_select_all:
-                if(bt_select_all.getText().toString().equals("全选")){
+                if(bt_select_all.getText().toString().equals(getResources().getString(R.string.select_all))){
                     for(MessageBean messageBean : messageBeanList){
                         messageBean.setSelected(true);
                     }
@@ -135,7 +144,6 @@ public class MessageActivity extends Activity implements  IMessageView, View.OnC
                     }
                     bt_select_all.setText(R.string.select_all);
                 }
-
                 messagePagerAdapter.initViewList();
                 messagePagerAdapter.notifyDataSetChanged();
                 break;
@@ -151,37 +159,50 @@ public class MessageActivity extends Activity implements  IMessageView, View.OnC
             case R.id.bt_edit:
                 if(editState){
                     editState = false;
-                    rl_back.setVisibility(View.VISIBLE);
-                    bt_select_all.setVisibility(View.GONE);
-                    bt_delete.setVisibility(View.GONE);
-                    bt_edit.setText(R.string.edit);
                 }else {
                     editState = true;
-                    rl_back.setVisibility(View.GONE);
-                    bt_select_all.setVisibility(View.VISIBLE);
-                    bt_delete.setVisibility(View.VISIBLE);
-                    bt_edit.setText(R.string.cancel);
                 }
+                updateEditState(editState);
                 break;
         }
     }
 
+    private void updateEditState(boolean isEdit){
+        if(isEdit){
+            rl_back.setVisibility(View.GONE);
+            bt_select_all.setVisibility(View.VISIBLE);
+            bt_delete.setVisibility(View.VISIBLE);
+            bt_edit.setText(R.string.cancel);
+        }else {
+            rl_back.setVisibility(View.VISIBLE);
+            bt_select_all.setVisibility(View.GONE);
+            bt_delete.setVisibility(View.GONE);
+            bt_edit.setText(R.string.edit);
+        }
+        messagePagerAdapter.initViewList();
+        messagePagerAdapter.notifyDataSetChanged();
+    }
+
     private void showDeleteDialog(int number){
-
-
-         DialogUtil.build(this)
+        DialogUtil.build(this)
                 .content("是否确认删除"+ number +"条消息")
                 .positiveText("确定")
                 .negativeText("取消").onPositive(new DialogUtil.SingleButtonCallback() {
-                          @Override
-                          public void onClick(DialogUtil dialogUtil, DialogUtil.DialogAction dialogAction) {
-
-                         }
+                      @Override
+                      public void onClick(DialogUtil dialogUtil, DialogUtil.DialogAction dialogAction) {
+                            List<MessageBean> deleteMessageBeans = new ArrayList<>();
+                            for(MessageBean messageBean : messageBeanList){
+                                if(messageBean.isSelected()){
+                                    deleteMessageBeans.add(messageBean);
+                                }
+                            }
+                            MessagePresenter.getInstance().deleteMessage(deleteMessageBeans);
+                     }
                  })
                 .show();
     }
 
-    class MessagePagerAdapter extends PagerAdapter implements View.OnClickListener{
+    class MessagePagerAdapter extends PagerAdapter {
         private List<View> mViewList;
 
         public void setMessageBeanList(List<MessageBean> messageBeans) {
@@ -200,31 +221,31 @@ public class MessageActivity extends Activity implements  IMessageView, View.OnC
                 MessageLayoutView ml_message2 = view.findViewById(R.id.ml_message2);
                 MessageLayoutView ml_message3 = view.findViewById(R.id.ml_message3);
                 if( i < messageBeanList.size() / 4){
-                    ml_message0.setMessageInfo(messageBeanList.get( i*4 ));
+                    ml_message0.setMessageInfo(messageBeanList.get( i*4 ), editState);
                     ml_message0.setVisibility(View.VISIBLE);
 
-                    ml_message1.setMessageInfo(messageBeanList.get( i*4 + 1));
+                    ml_message1.setMessageInfo(messageBeanList.get( i*4 + 1), editState);
                     ml_message1.setVisibility(View.VISIBLE);
 
-                    ml_message2.setMessageInfo(messageBeanList.get( i*4 + 2));
+                    ml_message2.setMessageInfo(messageBeanList.get( i*4 + 2), editState);
                     ml_message2.setVisibility(View.VISIBLE);
 
-                    ml_message3.setMessageInfo(messageBeanList.get( i*4 + 3));
+                    ml_message3.setMessageInfo(messageBeanList.get( i*4 + 3), editState);
                     ml_message3.setVisibility(View.VISIBLE);
 
                 }else {
-                    ml_message0.setMessageInfo(messageBeanList.get( i*4 ));
+                    ml_message0.setMessageInfo(messageBeanList.get( i*4 ), editState);
                     ml_message0.setVisibility(View.VISIBLE);
                     if(messageBeanList.size() % 4 > 1){
-                        ml_message1.setMessageInfo(messageBeanList.get( i*4 + 1));
+                        ml_message1.setMessageInfo(messageBeanList.get( i*4 + 1),  editState);
                         ml_message1.setVisibility(View.VISIBLE);
                     }
                     if(messageBeanList.size() % 4 > 2){
-                        ml_message2.setMessageInfo(messageBeanList.get( i*4 + 2));
+                        ml_message2.setMessageInfo(messageBeanList.get( i*4 + 2), editState);
                         ml_message2.setVisibility(View.VISIBLE);
                     }
                     if(messageBeanList.size() % 4 > 3){
-                        ml_message3.setMessageInfo(messageBeanList.get( i*4 + 3));
+                        ml_message3.setMessageInfo(messageBeanList.get( i*4 + 3), editState);
                         ml_message3.setVisibility(View.VISIBLE);
                     }
                 }
@@ -241,7 +262,12 @@ public class MessageActivity extends Activity implements  IMessageView, View.OnC
             if(messageBeanList == null || messageBeanList.size() == 0){
                 return 0;
             }else {
-                return messageBeanList.size() / 4 + 1;
+                if(messageBeanList.size() % 4 == 0){
+                    return messageBeanList.size() / 4 ;
+                }else {
+                    return messageBeanList.size() / 4 + 1;
+                }
+
             }
         }
 
@@ -253,7 +279,6 @@ public class MessageActivity extends Activity implements  IMessageView, View.OnC
         @NonNull
         @Override
         public Object instantiateItem(@NonNull ViewGroup container, int position) {
-
             container.addView(mViewList.get(position));
             return mViewList.get(position);
         }
@@ -268,14 +293,6 @@ public class MessageActivity extends Activity implements  IMessageView, View.OnC
             return POSITION_NONE;
         }
 
-        @Override
-        public void onClick(View v) {
-            int index = (int)v.getTag();
-            Log.e(TAG, "message click index " + index);
-            messageBeanList.remove(index);
-            initViewList();
-            notifyDataSetChanged();
-        }
     }
 
     private void initPointer() {
