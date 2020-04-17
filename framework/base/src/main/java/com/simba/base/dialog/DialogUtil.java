@@ -126,7 +126,7 @@ public class DialogUtil extends Dialog implements View.OnClickListener {
 
     //进度条弹框
     public static DialogUtil buildProgress(Context context, String content) {
-        DialogUtil dialogUtil = new DialogUtil(context);
+        DialogUtil dialogUtil = new DialogUtil(context,R.style.baseProgress_BaseDialog);
         dialogUtil.progress();
 
         // dialogUtil.content(content);
