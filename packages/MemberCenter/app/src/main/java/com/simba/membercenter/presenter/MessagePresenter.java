@@ -1,5 +1,6 @@
 package com.simba.membercenter.presenter;
 
+import com.greendao.gen.AccountBeanDao;
 import com.greendao.gen.MessageBeanDao;
 import com.simba.membercenter.MyApplication;
 import com.simba.membercenter.accountDB.MessageBean;
@@ -33,7 +34,7 @@ public class MessagePresenter {
 
     public void getMessageList(){
         if(mMessageView != null ){
-            mMessageView.onLoadAllMessage(mMessageBeanDao.loadAll());
+            mMessageView.onLoadAllMessage(mMessageBeanDao.queryBuilder().where(MessageBeanDao.Properties.UserId.eq(LocalAccountManager.getIntance().getLoginId())).list());
         }
     }
 
@@ -43,8 +44,9 @@ public class MessagePresenter {
                 mMessageBeanDao.delete(messageBean);
             }
         }
+
         if(mMessageView != null ){
-            mMessageView.onLoadAllMessage(mMessageBeanDao.loadAll());
+            mMessageView.onLoadAllMessage(mMessageBeanDao.queryBuilder().where(MessageBeanDao.Properties.UserId.eq(LocalAccountManager.getIntance().getLoginId())).list());
         }
     }
 }

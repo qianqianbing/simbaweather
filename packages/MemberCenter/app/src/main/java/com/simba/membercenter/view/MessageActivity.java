@@ -22,6 +22,7 @@ import androidx.viewpager.widget.ViewPager;
 
 
 import com.simba.base.base.BaseActivity;
+import com.simba.base.dialog.DialogUtil;
 import com.simba.membercenter.MyApplication;
 import com.simba.membercenter.R;
 import com.simba.membercenter.accountDB.MessageBean;
@@ -167,28 +168,20 @@ public class MessageActivity extends Activity implements  IMessageView, View.OnC
 
     private void showDeleteDialog(int number){
 
-            final AlertDialog.Builder builder=new AlertDialog.Builder(this);  //建立一个对象
-            builder.setTitle("是否确认删除"+ number +"条消息");
-            //正面的按钮
-            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    MessagePresenter.getInstance().deleteMessage(messageBeanList);
-                }
-            });
-            //反面的按钮
-            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
 
-                }
-            });
-            builder.show();
+         DialogUtil.build(this)
+                .content("是否确认删除"+ number +"条消息")
+                .positiveText("确定")
+                .negativeText("取消").onPositive(new DialogUtil.SingleButtonCallback() {
+                          @Override
+                          public void onClick(DialogUtil dialogUtil, DialogUtil.DialogAction dialogAction) {
 
+                         }
+                 })
+                .show();
     }
+
     class MessagePagerAdapter extends PagerAdapter implements View.OnClickListener{
-
-
         private List<View> mViewList;
 
         public void setMessageBeanList(List<MessageBean> messageBeans) {
@@ -245,7 +238,11 @@ public class MessageActivity extends Activity implements  IMessageView, View.OnC
 
         @Override
         public int getCount() {
-            return messageBeanList.size() / 4 + 1;
+            if(messageBeanList == null || messageBeanList.size() == 0){
+                return 0;
+            }else {
+                return messageBeanList.size() / 4 + 1;
+            }
         }
 
         @Override

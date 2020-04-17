@@ -1,6 +1,7 @@
 package com.simba.membercenter.ui.popupwindow;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,13 @@ public class DeviceActivationPopupWindow extends GlobalPopupWindow implements Vi
 
         iv_QRCode_activation = view.findViewById(R.id.iv_QRCode_activation);
         iv_QRCode_activation.setImageBitmap(QRCodeUtil.createDefaultCodeBitmap("www.simbalink.cn", 184,184));
+        //测试代码，5秒后消失
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                hidePopupWindow();
+            }
+        },5000);
         return view;
     }
 
@@ -42,9 +50,10 @@ public class DeviceActivationPopupWindow extends GlobalPopupWindow implements Vi
         switch (v.getId()){
             case R.id.iv_help:
                 hidePopupWindow();
-                WeChatHelpPopupWindow helpPopupWindow = new WeChatHelpPopupWindow();
-                helpPopupWindow.setFatherGlobalPopupWindow(this);
-                helpPopupWindow.showPopupWindow(MyApplication.getMyApplication().getApplicationContext());
+
+                WeChatHelpPopupWindow weChatHelpPopupWindow = new WeChatHelpPopupWindow();
+                weChatHelpPopupWindow.setFatherGlobalPopupWindow(this);
+                weChatHelpPopupWindow.showPopupWindow(MyApplication.getMyApplication().getApplicationContext());
                 break;
         }
     }

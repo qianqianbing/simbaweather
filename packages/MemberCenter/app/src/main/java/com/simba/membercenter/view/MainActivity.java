@@ -1,5 +1,6 @@
 package com.simba.membercenter.view;
 
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -13,21 +14,25 @@ import android.widget.RelativeLayout;
 import androidx.annotation.Nullable;
 
 import com.greendao.gen.AccountBeanDao;
-import com.simba.base.accountManager.AccountManager;
+import com.greendao.gen.DeviceStateBeanDao;
+import com.simba.base.DeviceAccountManager.DeviceAccountManager;
 import com.simba.membercenter.MyApplication;
 import com.simba.membercenter.R;
 import com.simba.membercenter.accountDB.AccountBean;
+import com.simba.membercenter.accountDB.DeviceStateBean;
+import com.simba.membercenter.presenter.LocalAccountManager;
 import com.simba.membercenter.ui.popupwindow.RealNameAuthenticationPopupWindow;
 import com.simba.membercenter.ui.popupwindow.SwitchAccountPopupWindow;
 import com.simba.membercenter.ui.popupwindow.UnbindPopupWindow;
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends Activity implements View.OnClickListener, SwitchAccountPopupWindow.AccountSwitchHander {
 
     private static String TAG = "MainActivity";
     private RelativeLayout rl_message, rl_more, rl_bind_wechat;
     private ImageView iv_switch_account;
     AccountBeanDao accountBeanDao;
     private Context mContext;
+    SwitchAccountPopupWindow switchAccountPopupWindow;
     public static void startAcivity(){
         Intent intent = new Intent(MyApplication.getMyApplication().getApplicationContext(), MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -46,7 +51,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         iv_switch_account.setOnClickListener(this);
         rl_bind_wechat = findViewById(R.id.rl_bind_wechat);
         rl_bind_wechat.setOnClickListener(this);
-        if(! AccountManager.isRealNameAuthentication()){
+        if(! DeviceAccountManager.getInstance(mContext).isRealNameAuthentication()){
             RealNameAuthenticationPopupWindow realNameAuthenticationPopupWindow = new RealNameAuthenticationPopupWindow();
             realNameAuthenticationPopupWindow.showPopupWindow(getApplicationContext());
         }
@@ -71,9 +76,18 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.iv_switch_account:
 
-                new SwitchAccountPopupWindow(mContext,accountBeanDao.loadAll()).showAtLocation(getWindow().getDecorView(), Gravity.CENTER,0,0);
+               switchAccountPopupWindow = new SwitchAccountPopupWindow(mContext,accountBeanDao.loadAll());
+               switchAccountPopupWindow.setAccountSwitchHander(this);
+               switchAccountPopupWindow.showAtLocation(getWindow().getDecorView(), Gravity.CENTER,0,0);
                 break;
         }
+    }
+
+    @Override
+    public void accountSwitch(AccountBean accountBean) {
+        LocalAccountManager.getIntance().quitLogin();
+        LoginActivity.startAcivityWithLoginId(accountBean.getUserId());
+        finish();
     }
 
     //测试代码，插入用户账号信息
@@ -81,14 +95,20 @@ public class MainActivity extends Activity implements View.OnClickListener {
          accountBeanDao = MyApplication.getMyApplication().getDaoSession().getAccountBeanDao();
         if (accountBeanDao.loadAll().size() == 0){
             Log.e(TAG, "insert account info");
-            AccountBean accountBean1 = new AccountBean(11111111L,"大爷1", true);
+            AccountBean accountBean1 = new AccountBean(11111111,"大爷1", true);
             accountBeanDao.insert(accountBean1);
-            AccountBean accountBean2 = new AccountBean(22222222L,"大娘2", false);
+            AccountBean accountBean2 = new AccountBean(22222222,"大娘2", false);
             accountBeanDao.insert(accountBean2);
-            AccountBean accountBean3 = new AccountBean(33333333L,"哥哥3", false);
+            AccountBean accountBean3 = new AccountBean(33333333,"哥哥3", false);
             accountBeanDao.insert(accountBean3);
-            AccountBean accountBean4 = new AccountBean(444444444L,"爷爷4", false);
+            AccountBean accountBean4 = new AccountBean(444444444,"爷爷4", false);
             accountBeanDao.insert(accountBean4);
+        }
+        DeviceStateBeanDao deviceStateBeanDao = MyApplication.getMyApplication().getDaoSession().getDeviceStateBeanDao();
+        if(deviceStateBeanDao.loadAll().size() == 0){
+            Log.e(TAG, "insert deviceState info");
+            DeviceStateBean deviceStateBean = new DeviceStateBean(1);
+            deviceStateBeanDao.insert(deviceStateBean);
         }
     }
 }

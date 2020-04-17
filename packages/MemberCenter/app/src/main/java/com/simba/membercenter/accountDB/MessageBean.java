@@ -16,8 +16,16 @@ public class MessageBean {
     @Id(autoincrement = true)
     private Long id;
 
+    //消息id
+    @Property(nameInDb = "MESSAGE_ID")
+    private int messageId;
+
+    //用户id，不同的用户id需要区分
+    @Property(nameInDb = "USER_ID")
+    private int userId;
+
     @Property(nameInDb = "TIME")
-    private Long time;
+    private int time;
 
 
     @Property(nameInDb = "MESSAGE_TITLE")
@@ -31,9 +39,9 @@ public class MessageBean {
     private boolean isSelected; // not persisted
     
     @Keep
-    public MessageBean( Long time, String messageTitle,
+    public MessageBean(int userId, int time, String messageTitle,
             String messageDescription) {
-        
+        this.userId = userId;
         this.time = time;
         this.messageTitle = messageTitle;
         this.messageDescription = messageDescription;
@@ -43,10 +51,12 @@ public class MessageBean {
     public MessageBean() {
     }
 
-    @Generated(hash = 127621942)
-    public MessageBean(Long id, Long time, String messageTitle,
-            String messageDescription) {
+    @Generated(hash = 1371991932)
+    public MessageBean(Long id, int messageId, int userId, int time,
+            String messageTitle, String messageDescription) {
         this.id = id;
+        this.messageId = messageId;
+        this.userId = userId;
         this.time = time;
         this.messageTitle = messageTitle;
         this.messageDescription = messageDescription;
@@ -59,9 +69,9 @@ public class MessageBean {
         this.messageTitle = messageTitle;
     }
 
-    public Long getTime() {        return time; }
+    public int getTime() {        return time; }
 
-    public void setTime(Long time) {
+    public void setTime(int time) {
         this.time = time;
     }
 
@@ -87,5 +97,21 @@ public class MessageBean {
 
     public void setSelected(boolean selected) {
         isSelected = selected;
+    }
+
+    public int getMessageId() {
+        return this.messageId;
+    }
+
+    public void setMessageId(int messageId) {
+        this.messageId = messageId;
+    }
+
+    public int getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

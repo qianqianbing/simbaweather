@@ -17,7 +17,7 @@ public class AccountBean {
     private Long id;
 
     @Property(nameInDb = "USERID")
-    private Long userId;
+    private int userId;
 
 
     @Property(nameInDb = "NICK_NAME")
@@ -29,7 +29,7 @@ public class AccountBean {
 
 
     @Keep
-    public AccountBean(Long userId, String nickName,
+    public AccountBean(int userId, String nickName,
                        Boolean isLogined) {
         this.userId = userId;
         this.nickName = nickName;
@@ -40,13 +40,15 @@ public class AccountBean {
     public AccountBean() {
     }
 
-    @Generated(hash = 864824447)
-    public AccountBean(Long id, Long userId, String nickName, Boolean isLogined) {
+    @Generated(hash = 1544391652)
+    public AccountBean(Long id, int userId, String nickName, Boolean isLogined) {
         this.id = id;
         this.userId = userId;
         this.nickName = nickName;
         this.isLogined = isLogined;
     }
+
+
 
     public Long getId() {
         return id;
@@ -56,11 +58,11 @@ public class AccountBean {
         this.id = id;
     }
 
-    public Long getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

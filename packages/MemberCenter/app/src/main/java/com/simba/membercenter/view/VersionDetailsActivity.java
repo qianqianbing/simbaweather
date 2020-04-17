@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
 
@@ -13,7 +14,8 @@ import com.simba.membercenter.QRCodeUtil;
 import com.simba.membercenter.R;
 
 public class VersionDetailsActivity extends Activity implements View.OnClickListener{
-    private ImageView iv_qrcode,iv_back;
+    private ImageView iv_qrcode;
+    private RelativeLayout rl_back;
     public static void startAcivity(){
         Intent intent = new Intent(MyApplication.getMyApplication().getApplicationContext(), VersionDetailsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -29,8 +31,8 @@ public class VersionDetailsActivity extends Activity implements View.OnClickList
     }
 
     private void setUpView(){
-        iv_back = findViewById(R.id.iv_back);
-        iv_back.setOnClickListener(this);
+        rl_back = findViewById(R.id.rl_back);
+        rl_back.setOnClickListener(this);
         iv_qrcode = findViewById(R.id.iv_qrcode);
         iv_qrcode.setImageBitmap(QRCodeUtil.createDefaultCodeBitmap("www.simbalink.cn", 233,233));
     }
@@ -38,7 +40,7 @@ public class VersionDetailsActivity extends Activity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.iv_back:
+            case R.id.rl_back:
                 finish();
                 break;
         }

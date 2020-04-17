@@ -1,5 +1,6 @@
 package com.simba.membercenter;
 
+import android.accounts.AccountManager;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,10 +13,10 @@ import androidx.annotation.Nullable;
 
 import com.greendao.gen.MessageBeanDao;
 import com.simba.base.UI.Popupwindow.GlobalPopupWindow;
+import com.simba.base.DeviceAccountManager.DeviceAccountManager;
 import com.simba.membercenter.accountDB.MessageBean;
+import com.simba.membercenter.presenter.LocalAccountManager;
 import com.simba.membercenter.ui.popupwindow.DeviceActivationPopupWindow;
-import com.simba.membercenter.presenter.HttpRequest;
-import com.simba.membercenter.view.IDeviceActivationView;
 /**
  * @description: 会员中心管理的service，因为要随着系统启动就工作，而且还要提供已登陆账号的信息给其他应用使用，所以使用service来实现
  * @author: luojunjie
@@ -24,7 +25,7 @@ import com.simba.membercenter.view.IDeviceActivationView;
 
 
 
-public class MemberCenterService extends Service implements IDeviceActivationView {
+public class MemberCenterService extends Service  {
     private static String TAG = "MemberCenterService";
     private BroadcastReceiver messageReceiver ;
     private MessageBeanDao messageBeanDao;
@@ -34,9 +35,14 @@ public class MemberCenterService extends Service implements IDeviceActivationVie
     @Override
     public void onCreate() {
         Log.e(TAG, "onCreate");
-        HttpRequest.getIntance().registerDeviceActivationViews(this);
         initMessageReceiver();
         messageBeanDao = MyApplication.getMyApplication().getDaoSession().getMessageBeanDao();
+
+        //service 启动后首先检测设备是否激活，未激活需要弹框提示
+        if(! DeviceAccountManager.getInstance(this).getDeviceActivation()){
+            showActivationDialog();
+        }
+
         super.onCreate();
     }
 
@@ -50,19 +56,7 @@ public class MemberCenterService extends Service implements IDeviceActivationVie
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.e(TAG, "onStartCommand");
-        HttpRequest.getIntance().getDeviceActivationState();
         return super.onStartCommand(intent, flags, startId);
-    }
-
-    @Override
-    public void onDeviceActivation() {
-        Log.e(TAG, "device activation true");
-    }
-
-    @Override
-    public void onDeviceNotActivation() {
-        showActivationDialog();
-        Log.e(TAG, "device activation false");
     }
 
     private void showActivationDialog() {
@@ -78,13 +72,14 @@ public class MemberCenterService extends Service implements IDeviceActivationVie
     }
 
     //测试代码，生成消息的逻辑
-    Long messageTime = 100L;
+    int messageTime = 100;
     class MessageReceiver extends BroadcastReceiver{
         @Override
         public void onReceive(Context context, Intent intent) {
             if(intent.getAction().equals(MessageIntent)){
                 Log.e(TAG, "insert message ");
-                messageBeanDao.insert(new MessageBean(messageTime, "标题" + messageTime , "描述 " + messageTime));
+
+                messageBeanDao.insert(new MessageBean(LocalAccountManager.getIntance().getLoginId(), messageTime, "标题" + messageTime , "描述 " + messageTime));
                 messageTime ++ ;
             }
         }

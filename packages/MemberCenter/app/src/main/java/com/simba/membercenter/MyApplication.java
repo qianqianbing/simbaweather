@@ -3,9 +3,11 @@ package com.simba.membercenter;
 import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.greendao.gen.DaoMaster;
 import com.greendao.gen.DaoSession;
+import com.simba.base.DeviceAccountManager.DeviceAccountManager;
 import com.simba.base.network.OkGoUtil;
 
 public class MyApplication extends Application {
@@ -20,9 +22,11 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.e("timeTAG" , "MyApplication oncreate");
         mApplication = this;
         OkGoUtil.init(this, true);
         setDatabase();
+        DeviceAccountManager.getInstance(MyApplication.getMyApplication().getApplicationContext());
     }
 
     public static MyApplication getMyApplication(){

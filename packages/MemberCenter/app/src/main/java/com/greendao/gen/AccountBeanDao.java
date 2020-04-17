@@ -25,7 +25,7 @@ public class AccountBeanDao extends AbstractDao<AccountBean, Long> {
      */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property UserId = new Property(1, Long.class, "userId", false, "USERID");
+        public final static Property UserId = new Property(1, int.class, "userId", false, "USERID");
         public final static Property NickName = new Property(2, String.class, "nickName", false, "NICK_NAME");
         public final static Property IsLogined = new Property(3, Boolean.class, "isLogined", false, "IS_LOGINED");
     }
@@ -44,7 +44,7 @@ public class AccountBeanDao extends AbstractDao<AccountBean, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"ACCOUNT_BEAN\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"USERID\" INTEGER," + // 1: userId
+                "\"USERID\" INTEGER NOT NULL ," + // 1: userId
                 "\"NICK_NAME\" TEXT," + // 2: nickName
                 "\"IS_LOGINED\" INTEGER);"); // 3: isLogined
     }
@@ -63,11 +63,7 @@ public class AccountBeanDao extends AbstractDao<AccountBean, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
- 
-        Long userId = entity.getUserId();
-        if (userId != null) {
-            stmt.bindLong(2, userId);
-        }
+        stmt.bindLong(2, entity.getUserId());
  
         String nickName = entity.getNickName();
         if (nickName != null) {
@@ -88,11 +84,7 @@ public class AccountBeanDao extends AbstractDao<AccountBean, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
- 
-        Long userId = entity.getUserId();
-        if (userId != null) {
-            stmt.bindLong(2, userId);
-        }
+        stmt.bindLong(2, entity.getUserId());
  
         String nickName = entity.getNickName();
         if (nickName != null) {
@@ -114,7 +106,7 @@ public class AccountBeanDao extends AbstractDao<AccountBean, Long> {
     public AccountBean readEntity(Cursor cursor, int offset) {
         AccountBean entity = new AccountBean( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // userId
+            cursor.getInt(offset + 1), // userId
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // nickName
             cursor.isNull(offset + 3) ? null : cursor.getShort(offset + 3) != 0 // isLogined
         );
@@ -124,7 +116,7 @@ public class AccountBeanDao extends AbstractDao<AccountBean, Long> {
     @Override
     public void readEntity(Cursor cursor, AccountBean entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setUserId(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
+        entity.setUserId(cursor.getInt(offset + 1));
         entity.setNickName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setIsLogined(cursor.isNull(offset + 3) ? null : cursor.getShort(offset + 3) != 0);
      }

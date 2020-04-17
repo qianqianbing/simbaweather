@@ -25,9 +25,11 @@ public class MessageBeanDao extends AbstractDao<MessageBean, Long> {
      */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property Time = new Property(1, Long.class, "time", false, "TIME");
-        public final static Property MessageTitle = new Property(2, String.class, "messageTitle", false, "MESSAGE_TITLE");
-        public final static Property MessageDescription = new Property(3, String.class, "messageDescription", false, "MESSAGE_DESCRIPTION");
+        public final static Property MessageId = new Property(1, int.class, "messageId", false, "MESSAGE_ID");
+        public final static Property UserId = new Property(2, int.class, "userId", false, "USER_ID");
+        public final static Property Time = new Property(3, int.class, "time", false, "TIME");
+        public final static Property MessageTitle = new Property(4, String.class, "messageTitle", false, "MESSAGE_TITLE");
+        public final static Property MessageDescription = new Property(5, String.class, "messageDescription", false, "MESSAGE_DESCRIPTION");
     }
 
 
@@ -44,9 +46,11 @@ public class MessageBeanDao extends AbstractDao<MessageBean, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"MESSAGE_BEAN\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"TIME\" INTEGER," + // 1: time
-                "\"MESSAGE_TITLE\" TEXT," + // 2: messageTitle
-                "\"MESSAGE_DESCRIPTION\" TEXT);"); // 3: messageDescription
+                "\"MESSAGE_ID\" INTEGER NOT NULL ," + // 1: messageId
+                "\"USER_ID\" INTEGER NOT NULL ," + // 2: userId
+                "\"TIME\" INTEGER NOT NULL ," + // 3: time
+                "\"MESSAGE_TITLE\" TEXT," + // 4: messageTitle
+                "\"MESSAGE_DESCRIPTION\" TEXT);"); // 5: messageDescription
     }
 
     /** Drops the underlying database table. */
@@ -63,20 +67,18 @@ public class MessageBeanDao extends AbstractDao<MessageBean, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
- 
-        Long time = entity.getTime();
-        if (time != null) {
-            stmt.bindLong(2, time);
-        }
+        stmt.bindLong(2, entity.getMessageId());
+        stmt.bindLong(3, entity.getUserId());
+        stmt.bindLong(4, entity.getTime());
  
         String messageTitle = entity.getMessageTitle();
         if (messageTitle != null) {
-            stmt.bindString(3, messageTitle);
+            stmt.bindString(5, messageTitle);
         }
  
         String messageDescription = entity.getMessageDescription();
         if (messageDescription != null) {
-            stmt.bindString(4, messageDescription);
+            stmt.bindString(6, messageDescription);
         }
     }
 
@@ -88,20 +90,18 @@ public class MessageBeanDao extends AbstractDao<MessageBean, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
- 
-        Long time = entity.getTime();
-        if (time != null) {
-            stmt.bindLong(2, time);
-        }
+        stmt.bindLong(2, entity.getMessageId());
+        stmt.bindLong(3, entity.getUserId());
+        stmt.bindLong(4, entity.getTime());
  
         String messageTitle = entity.getMessageTitle();
         if (messageTitle != null) {
-            stmt.bindString(3, messageTitle);
+            stmt.bindString(5, messageTitle);
         }
  
         String messageDescription = entity.getMessageDescription();
         if (messageDescription != null) {
-            stmt.bindString(4, messageDescription);
+            stmt.bindString(6, messageDescription);
         }
     }
 
@@ -114,9 +114,11 @@ public class MessageBeanDao extends AbstractDao<MessageBean, Long> {
     public MessageBean readEntity(Cursor cursor, int offset) {
         MessageBean entity = new MessageBean( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // time
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // messageTitle
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // messageDescription
+            cursor.getInt(offset + 1), // messageId
+            cursor.getInt(offset + 2), // userId
+            cursor.getInt(offset + 3), // time
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // messageTitle
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // messageDescription
         );
         return entity;
     }
@@ -124,9 +126,11 @@ public class MessageBeanDao extends AbstractDao<MessageBean, Long> {
     @Override
     public void readEntity(Cursor cursor, MessageBean entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setTime(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
-        entity.setMessageTitle(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setMessageDescription(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setMessageId(cursor.getInt(offset + 1));
+        entity.setUserId(cursor.getInt(offset + 2));
+        entity.setTime(cursor.getInt(offset + 3));
+        entity.setMessageTitle(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setMessageDescription(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
      }
     
     @Override

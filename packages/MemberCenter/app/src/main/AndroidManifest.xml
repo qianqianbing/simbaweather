@@ -24,5 +24,9 @@
         <activity android:name=".view.MainActivity"/>
         <activity android:name=".view.MessageActivity"/>
         <activity android:name=".view.VersionDetailsActivity"/>
+        <provider
+            android:authorities="com.simba.membercenter.provider"
+            android:name=".accountDB.AccountInfoProvider"
+            android:exported="true"/>
     </application>
 </manifest>

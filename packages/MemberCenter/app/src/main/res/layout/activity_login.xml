@@ -87,12 +87,14 @@
                 android:textSize="@dimen/base_text_size_large"
                 android:text="@string/username"/>
             <EditText
+                android:id="@+id/et_loginid"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="40dp"
                 android:layout_width="510dp"
                 android:layout_height="64dp"
                 android:textSize="@dimen/base_text_size_large"
                 android:hint="@string/input_phone_number"
+                android:paddingLeft="30dp"
                 android:textColor="@color/base_default_text_color"
                 android:background="@drawable/background_textview" />
             <TextView

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.simba.membercenter.R;
 import com.simba.membercenter.accountDB.AccountBean;
+import com.simba.membercenter.view.LoginActivity;
 
 import java.util.List;
 
@@ -24,6 +25,12 @@ public class SwitchAccountPopupWindow extends PopupWindow implements View.OnClic
     private List<AccountBean> accountBeanList;
     private LayoutInflater mInflater;
     private AccountListViewAdapter accountListViewAdapter ;
+    AccountSwitchHander accountSwitchHander;
+
+    public void setAccountSwitchHander(AccountSwitchHander accountSwitchHander) {
+        this.accountSwitchHander = accountSwitchHander;
+    }
+
     public SwitchAccountPopupWindow(Context context, List<AccountBean> accountBeans) {
         super(context);
         this.accountBeanList = accountBeans;
@@ -56,6 +63,9 @@ public class SwitchAccountPopupWindow extends PopupWindow implements View.OnClic
             case R.id.tv_switchaccount:
                 accountListViewAdapter.getSelectIndex();
                 dismiss();
+                if(accountSwitchHander!=null){
+                    accountSwitchHander.accountSwitch(accountBeanList.get(accountListViewAdapter.getSelectIndex()));
+                }
                 break;
         }
     }
@@ -115,5 +125,9 @@ public class SwitchAccountPopupWindow extends PopupWindow implements View.OnClic
                     break;
             }
         }
+    }
+
+    public interface AccountSwitchHander{
+        void accountSwitch(AccountBean accountBean);
     }
 }
