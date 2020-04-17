@@ -21,6 +21,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.simba.base.R;
+import com.simba.base.utils.ResourceUtils;
 
 import java.util.HashMap;
 
@@ -80,6 +81,7 @@ public class DialogUtil extends Dialog implements View.OnClickListener {
     protected SingleButtonCallback onKeyBackCallback;
     protected SingleButtonCallback onDelayTimeDismissCallback;
 
+    private LinearLayout rootLayout;
 
     public interface SingleButtonCallback {
         void onClick(DialogUtil dialogUtil, DialogAction dialogAction);
@@ -99,6 +101,7 @@ public class DialogUtil extends Dialog implements View.OnClickListener {
         tv_positive = ((TextView) findViewById(R.id.tv_positive));
         divider_line1 = findViewById(R.id.divider_line1);
         divider_line2 = findViewById(R.id.divider_line2);
+        rootLayout = findViewById(R.id.ll_layout);
         tv_negative.setTag(DialogAction.NEGATIVE);
         tv_positive.setTag(DialogAction.POSITIVE);
         tv_negative.setOnClickListener(this);
@@ -124,9 +127,9 @@ public class DialogUtil extends Dialog implements View.OnClickListener {
     //进度条弹框
     public static DialogUtil buildProgress(Context context, String content) {
         DialogUtil dialogUtil = new DialogUtil(context);
-        dialogUtil.progress(0);
+        dialogUtil.progress();
 
-       // dialogUtil.content(content);
+        // dialogUtil.content(content);
         dialogUtil.setCanceledOnTouchOutside(false);
 //        ecgDialog.disableKeyBack();
         return dialogUtil;
@@ -364,6 +367,12 @@ public class DialogUtil extends Dialog implements View.OnClickListener {
 
 
     public DialogUtil progress(int maxProgress) {
+        progressBar.setVisibility(View.VISIBLE);
+        return this;
+    }
+
+    public DialogUtil progress() {
+        rootLayout.setBackground(ResourceUtils.getDrawable(R.mipmap.dialog_loading_bg));
         progressBar.setVisibility(View.VISIBLE);
         return this;
     }
