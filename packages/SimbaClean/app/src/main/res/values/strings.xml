@@ -15,7 +15,8 @@
     <string name="tv_module4">音乐文件</string>
     <string name="tv_module5">缓存数据</string>
     <string name="tv_module6">其他文件</string>
-
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 
 
 </resources>
