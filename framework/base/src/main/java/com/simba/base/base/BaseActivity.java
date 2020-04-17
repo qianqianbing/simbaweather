@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.gyf.immersionbar.ImmersionBar;
+import com.lzy.okgo.OkGo;
 
 /**
  * ================================================
@@ -52,5 +53,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         initView();
         initData();
         initListener();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        OkGo.getInstance().cancelTag(this);//取消未处理的请求
     }
 }
