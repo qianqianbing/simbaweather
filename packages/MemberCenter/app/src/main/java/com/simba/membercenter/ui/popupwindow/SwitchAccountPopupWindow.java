@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -13,8 +12,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.simba.membercenter.R;
-import com.simba.membercenter.accountDB.AccountBean;
-import com.simba.membercenter.view.LoginActivity;
+import com.simba.membercenter.DB.AccountBean;
 
 import java.util.List;
 

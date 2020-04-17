@@ -25,7 +25,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.093"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_main_left_bg" />
 
     <TextView
@@ -34,11 +34,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="70dp"
         android:layout_marginLeft="70dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:text="TextView"
         android:textColor="@color/base_white"
-        android:textSize="160sp"
-        android:textStyle="bold"
+        android:textSize="180sp"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
         tools:text="23" />
@@ -47,13 +46,12 @@
         android:id="@+id/tv_main_left_year_month"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp"
         android:text="TextView"
         android:textColor="@color/base_white"
         android:textSize="38sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/tv_main_left_today"
         app:layout_constraintTop_toTopOf="@+id/tv_main_left_today"
         tools:text="2020年3月" />
@@ -62,12 +60,14 @@
         android:id="@+id/tv_main_week"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:text="TextView"
         android:textColor="@color/base_white"
         android:textSize="38sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_main_left_today"
         app:layout_constraintStart_toStartOf="@+id/tv_main_left_year_month"
-        app:layout_constraintTop_toTopOf="@+id/tv_main_left_year_month"
+        app:layout_constraintTop_toBottomOf="@+id/tv_main_left_year_month"
         tools:text="周一" />
 
     <TextView
@@ -89,7 +89,6 @@
         android:id="@+id/tv_main_trunk_and_branch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:text="TextView"
         android:textColor="@color/base_white"
         android:textSize="32sp"
@@ -97,48 +96,6 @@
         app:layout_constraintStart_toStartOf="@+id/tv_main_left_today"
         app:layout_constraintTop_toBottomOf="@+id/tv_main_left_today"
         tools:text="庚子年（鼠年）" />
-
-    <TextView
-        android:id="@+id/tv_main_should"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginRight="25dp"
-        android:text="TextView"
-        android:textColor="@color/base_white"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="@+id/textView"
-        tools:text="祭祀 开光 嫁娶 解除 纳财 入宅" />
-
-    <TextView
-        android:id="@+id/tv_main_a_word_a_day"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:text="每日一言"
-        android:textColor="@color/base_white"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tv_main_a_word_a_day_str"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        tools:text="每日一言" />
-
-    <TextView
-        android:id="@+id/tv_main_a_word_a_day_str"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:text="人，第一要有志，第二要有识，第三要有恒，有志则断不甘为下流。"
-        android:textColor="@color/base_white"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="@+id/tv_main_should"
-        app:layout_constraintStart_toStartOf="@+id/tv_main_a_word_a_day"
-        tools:text="人，第一要有志，第二要有识，第三要有恒，有志则断不甘为下流。" />
 
 
     <TextView
@@ -219,17 +176,6 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="宜"
-        android:textColor="@color/base_white"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/tv_main_trunk_and_branch"
-        app:layout_constraintTop_toBottomOf="@+id/tv_main_trunk_and_branch" />
 
     <ImageView
         android:id="@+id/iv_main_today"
@@ -252,5 +198,147 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/iv_main_today"
         app:srcCompat="@drawable/ic_main_setting" />
+
+    <LinearLayout
+        android:id="@+id/tv_main_should_group"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/tv_main_left_today"
+        app:layout_constraintTop_toBottomOf="@+id/tv_main_trunk_and_branch">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="宜"
+            android:textColor="@color/base_white"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_main_should"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textColor="#C7C8CD"
+            android:textSize="30sp"
+            tools:text="祭祀 开光 嫁娶 解除 纳财 入宅" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_main_holiday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/base_white"
+        android:textSize="26sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_main_week"
+        app:layout_constraintTop_toBottomOf="@+id/tv_main_week"
+        tools:text="谷雨" />
+
+    <LinearLayout
+        android:id="@+id/ll_main_a_word_a_day"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="30dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/tv_main_trunk_and_branch">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="每日一言"
+            android:textColor="@color/base_white"
+            android:textSize="32sp"
+            android:textStyle="normal|bold"
+            tools:text="每日一言" />
+
+        <TextView
+            android:id="@+id/tv_main_a_word_a_day_str"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="人，第一要有志，第二要有识，第三要有恒，有志则断不甘为下流。"
+            android:textColor="#C7C8CD"
+            android:textSize="30sp"
+            tools:text="人，第一要有志，第二要有识，第三要有恒，有志则断不甘为下流。" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_main_network_retry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/tv_main_trunk_and_branch">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="网络不佳，请稍后重试"
+            android:textColor="@color/base_white"
+            android:textSize="30sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_main_network_retry_bt_bg"
+            android:gravity="center"
+            android:text="重试"
+            android:textColor="@color/base_white"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_main_network_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/tv_main_left_today">
+
+        <ImageView
+            android:id="@+id/iv_man_network_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_main_network_loading" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="加载中"
+            android:textColor="@color/base_white"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

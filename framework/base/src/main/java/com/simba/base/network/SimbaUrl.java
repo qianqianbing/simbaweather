@@ -64,4 +64,15 @@ public class SimbaUrl {
      * 根据年份查询法定节假日
      */
     public final static String CALENDAR_GET_HOLIDAY_BY_YEAR = BASE_HOST + "/almanac/getHolidayByYear";
+
+
+
+    //********************************************* 会员中心App模块 ******************************************
+    //主机 结尾不要带,会员中心暂时和其他不一样
+    public static String BASE_HOST_ACCOUNT = "http://simbaui.simbalink.cn/backend";
+    /**
+     * 获取各种二维码的url
+     */
+    public final static String ACCOUNT_GET_QRCODE = BASE_HOST_ACCOUNT + "/account/getQRCode";
+
 }

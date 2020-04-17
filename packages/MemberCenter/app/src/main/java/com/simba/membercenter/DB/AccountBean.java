@@ -1,11 +1,10 @@
-package com.simba.membercenter.accountDB;
+package com.simba.membercenter.DB;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Keep;
 import org.greenrobot.greendao.annotation.Property;
-import org.greenrobot.greendao.annotation.Transient;
 
 /**
  * Created by admin on 2018/5/14.

@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.simba.membercenter.R;
-import com.simba.membercenter.accountDB.MessageBean;
+import com.simba.membercenter.DB.MessageBean;
 
 public class MessageLayoutView extends RelativeLayout implements View.OnClickListener {
     private static String TAG = "MessageLayoutView";
@@ -42,11 +42,13 @@ public class MessageLayoutView extends RelativeLayout implements View.OnClickLis
 
     }
 
-    public void setMessageInfo(MessageBean messageBean){
+    public void setMessageInfo(MessageBean messageBean, boolean isEdit){
         this.messageBean = messageBean;
         bt_select.setSelected(messageBean.isSelected());
         tv_message_title.setText(messageBean.getMessageTitle());
         tv_message_description.setText(messageBean.getMessageDescription());
+
+        bt_select.setVisibility(isEdit ? VISIBLE : GONE);
     }
 
     @Override

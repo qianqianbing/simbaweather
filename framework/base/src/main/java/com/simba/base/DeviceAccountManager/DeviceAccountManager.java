@@ -21,6 +21,10 @@ public class DeviceAccountManager {
         DeviceAccountManager.accountManager = accountManager;
     }
 
+    // 获取设备deviceid
+    public int getDeviceId(){
+        return 1;
+    }
     //设备是否激活
     public  boolean getDeviceActivation( ){
 
