@@ -65,6 +65,20 @@ public class SimbaUrl {
      */
     public final static String CALENDAR_GET_HOLIDAY_BY_YEAR = BASE_HOST + "/almanac/getHolidayByYear";
 
+    //********************************************* 天气模块APP ******************************************
+    /**
+     * 根据经纬度获取当地天气
+     */
+    public final static String WEATHER_GET_INDEX_LOCATION=BASE_HOST+"weather/index/location";
+    /**
+     * 城市推荐列表
+     */
+    public final static String WEATHER_GET_WEATHER_RECOMMENDCITYLIST=BASE_HOST+"weather/recommendCityList";
+    /**
+     * 城市模糊查询
+     */
+    public final static String WEATHER_GET_WEATHER_MATCHINGCITY=BASE_HOST+"weather/matchingCity";
+
 
 
     //********************************************* 会员中心App模块 ******************************************

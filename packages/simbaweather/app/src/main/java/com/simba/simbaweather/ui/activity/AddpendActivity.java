@@ -40,8 +40,6 @@ public class AddpendActivity extends BaseActivity<CityplanningContract.ICityplan
     RecyclerView rcyCitytj;
     @BindView(R.id.ed_search)
     EditText edSearch;
-    @BindView(R.id.btn)
-    Button btn;
     private GeneralResponse<List<CityplanningBean.DataBean>> body;
     private CityplanningBean.DataBean body1;
     private Intent intent1;
@@ -61,12 +59,6 @@ public class AddpendActivity extends BaseActivity<CityplanningContract.ICityplan
 
         mPresenter.RequestCityPlnningData();
 
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
        edSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -119,13 +111,6 @@ public class AddpendActivity extends BaseActivity<CityplanningContract.ICityplan
     @Override
     public void SearchShowData(Response<List<SearchBean.DataBean>> response) {
 
-//        edSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-//
-//                return false;
-//            }
-//        });
     }
 
     @Override
