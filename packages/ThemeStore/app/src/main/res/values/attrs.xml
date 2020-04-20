@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+
+    <!--************** RadiusImageView ****************-->
+    <attr name="border_width" format="dimension" />
+    <attr name="border_color" format="color" />
+    <attr name="selected_mask_color" format="color" />
+    <attr name="selected_border_color" format="color" />
+    <attr name="selected_border_width" format="dimension" />
+    <attr name="corner_radius" format="dimension" />
+    <attr name="is_oval" format="boolean" />
+    <attr name="is_circle" format="boolean" />
+    <attr name="is_touch_select_mode_enabled" format="boolean" />
+    <declare-styleable name="RadiusImageView">
+        <attr name="border_width" />
+        <attr name="border_color" />
+        <attr name="selected_mask_color" />
+        <attr name="selected_border_color" />
+        <attr name="selected_border_width" />
+        <attr name="corner_radius" />
+        <attr name="is_oval" />
+        <attr name="is_circle" />
+        <attr name="is_touch_select_mode_enabled" />
+    </declare-styleable>
+
+
+    <attr name="RadiusImageViewStyle" format="reference" />
+
+</resources>
