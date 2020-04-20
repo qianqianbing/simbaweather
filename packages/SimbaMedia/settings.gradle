@@ -1,0 +1,2 @@
+rootProject.name='SimbaMedia'
+include ':app'
