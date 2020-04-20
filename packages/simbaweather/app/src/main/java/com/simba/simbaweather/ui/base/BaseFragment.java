@@ -15,12 +15,10 @@ import butterknife.Unbinder;
 
 /*
  *@Auther:王自阳
- *@Date: 2019/9/4
- *@Time:10:44
- *@Package_name:com.bw.movie.ui.base
+ *@Date: 2020/04/17
  *@Description:
  * */
-public abstract class BaseFragment<V,P extends BasePresenter<V>> extends com.simba.base.base.BaseFragment {
+public abstract class BaseFragment<V,P extends BasePresenter<V>> extends Fragment {
     public P fPresenter;
     private View inflate;
     private Unbinder bind;

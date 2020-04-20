@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.AddpendActivity"></activity>
+        <activity android:name=".ui.activity.HomeActivity"></activity>
+        <activity android:name=".ui.activity.AddpendActivity" />
         <activity android:name=".ui.activity.RuncityActivity" />
         <activity android:name=".ui.activity.MainActivity">
             <intent-filter>

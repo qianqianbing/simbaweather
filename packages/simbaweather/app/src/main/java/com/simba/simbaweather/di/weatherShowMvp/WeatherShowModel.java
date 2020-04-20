@@ -3,6 +3,7 @@ package com.simba.simbaweather.di.weatherShowMvp;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 import com.simba.base.network.JsonCallback;
+import com.simba.base.network.SimbaUrl;
 import com.simba.simbaweather.data.bean.WeaTher;
 
 import org.json.JSONException;
@@ -27,7 +28,7 @@ public class WeatherShowModel implements WeatherShowContract.IWeatherShowModel {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        OkGo.<WeaTher.DataBean>post("http://cp.simbalink.cn/backend/weather/index/location")
+        OkGo.<WeaTher.DataBean>post(SimbaUrl.WEATHER_GET_INDEX_LOCATION)
                 .tag(this)
                 .upJson(jsonObject)
                 .execute(new JsonCallback<WeaTher.DataBean>() {

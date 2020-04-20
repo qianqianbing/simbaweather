@@ -48,6 +48,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="60dp"
+                    android:background="@mipmap/bg_circle"
                     android:text="编辑"
                     android:textColor="#FFFFFFFF"
                     android:textSize="32px" />
@@ -57,9 +58,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:background="@mipmap/bg_circle"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="60dp"
                     android:text="完成"
+
                     android:textColor="#FFFFFFFF"
                     android:textSize="32px" />
             </RelativeLayout>

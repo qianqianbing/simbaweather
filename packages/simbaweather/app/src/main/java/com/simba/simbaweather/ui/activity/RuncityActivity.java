@@ -96,12 +96,10 @@ public class RuncityActivity extends AppCompatActivity {
                 tvRemove.setVisibility(View.INVISIBLE);
                 break;
             case R.id.tv_remove:
-                //todo
-                TextView textView = new TextView(this);
+
 
                 DialogUtil.build(this)
                         .content("确定删除该城市?")
-                        .appendView(textView)
                         .positiveText("确定")
                         .negativeText("取消")
                         .onPositive(new DialogUtil.SingleButtonCallback() {
