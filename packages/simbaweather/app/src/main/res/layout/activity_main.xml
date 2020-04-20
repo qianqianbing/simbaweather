@@ -7,55 +7,21 @@
     android:background="@drawable/base_bg_app"
     tools:context=".ui.activity.MainActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="120dp"
         android:orientation="vertical">
 
-        <FrameLayout
-            android:id="@+id/fly"
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/show_vp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"></FrameLayout>
+            android:layout_height="match_parent" />
 
-        <LinearLayout
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/show_tab"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
-
-            <RadioGroup
-                android:id="@+id/radio_group"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/btn_sy"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:textColor="#e8158e" />
-
-                <RadioButton
-                    android:id="@+id/btn_yy"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:padding="40dp"
-                    android:textColor="#e8158e" />
-
-            </RadioGroup>
-        </LinearLayout>
-    </LinearLayout>
+            app:tabIndicatorHeight="0dp" />
+    </RelativeLayout>
 </LinearLayout>

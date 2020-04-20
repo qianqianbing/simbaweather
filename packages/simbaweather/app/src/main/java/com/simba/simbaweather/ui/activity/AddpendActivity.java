@@ -1,13 +1,13 @@
 package com.simba.simbaweather.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.immersionbar.ImmersionBar;
 import com.lzy.okgo.model.Response;
 import com.simba.base.network.model.GeneralResponse;
@@ -43,10 +44,10 @@ public class AddpendActivity extends BaseActivity<CityplanningContract.ICityplan
     private GeneralResponse<List<CityplanningBean.DataBean>> body;
     private CityplanningBean.DataBean body1;
     private Intent intent1;
-    private String city1;
     private WeaTher weaTher;
     private WeaTher.DataBean data;
     private String edsearch;
+    private String city;
 
     @Override
     protected void initData() {
@@ -59,7 +60,7 @@ public class AddpendActivity extends BaseActivity<CityplanningContract.ICityplan
 
         mPresenter.RequestCityPlnningData();
 
-       edSearch.addTextChangedListener(new TextWatcher() {
+        edSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -95,17 +96,29 @@ public class AddpendActivity extends BaseActivity<CityplanningContract.ICityplan
         List<CityplanningBean.DataBean> data = (List<CityplanningBean.DataBean>) response.body();
 
         intent1 = getIntent();
-        city1 = intent1.getStringExtra("city");
-        TextView tv = findViewById(R.id.tv_dk);
-        //  tv.setText(city1);
+        city = intent1.getStringExtra("city");
 
+        TextView tv = findViewById(R.id.tv_dk);
         GridLayoutManager girdLayoutManager = new GridLayoutManager(this, 7);
         rcyCitytj.setLayoutManager(girdLayoutManager);
         CityplanningAdapter cityplanningAdapter = new CityplanningAdapter(R.layout.item_citymanager, data);
-        //rcyCitytj.addView(tv);
         rcyCitytj.setAdapter(cityplanningAdapter);
+        cityplanningAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
 
+            private String cityid;
 
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                cityid = data.get(position).getId();
+                SharedPreferences sp = getSharedPreferences("mysp", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putString("cityid", cityid);
+                    editor.commit();
+                Toast.makeText(AddpendActivity.this, ""+cityid, Toast.LENGTH_SHORT).show();
+               Intent intent = new Intent(AddpendActivity.this, MainActivity.class);
+               startActivity(intent);
+            }
+        });
     }
 
     @Override

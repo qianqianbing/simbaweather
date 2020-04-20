@@ -2,7 +2,6 @@ package com.simba.simbaweather.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -15,8 +14,6 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.simba.base.dialog.DialogUtil;
 import com.simba.base.utils.LogUtil;
 import com.simba.simbaweather.R;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,6 +45,8 @@ public class RuncityActivity extends AppCompatActivity {
     RelativeLayout rlRemove;
     @BindView(R.id.iv_back)
     ImageView ivBack;
+    @BindView(R.id.tian_add)
+    RelativeLayout tianAdd;
     private Intent intent;
     private String conditionId;
     private String city;
@@ -55,6 +54,7 @@ public class RuncityActivity extends AppCompatActivity {
     private String temp;
     private String tempDay;
     private String tempNight;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,19 +81,22 @@ public class RuncityActivity extends AppCompatActivity {
         tvRemove.setVisibility(View.INVISIBLE);
     }
 
-    @OnClick({R.id.tv_compileon, R.id.tv_compileoff, R.id.tv_remove, R.id.tv_Addpend,R.id.iv_back})
+    @OnClick({R.id.tv_compileon, R.id.tv_compileoff, R.id.tv_remove, R.id.tv_Addpend, R.id.iv_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_compileon:
+                //打开
                 tvCompileoff.setVisibility(View.VISIBLE);
                 tvCompileon.setVisibility(View.INVISIBLE);
                 tvRemove.setVisibility(View.VISIBLE);
+                tianAdd.setVisibility(View.INVISIBLE);
                 break;
             case R.id.tv_compileoff:
                 //关闭
                 tvCompileoff.setVisibility(View.INVISIBLE);
                 tvCompileon.setVisibility(View.VISIBLE);
                 tvRemove.setVisibility(View.INVISIBLE);
+                tianAdd.setVisibility(View.VISIBLE);
                 break;
             case R.id.tv_remove:
 
@@ -127,7 +130,7 @@ public class RuncityActivity extends AppCompatActivity {
                 break;
             case R.id.tv_Addpend:
                 Intent intent = new Intent(RuncityActivity.this, AddpendActivity.class);
-                intent.putExtra("city",city);
+                intent.putExtra("city", city);
                 startActivity(intent);
                 break;
             case R.id.iv_back:

@@ -14,13 +14,6 @@ import butterknife.ButterKnife;
 
 public class HomeActivity extends AppCompatActivity {
 
-    @BindView(R.id.fly)
-    FrameLayout fly;
-    @BindView(R.id.btn_sy)
-    RadioButton btnSy;
-    @BindView(R.id.btn_yy)
-    RadioButton btnYy;
-    @BindView(R.id.radio_group)
     RadioGroup radioGroup;
 
     @Override

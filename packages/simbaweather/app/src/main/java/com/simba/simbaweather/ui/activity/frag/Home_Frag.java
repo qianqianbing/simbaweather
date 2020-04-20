@@ -132,7 +132,7 @@ public class Home_Frag extends BaseFragment<WeatherShowContract.IWeatherShowView
         //... Criteria 还有其他属性，就不一一介绍了
         Location best = LocationUtils.getBestLocation(getContext(), c);
         if (best == null) {
-            Toast.makeText(getContext(), " best location is null", Toast.LENGTH_SHORT).show();
+         //   Toast.makeText(getContext(), " best location is null", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getContext(), "best location: lat==" + best.getLatitude() + " lng==" + best.getLongitude(), Toast.LENGTH_SHORT).show();
         }
