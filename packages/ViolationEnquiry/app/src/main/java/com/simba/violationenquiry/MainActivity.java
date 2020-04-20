@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.tabs.TabLayout;
+import com.simba.base.UI.view.NoScrollViewPager;
 import com.simba.base.dialog.picker.MultiplePickerManager;
 import com.simba.base.network.model.SimpleResponse;
 import com.simba.violationenquiry.add.AddNewCarActivity;
@@ -19,7 +20,6 @@ import com.simba.violationenquiry.net.HttpRequest;
 import com.simba.violationenquiry.net.callback.ResultCallBack;
 import com.simba.violationenquiry.net.model.CarInfo;
 import com.simba.violationenquiry.ui.SectionsPagerAdapter;
-import com.simba.violationenquiry.ui.view.NoScrollViewPager;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
