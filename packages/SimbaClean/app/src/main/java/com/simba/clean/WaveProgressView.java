@@ -18,15 +18,6 @@ import android.view.View;
 
 import java.text.DecimalFormat;
 
-/**
- * ================================================
- * 作    者：顾修忠-guxiuzhong@youku.com/gfj19900401@163.com
- * 版    本：
- * 创建日期：16/8/13-下午4:06
- * 描    述：
- * 修订历史：
- * ================================================
- */
 public class WaveProgressView extends View {
 
     private int radius = dp2px(55);
