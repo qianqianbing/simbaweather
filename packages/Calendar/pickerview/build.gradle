@@ -24,6 +24,6 @@ android {
 
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "androidx.annotation:annotation:${dependVersion.annotation}"
 }

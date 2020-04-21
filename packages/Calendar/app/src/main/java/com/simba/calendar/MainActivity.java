@@ -17,8 +17,8 @@ import com.lzy.okgo.model.Response;
 import com.simba.base.base.BaseActivity;
 import com.simba.base.network.JsonCallback;
 import com.simba.base.network.SimbaUrl;
-import com.simba.base.utils.ACache;
 import com.simba.base.utils.LogUtil;
+import com.simba.base.utils.SpStaticUtils;
 import com.simba.calendar.model.DailyInformation;
 import com.simba.calendar.model.StatutoryHoliday;
 import com.simba.calendar.utils.TimePickerBuilderHelper;
@@ -54,10 +54,9 @@ public class MainActivity extends BaseActivity {
     private LinearLayout mLlMainNetworkRetry;
     private LinearLayout mLlMainNetworkLoading;
 
-    ACache aCache;
     //下面2个静态值方便在年视图中月份标记判断使用
     public static int CUR_MONTH, CUR_YEAR;
-    Boolean setting_almanac;
+    Boolean setting_almanac, setting_holiday;
     Animation animation;
 
     @Override
@@ -98,7 +97,6 @@ public class MainActivity extends BaseActivity {
         mTvMainRightYearMonth.setText(String.format(Locale.SIMPLIFIED_CHINESE, "%d年%d月", CUR_YEAR, CUR_MONTH));
         selectDay(mCvMainCalendarView.getSelectedCalendar());
         updateWorkAndRestDay(CUR_YEAR);
-        aCache = ACache.get(this);
     }
 
     @Override
@@ -164,14 +162,10 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setting_almanac = (Boolean) aCache.getAsObject(SettingActivity.KEY_SETTING_ALMANAC);
-        if (setting_almanac != null) {
-            mLlMainShouldGroup.setVisibility(setting_almanac ? View.VISIBLE : View.GONE);
-        }
-        Boolean setting_holiday = (Boolean) aCache.getAsObject(SettingActivity.KEY_SETTING_HOLIDAY_PUSH);
-        if (setting_holiday != null) {
-            mTvMainHoliday.setVisibility(setting_holiday ? View.VISIBLE : View.GONE);
-        }
+        setting_holiday = SpStaticUtils.getBoolean(SettingActivity.KEY_SETTING_HOLIDAY_PUSH, true);
+        mTvMainHoliday.setVisibility(setting_holiday ? View.VISIBLE : View.GONE);
+        setting_almanac = SpStaticUtils.getBoolean(SettingActivity.KEY_SETTING_ALMANAC, true);
+        mLlMainShouldGroup.setVisibility(setting_almanac ? View.VISIBLE : View.GONE);
     }
 
     /**
@@ -233,10 +227,7 @@ public class MainActivity extends BaseActivity {
                     public void onSuccess(Response<DailyInformation> response) {
                         if (isCode200()) {
 
-                            if (setting_almanac != null) {
-                                mLlMainShouldGroup.setVisibility(setting_almanac ? View.VISIBLE : View.GONE);
-                            } else
-                                mLlMainShouldGroup.setVisibility(View.VISIBLE);
+                            mLlMainShouldGroup.setVisibility(setting_almanac == null || setting_almanac ? View.VISIBLE : View.GONE);
                             mLlMainAWordADay.setVisibility(View.VISIBLE);
                             mLlMainNetworkLoading.setVisibility(View.GONE);
                             mLlMainNetworkRetry.setVisibility(View.GONE);

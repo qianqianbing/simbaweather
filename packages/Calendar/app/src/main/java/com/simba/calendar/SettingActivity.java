@@ -8,7 +8,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.simba.base.base.BaseActivity;
-import com.simba.base.utils.ACache;
+import com.simba.base.utils.SpStaticUtils;
 
 public class SettingActivity extends BaseActivity {
 
@@ -18,8 +18,6 @@ public class SettingActivity extends BaseActivity {
     private TextView mTvSettingVersion;
     private Switch mSwSettingHolidayPush;
     private Switch mSwSettingAlmanac;
-
-    ACache aCache;
 
     @Override
     protected int getLayoutId() {
@@ -36,16 +34,8 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        aCache = ACache.get(this);
-        Object setting_holiday_push = aCache.getAsObject(KEY_SETTING_HOLIDAY_PUSH);
-        if (setting_holiday_push != null) {
-            mSwSettingHolidayPush.setChecked((Boolean) setting_holiday_push);
-        }
-        Object setting_almanac = aCache.getAsObject(KEY_SETTING_ALMANAC);
-        if (setting_almanac != null) {
-            mSwSettingAlmanac.setChecked((Boolean) setting_almanac);
-        }
-
+        mSwSettingHolidayPush.setChecked(SpStaticUtils.getBoolean(SettingActivity.KEY_SETTING_HOLIDAY_PUSH, true));
+        mSwSettingAlmanac.setChecked(SpStaticUtils.getBoolean(SettingActivity.KEY_SETTING_ALMANAC, true));
         mTvSettingVersion.setText(getVersionCode());
     }
 
@@ -61,14 +51,15 @@ public class SettingActivity extends BaseActivity {
         mSwSettingHolidayPush.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                aCache.put(KEY_SETTING_HOLIDAY_PUSH, isChecked);
+                SpStaticUtils.put(KEY_SETTING_HOLIDAY_PUSH, isChecked);
             }
         });
 
         mSwSettingAlmanac.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                aCache.put(KEY_SETTING_ALMANAC, isChecked);
+                SpStaticUtils.put(KEY_SETTING_ALMANAC, isChecked);
+                AppWidget.updateLunarView(SettingActivity.this, isChecked);
             }
         });
     }

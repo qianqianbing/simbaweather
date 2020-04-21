@@ -1,0 +1,215 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_widget_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_main_bg"
+    android:padding="@dimen/widget_margin">
+
+
+    <RelativeLayout
+        android:id="@+id/rl_widget_top_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/widget_weather_bg"
+        android:padding="@dimen/intro_margin_10">
+
+        <TextView
+            android:id="@+id/tv_widget_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15"
+            android:textColor="#6CF8FC"
+            android:textSize="80sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_widget_week_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tv_widget_day"
+            android:layout_marginLeft="@dimen/intro_margin_15"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@+id/tv_widget_day"
+            android:text="星期五"
+            android:textColor="#ffffff"
+            android:textSize="28sp" />
+
+        <TextView
+            android:id="@+id/tv_widget_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_widget_week_day"
+            android:layout_alignStart="@+id/tv_widget_week_day"
+            android:layout_alignLeft="@+id/tv_widget_week_day"
+            android:text="5月"
+            android:textColor="#90ffffff"
+            android:textSize="24sp" />
+
+
+        <RelativeLayout
+            android:id="@+id/rl_widget_local"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingBottom="@dimen/intro_margin_15">
+
+            <TextView
+                android:id="@+id/tv_widget_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/intro_margin_20"
+                android:layout_toLeftOf="@+id/v_widget_divider"
+                android:text="南京"
+                android:textColor="#6CF8FC"
+                android:textSize="28sp" />
+
+            <TextView
+                android:id="@+id/tv_widget_weather"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_widget_city"
+                android:layout_alignTop="@+id/tv_widget_temperature_range"
+                android:layout_alignRight="@+id/tv_widget_city"
+                android:text="小雨"
+                android:textColor="#ffffff"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_widget_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/intro_margin_10"
+                android:text="24°"
+                android:textColor="#ffffff"
+                android:textSize="40sp" />
+
+            <TextView
+                android:id="@+id/tv_widget_temperature_range"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_widget_temperature"
+                android:layout_alignLeft="@+id/tv_widget_temperature"
+                android:text="14-28°C"
+                android:textColor="#ffffff"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/v_widget_divider"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_alignTop="@+id/tv_widget_temperature"
+                android:layout_marginLeft="@dimen/intro_margin_10"
+                android:layout_marginTop="@dimen/intro_margin_12"
+                android:layout_marginRight="@dimen/intro_margin_10"
+                android:layout_toLeftOf="@+id/tv_widget_temperature"
+                android:scaleType="fitXY"
+                android:src="@drawable/widget_weather_divider" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_widget_other"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="110dp"
+            android:paddingBottom="@dimen/intro_margin_10"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_widget_other_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/intro_margin_10"
+                android:layout_toLeftOf="@+id/v_widget_other_divider"
+                android:text="上海"
+                android:textColor="#6CF8FC"
+                android:textSize="28sp" />
+
+            <TextView
+                android:id="@+id/tv_widget_other_weather"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_widget_other_city"
+                android:layout_alignTop="@+id/tv_widget_other_temperature_range"
+                android:layout_alignRight="@+id/tv_widget_other_city"
+                android:text="小雨"
+                android:textColor="#ffffff"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_widget_other_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="27°"
+                android:textColor="#ffffff"
+                android:textSize="40sp" />
+
+            <TextView
+                android:id="@+id/tv_widget_other_temperature_range"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_widget_other_temperature"
+                android:layout_alignLeft="@+id/tv_widget_other_temperature"
+                android:text="14-28°C"
+                android:textColor="#ffffff"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/v_widget_other_divider"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_alignTop="@+id/tv_widget_other_temperature"
+                android:layout_marginLeft="@dimen/intro_margin_10"
+                android:layout_marginTop="@dimen/intro_margin_12"
+                android:layout_marginRight="@dimen/intro_margin_10"
+                android:layout_toLeftOf="@+id/tv_widget_other_temperature"
+                android:scaleType="fitXY"
+                android:src="@drawable/widget_weather_divider" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_widget_calendar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_widget_top_group"
+        android:padding="@dimen/intro_margin_10">
+
+        <TextView
+            android:id="@+id/tv_widget_lunar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/intro_margin_20"
+            android:text="农历三月十三"
+            android:textColor="@color/base_white"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tv_widget_should"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_widget_lunar"
+            android:layout_marginLeft="@dimen/intro_margin_30"
+            android:layout_marginTop="@dimen/intro_margin_10"
+            android:text="宜 祭祀 开光 嫁娶 解除 纳财 入宅"
+            android:textColor="#90ffffff"
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:id="@+id/tv_widget_a_word_a_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="100dp"
+            android:text="山川异域，风月同天"
+            android:textColor="@color/base_white"
+            android:textSize="24sp" />
+
+    </RelativeLayout>
+</RelativeLayout>
