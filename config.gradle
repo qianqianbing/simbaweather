@@ -27,7 +27,8 @@ ext {
 		    gson		: "2.8.6",
 		    immersionbar		: "3.0.0",
             mpandroidchart   : "v3.1.0",  
-			annotation   : "1.1.0"   
+			annotation   : "1.1.0",   
+			zxing : "3.3.0"
     ]
 
 }
