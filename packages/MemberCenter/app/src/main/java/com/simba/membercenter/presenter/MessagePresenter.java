@@ -33,7 +33,7 @@ public class MessagePresenter {
 
     public void getMessageList(){
         if(mMessageView != null ){
-            mMessageView.onLoadAllMessage(mMessageBeanDao.queryBuilder().where(MessageBeanDao.Properties.UserId.eq(LocalAccountManager.getIntance().getLoginId())).list());
+            mMessageView.onLoadAllMessage(mMessageBeanDao.queryBuilder().where(MessageBeanDao.Properties.UserName.eq(LocalAccountManager.getIntance().getUserName())).list());
         }
     }
 
@@ -45,7 +45,7 @@ public class MessagePresenter {
         }
 
         if(mMessageView != null ){
-            mMessageView.onLoadAllMessage(mMessageBeanDao.queryBuilder().where(MessageBeanDao.Properties.UserId.eq(LocalAccountManager.getIntance().getLoginId())).list());
+            mMessageView.onLoadAllMessage(mMessageBeanDao.queryBuilder().where(MessageBeanDao.Properties.UserName.eq(LocalAccountManager.getIntance().getUserName())).list());
         }
     }
 }

@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 import androidx.annotation.Nullable;
 
 import com.simba.membercenter.MyApplication;
-import com.simba.membercenter.QRCodeUtil;
+import com.simba.base.utils.QRCodeUtil;
 import com.simba.membercenter.R;
 
 public class VersionDetailsActivity extends Activity implements View.OnClickListener{

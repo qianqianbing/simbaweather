@@ -1,5 +1,7 @@
 package com.simba.membercenter.DB;
 
+import com.simba.base.dialog.model.KeyValue;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
@@ -10,28 +12,45 @@ import org.greenrobot.greendao.annotation.Property;
  * Created by admin on 2018/5/14.
  */
 @Entity
-public class AccountBean {
+public class AccountBean implements KeyValue {
 
-    @Id(autoincrement = true)
+    @Id
     private Long id;
 
-    @Property(nameInDb = "USERID")
-    private int userId;
-
+    @Property(nameInDb = "USER_NAME")
+    private String username;
 
     @Property(nameInDb = "NICK_NAME")
-    private String nickName;
-
+    private String nickname;
 
     @Property(nameInDb = "IS_LOGINED")
     private Boolean isLogined;
 
+    @Property(nameInDb = "TOKEN")
+    private String token;
+
+    @Property(nameInDb = "PHONE")
+    private String phone;
+
+    @Property(nameInDb = "OPENID")
+    private String openid;
+
+    @Property(nameInDb = "HEADIMGURL")
+    private String headimgurl;
+
+    //用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
+    @Property(nameInDb = "SEX")
+    private int sex;
+
+    //是否为车主：0否 1是
+    @Property(nameInDb = "OWNED")
+    private int owned;
 
     @Keep
-    public AccountBean(int userId, String nickName,
+    public AccountBean(String username, String nickname,
                        Boolean isLogined) {
-        this.userId = userId;
-        this.nickName = nickName;
+        this.username = username;
+        this.nickname = nickname;
         this.isLogined = isLogined;
     }
 
@@ -39,15 +58,21 @@ public class AccountBean {
     public AccountBean() {
     }
 
-    @Generated(hash = 1544391652)
-    public AccountBean(Long id, int userId, String nickName, Boolean isLogined) {
+    @Generated(hash = 846407872)
+    public AccountBean(Long id, String username, String nickname, Boolean isLogined,
+            String token, String phone, String openid, String headimgurl, int sex,
+            int owned) {
         this.id = id;
-        this.userId = userId;
-        this.nickName = nickName;
+        this.username = username;
+        this.nickname = nickname;
         this.isLogined = isLogined;
+        this.token = token;
+        this.phone = phone;
+        this.openid = openid;
+        this.headimgurl = headimgurl;
+        this.sex = sex;
+        this.owned = owned;
     }
-
-
 
     public Long getId() {
         return id;
@@ -55,22 +80,6 @@ public class AccountBean {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
     }
 
     public Boolean getLogined() {
@@ -81,11 +90,92 @@ public class AccountBean {
         isLogined = logined;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    @Override
+    public String getKey() {
+        return username;
+    }
+
+    @Override
+    public String getValue() {
+        return nickname;
+    }
+
+    @Override
+    public String getHint() {
+        return null;
+    }
+
+
+
     public Boolean getIsLogined() {
         return this.isLogined;
     }
 
     public void setIsLogined(Boolean isLogined) {
         this.isLogined = isLogined;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
+
+    public String getHeadimgurl() {
+        return headimgurl;
+    }
+
+    public void setHeadimgurl(String headimgurl) {
+        this.headimgurl = headimgurl;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
+    public int getOwned() {
+        return owned;
+    }
+
+    public void setOwned(int owned) {
+        this.owned = owned;
     }
 }

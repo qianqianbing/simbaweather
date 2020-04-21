@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.simba.base.UI.Popupwindow.GlobalPopupWindow;
 import com.simba.membercenter.MyApplication;
-import com.simba.membercenter.QRCodeUtil;
+import com.simba.base.utils.QRCodeUtil;
 import com.simba.membercenter.R;
 
 public class WeChatHelpPopupWindow extends GlobalPopupWindow implements View.OnClickListener {

@@ -4,11 +4,8 @@
     <dimen name="popup_icon_padding_top">35dp</dimen>
     <dimen name="popup_icon_padding_right">70dp</dimen>
 
-    <dimen name="popup_dividing_padding_right">120dp</dimen>
-    <dimen name="height_line">1dp</dimen>
 
-    <dimen name="QRCode_width">184dp</dimen>
-    <dimen name="QRCode_height">184dp</dimen>
+    <dimen name="height_line">1dp</dimen>
 
     <dimen name="QRCode_margin_top">160dp</dimen>
     <dimen name="QRCode_margin_left">80dp</dimen>
@@ -39,4 +36,13 @@
     <dimen name="backbtn_margin_top">30dp</dimen>
     <dimen name="text_margin_left_backbtn">22dp</dimen>
     <dimen name="text_margin_top">10dp</dimen>
+
+    <dimen name="popup_1_width">1220dp</dimen>
+    <dimen name="popup_1_height">532dp</dimen>
+
+    <dimen name="QRCode_width">180dp</dimen>
+    <dimen name="QRCode_height">180dp</dimen>
+
+    <dimen name="popup_dividing_padding_top">120dp</dimen>
+    <dimen name="input_edittext_height">64dp</dimen>
 </resources>

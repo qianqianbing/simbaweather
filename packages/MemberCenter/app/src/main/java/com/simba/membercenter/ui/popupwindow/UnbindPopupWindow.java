@@ -8,11 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.simba.base.UI.Popupwindow.GlobalPopupWindow;
-import com.simba.membercenter.QRCodeUtil;
+import com.simba.base.utils.QRCodeUtil;
 import com.simba.membercenter.R;
 
 public class UnbindPopupWindow extends GlobalPopupWindow implements View.OnClickListener {
-    private static String TAG = "RealNameAuthenticationPopupWindow";
+    private static String TAG = "UnbindPopupWindow";
 
     private ImageView iv_QRCode_unbind;
     private TextView tv_iknow;

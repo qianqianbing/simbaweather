@@ -23,13 +23,14 @@
             android:layout_marginRight="44dp"
             android:src="@drawable/icon_switch"/>
         <ImageView
+            android:id="@+id/iv_sex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="51dp"
             android:layout_marginRight="109dp"
-            android:src="@drawable/icon_gender"/>
+            android:src="@drawable/icon_woman"/>
         <ImageView
             android:id="@+id/iv_member"
             android:layout_width="162dp"
@@ -48,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/icon_carowmer"/>
             <TextView
+                android:id="@+id/tv_owned"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -57,7 +59,7 @@
                 android:text="@string/not_car_onwer"/>
         </RelativeLayout>
         <TextView
-            android:id="@+id/tv_membername"
+            android:id="@+id/tv_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="102dp"
@@ -69,17 +71,17 @@
             android:id="@+id/tv_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/tv_membername"
-            android:layout_below="@id/tv_membername"
+            android:layout_alignLeft="@id/tv_nickname"
+            android:layout_below="@id/tv_nickname"
             android:layout_marginTop="30dp"
             android:textColor="@color/base_day_common_line"
             android:textSize="@dimen/base_text_size_large"
-            android:text="ID:123456789"/>
+            android:text="ID:"/>
         <TextView
             android:id="@+id/iv_cartype"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/tv_membername"
+            android:layout_alignLeft="@id/tv_nickname"
             android:layout_below="@id/tv_id"
             android:layout_marginTop="20dp"
             android:textColor="@color/base_day_common_line"
@@ -90,7 +92,7 @@
             android:layout_height="40dp"
             android:layout_below="@id/iv_cartype"
             android:layout_marginTop="20dp"
-            android:layout_alignLeft="@id/tv_membername">
+            android:layout_alignLeft="@id/tv_nickname">
             <ImageView
                 android:id="@+id/iv_edit"
                 android:layout_width="wrap_content"
@@ -112,7 +114,7 @@
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="180dp"
-            android:background="@color/base_black"/>
+            android:background="@color/base_white_trans_4d"/>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -140,7 +142,7 @@
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/base_default_text_color"
+                android:background="@drawable/line_division"
                 android:layout_centerInParent="true"/>
             <RelativeLayout
                 android:id="@+id/rl_bind_wechat"

@@ -21,8 +21,8 @@ public class MessageBean {
     private int messageId;
 
     //用户id，不同的用户id需要区分
-    @Property(nameInDb = "USER_ID")
-    private int userId;
+    @Property(nameInDb = "USER_NAME")
+    private String userName;
 
     @Property(nameInDb = "TIME")
     private int time;
@@ -39,9 +39,9 @@ public class MessageBean {
     private boolean isSelected; // not persisted
     
     @Keep
-    public MessageBean(int userId, int time, String messageTitle,
+    public MessageBean(String userName, int time, String messageTitle,
             String messageDescription) {
-        this.userId = userId;
+        this.userName = userName;
         this.time = time;
         this.messageTitle = messageTitle;
         this.messageDescription = messageDescription;
@@ -51,12 +51,12 @@ public class MessageBean {
     public MessageBean() {
     }
 
-    @Generated(hash = 1371991932)
-    public MessageBean(Long id, int messageId, int userId, int time,
+    @Generated(hash = 218509621)
+    public MessageBean(Long id, int messageId, String userName, int time,
             String messageTitle, String messageDescription) {
         this.id = id;
         this.messageId = messageId;
-        this.userId = userId;
+        this.userName = userName;
         this.time = time;
         this.messageTitle = messageTitle;
         this.messageDescription = messageDescription;
@@ -107,11 +107,13 @@ public class MessageBean {
         this.messageId = messageId;
     }
 
-    public int getUserId() {
-        return this.userId;
+
+
+    public String getUserName() {
+        return this.userName;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

@@ -53,7 +53,6 @@ public class MemberCenterService extends Service  {
         if(! DeviceAccountManager.getInstance(this).getDeviceActivation()){
             //获取激活二维码
             requestQRCode();
-
         }
 
         super.onCreate();
@@ -92,7 +91,7 @@ public class MemberCenterService extends Service  {
             if(intent.getAction().equals(MessageIntent)){
                 Log.e(TAG, "insert message ");
 
-                messageBeanDao.insert(new MessageBean(LocalAccountManager.getIntance().getLoginId(), messageTime, "标题" + messageTime , "描述 " + messageTime));
+                messageBeanDao.insert(new MessageBean(LocalAccountManager.getIntance().getUserName(), messageTime, "标题" + messageTime , "描述 " + messageTime));
                 messageTime ++ ;
             }
         }

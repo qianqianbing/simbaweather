@@ -25,9 +25,15 @@ public class AccountBeanDao extends AbstractDao<AccountBean, Long> {
      */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property UserId = new Property(1, int.class, "userId", false, "USERID");
-        public final static Property NickName = new Property(2, String.class, "nickName", false, "NICK_NAME");
+        public final static Property Username = new Property(1, String.class, "username", false, "USER_NAME");
+        public final static Property Nickname = new Property(2, String.class, "nickname", false, "NICK_NAME");
         public final static Property IsLogined = new Property(3, Boolean.class, "isLogined", false, "IS_LOGINED");
+        public final static Property Token = new Property(4, String.class, "token", false, "TOKEN");
+        public final static Property Phone = new Property(5, String.class, "phone", false, "PHONE");
+        public final static Property Openid = new Property(6, String.class, "openid", false, "OPENID");
+        public final static Property Headimgurl = new Property(7, String.class, "headimgurl", false, "HEADIMGURL");
+        public final static Property Sex = new Property(8, int.class, "sex", false, "SEX");
+        public final static Property Owned = new Property(9, int.class, "owned", false, "OWNED");
     }
 
 
@@ -43,10 +49,16 @@ public class AccountBeanDao extends AbstractDao<AccountBean, Long> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"ACCOUNT_BEAN\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"USERID\" INTEGER NOT NULL ," + // 1: userId
-                "\"NICK_NAME\" TEXT," + // 2: nickName
-                "\"IS_LOGINED\" INTEGER);"); // 3: isLogined
+                "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
+                "\"USER_NAME\" TEXT," + // 1: username
+                "\"NICK_NAME\" TEXT," + // 2: nickname
+                "\"IS_LOGINED\" INTEGER," + // 3: isLogined
+                "\"TOKEN\" TEXT," + // 4: token
+                "\"PHONE\" TEXT," + // 5: phone
+                "\"OPENID\" TEXT," + // 6: openid
+                "\"HEADIMGURL\" TEXT," + // 7: headimgurl
+                "\"SEX\" INTEGER NOT NULL ," + // 8: sex
+                "\"OWNED\" INTEGER NOT NULL );"); // 9: owned
     }
 
     /** Drops the underlying database table. */
@@ -63,17 +75,43 @@ public class AccountBeanDao extends AbstractDao<AccountBean, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
-        stmt.bindLong(2, entity.getUserId());
  
-        String nickName = entity.getNickName();
-        if (nickName != null) {
-            stmt.bindString(3, nickName);
+        String username = entity.getUsername();
+        if (username != null) {
+            stmt.bindString(2, username);
+        }
+ 
+        String nickname = entity.getNickname();
+        if (nickname != null) {
+            stmt.bindString(3, nickname);
         }
  
         Boolean isLogined = entity.getIsLogined();
         if (isLogined != null) {
             stmt.bindLong(4, isLogined ? 1L: 0L);
         }
+ 
+        String token = entity.getToken();
+        if (token != null) {
+            stmt.bindString(5, token);
+        }
+ 
+        String phone = entity.getPhone();
+        if (phone != null) {
+            stmt.bindString(6, phone);
+        }
+ 
+        String openid = entity.getOpenid();
+        if (openid != null) {
+            stmt.bindString(7, openid);
+        }
+ 
+        String headimgurl = entity.getHeadimgurl();
+        if (headimgurl != null) {
+            stmt.bindString(8, headimgurl);
+        }
+        stmt.bindLong(9, entity.getSex());
+        stmt.bindLong(10, entity.getOwned());
     }
 
     @Override
@@ -84,17 +122,43 @@ public class AccountBeanDao extends AbstractDao<AccountBean, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
-        stmt.bindLong(2, entity.getUserId());
  
-        String nickName = entity.getNickName();
-        if (nickName != null) {
-            stmt.bindString(3, nickName);
+        String username = entity.getUsername();
+        if (username != null) {
+            stmt.bindString(2, username);
+        }
+ 
+        String nickname = entity.getNickname();
+        if (nickname != null) {
+            stmt.bindString(3, nickname);
         }
  
         Boolean isLogined = entity.getIsLogined();
         if (isLogined != null) {
             stmt.bindLong(4, isLogined ? 1L: 0L);
         }
+ 
+        String token = entity.getToken();
+        if (token != null) {
+            stmt.bindString(5, token);
+        }
+ 
+        String phone = entity.getPhone();
+        if (phone != null) {
+            stmt.bindString(6, phone);
+        }
+ 
+        String openid = entity.getOpenid();
+        if (openid != null) {
+            stmt.bindString(7, openid);
+        }
+ 
+        String headimgurl = entity.getHeadimgurl();
+        if (headimgurl != null) {
+            stmt.bindString(8, headimgurl);
+        }
+        stmt.bindLong(9, entity.getSex());
+        stmt.bindLong(10, entity.getOwned());
     }
 
     @Override
@@ -106,9 +170,15 @@ public class AccountBeanDao extends AbstractDao<AccountBean, Long> {
     public AccountBean readEntity(Cursor cursor, int offset) {
         AccountBean entity = new AccountBean( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.getInt(offset + 1), // userId
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // nickName
-            cursor.isNull(offset + 3) ? null : cursor.getShort(offset + 3) != 0 // isLogined
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // username
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // nickname
+            cursor.isNull(offset + 3) ? null : cursor.getShort(offset + 3) != 0, // isLogined
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // token
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // phone
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // openid
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // headimgurl
+            cursor.getInt(offset + 8), // sex
+            cursor.getInt(offset + 9) // owned
         );
         return entity;
     }
@@ -116,9 +186,15 @@ public class AccountBeanDao extends AbstractDao<AccountBean, Long> {
     @Override
     public void readEntity(Cursor cursor, AccountBean entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setUserId(cursor.getInt(offset + 1));
-        entity.setNickName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setUsername(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setNickname(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setIsLogined(cursor.isNull(offset + 3) ? null : cursor.getShort(offset + 3) != 0);
+        entity.setToken(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setPhone(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setOpenid(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setHeadimgurl(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setSex(cursor.getInt(offset + 8));
+        entity.setOwned(cursor.getInt(offset + 9));
      }
     
     @Override

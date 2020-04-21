@@ -8,9 +8,10 @@ import android.util.Log;
 import com.greendao.gen.DaoMaster;
 import com.greendao.gen.DaoSession;
 import com.simba.base.DeviceAccountManager.DeviceAccountManager;
+import com.simba.base.base.BaseApplication;
 import com.simba.base.network.OkGoUtil;
 
-public class MyApplication extends Application {
+public class MyApplication extends BaseApplication {
 
     private static  MyApplication mApplication;
 

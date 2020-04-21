@@ -2,6 +2,7 @@ package com.simba.membercenter.presenter;
 
 import com.greendao.gen.AccountBeanDao;
 import com.greendao.gen.DeviceStateBeanDao;
+import com.greendao.gen.MessageBeanDao;
 import com.simba.base.DeviceAccountManager.DeviceAccountManager;
 import com.simba.membercenter.MyApplication;
 import com.simba.membercenter.DB.AccountBean;
@@ -19,7 +20,7 @@ public class LocalAccountManager {
     private static LocalAccountManager localAccountManager;
     DeviceStateBeanDao deviceStateBeanDao;
     AccountBeanDao accountBeanDao;
-    private int loginId = -1;
+    private String userName = "-1";
 
     public synchronized static LocalAccountManager getIntance() {
         if (localAccountManager == null) {
@@ -31,7 +32,17 @@ public class LocalAccountManager {
     private LocalAccountManager() {
         deviceStateBeanDao = MyApplication.getMyApplication().getDaoSession().getDeviceStateBeanDao();
         accountBeanDao = MyApplication.getMyApplication().getDaoSession().getAccountBeanDao();
-        loginId = DeviceAccountManager.getInstance(MyApplication.getMyApplication().getApplicationContext()).getLoginedAccount();
+        userName = DeviceAccountManager.getInstance(MyApplication.getMyApplication().getApplicationContext()).getLoginedAccount();
+    }
+
+    public AccountBean getLoginAccount(){
+        List<AccountBean> accountBeans = accountBeanDao.queryBuilder().where(AccountBeanDao.Properties.IsLogined.eq(1)).list();
+        if(accountBeans != null && accountBeans.size() != 0){
+            for (AccountBean accountBean : accountBeans){
+                return accountBean;
+            }
+        }
+        return null;
     }
 
     //获取激活状态
@@ -43,51 +54,51 @@ public class LocalAccountManager {
         }
     }
 
-    //通过账号密码登陆
-    public void login(){
-        if(mLoginView != null){
-            mLoginView.onLoginSucceed();
-        }
-    }
-
     public void quitLogin(){
         //只会查找出一个结果
-        loginId = -1;
-        List<DeviceStateBean> deviceStateBeans = deviceStateBeanDao.loadAll();
-        for(DeviceStateBean deviceStateBean: deviceStateBeans){
-            deviceStateBean.setLoginState(false);
-            deviceStateBean.setLoginId(loginId);
-            deviceStateBeanDao.update(deviceStateBean);
-        }
+        userName = "";
+
 
         //只会查找出一个结果
         List<AccountBean> accountBeans = accountBeanDao.queryBuilder().where(AccountBeanDao.Properties.IsLogined.eq(1)).list();
         for(AccountBean accountBean : accountBeans){
             accountBean.setIsLogined(false);
+            accountBean.setToken(null);
             accountBeanDao.update(accountBean);
+        }
+
+        accountBeans = accountBeanDao.loadAll();
+        for(AccountBean accountBean: accountBeans){
+            if(accountBean.getUsername()==null || !accountBean.getUsername().isEmpty()){
+                accountBeanDao.delete(accountBean);
+            }
         }
     }
 
     //登陆成功后，更新登陆账号的数据库信息
-    public void refreshLoginInfo(int loginId){
+    public void refreshLoginInfo(String userName){
 
-        if(loginId != 0){
-            //只会查找出一个结果
-            List<DeviceStateBean> deviceStateBeans = deviceStateBeanDao.loadAll();
-            for(DeviceStateBean deviceStateBean: deviceStateBeans){
-                deviceStateBean.setLoginState(true);
-                deviceStateBean.setLoginId(loginId);
-                deviceStateBeanDao.update(deviceStateBean);
-            }
+        if(!userName.isEmpty()){
 
 
-            List<AccountBean> accountBeans = accountBeanDao.queryBuilder().where(AccountBeanDao.Properties.UserId.eq(loginId)).list();
-            for(AccountBean accountBean : accountBeans){
+            List<AccountBean> accountBeans = accountBeanDao.queryBuilder().where(AccountBeanDao.Properties.Username.eq(userName)).list();
+            if(accountBeans == null || accountBeans.size() == 0){
+                AccountBean accountBean = new AccountBean();
+                accountBean.setUsername(userName);
                 accountBean.setIsLogined(true);
-                accountBeanDao.update(accountBean);
+                accountBean.setToken(HttpRequest.getIntance().getToken());
+                accountBeanDao.insert(accountBean);
+            }else {
+                for(AccountBean accountBean : accountBeans){
+
+                    accountBean.setIsLogined(true);
+                    accountBean.setToken(HttpRequest.getIntance().getToken());
+                    accountBeanDao.update(accountBean);
+                }
             }
+
             MyApplication.getMyApplication().getApplicationContext().getContentResolver().notifyChange(DEVICE_STATE_URI, null);
-            this.loginId = loginId;
+            this.userName = userName;
         }
     }
 
@@ -104,15 +115,8 @@ public class LocalAccountManager {
         }
     }
 
-    public int getLoginId() {
-        return loginId;
-    }
-    private ILoginView mLoginView;
-    public void registerLoginViews(ILoginView loginView) {
-        mLoginView = loginView;
+    public String getUserName() {
+        return userName;
     }
 
-    public void unRegisterLoginViews() {
-        mLoginView = null;
-    }
 }

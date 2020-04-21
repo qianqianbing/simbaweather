@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_line"
         android:background="@color/base_black"
-        android:layout_marginTop="@dimen/popup_dividing_padding_right" />
+        android:layout_marginTop="@dimen/popup_dividing_padding_top" />
     <ImageView
         android:id="@+id/iv_QRCode_real"
         android:layout_width="@dimen/QRCode_width"

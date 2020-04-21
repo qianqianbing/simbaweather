@@ -27,9 +27,6 @@ public class DeviceStateBeanDao extends AbstractDao<DeviceStateBean, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property DeviceId = new Property(1, int.class, "deviceId", false, "DEVICE_ID");
         public final static Property ActivationState = new Property(2, Boolean.class, "activationState", false, "ACTIVATION_STATE");
-        public final static Property LoginState = new Property(3, Boolean.class, "loginState", false, "LODIN_STATE");
-        public final static Property LoginId = new Property(4, int.class, "loginId", false, "LODIN_ID");
-        public final static Property RealNameState = new Property(5, Boolean.class, "realNameState", false, "REAL_NAME_STATE");
     }
 
 
@@ -47,10 +44,7 @@ public class DeviceStateBeanDao extends AbstractDao<DeviceStateBean, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"DEVICE_STATE_BEAN\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"DEVICE_ID\" INTEGER NOT NULL ," + // 1: deviceId
-                "\"ACTIVATION_STATE\" INTEGER," + // 2: activationState
-                "\"LODIN_STATE\" INTEGER," + // 3: loginState
-                "\"LODIN_ID\" INTEGER NOT NULL ," + // 4: loginId
-                "\"REAL_NAME_STATE\" INTEGER);"); // 5: realNameState
+                "\"ACTIVATION_STATE\" INTEGER);"); // 2: activationState
     }
 
     /** Drops the underlying database table. */
@@ -73,17 +67,6 @@ public class DeviceStateBeanDao extends AbstractDao<DeviceStateBean, Long> {
         if (activationState != null) {
             stmt.bindLong(3, activationState ? 1L: 0L);
         }
- 
-        Boolean loginState = entity.getLoginState();
-        if (loginState != null) {
-            stmt.bindLong(4, loginState ? 1L: 0L);
-        }
-        stmt.bindLong(5, entity.getLoginId());
- 
-        Boolean realNameState = entity.getRealNameState();
-        if (realNameState != null) {
-            stmt.bindLong(6, realNameState ? 1L: 0L);
-        }
     }
 
     @Override
@@ -100,17 +83,6 @@ public class DeviceStateBeanDao extends AbstractDao<DeviceStateBean, Long> {
         if (activationState != null) {
             stmt.bindLong(3, activationState ? 1L: 0L);
         }
- 
-        Boolean loginState = entity.getLoginState();
-        if (loginState != null) {
-            stmt.bindLong(4, loginState ? 1L: 0L);
-        }
-        stmt.bindLong(5, entity.getLoginId());
- 
-        Boolean realNameState = entity.getRealNameState();
-        if (realNameState != null) {
-            stmt.bindLong(6, realNameState ? 1L: 0L);
-        }
     }
 
     @Override
@@ -123,10 +95,7 @@ public class DeviceStateBeanDao extends AbstractDao<DeviceStateBean, Long> {
         DeviceStateBean entity = new DeviceStateBean( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getInt(offset + 1), // deviceId
-            cursor.isNull(offset + 2) ? null : cursor.getShort(offset + 2) != 0, // activationState
-            cursor.isNull(offset + 3) ? null : cursor.getShort(offset + 3) != 0, // loginState
-            cursor.getInt(offset + 4), // loginId
-            cursor.isNull(offset + 5) ? null : cursor.getShort(offset + 5) != 0 // realNameState
+            cursor.isNull(offset + 2) ? null : cursor.getShort(offset + 2) != 0 // activationState
         );
         return entity;
     }
@@ -136,9 +105,6 @@ public class DeviceStateBeanDao extends AbstractDao<DeviceStateBean, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setDeviceId(cursor.getInt(offset + 1));
         entity.setActivationState(cursor.isNull(offset + 2) ? null : cursor.getShort(offset + 2) != 0);
-        entity.setLoginState(cursor.isNull(offset + 3) ? null : cursor.getShort(offset + 3) != 0);
-        entity.setLoginId(cursor.getInt(offset + 4));
-        entity.setRealNameState(cursor.isNull(offset + 5) ? null : cursor.getShort(offset + 5) != 0);
      }
     
     @Override

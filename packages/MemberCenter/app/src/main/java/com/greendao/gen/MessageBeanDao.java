@@ -26,7 +26,7 @@ public class MessageBeanDao extends AbstractDao<MessageBean, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property MessageId = new Property(1, int.class, "messageId", false, "MESSAGE_ID");
-        public final static Property UserId = new Property(2, int.class, "userId", false, "USER_ID");
+        public final static Property UserName = new Property(2, String.class, "userName", false, "USER_NAME");
         public final static Property Time = new Property(3, int.class, "time", false, "TIME");
         public final static Property MessageTitle = new Property(4, String.class, "messageTitle", false, "MESSAGE_TITLE");
         public final static Property MessageDescription = new Property(5, String.class, "messageDescription", false, "MESSAGE_DESCRIPTION");
@@ -47,7 +47,7 @@ public class MessageBeanDao extends AbstractDao<MessageBean, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"MESSAGE_BEAN\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"MESSAGE_ID\" INTEGER NOT NULL ," + // 1: messageId
-                "\"USER_ID\" INTEGER NOT NULL ," + // 2: userId
+                "\"USER_NAME\" TEXT," + // 2: userName
                 "\"TIME\" INTEGER NOT NULL ," + // 3: time
                 "\"MESSAGE_TITLE\" TEXT," + // 4: messageTitle
                 "\"MESSAGE_DESCRIPTION\" TEXT);"); // 5: messageDescription
@@ -68,7 +68,11 @@ public class MessageBeanDao extends AbstractDao<MessageBean, Long> {
             stmt.bindLong(1, id);
         }
         stmt.bindLong(2, entity.getMessageId());
-        stmt.bindLong(3, entity.getUserId());
+ 
+        String userName = entity.getUserName();
+        if (userName != null) {
+            stmt.bindString(3, userName);
+        }
         stmt.bindLong(4, entity.getTime());
  
         String messageTitle = entity.getMessageTitle();
@@ -91,7 +95,11 @@ public class MessageBeanDao extends AbstractDao<MessageBean, Long> {
             stmt.bindLong(1, id);
         }
         stmt.bindLong(2, entity.getMessageId());
-        stmt.bindLong(3, entity.getUserId());
+ 
+        String userName = entity.getUserName();
+        if (userName != null) {
+            stmt.bindString(3, userName);
+        }
         stmt.bindLong(4, entity.getTime());
  
         String messageTitle = entity.getMessageTitle();
@@ -115,7 +123,7 @@ public class MessageBeanDao extends AbstractDao<MessageBean, Long> {
         MessageBean entity = new MessageBean( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getInt(offset + 1), // messageId
-            cursor.getInt(offset + 2), // userId
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // userName
             cursor.getInt(offset + 3), // time
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // messageTitle
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // messageDescription
@@ -127,7 +135,7 @@ public class MessageBeanDao extends AbstractDao<MessageBean, Long> {
     public void readEntity(Cursor cursor, MessageBean entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setMessageId(cursor.getInt(offset + 1));
-        entity.setUserId(cursor.getInt(offset + 2));
+        entity.setUserName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setTime(cursor.getInt(offset + 3));
         entity.setMessageTitle(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setMessageDescription(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));

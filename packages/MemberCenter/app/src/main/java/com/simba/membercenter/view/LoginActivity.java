@@ -13,8 +13,9 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.simba.base.utils.Toasty;
 import com.simba.membercenter.MyApplication;
-import com.simba.membercenter.QRCodeUtil;
+import com.simba.base.utils.QRCodeUtil;
 import com.simba.membercenter.R;
 import com.simba.membercenter.presenter.HttpRequest;
 import com.simba.membercenter.presenter.LocalAccountManager;
@@ -27,20 +28,20 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
 
     private RelativeLayout mRlQRLogin, mRlAccountLogin;
     private TextView tv_Login1, tv_Login2;
-    private EditText et_loginid;
+    private EditText et_username, et_password;
     private Button mBtLogin,bt_agress;
     private ImageView iv_QRCode_login,iv_cancel,iv_logintype;
-    private static String LOGINID = "LOGINID";
+    private static String USERNAME = "USERNAME";
     public static void startAcivity(){
         Intent intent = new Intent(MyApplication.getMyApplication().getApplicationContext(), LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         MyApplication.getMyApplication().getApplicationContext().startActivity(intent);
     }
 
-    public static void startAcivityWithLoginId( int loginId){
+    public static void startAcivityWithLoginId( String userName){
         Intent intent = new Intent(MyApplication.getMyApplication().getApplicationContext(), LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(LOGINID,loginId);
+        intent.putExtra(USERNAME,userName);
         MyApplication.getMyApplication().getApplicationContext().startActivity(intent);
     }
 
@@ -50,19 +51,19 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
         setContentView(R.layout.activity_login);
         HttpRequest.getIntance().registerLoginViews(this);
 
-
-
         initView();
         setListener();
 
-        int loginId = -1 ;
+        String userName = "" ;
+
         try {
-            loginId = getIntent().getIntExtra(LOGINID, -1);
+            userName = getIntent().getStringExtra(USERNAME);
         }catch (Exception e){
             e.printStackTrace();
         }
-        if(loginId != -1){
-            initLoginType(loginId);
+
+        if(userName != null && !userName.isEmpty()){
+            initLoginType(userName);
         }
     }
 
@@ -80,12 +81,12 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
         mBtLogin = findViewById(R.id.bt_login);
         iv_cancel = findViewById(R.id.iv_cancel);
         iv_logintype = findViewById(R.id.iv_logintype);
-        et_loginid = findViewById(R.id.et_loginid);
+        et_username = findViewById(R.id.et_username);
+        et_password = findViewById(R.id.et_password);
         bt_agress = findViewById(R.id.bt_agress);
         bt_agress.setOnClickListener(this);
         iv_QRCode_login = findViewById(R.id.iv_QRCode_login);
         iv_QRCode_login.setImageBitmap(QRCodeUtil.createDefaultCodeBitmap("www.simbalink.cn", 225,225));
-
     }
 
     private void setListener(){
@@ -123,7 +124,18 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
                 }
                 break;
             case R.id.bt_login:
-                HttpRequest.getIntance().login();
+                String userName = et_username.getText().toString();
+                String password = et_password.getText().toString();
+                if(userName == null || userName.isEmpty()){
+                    Toasty.normal(getApplicationContext(),"请输入用户名").show();
+                    break;
+                }
+                if(password == null || password.isEmpty()){
+                    Toasty.normal(getApplicationContext(),"请输入密码").show();
+                    break;
+                }
+
+                HttpRequest.getIntance().loginWithPassword(userName,password);
                 break;
         }
     }
@@ -146,10 +158,10 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
         }
     }
 
-    private void initLoginType(int loginId){
-        if( loginId != -1){{
+    private void initLoginType(String userName){
+        if( userName != null && !userName.isEmpty()){{
             switchLoginType(AccountLoginType);
-            et_loginid.setText(""+loginId);
+            et_username.setText(userName);
         }}
     }
 
@@ -157,9 +169,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
     public void onLoginSucceed() {
 
         MainActivity.startAcivity();
-        if(et_loginid.getText() != null && !et_loginid.getText().toString().isEmpty()){
-            LocalAccountManager.getIntance().refreshLoginInfo( Integer.parseInt(et_loginid.getText().toString()));
-        }
+
         ((Activity) this).overridePendingTransition(0, 0);
         finish();
     }

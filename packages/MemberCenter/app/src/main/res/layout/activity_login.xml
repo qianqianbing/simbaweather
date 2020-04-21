@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="1064dp"
         android:layout_marginTop="23dp"
+        android:paddingRight="8dp"
         android:textSize="@dimen/base_text_size_large"
         android:gravity="center"
         android:textColor="@color/base_default_text_color"
@@ -45,7 +46,7 @@
         android:src="@drawable/icon_passwordlogin"/>
 
     <FrameLayout
-        android:layout_width="656dp"
+        android:layout_width="636dp"
         android:layout_height="463dp"
         android:layout_marginTop="199dp"
         android:layout_marginLeft="286dp"
@@ -68,6 +69,7 @@
                 android:layout_below="@id/iv_QRCode_login"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
+                android:textSize="@dimen/base_text_size_large"
                 android:textColor="@color/base_default_text_color"
                 android:text="@string/open_wechat_scan"/>
         </RelativeLayout>
@@ -79,63 +81,73 @@
             android:layout_gravity="center_horizontal"
             android:visibility="gone">
             <TextView
+                android:id="@+id/tv_username"
                 android:layout_width="wrap_content"
-                android:layout_height="64dp"
+                android:layout_height="@dimen/input_edittext_height"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:gravity="center_vertical"
-                android:textSize="@dimen/base_text_size_large"
+                android:textColor="@color/base_default_text_color"
+                android:textSize="@dimen/base_text_size_max"
                 android:text="@string/username"/>
             <EditText
-                android:id="@+id/et_loginid"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="40dp"
+                android:id="@+id/et_username"
+                android:layout_marginLeft="28dp"
                 android:layout_width="510dp"
-                android:layout_height="64dp"
+                android:layout_height="@dimen/input_edittext_height"
                 android:textSize="@dimen/base_text_size_large"
                 android:hint="@string/input_phone_number"
+                android:textColorHint="@color/base_white_trans_4d"
+                android:layout_toRightOf="@id/tv_username"
                 android:paddingLeft="30dp"
                 android:textColor="@color/base_default_text_color"
                 android:background="@drawable/background_textview" />
             <TextView
+                android:id="@+id/tv_password"
                 android:layout_width="wrap_content"
-                android:layout_height="64dp"
+                android:layout_height="@dimen/input_edittext_height"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="79dp"
                 android:gravity="center_vertical"
-                android:textSize="@dimen/base_text_size_large"
+                android:textColor="@color/base_default_text_color"
+                android:textSize="@dimen/base_text_size_max"
                 android:text="@string/password"/>
             <EditText
                 android:id="@+id/et_password"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="40dp"
+                android:layout_toRightOf="@id/tv_password"
+                android:layout_marginLeft="28dp"
                 android:layout_width="510dp"
-                android:layout_height="64dp"
-                android:layout_marginTop="79dp"
+                android:layout_height="@dimen/input_edittext_height"
+                android:layout_alignTop="@id/tv_password"
                 android:textSize="@dimen/base_text_size_large"
-                android:hint="@string/input_phone_number"
+                android:hint="@string/input_password"
+                android:textColorHint="@color/base_white_trans_4d"
+                android:paddingLeft="30dp"
                 android:textColor="@color/base_default_text_color"
                 android:background="@drawable/background_textview" />
-           <Button
-               android:id="@+id/bt_agress"
-               android:layout_below="@id/et_password"
-               android:layout_alignLeft="@id/et_password"
-               android:layout_marginTop="27dp"
-               android:layout_width="50dp"
-               android:layout_height="50dp"
-               android:background="@drawable/button_select_background"/>
-            <TextView
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/bt_agress"
-                android:layout_alignTop="@id/bt_agress"
-                android:layout_marginTop="6dp"
-                android:layout_marginLeft="15dp"
-                android:textSize="@dimen/base_text_size_medium"
-                android:textColor="@color/base_default_text_color"
-                android:text="@string/agree_contact"
-                />
+                android:layout_below="@id/et_password"
+                android:layout_marginTop="27dp"
+                android:layout_alignLeft="@id/et_password">
+                <Button
+                    android:id="@+id/bt_agress"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/button_select_background"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/bt_agress"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13dp"
+                    android:textSize="@dimen/base_text_size_large"
+                    android:textColor="@color/base_white_trans_4d"
+                    android:text="@string/agree_contact" />
+            </RelativeLayout>
+
             <Button
                 android:visibility="visible"
                 android:id="@+id/bt_login"
@@ -144,7 +156,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="131dp"
                 android:layout_alignParentBottom="true"
-                android:textSize="@dimen/base_text_size_medium"
+                android:textSize="@dimen/base_text_size_max"
                 android:gravity="center"
                 android:background="@drawable/background_btn"
                 android:textColor="@color/base_default_text_color"

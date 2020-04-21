@@ -1,7 +1,6 @@
 package com.simba.membercenter.ui.popupwindow;
 
 import android.content.Context;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +8,8 @@ import android.widget.ImageView;
 
 import com.simba.base.UI.Popupwindow.GlobalPopupWindow;
 import com.simba.membercenter.MyApplication;
-import com.simba.membercenter.QRCodeUtil;
+import com.simba.base.utils.QRCodeUtil;
 import com.simba.membercenter.R;
-
-import java.net.URL;
 
 public class DeviceActivationPopupWindow extends GlobalPopupWindow implements View.OnClickListener {
     private static String TAG = "DeviceActivationPopupWindow";
@@ -25,23 +22,25 @@ public class DeviceActivationPopupWindow extends GlobalPopupWindow implements Vi
 
     @Override
     public int getWidth() {
-        return 1220;
+        return (int)mContext.getResources().getDimension(R.dimen.popup_1_width);
     }
 
     @Override
     public int getHeight() {
-        return 532;
+        return (int)mContext.getResources().getDimension(R.dimen.popup_1_height);
     }
 
     @Override
     public View setUpView(Context context) {
         Log.i(TAG, "setUp view");
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_deviceactivation, null);
+
         iv_help = view.findViewById(R.id.iv_help);
         iv_help.setOnClickListener(this);
 
         iv_QRCode_activation = view.findViewById(R.id.iv_QRCode_activation);
-        iv_QRCode_activation.setImageBitmap(QRCodeUtil.createDefaultCodeBitmap(url, 184,184));
+        iv_QRCode_activation.setImageBitmap(QRCodeUtil.createDefaultCodeBitmap(url, (int)mContext.getResources().getDimension(R.dimen.QRCode_width),
+                (int)mContext.getResources().getDimension(R.dimen.QRCode_width)));
         //测试代码，5秒后消失
        /* new Handler().postDelayed(new Runnable() {
             @Override

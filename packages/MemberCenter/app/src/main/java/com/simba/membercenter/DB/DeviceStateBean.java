@@ -20,38 +20,20 @@ public class DeviceStateBean {
     @Property(nameInDb = "DEVICE_ID")
     private int deviceId;
 
-
     @Property(nameInDb = "ACTIVATION_STATE")
     private Boolean activationState;
-
-
-    @Property(nameInDb = "LODIN_STATE")
-    private Boolean loginState;
-
-    @Property(nameInDb = "LODIN_ID")
-    private int loginId;
-
-    @Property(nameInDb = "REAL_NAME_STATE")
-    private Boolean realNameState;
 
     @Keep
     public DeviceStateBean(int deviceId) {
         this.deviceId = deviceId;
         activationState = false;
-        loginState = false;
-        loginId = -1;
-        realNameState = false;
     }
 
-    @Generated(hash = 760690140)
-    public DeviceStateBean(Long id, int deviceId, Boolean activationState,
-            Boolean loginState, int loginId, Boolean realNameState) {
+    @Generated(hash = 459209631)
+    public DeviceStateBean(Long id, int deviceId, Boolean activationState) {
         this.id = id;
         this.deviceId = deviceId;
         this.activationState = activationState;
-        this.loginState = loginState;
-        this.loginId = loginId;
-        this.realNameState = realNameState;
     }
 
     @Generated(hash = 1094771735)
@@ -82,27 +64,4 @@ public class DeviceStateBean {
         this.activationState = activationState;
     }
 
-    public Boolean getLoginState() {
-        return loginState;
-    }
-
-    public void setLoginState(Boolean loginState) {
-        this.loginState = loginState;
-    }
-
-    public int getLoginId() {
-        return loginId;
-    }
-
-    public void setLoginId(int loginId) {
-        this.loginId = loginId;
-    }
-
-    public Boolean getRealNameState() {
-        return realNameState;
-    }
-
-    public void setRealNameState(Boolean realNameState) {
-        this.realNameState = realNameState;
-    }
 }
