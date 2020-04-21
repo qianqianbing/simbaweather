@@ -2,7 +2,9 @@ package com.simba.violationenquiry.add;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -11,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.simba.base.mvp.BaseMActivity;
-import com.simba.base.utils.ResourceUtils;
 import com.simba.violationenquiry.R;
 import com.simba.violationenquiry.add.contract.AddCarInfoContract;
 import com.simba.violationenquiry.add.presenter.AddCarPresenter;
@@ -34,6 +35,9 @@ import org.greenrobot.eventbus.EventBus;
  * @Desc : 新增车辆信息
  */
 public class AddNewCarActivity extends BaseMActivity<AddCarPresenter> implements View.OnClickListener, AddCarInfoContract.AddView {
+    public final static int PLATE_CODE = 0;
+    public final static int VIN_CODE = 1;
+    public final static int ENGINE_CODE = 2;
     public final static String CAR_INFO = "CAR_INFO";
     private Button submit;
     private ImageView ivClose;
@@ -44,6 +48,14 @@ public class AddNewCarActivity extends BaseMActivity<AddCarPresenter> implements
     private ProvincesKeyBoardView provincesKeyBoardView;
     private CarInfo newCarInfo;
     private String carID;
+
+    private TextView tvErrorPlate;
+    private TextView tvErrorVin;
+    private TextView tvErrorEngine;
+
+    private View vErrorPlate;
+    private View vErrorVin;
+    private View vErrorEngine;
 
     @Override
     protected int getLayoutId() {
@@ -64,10 +76,22 @@ public class AddNewCarActivity extends BaseMActivity<AddCarPresenter> implements
         etVIN.setTransformationMethod(new AlphabetReplaceMethod());
         etEngineNo.setTransformationMethod(new AlphabetReplaceMethod());
 
+        tvErrorPlate = findViewById(R.id.tv_plate_error);
+        tvErrorVin = findViewById(R.id.tv_vin_error);
+        tvErrorEngine = findViewById(R.id.tv_engine_error);
+
+        vErrorPlate = findViewById(R.id.view_plate);
+        vErrorVin = findViewById(R.id.view_vin);
+        vErrorEngine = findViewById(R.id.view_engine);
+
 
         tvProvinces.setOnClickListener(this);
         submit.setOnClickListener(this);
         ivClose.setOnClickListener(this);
+
+        etPlateNo.addTextChangedListener(new AfterTextChangedListener(PLATE_CODE));
+        etVIN.addTextChangedListener(new AfterTextChangedListener(VIN_CODE));
+        etEngineNo.addTextChangedListener(new AfterTextChangedListener(ENGINE_CODE));
 
     }
 
@@ -104,6 +128,9 @@ public class AddNewCarActivity extends BaseMActivity<AddCarPresenter> implements
             }
         });
         provincesKeyBoardView = new ProvincesKeyBoardView(this, tvProvinces);
+
+        check();
+
     }
 
     @Override
@@ -115,14 +142,14 @@ public class AddNewCarActivity extends BaseMActivity<AddCarPresenter> implements
      * 提交
      */
     private void submit() {
-        if (check()) {
-            newCarInfo = new CarInfo("1",
-                    AppUtils.getUpperValue(etEngineNo), carID,
-                    tvProvinces.getText().toString() + AppUtils.getUpperValue(etPlateNo),
-                    AppUtils.getUpperValue(etVIN));
 
-            getP().onAdd(newCarInfo);
-        }
+        newCarInfo = new CarInfo("1",
+                AppUtils.getUpperValue(etEngineNo), carID,
+                tvProvinces.getText().toString() + AppUtils.getUpperValue(etPlateNo),
+                AppUtils.getUpperValue(etVIN));
+
+        getP().onAdd(newCarInfo);
+
     }
 
     /**
@@ -130,20 +157,9 @@ public class AddNewCarActivity extends BaseMActivity<AddCarPresenter> implements
      *
      * @return
      */
-    private boolean check() {
-        if (etPlateNo.getText().toString().length() < 6) {
-            etPlateNo.setError(ResourceUtils.getString(R.string.please_input_right_plate_no_info));
-            return false;
-        }
-        if (!VinUtil.isValidVin(etVIN.getText().toString())) {
-            etVIN.setError(ResourceUtils.getString(R.string.please_input_right_vin));
-            return false;
-        }
-        if (etEngineNo.getText().toString().length() == 0) {
-            etEngineNo.setError(ResourceUtils.getString(R.string.please_input_right_engine_no));
-            return false;
-        }
-        return true;
+    private void check() {
+        boolean flag = etPlateNo.getText().toString().length() < 6 || !VinUtil.isValidVin(etVIN.getText().toString()) || etEngineNo.getText().toString().length() == 0;
+        submit.setEnabled(!flag);
     }
 
     @Override
@@ -211,5 +227,74 @@ public class AddNewCarActivity extends BaseMActivity<AddCarPresenter> implements
     @Override
     public Context getContext() {
         return this;
+    }
+
+    private class AfterTextChangedListener implements TextWatcher {
+        int code;
+
+        public AfterTextChangedListener(int code) {
+            this.code = code;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            switch (code) {
+                case PLATE_CODE: {
+                    if (etPlateNo.getText().toString().length() < 6) {
+                        setErrorPlate(true);
+                    } else {
+                        setErrorPlate(false);
+                    }
+                }
+                break;
+                case VIN_CODE: {
+                    if (!VinUtil.isValidVin(etVIN.getText().toString())) {
+                        setErrorVin(true);
+                    } else {
+                        setErrorVin(false);
+                    }
+                }
+                break;
+                case ENGINE_CODE: {
+                    if (etEngineNo.getText().toString().length() == 0) {
+                        setErrorEngine(true);
+                    } else {
+                        setErrorEngine(false);
+                    }
+                }
+                break;
+                default:
+                    break;
+            }
+            check();
+        }
+    }
+
+
+    private void setErrorPlate(boolean isShow) {
+        tvErrorPlate.setVisibility(isShow ? View.VISIBLE : View.GONE);
+        vErrorPlate.setVisibility(!isShow ? View.VISIBLE : View.GONE);
+
+    }
+
+    private void setErrorVin(boolean isShow) {
+        tvErrorVin.setVisibility(isShow ? View.VISIBLE : View.GONE);
+        vErrorVin.setVisibility(!isShow ? View.VISIBLE : View.GONE);
+
+    }
+
+    private void setErrorEngine(boolean isShow) {
+        tvErrorEngine.setVisibility(isShow ? View.VISIBLE : View.GONE);
+        vErrorEngine.setVisibility(!isShow ? View.VISIBLE : View.GONE);
     }
 }

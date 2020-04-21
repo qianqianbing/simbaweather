@@ -62,11 +62,29 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tv_plate_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/icon_error_bg"
+        android:gravity="center"
+        android:paddingTop="5px"
+        android:text="@string/please_input_right_plate_no_info"
+        android:textColor="@color/red_ff3b30"
+        android:textSize="@dimen/small_text_size"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/view_plate"
+        android:layout_width="wrap_content"
+        android:layout_height="8px" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20px"
+        android:layout_marginTop="12px"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -94,11 +112,29 @@
             android:textSize="@dimen/text_size" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tv_vin_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/icon_error_bg"
+        android:gravity="center"
+        android:paddingTop="5px"
+        android:text="@string/please_input_right_vin"
+        android:textColor="@color/red_ff3b30"
+        android:textSize="@dimen/small_text_size"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/view_vin"
+        android:layout_width="wrap_content"
+        android:layout_height="8px" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20px"
+        android:layout_marginTop="12px"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -126,13 +162,32 @@
             android:textSize="@dimen/text_size" />
     </LinearLayout>
 
+
+    <TextView
+        android:id="@+id/tv_engine_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/icon_error_bg"
+        android:gravity="center"
+        android:paddingTop="5px"
+        android:text="@string/please_input_right_engine_no"
+        android:textColor="@color/red_ff3b30"
+        android:textSize="@dimen/small_text_size"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/view_engine"
+        android:layout_width="wrap_content"
+        android:layout_height="25px" />
+
     <Button
         android:id="@+id/btn_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50px"
-        android:background="@mipmap/icon_submit"
+        android:layout_marginTop="25px"
+        android:background="@drawable/commit_bg"
         android:text="@string/confirm"
         android:textColor="@color/white"
         android:textSize="@dimen/btn_text_size" />
