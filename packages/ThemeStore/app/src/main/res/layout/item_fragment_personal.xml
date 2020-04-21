@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_root"
     android:layout_width="476px"
     android:layout_height="220px"
-    android:background="@mipmap/wall_bg">
+    android:layout_marginLeft="40px">
 
     <ImageView
+
         android:id="@+id/iv_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:src="@mipmap/icon_wall" />
+        android:layout_centerInParent="true" />
 
     <TextView
+        android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_icon"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10px"
-        android:text="主题"
+
         android:textColor="#ffeeeeee"
         android:textSize="@dimen/base_text_size_max" />
 </RelativeLayout>

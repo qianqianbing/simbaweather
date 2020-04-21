@@ -19,4 +19,8 @@
     <style name="TabLayoutTextStyle">
         <item name="android:textSize">@dimen/base_text_size_dialog</item>
     </style>
+    <!-- 等待圈 -->
+    <style name="loadMoreViewStyle">
+        <item name="android:indeterminateDrawable">@drawable/base_progress_large</item>
+    </style>
 </resources>

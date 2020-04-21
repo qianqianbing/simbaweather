@@ -1,12 +1,23 @@
 <resources>
-    <string name="app_name">ThemeStore</string>
-    <string name="title_activity_not_logged">NotLoggedActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="app_name">主题商城</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string-array name="personal_title">
+        <item>主题</item>
+        <item>壁纸</item>
+        <item>屏保</item>
+        <item>关于</item>
+    </string-array>
+
+    <integer-array name="personal_bg">
+        <item>@drawable/theme_bg</item>
+        <item>@drawable/wall_bg</item>
+        <item>@drawable/protect_bg</item>
+        <item>@drawable/about_bg</item>
+    </integer-array>
+    <integer-array name="personal_icon">
+        <item>@drawable/icon_theme</item>
+        <item>@drawable/icon_wall</item>
+        <item>@drawable/icon_protect</item>
+        <item>@drawable/icon_about</item>
+    </integer-array>
 </resources>

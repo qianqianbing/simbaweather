@@ -1,6 +1,7 @@
 package com.simba.base.utils;
 
 import android.app.Activity;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,21 @@ public class ResourceUtils {
 
         String string = BaseApplication.sContext.getString(resID);
         return string;
+    }
+
+    public static String[] getStringArray(Integer resID) {
+        String[] string = BaseApplication.sContext.getResources().getStringArray(resID);
+        return string;
+    }
+    public static int[] getIntegerArray(int arrayId) {
+        TypedArray typedArray = BaseApplication.sContext.getResources().obtainTypedArray(arrayId);
+        final int len = typedArray.length();
+        int imageList[] = new int[len];
+        for (int i = 0; i < len; i++) {
+            imageList[i] = typedArray.getResourceId(i, 0);
+        }
+        typedArray.recycle();
+        return imageList;
     }
 
     public static int getColor(Integer resID) {

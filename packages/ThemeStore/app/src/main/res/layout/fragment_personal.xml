@@ -1,7 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingLeft="9px"
+    android:paddingTop="42px">
 
-    <include layout="@layout/item_fragment_personal" />
-</LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="1px"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="40px"
+        android:layout_marginTop="70px"
+        android:layout_marginBottom="70px"
+        android:layout_toRightOf="@+id/recyclerView"
+        android:background="@drawable/divider_bg" />
+
+    <RelativeLayout
+        android:layout_width="719px"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="180px"
+                android:layout_height="180px"
+                android:src="@mipmap/ic_launcher_round" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="49px"
+                android:text="Simba2020"
+                android:textColor="#ffffffff"
+                android:textSize="42sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="27px"
+                android:background="@mipmap/roles_bg"
+                android:gravity="center"
+                android:text="车主"
+                android:textColor="#ff6cf8fc"
+                android:textSize="38sp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

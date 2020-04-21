@@ -5,4 +5,9 @@
     <color name="colorAccent">#03DAC5</color>
 
     <color name="tab_line_color">#6CF8FC</color>
+    <color name="black_1a">#1A000000</color>
+
+    <color name="black_trans_4d">#4d000000</color>
+    <color name="white_trans_1a">#1affffff</color>
+    <color name="white_99">#99ffffff</color>
 </resources>
