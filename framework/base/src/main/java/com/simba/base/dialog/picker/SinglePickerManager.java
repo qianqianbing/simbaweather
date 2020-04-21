@@ -2,6 +2,7 @@ package com.simba.base.dialog.picker;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.Color;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.Gravity;
@@ -155,6 +156,9 @@ public class SinglePickerManager {
         mTvConfirm.setText(text);
     }
 
+    public void setConfirmTextColor(int color){
+        mTvConfirm.setTextColor(color);
+    }
     public void setCancelText(@StringRes int text) {
         mTvCancel.setText(text);
     }
@@ -234,9 +238,10 @@ public class SinglePickerManager {
     /**
      * @param listener
      */
-    public void setOnConfirmListener(onConfirmClickListener listener) {
+    public SinglePickerManager setOnConfirmListener(onConfirmClickListener listener) {
 
         mConfirmListener = listener;
+        return this;
     }
 
     /**

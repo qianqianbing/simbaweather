@@ -88,5 +88,12 @@ public class SimbaUrl {
      * 获取各种二维码的url
      */
     public final static String ACCOUNT_GET_QRCODE = BASE_HOST_ACCOUNT + "/account/getQRCode";
-
+    /**
+     * 账号密码登陆
+     */
+    public final static String ACCOUNT_LOGIN = BASE_HOST_ACCOUNT + "/login/accountLogin";
+    /**
+     * 查询账号的信息
+     */
+    public final static String ACCOUNT_USER_INFO = BASE_HOST_ACCOUNT + "/login/userInfo";
 }

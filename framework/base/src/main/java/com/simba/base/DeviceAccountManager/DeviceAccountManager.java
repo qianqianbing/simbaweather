@@ -52,17 +52,17 @@ public class DeviceAccountManager {
     }
 
     //获取已登陆的账号
-    public int getLoginedAccount( ){
+    public String getLoginedAccount( ){
         Cursor cursor = mContext.getContentResolver().query(DEVICE_STATE_URI,null,null,null,null,null);
         if (cursor != null && cursor.getCount() > 0) {
             cursor.moveToLast();
 
-            int loginId = cursor.getInt(cursor.getColumnIndex(LODIN_ID));
+            String userName = cursor.getString(cursor.getColumnIndex(USER_NAME));
 
             cursor.close();
-            return loginId;
+            return userName;
         }
-        return -1;
+        return "";
     }
 
     //获取已登陆账号的token
@@ -73,10 +73,10 @@ public class DeviceAccountManager {
             int deviceId = cursor.getInt(cursor.getColumnIndex(DEVICE_ID));
             int activationState = cursor.getInt(cursor.getColumnIndex(ACTIVATION_STATE));
             int loginState = cursor.getInt(cursor.getColumnIndex(LODIN_STATE));
-            int loginId = cursor.getInt(cursor.getColumnIndex(LODIN_ID));
+            String userName = cursor.getString(cursor.getColumnIndex(USER_NAME));
             int realNameState = cursor.getInt(cursor.getColumnIndex(REAL_NAME_STATE));
 
-            Log.e(TAG, "deviceId is " + deviceId + "\n activationState is " + activationState + "\n loginState is " + loginState + " \n loginId is " + loginId + "\n realNameState is " + realNameState );
+            Log.e(TAG, "deviceId is " + deviceId + "\n activationState is " + activationState + "\n loginState is " + loginState + " \n userName is " + userName + "\n realNameState is " + realNameState );
             cursor.close();
         }
         return "1234566778";
@@ -106,8 +106,8 @@ public class DeviceAccountManager {
     public final static String ACTIVATION_STATE = "ACTIVATION_STATE";
     //登陆状态
     public final static String LODIN_STATE = "LODIN_STATE";
-    //登陆的id
-    public final static String LODIN_ID = "LODIN_ID";
+    //登陆的username
+    public final static String USER_NAME = "USER_NAME";
     //实名认证状态
     public final static String REAL_NAME_STATE = "REAL_NAME_STATE";
 
@@ -136,8 +136,8 @@ public class DeviceAccountManager {
             Log.e(TAG, "DEVICE_STATE_URI change " + selfChange);
             if(accountStateHander != null){
                 if(getLoginState()){
-                    int loginId = getLoginedAccount();
-                    accountStateHander.onAccountLogin(loginId);
+                    String userName = getLoginedAccount();
+                    accountStateHander.onAccountLogin(userName);
                 }else {
                     accountStateHander.onAccountLogout();
                 }
@@ -147,6 +147,6 @@ public class DeviceAccountManager {
 
     public interface AccountStateHander {
         void onAccountLogout();
-        void onAccountLogin(int loginId);
+        void onAccountLogin(String  userName);
     }
 }

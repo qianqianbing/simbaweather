@@ -31,4 +31,5 @@ dependencies {
     implementation "com.lzy.net:okgo:${dependVersion.okgo}"
     implementation "com.google.code.gson:gson:${dependVersion.gson}"
     implementation "com.gyf.immersionbar:immersionbar:${dependVersion.immersionbar}"//沉浸状态栏
+    implementation "com.google.zxing:core:${dependVersion.zxing}"
 }
