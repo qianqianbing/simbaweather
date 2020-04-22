@@ -5,14 +5,14 @@ import android.graphics.Color;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.simba.simbaweather.R;
-import com.simba.simbaweather.data.bean.CityplanningBean;
+import com.simba.simbaweather.data.bean.CityInfo;
 
 /**
  * @author wzy
  * @description:
  * @date :2020/4/14 16:19
  */
-public class CityplanningAdapter extends BaseQuickAdapter<CityplanningBean.DataBean, BaseViewHolder> {
+public class CityplanningAdapter extends BaseQuickAdapter<CityInfo, BaseViewHolder> {
 
     int localColor, otherColor;
 
@@ -23,7 +23,7 @@ public class CityplanningAdapter extends BaseQuickAdapter<CityplanningBean.DataB
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, CityplanningBean.DataBean item) {
+    protected void convert(BaseViewHolder helper, CityInfo item) {
 
         helper.setText(R.id.tv_di, item.getDistrict());
         if (item.getId() == "-1") {

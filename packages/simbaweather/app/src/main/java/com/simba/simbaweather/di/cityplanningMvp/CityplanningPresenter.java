@@ -1,8 +1,7 @@
 package com.simba.simbaweather.di.cityplanningMvp;
 
 import com.lzy.okgo.model.Response;
-import com.simba.simbaweather.data.bean.CityplanningBean;
-import com.simba.simbaweather.data.bean.SearchBean;
+import com.simba.simbaweather.data.bean.CityInfo;
 import com.simba.simbaweather.ui.base.BasePresenter;
 
 import java.util.List;
@@ -19,18 +18,20 @@ public class CityplanningPresenter<V extends CityplanningContract.ICityplanningS
     public CityplanningPresenter() {
         cityplanningShowModel = new CityplanningShowModel();
     }
-    public void RequestCityPlnningData(){
+
+    public void RequestCityPlnningData() {
         cityplanningShowModel.RequestCityplanningData(new CityplanningContract.ICityplanningShowModel.CityplanningShowBack() {
             @Override
-            public void getCityplanningData(Response<List<CityplanningBean.DataBean>> response) {
+            public void getCityplanningData(Response<List<CityInfo>> response) {
                 getView().CityplanningShowData(response);
             }
         });
     }
-    public void RequestSearchData(String searchValue){
-        cityplanningShowModel.RequestSearchgData(searchValue,new CityplanningContract.ICityplanningShowModel.SearchShowBack() {
+
+    public void RequestSearchData(String searchValue) {
+        cityplanningShowModel.RequestSearchgData(searchValue, new CityplanningContract.ICityplanningShowModel.SearchShowBack() {
             @Override
-            public void getSearchData(Response<List<SearchBean.DataBean>> response) {
+            public void getSearchData(Response<List<CityInfo>> response) {
 
             }
         });

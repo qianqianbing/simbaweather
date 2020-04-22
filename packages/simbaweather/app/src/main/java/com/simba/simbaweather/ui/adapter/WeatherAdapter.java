@@ -33,7 +33,7 @@ public class WeatherAdapter extends BaseQuickAdapter<WeaTher.DataBean.WeatherLis
         //天气特征
         helper.setText(R.id.tv_weathersituation, item.getCondition());
         //温度
-        helper.setText(R.id.tv_tirtmp, item.getTempDay()+"°/" + item.getTempNight()+"°");
+        helper.setText(R.id.tv_tirtmp, item.getTempDay() + "°/" + item.getTempNight() + "°");
         //天气图标
         ImageView mivIMG = helper.getView(R.id.miv_img);
         conditionId = item.getConditionId();

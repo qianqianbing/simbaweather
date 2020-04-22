@@ -6,10 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.CallSuper;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.lzy.okgo.OkGo;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * ================================================
@@ -24,6 +30,7 @@ public abstract class BaseFragment extends Fragment {
     public View mRootView;
     public LayoutInflater mInflater;
     public Context mContext;
+    public Unbinder unbinder;
 
     @Override
     public void onAttach(Context context) {
@@ -34,6 +41,8 @@ public abstract class BaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        //缓存的rootView需要判断是否已经被加过parent，如果有parent需要从parent删除，要不然会发生这个rootview已经有parent的错误。
         if (mRootView != null) {
             ViewGroup parent = (ViewGroup) mRootView.getParent();
             if (parent != null)
@@ -41,10 +50,20 @@ public abstract class BaseFragment extends Fragment {
         } else {
             mRootView = inflater.inflate(getLayoutId(), container, false);
             mInflater = inflater;
+            unbinder = ButterKnife.bind(this, mRootView);
             initView();
             initData();
         }
         return mRootView;
+    }
+
+    @Override
+    @CallSuper
+    public void onDestroyView() {
+        if (unbinder != null)
+            unbinder.unbind();
+        OkGo.getInstance().cancelTag(this);//取消未处理的请求
+        super.onDestroyView();
     }
 
     @Override

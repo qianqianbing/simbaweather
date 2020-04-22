@@ -1,7 +1,5 @@
 package com.simba.simbaweather.data.bean;
 
-import com.google.gson.Gson;
-
 import java.util.List;
 
 /**

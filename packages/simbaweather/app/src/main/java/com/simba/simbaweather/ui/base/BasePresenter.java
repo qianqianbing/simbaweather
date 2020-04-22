@@ -10,13 +10,15 @@ public class BasePresenter<V> {
 
     private WeakReference<V> weakReference;
 
-    public void onAttech(V v){
+    public void onAttech(V v) {
         weakReference = new WeakReference<>(v);
     }
-    public V getView(){
+
+    public V getView() {
         return weakReference.get();
     }
-    public void onDeatch(){
+
+    public void onDeatch() {
         weakReference.clear();
     }
 }

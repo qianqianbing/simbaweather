@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.lzy.okgo.model.Response;
 import com.simba.simbaweather.R;
 import com.simba.simbaweather.data.bean.CitySearchBean;
-import com.simba.simbaweather.data.bean.WeaTher;
 import com.simba.simbaweather.di.cityidMvp.CityIdContract;
 import com.simba.simbaweather.di.cityidMvp.CityIdPresnter;
 import com.simba.simbaweather.ui.activity.RuncityActivity;

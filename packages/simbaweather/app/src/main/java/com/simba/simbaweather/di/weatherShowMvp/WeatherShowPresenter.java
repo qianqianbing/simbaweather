@@ -16,8 +16,9 @@ public class WeatherShowPresenter<V extends WeatherShowContract.IWeatherShowView
     public WeatherShowPresenter() {
         weatherShowModel = new WeatherShowModel();
     }
-    public void WeathershowRequestData(String lat,String lng){
-        weatherShowModel.RequestDetailsData(lat,lng,new WeatherShowContract.IWeatherShowModel.WeatherShowBack() {
+
+    public void WeathershowRequestData(String lat, String lng) {
+        weatherShowModel.RequestDetailsData(lat, lng, new WeatherShowContract.IWeatherShowModel.WeatherShowBack() {
             @Override
             public void getDetailsData(Response<WeaTher.DataBean> response) {
                 getView().WeatherShowData(response);

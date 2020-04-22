@@ -29,15 +29,14 @@ public class RecyclerViewDivider extends RecyclerView.ItemDecoration {
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
 
     /**
-     *
      * 默认分割线：高度为2px，颜色为灰色
      * 获取属性值，
      *
      * @param context
-     * @param orientation  列表方向
+     * @param orientation 列表方向
      */
 
-    public RecyclerViewDivider(Context context, int orientation){
+    public RecyclerViewDivider(Context context, int orientation) {
         if (orientation != LinearLayoutManager.VERTICAL && orientation != LinearLayoutManager.HORIZONTAL) {
             throw new IllegalArgumentException("请输入正确的参数！");
         }
@@ -106,10 +105,10 @@ public class RecyclerViewDivider extends RecyclerView.ItemDecoration {
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
         super.onDraw(c, parent, state);
-        if(mOrientation==LinearLayoutManager.VERTICAL){
-            drawVerticalLine(c,parent);
-        }else{
-            drawHorizontalLine(c,parent);
+        if (mOrientation == LinearLayoutManager.VERTICAL) {
+            drawVerticalLine(c, parent);
+        } else {
+            drawHorizontalLine(c, parent);
         }
     }
 

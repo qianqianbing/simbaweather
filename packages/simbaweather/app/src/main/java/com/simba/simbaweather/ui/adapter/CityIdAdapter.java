@@ -20,7 +20,9 @@ public class CityIdAdapter extends BaseQuickAdapter<CitySearchBean.DataBean.Weat
     public CityIdAdapter(int layoutResId, @Nullable List<CitySearchBean.DataBean.WeatherListBean> data) {
         super(layoutResId, data);
     }
+
     private String conditionId;
+
     @Override
     protected void convert(BaseViewHolder helper, CitySearchBean.DataBean.WeatherListBean item) {
         //日期
@@ -30,7 +32,7 @@ public class CityIdAdapter extends BaseQuickAdapter<CitySearchBean.DataBean.Weat
         //天气特征
         helper.setText(R.id.tv_weathersituation, item.getCondition());
         //温度
-        helper.setText(R.id.tv_tirtmp, item.getTempDay()+"°/" + item.getTempNight()+"°");
+        helper.setText(R.id.tv_tirtmp, item.getTempDay() + "°/" + item.getTempNight() + "°");
         //天气图标
         ImageView mivIMG = helper.getView(R.id.miv_img);
         conditionId = item.getConditionId();

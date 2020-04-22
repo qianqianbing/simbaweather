@@ -9,18 +9,22 @@ import com.simba.simbaweather.data.bean.WeaTher;
  * @date :2020/4/10 10:34
  */
 public interface WeatherShowContract {
-    public interface IWeatherShowView{
+    public interface IWeatherShowView {
         public void WeatherShowData(Response<WeaTher.DataBean> response);
 
 
     }
-    public interface IWeatherShowPresenter{
+
+    public interface IWeatherShowPresenter {
         public void Attech();
+
         public void Deatch();
     }
-    public interface IWeatherShowModel{
-        public void RequestDetailsData(String lat,String lng,WeatherShowBack weatherShowBack);
-        public interface WeatherShowBack{
+
+    public interface IWeatherShowModel {
+        public void RequestDetailsData(String lat, String lng, WeatherShowBack weatherShowBack);
+
+        public interface WeatherShowBack {
             void getDetailsData(Response<WeaTher.DataBean> response);
         }
     }

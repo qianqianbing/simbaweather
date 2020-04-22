@@ -11,6 +11,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/intro_margin_30"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -21,12 +22,13 @@
             android:layout_centerVertical="true"
             android:drawableLeft="@mipmap/bg_direction"
             android:drawablePadding="@dimen/intro_margin_25"
+            android:gravity="center"
             android:text="添加城市"
             android:textColor="#FFFFFFFF"
-            android:textSize="36dp" />
+            android:textSize="38dp" />
 
 
-        <EditText
+        <com.simba.simbaweather.ui.activity.view.DrawableEditText
             android:id="@+id/ed_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,16 +40,18 @@
             android:drawablePadding="@dimen/intro_margin_12"
             android:hint="请输入要搜索的城市，如南京市栖霞区或栖霞区"
             android:paddingLeft="25dp"
+            android:paddingRight="25dp"
             android:textColor="@color/base_white"
             android:textColorHint="#FF7A7B7D"
-            android:textSize="30sp" />
-    </LinearLayout>
+            android:textSize="32sp" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-
+        <ImageView
+            android:id="@+id/iv_add_city_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/intro_margin_20"
+            android:background="@mipmap/add_city_loading_ic"
+            android:visibility="invisible" />
     </LinearLayout>
 
     <LinearLayout
@@ -58,20 +62,21 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tv_recommend_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/intro_margin_20"
             android:drawableLeft="@mipmap/add_city_recommend_icon"
             android:drawablePadding="@dimen/intro_margin_10"
             android:gravity="center"
             android:text="推荐城市"
             android:textColor="#FFFFFFFF"
-            android:textSize="32px" />
+            android:textSize="32sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcy_citytj"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/intro_margin_20" />
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 </LinearLayout>

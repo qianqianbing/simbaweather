@@ -6,8 +6,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 import com.simba.base.network.JsonCallback;
 import com.simba.base.network.SimbaUrl;
-import com.simba.simbaweather.data.bean.CityplanningBean;
-import com.simba.simbaweather.data.bean.SearchBean;
+import com.simba.simbaweather.data.bean.CityInfo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,14 +24,14 @@ public class CityplanningShowModel implements CityplanningContract.ICityplanning
     @Override
     public void RequestCityplanningData(CityplanningShowBack cityplanningShowBack) {
 
-        OkGo.<List<CityplanningBean.DataBean>>post(SimbaUrl.WEATHER_GET_WEATHER_RECOMMENDCITYLIST)
+        OkGo.<List<CityInfo>>post(SimbaUrl.WEATHER_GET_WEATHER_RECOMMENDCITYLIST)
                 .tag(this)
-                .execute(new JsonCallback<List<CityplanningBean.DataBean>>() {
+                .execute(new JsonCallback<List<CityInfo>>() {
                     @Override
-                    public void onSuccess(Response<List<CityplanningBean.DataBean>> response) {
+                    public void onSuccess(Response<List<CityInfo>> response) {
 
                         cityplanningShowBack.getCityplanningData(response);
-                        Log.i("111223", "onSuccess: "+response);
+                        Log.i("111223", "onSuccess: " + response);
                     }
 
                 });
@@ -40,23 +39,22 @@ public class CityplanningShowModel implements CityplanningContract.ICityplanning
 
     @Override
     public void RequestSearchgData(String searchValue, SearchShowBack searchShowBack) {
-        JSONObject jsonObject=new JSONObject();
+        JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("searchValue",searchValue);
+            jsonObject.put("searchValue", searchValue);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        OkGo.<List<SearchBean.DataBean>>post(SimbaUrl.WEATHER_GET_WEATHER_MATCHINGCITY)
+        OkGo.<List<CityInfo>>post(SimbaUrl.WEATHER_GET_WEATHER_MATCHINGCITY)
                 .tag(this)
                 .upJson(jsonObject)
-                .execute(new JsonCallback<List<SearchBean.DataBean>>() {
+                .execute(new JsonCallback<List<CityInfo>>() {
                     @Override
-                    public void onSuccess(Response<List<SearchBean.DataBean>> response) {
+                    public void onSuccess(Response<List<CityInfo>> response) {
                         searchShowBack.getSearchData(response);
                     }
                 });
     }
-
 
 
 }

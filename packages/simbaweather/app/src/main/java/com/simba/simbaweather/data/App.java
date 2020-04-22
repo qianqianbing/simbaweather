@@ -1,7 +1,6 @@
 package com.simba.simbaweather.data;
 
 import com.simba.base.base.BaseApplication;
-import com.simba.base.network.OkGoUtil;
 import com.simba.base.utils.SpStaticUtils;
 import com.simba.base.utils.SpUtils;
 

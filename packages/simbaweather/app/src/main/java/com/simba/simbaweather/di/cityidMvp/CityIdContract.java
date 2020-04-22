@@ -2,9 +2,6 @@ package com.simba.simbaweather.di.cityidMvp;
 
 import com.lzy.okgo.model.Response;
 import com.simba.simbaweather.data.bean.CitySearchBean;
-import com.simba.simbaweather.data.bean.CityplanningBean;
-
-import java.util.List;
 
 /**
  * @author wzy
@@ -23,7 +20,7 @@ public interface CityIdContract {
     }
 
     public interface ICityIdModel {
-        public void RequestCityIdData(String cityid,CityIdBack cityIdBack);
+        public void RequestCityIdData(String cityid, CityIdBack cityIdBack);
 
         public interface CityIdBack {
             void getCityIdData(Response<CitySearchBean.DataBean> response);

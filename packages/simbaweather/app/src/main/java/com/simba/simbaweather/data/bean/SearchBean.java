@@ -1,7 +1,5 @@
 package com.simba.simbaweather.data.bean;
 
-import com.google.gson.Gson;
-
 import java.util.List;
 
 /**
@@ -21,7 +19,7 @@ public class SearchBean {
     private Object message;
     private int code;
     private boolean success;
-    private List<DataBean> data;
+    private List<CityInfo> data;
 
 
     public Object getMessage() {
@@ -48,67 +46,11 @@ public class SearchBean {
         this.success = success;
     }
 
-    public List<DataBean> getData() {
+    public List<CityInfo> getData() {
         return data;
     }
 
-    public void setData(List<DataBean> data) {
+    public void setData(List<CityInfo> data) {
         this.data = data;
-    }
-
-    public static class DataBean {
-        /**
-         * id : 131497
-         * nation : null
-         * province : 台湾
-         * city : 台南市
-         * district : 山上區 (Shanshang)
-         */
-
-        private String id;
-        private Object nation;
-        private String province;
-        private String city;
-        private String district;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public Object getNation() {
-            return nation;
-        }
-
-        public void setNation(Object nation) {
-            this.nation = nation;
-        }
-
-        public String getProvince() {
-            return province;
-        }
-
-        public void setProvince(String province) {
-            this.province = province;
-        }
-
-        public String getCity() {
-            return city;
-        }
-
-        public void setCity(String city) {
-            this.city = city;
-        }
-
-        public String getDistrict() {
-            return district;
-        }
-
-        public void setDistrict(String district) {
-            this.district = district;
-        }
     }
 }

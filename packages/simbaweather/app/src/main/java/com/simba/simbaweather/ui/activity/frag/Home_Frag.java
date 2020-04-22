@@ -13,7 +13,6 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.gyf.immersionbar.ImmersionBar;
 import com.lzy.okgo.model.Response;
 import com.simba.simbaweather.R;
 import com.simba.simbaweather.data.bean.LocationUtils;
@@ -37,7 +36,7 @@ import butterknife.OnClick;
  *@Package_name:com.bw.movie.data.frag
  *@Description:
  * */
-public class Home_Frag extends BaseFragment<WeatherShowContract.IWeatherShowView, WeatherShowPresenter<WeatherShowContract.IWeatherShowView>> implements WeatherShowContract.IWeatherShowView  {
+public class Home_Frag extends BaseFragment<WeatherShowContract.IWeatherShowView, WeatherShowPresenter<WeatherShowContract.IWeatherShowView>> implements WeatherShowContract.IWeatherShowView {
 
     @BindView(R.id.img_location)
     ImageView imgLocation;
@@ -84,6 +83,7 @@ public class Home_Frag extends BaseFragment<WeatherShowContract.IWeatherShowView
     private String tempDay;
     private String tempNight;
     private Location gpsLocation;
+
     @Override
     public void WeatherShowData(Response<WeaTher.DataBean> response) {
         weatherList = response.body().getWeatherList();
@@ -118,7 +118,6 @@ public class Home_Frag extends BaseFragment<WeatherShowContract.IWeatherShowView
     }
 
 
-
     @Override
     public void initData() {
 
@@ -132,7 +131,7 @@ public class Home_Frag extends BaseFragment<WeatherShowContract.IWeatherShowView
         //... Criteria 还有其他属性，就不一一介绍了
         Location best = LocationUtils.getBestLocation(getContext(), c);
         if (best == null) {
-         //   Toast.makeText(getContext(), " best location is null", Toast.LENGTH_SHORT).show();
+            //   Toast.makeText(getContext(), " best location is null", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getContext(), "best location: lat==" + best.getLatitude() + " lng==" + best.getLongitude(), Toast.LENGTH_SHORT).show();
         }
@@ -153,6 +152,7 @@ public class Home_Frag extends BaseFragment<WeatherShowContract.IWeatherShowView
     protected int getLayout() {
         return R.layout.item_home;
     }
+
     @OnClick({R.id.tv_refreshtime, R.id.tv_runacity})
     public void onViewClicked(View view) {
         switch (view.getId()) {

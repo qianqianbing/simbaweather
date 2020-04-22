@@ -18,7 +18,7 @@ import org.json.JSONObject;
 public class CityIdModel implements CityIdContract.ICityIdModel {
 
     private JSONObject jsonObject;
-    private AddCityActivity activity=new AddCityActivity();
+    private AddCityActivity activity = new AddCityActivity();
 
     @Override
     public void RequestCityIdData(String cityid, CityIdBack cityIdBack) {

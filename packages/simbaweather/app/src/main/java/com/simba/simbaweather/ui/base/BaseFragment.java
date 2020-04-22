@@ -1,7 +1,6 @@
 package com.simba.simbaweather.ui.base;
 
 import android.os.Bundle;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,7 @@ import butterknife.Unbinder;
  *@Date: 2020/04/17
  *@Description:
  * */
-public abstract class BaseFragment<V,P extends BasePresenter<V>> extends Fragment {
+public abstract class BaseFragment<V, P extends BasePresenter<V>> extends Fragment {
     public P fPresenter;
     private View inflate;
     private Unbinder bind;
@@ -34,7 +33,7 @@ public abstract class BaseFragment<V,P extends BasePresenter<V>> extends Fragmen
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        fPresenter=oncreatePresenter();
+        fPresenter = oncreatePresenter();
         fPresenter.onAttech((V) this);
         initData();
     }

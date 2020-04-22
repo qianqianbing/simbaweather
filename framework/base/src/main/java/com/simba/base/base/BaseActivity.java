@@ -11,6 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.gyf.immersionbar.ImmersionBar;
 import com.lzy.okgo.OkGo;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * ================================================
  * 作    者：谢广胜
@@ -18,10 +21,14 @@ import com.lzy.okgo.OkGo;
  * 创建日期：2020/4/09
  * 描    述：activity 基类
  * 修订历史：
+ * 添加永不息屏
+ * 添加OkGo退出取消请求
+ * 添加ButterKnife注册，解绑
  * ================================================
  */
 public abstract class BaseActivity extends AppCompatActivity {
     protected Context mContext;
+    public Unbinder unbinder;
 
     //在布局之前处理
     @CallSuper
@@ -49,15 +56,19 @@ public abstract class BaseActivity extends AppCompatActivity {
         mContext = this;
         initWindow();
         setContentView(getLayoutId());
+        unbinder = ButterKnife.bind(this);//布局绑定
         ImmersionBar.with(this).init();//沉浸式布局
         initView();
         initData();
         initListener();
     }
 
+
     @Override
+    @CallSuper
     protected void onDestroy() {
         super.onDestroy();
+        unbinder.unbind();
         OkGo.getInstance().cancelTag(this);//取消未处理的请求
     }
 }

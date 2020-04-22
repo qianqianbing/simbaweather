@@ -78,10 +78,12 @@ public class RuncityActivity extends BaseActivity<CityIdContract.ICityIdView, Ci
         cityid0 = SpStaticUtils.getString("cityid0", "");
         mPresenter.RequestCityData("2");
     }
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_runcity;
     }
+
     @Override
     protected void initView() {
         super.initView();

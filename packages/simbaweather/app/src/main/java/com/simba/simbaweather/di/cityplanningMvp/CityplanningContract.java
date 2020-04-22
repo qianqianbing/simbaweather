@@ -1,8 +1,7 @@
 package com.simba.simbaweather.di.cityplanningMvp;
 
 import com.lzy.okgo.model.Response;
-import com.simba.simbaweather.data.bean.CityplanningBean;
-import com.simba.simbaweather.data.bean.SearchBean;
+import com.simba.simbaweather.data.bean.CityInfo;
 
 import java.util.List;
 
@@ -13,8 +12,9 @@ import java.util.List;
  */
 public interface CityplanningContract {
     public interface ICityplanningShowView {
-        public void CityplanningShowData(Response<List<CityplanningBean.DataBean>> response);
-        public void SearchShowData(Response<List<SearchBean.DataBean>> response);
+        public void CityplanningShowData(Response<List<CityInfo>> response);
+
+        public void SearchShowData(Response<List<CityInfo>> response);
     }
 
     public interface ICityplanningShowPresenter {
@@ -27,12 +27,13 @@ public interface CityplanningContract {
         public void RequestCityplanningData(CityplanningShowBack cityplanningShowBack);
 
         public interface CityplanningShowBack {
-            void getCityplanningData(Response<List<CityplanningBean.DataBean>> response);
+            void getCityplanningData(Response<List<CityInfo>> response);
         }
-        public void RequestSearchgData(String searchValue,SearchShowBack searchShowBack);
+
+        public void RequestSearchgData(String searchValue, SearchShowBack searchShowBack);
 
         public interface SearchShowBack {
-            void getSearchData(Response<List<SearchBean.DataBean>> response);
+            void getSearchData(Response<List<CityInfo>> response);
         }
     }
 }

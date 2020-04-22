@@ -1,9 +1,13 @@
 package com.simba.simbaweather.ui.activity;
 
+import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.EditText;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -12,14 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 import com.simba.base.base.BaseActivity;
 import com.simba.base.network.JsonCallback;
 import com.simba.base.network.SimbaUrl;
 import com.simba.base.utils.SpStaticUtils;
-import com.simba.base.utils.Toasty;
 import com.simba.simbaweather.R;
-import com.simba.simbaweather.data.bean.CityplanningBean;
-import com.simba.simbaweather.data.bean.SearchBean;
+import com.simba.simbaweather.data.bean.CityInfo;
+import com.simba.simbaweather.ui.activity.view.DrawableEditText;
 import com.simba.simbaweather.ui.adapter.CityplanningAdapter;
 
 import org.json.JSONException;
@@ -28,8 +32,6 @@ import org.json.JSONObject;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * 添加城市
@@ -38,16 +40,22 @@ public class AddCityActivity extends BaseActivity {
 
     @BindView(R.id.tv_ci)
     TextView tvCi;
+    @BindView(R.id.tv_recommend_title)
+    TextView tvRecommendTitle;
     @BindView(R.id.rcy_citytj)
     RecyclerView rcyCitytj;
     @BindView(R.id.ed_search)
-    EditText edSearch;
+    DrawableEditText edSearch;
     @BindView(R.id.ll_add_city_recommend_group)
-    EditText llCityRecommendGroup;
-    private String edsearch;
-    CityplanningBean.DataBean localCity;
+    LinearLayout llCityRecommendGroup;
+    @BindView(R.id.iv_add_city_loading)
+    ImageView ivAddCityLoading;
+
+    CityInfo localCity;
     CityplanningAdapter cityplanningAdapter;
-    private Unbinder bind;
+    Drawable editLeftDrawable, editRightDrawable;
+    Animation animation;
+    List<CityInfo> recommendCity;
 
     @Override
     protected int getLayoutId() {
@@ -56,14 +64,16 @@ public class AddCityActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        bind = ButterKnife.bind(this);
         rcyCitytj.setLayoutManager(new GridLayoutManager(this, 7));
+        editLeftDrawable = getResources().getDrawable(R.mipmap.add_city_search_icon);
+        editRightDrawable = getResources().getDrawable(R.mipmap.ic_add_city_search_closed);
+        animation = AnimationUtils.loadAnimation(this, R.anim.anim_network_load_rotate);
     }
 
     @Override
     protected void initData() {
         String cityName = getIntent().getStringExtra("city");
-        localCity = new CityplanningBean.DataBean();
+        localCity = new CityInfo();
         localCity.setId("-1");
         localCity.setCity(cityName);
         localCity.setDistrict(cityName);
@@ -71,6 +81,7 @@ public class AddCityActivity extends BaseActivity {
 
         cityplanningAdapter = new CityplanningAdapter(R.layout.item_citymanager);
 
+        //获取推荐城市列表
         recommendCityList();
     }
 
@@ -87,39 +98,47 @@ public class AddCityActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                edsearch = s.toString().trim();
-                llCityRecommendGroup.setVisibility(View.GONE);
-                requestSearchData(edsearch);
+                String searchKey = s.toString().trim();
+                if (searchKey.length() > 0) {
+                    edSearch.setCompoundDrawablesWithIntrinsicBounds(editLeftDrawable, null, editRightDrawable, null);
+                    tvRecommendTitle.setVisibility(View.GONE);
+                    requestSearchData(searchKey);
+                } else {
+                    edSearch.setCompoundDrawablesWithIntrinsicBounds(editLeftDrawable, null, null, null);
+                    tvRecommendTitle.setVisibility(View.VISIBLE);
+                    cityplanningAdapter.setNewData(recommendCity);
+                }
             }
         });
         cityplanningAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                String cityId = ((CityplanningBean.DataBean) adapter.getItem(position)).getId();
+                String cityId = ((CityInfo) adapter.getItem(position)).getId();
                 SpStaticUtils.put("cityid0", cityId);//本地保存
-                Toasty.error(mContext, cityId).show();
                 finish();
             }
         });
-    }
-
-    public void searchShowData(Response<List<SearchBean.DataBean>> response) {
-
+        edSearch.setOnDrawableRightListener(new DrawableEditText.OnDrawableRightListener() {
+            @Override
+            public void onDrawableRightClick(View view) {
+                edSearch.setText("");
+            }
+        });
     }
 
     /**
      * 推荐城市列表
      */
     private void recommendCityList() {
-        OkGo.<List<CityplanningBean.DataBean>>post(SimbaUrl.WEATHER_GET_WEATHER_RECOMMENDCITYLIST)
+        OkGo.<List<CityInfo>>post(SimbaUrl.WEATHER_GET_WEATHER_RECOMMENDCITYLIST)
                 .tag(this)
-                .execute(new JsonCallback<List<CityplanningBean.DataBean>>() {
+                .execute(new JsonCallback<List<CityInfo>>() {
                     @Override
-                    public void onSuccess(Response<List<CityplanningBean.DataBean>> response) {
+                    public void onSuccess(Response<List<CityInfo>> response) {
                         if (isCode200()) {
-                            List<CityplanningBean.DataBean> data = response.body();
-                            data.add(0, localCity);
-                            cityplanningAdapter.setNewData(data);
+                            recommendCity = response.body();
+                            recommendCity.add(0, localCity);
+                            cityplanningAdapter.setNewData(recommendCity);
                             rcyCitytj.setAdapter(cityplanningAdapter);
                         }
                     }
@@ -132,27 +151,37 @@ public class AddCityActivity extends BaseActivity {
      * @param searchValue
      */
     public void requestSearchData(String searchValue) {
+
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("searchValue", searchValue);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        OkGo.<List<SearchBean.DataBean>>post(SimbaUrl.WEATHER_GET_WEATHER_MATCHINGCITY)
+
+        OkGo.<List<CityInfo>>post(SimbaUrl.WEATHER_GET_WEATHER_MATCHINGCITY)
                 .tag(this)
                 .upJson(jsonObject)
-                .execute(new JsonCallback<List<SearchBean.DataBean>>() {
+                .execute(new JsonCallback<List<CityInfo>>() {
                     @Override
-                    public void onSuccess(Response<List<SearchBean.DataBean>> response) {
+                    public void onStart(Request<List<CityInfo>, ? extends Request> request) {
+                        super.onStart(request);
+                        ivAddCityLoading.startAnimation(animation);
+                    }
+
+                    @Override
+                    public void onSuccess(Response<List<CityInfo>> response) {
                         if (isCode200())
-                            searchShowData(response);
+                            cityplanningAdapter.setNewData(response.body());
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        ivAddCityLoading.clearAnimation();
+                        ivAddCityLoading.setVisibility(View.INVISIBLE);
                     }
                 });
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        bind.unbind();
-    }
 }
