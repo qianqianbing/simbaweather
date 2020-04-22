@@ -1,15 +1,12 @@
 package com.simba.simbaweather.ui.activity;
 
-import android.os.Bundle;
-
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
-import com.gyf.immersionbar.ImmersionBar;
+import com.simba.base.base.BaseActivity;
 import com.simba.simbaweather.R;
 import com.simba.simbaweather.ui.activity.frag.Cinema_Frag;
 import com.simba.simbaweather.ui.activity.frag.Home_Frag;
@@ -20,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.show_vp)
     ViewPager showVp;
@@ -30,15 +27,13 @@ public class MainActivity extends AppCompatActivity {
     private Home_Frag home_frag;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        ImmersionBar.with(this)
-                .fullScreen(true)
-                .transparentNavigationBar()
-                .init();
+    protected int getLayoutId() {
+        return R.layout.activity_main;
+    }
 
+    @Override
+    protected void initView() {
+        ButterKnife.bind(this);
         home_frag = new Home_Frag();
         cinema_frag = new Cinema_Frag();
         ArrayList<String> title = new ArrayList<>();
@@ -72,7 +67,15 @@ public class MainActivity extends AppCompatActivity {
         showTab.setTabMode(TabLayout.MODE_FIXED);
         showTab.getTabAt(0).setText("").setIcon(R.mipmap.qiehuanone);
         showTab.getTabAt(1).setText("").setIcon(R.mipmap.qiehuantwo);
+    }
 
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
         showTab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

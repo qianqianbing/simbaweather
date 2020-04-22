@@ -1,20 +1,14 @@
 package com.simba.simbaweather.di.cityidMvp;
 
-import android.app.Activity;
-import android.util.Log;
-
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 import com.simba.base.network.JsonCallback;
 import com.simba.base.network.SimbaUrl;
 import com.simba.simbaweather.data.bean.CitySearchBean;
-import com.simba.simbaweather.data.bean.CityplanningBean;
-import com.simba.simbaweather.ui.activity.AddpendActivity;
+import com.simba.simbaweather.ui.activity.AddCityActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.List;
 
 /**
  * @author wzy
@@ -24,7 +18,7 @@ import java.util.List;
 public class CityIdModel implements CityIdContract.ICityIdModel {
 
     private JSONObject jsonObject;
-    private AddpendActivity activity=new AddpendActivity();
+    private AddCityActivity activity=new AddCityActivity();
 
     @Override
     public void RequestCityIdData(String cityid, CityIdBack cityIdBack) {

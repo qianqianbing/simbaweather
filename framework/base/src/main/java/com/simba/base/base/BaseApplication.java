@@ -3,6 +3,8 @@ package com.simba.base.base;
 import android.app.Application;
 import android.content.Context;
 
+import androidx.annotation.CallSuper;
+
 import com.simba.base.network.OkGoUtil;
 
 /**
@@ -19,6 +21,7 @@ public class BaseApplication extends Application {
     public static Context sContext;
 
     @Override
+    @CallSuper
     public void onCreate() {
         super.onCreate();
         sContext = this;

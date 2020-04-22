@@ -46,10 +46,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = this;
         initWindow();
         setContentView(getLayoutId());
-        mContext = this;
-        ImmersionBar.with(this).init();
+        ImmersionBar.with(this).init();//沉浸式布局
         initView();
         initData();
         initListener();

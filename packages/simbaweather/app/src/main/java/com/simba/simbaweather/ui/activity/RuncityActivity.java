@@ -1,8 +1,6 @@
 package com.simba.simbaweather.ui.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -12,6 +10,7 @@ import android.widget.Toast;
 import com.lzy.okgo.model.Response;
 import com.simba.base.dialog.DialogUtil;
 import com.simba.base.utils.LogUtil;
+import com.simba.base.utils.SpStaticUtils;
 import com.simba.simbaweather.R;
 import com.simba.simbaweather.data.bean.CitySearchBean;
 import com.simba.simbaweather.di.cityidMvp.CityIdContract;
@@ -19,7 +18,6 @@ import com.simba.simbaweather.di.cityidMvp.CityIdPresnter;
 import com.simba.simbaweather.ui.base.BaseActivity;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
@@ -73,16 +71,12 @@ public class RuncityActivity extends BaseActivity<CityIdContract.ICityIdView, Ci
     private String tempDay;
     private String tempNight;
     private String cityid0;
-    private SharedPreferences mysp;
     private CitySearchBean.DataBean.WeatherTodayBean weatherToday;
 
     @Override
     protected void initData() {
-        mysp = getSharedPreferences("mysp", MODE_PRIVATE);
-        cityid0 = mysp.getString("cityid0", "");
+        cityid0 = SpStaticUtils.getString("cityid0", "");
         mPresenter.RequestCityData("2");
-
-
     }
     @Override
     protected int getLayoutId() {
@@ -175,7 +169,7 @@ public class RuncityActivity extends BaseActivity<CityIdContract.ICityIdView, Ci
 
                 break;
             case R.id.tv_Addpend:
-                Intent intent = new Intent(RuncityActivity.this, AddpendActivity.class);
+                Intent intent = new Intent(RuncityActivity.this, AddCityActivity.class);
                 intent.putExtra("city", city);
                 startActivity(intent);
                 break;

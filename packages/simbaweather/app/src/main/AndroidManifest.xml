@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.simba.simbaweather">
-    <!-- 连接<a href="http://www.it165.net/news/nhlw/" target="_blank" class="keylink">互联网</a>Internet权限 -->
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -14,8 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.HomeActivity"></activity>
-        <activity android:name=".ui.activity.AddpendActivity" />
+        <activity android:name=".ui.activity.HomeActivity" />
+        <activity
+            android:name=".ui.activity.AddCityActivity"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <activity android:name=".ui.activity.RuncityActivity" />
         <activity android:name=".ui.activity.MainActivity">
             <intent-filter>
