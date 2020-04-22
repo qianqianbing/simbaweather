@@ -48,9 +48,15 @@ public class AddpendActivity extends BaseActivity<CityplanningContract.ICityplan
     private WeaTher.DataBean data;
     private String edsearch;
     private String city;
+    private String cityid;
 
     @Override
-    protected void initData() {
+    protected int getLayoutId() {
+        return R.layout.activity_addpend;
+    }
+
+    @Override
+    protected void initView() {
         ImmersionBar.with(this)
                 .fullScreen(true)
                 .transparentNavigationBar()
@@ -77,6 +83,11 @@ public class AddpendActivity extends BaseActivity<CityplanningContract.ICityplan
 
             }
         });
+    }
+
+    @Override
+    protected void initData() {
+
 
     }
 
@@ -86,10 +97,6 @@ public class AddpendActivity extends BaseActivity<CityplanningContract.ICityplan
         return new CityplanningPresenter<>();
     }
 
-    @Override
-    protected int getLayout() {
-        return R.layout.activity_addpend;
-    }
 
     @Override
     public void CityplanningShowData(Response<List<CityplanningBean.DataBean>> response) {
@@ -104,19 +111,16 @@ public class AddpendActivity extends BaseActivity<CityplanningContract.ICityplan
         CityplanningAdapter cityplanningAdapter = new CityplanningAdapter(R.layout.item_citymanager, data);
         rcyCitytj.setAdapter(cityplanningAdapter);
         cityplanningAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-
-            private String cityid;
-
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 cityid = data.get(position).getId();
                 SharedPreferences sp = getSharedPreferences("mysp", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sp.edit();
-                    editor.putString("cityid", cityid);
-                    editor.commit();
-                Toast.makeText(AddpendActivity.this, ""+cityid, Toast.LENGTH_SHORT).show();
-               Intent intent = new Intent(AddpendActivity.this, MainActivity.class);
-               startActivity(intent);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("cityid0", cityid);
+                editor.commit();
+                Toast.makeText(AddpendActivity.this, "" + cityid, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(AddpendActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -126,10 +130,4 @@ public class AddpendActivity extends BaseActivity<CityplanningContract.ICityplan
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

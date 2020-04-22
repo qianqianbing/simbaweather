@@ -2,6 +2,7 @@ package com.simba.simbaweather.ui.base;
 
 import android.os.Bundle;
 
+import androidx.annotation.CallSuper;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,30 +16,24 @@ import butterknife.Unbinder;
  *@Package_name:com.bw.movie.ui.base
  *@Description:
  * */
-public abstract class BaseActivity<V,P extends BasePresenter<V>> extends AppCompatActivity {
+public abstract class BaseActivity<V,P extends BasePresenter<V>> extends com.simba.base.base.BaseActivity {
     public P mPresenter;
     private Unbinder bind;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(getLayout());
+    @CallSuper
+    protected void initView() {
         bind = ButterKnife.bind(this);
         mPresenter=oncreatePresenter();
         mPresenter.onAttech((V) this);
-        initData();
     }
 
-    protected abstract void initData();
-
     protected abstract P oncreatePresenter();
-
-    protected abstract int getLayout();
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mPresenter.onDeatch();
         bind.unbind();
+        mPresenter.onDeatch();
     }
 }

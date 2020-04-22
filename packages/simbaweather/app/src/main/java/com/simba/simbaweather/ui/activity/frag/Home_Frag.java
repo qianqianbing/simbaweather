@@ -167,7 +167,7 @@ public class Home_Frag extends BaseFragment<WeatherShowContract.IWeatherShowView
                 int second = t.second;
 //                2020-03-23 19:32
                 tvTime.setText("中国天气  更新于：" + year + "-" + month + "-" + day + "  " + hour + ":" + minute);
-                // mPresenter.WeathershowRequestData(gpsLocation.getAltitude()+"",gpsLocation.getLongitude()+"");
+                fPresenter.WeathershowRequestData("" + 32.298741, "" + 118.840485);
                 break;
             case R.id.tv_runacity:
                 Intent intent = new Intent(getContext(), RuncityActivity.class);

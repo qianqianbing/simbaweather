@@ -73,16 +73,17 @@ public class Cinema_Frag extends BaseFragment<CityIdContract.ICityIdView, CityId
     @BindView(R.id.rv_weather_c)
     RecyclerView rvWeatherC;
     private SharedPreferences mysp;
-    private String cityid;
     private Intent intent;
     private List<CitySearchBean.DataBean.WeatherListBean> weatherList;
+    private String cityid0;
+
 
     @Override
     public void initData() {
         mysp = getActivity().getSharedPreferences("mysp", Context.MODE_PRIVATE);
-        cityid = mysp.getString("cityid", "");
-        Toast.makeText(getContext(), cityid, Toast.LENGTH_SHORT).show();
-        fPresenter.RequestCityData(cityid);
+        cityid0 = mysp.getString("cityid0", "");
+        Toast.makeText(getContext(), cityid0, Toast.LENGTH_SHORT).show();
+        fPresenter.RequestCityData(cityid0);
     }
 
     @Override

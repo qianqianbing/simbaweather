@@ -78,6 +78,10 @@ public class SimbaUrl {
      * 城市模糊查询
      */
     public final static String WEATHER_GET_WEATHER_MATCHINGCITY=BASE_HOST+"weather/matchingCity";
+    /**
+     * 城市ID查询
+     */
+    public final static String WEATHER_GET_WEATHER_INDEXCITY=BASE_HOST+"weather/index/city";
 
 
 

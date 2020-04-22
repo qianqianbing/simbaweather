@@ -4,9 +4,6 @@ import java.lang.ref.WeakReference;
 
 /*
  *@Auther:王自阳
- *@Date: 2019/9/4
- *@Time:10:38
- *@Package_name:com.bw.movie.ui
  *@Description:
  * */
 public class BasePresenter<V> {
