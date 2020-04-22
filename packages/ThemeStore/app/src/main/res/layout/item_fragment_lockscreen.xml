@@ -1,25 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.simba.base.dialog.view.CheckableRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="594px"
     android:layout_height="224px"
     android:layout_marginLeft="30px">
 
-    <com.simba.base.dialog.view.SingleCheckBox
-        android:id="@+id/cb_single"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15px"
-        android:layout_marginTop="15px"
-        android:layout_marginBottom="15px"
-        android:background="@android:color/transparent"
-        android:button="@null"
-        android:drawableLeft="@drawable/cb_bg"
-        android:drawablePadding="15px"
-        android:duplicateParentState="true"
-        android:visibility="gone" />
 
     <ImageView
-        android:id="@+id/iv_wallpaper"
+        android:id="@+id/iv_lock_screen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY" />
@@ -52,4 +39,4 @@
             android:textSize="@dimen/base_text_size_28" />
     </RelativeLayout>
 
-</com.simba.base.dialog.view.CheckableRelativeLayout>
+</RelativeLayout>

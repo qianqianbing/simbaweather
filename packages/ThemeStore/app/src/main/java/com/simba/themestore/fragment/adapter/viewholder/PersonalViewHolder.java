@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.simba.themestore.R;
 import com.simba.themestore.base.BaseViewHolder;
-import com.simba.themestore.model.PersonalMenuBean;
+import com.simba.themestore.model.personal.PersonalMenuBean;
 
 /**
  * @Author : chenjianbo

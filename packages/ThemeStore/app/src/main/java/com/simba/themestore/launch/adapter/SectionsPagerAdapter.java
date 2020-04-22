@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.simba.themestore.fragment.LockScreenFragment;
 import com.simba.themestore.fragment.PersonalFragment;
 import com.simba.themestore.fragment.ThemeFragment;
 
@@ -46,8 +47,8 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
         switch (position) {
 //            case 0:
 //            case 1:
-//            case 2:
-//                return ThemeFragment.newInstance(position);
+            case 2:
+                return LockScreenFragment.newInstance(position);
             case 3:
                 return PersonalFragment.newInstance(position);
             default:

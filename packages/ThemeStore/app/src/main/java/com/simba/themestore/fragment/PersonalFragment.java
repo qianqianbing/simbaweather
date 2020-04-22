@@ -9,7 +9,7 @@ import com.simba.base.utils.ResourceUtils;
 import com.simba.themestore.R;
 import com.simba.themestore.base.BaseLazyLoadFragment;
 import com.simba.themestore.fragment.adapter.PersonalAdapter;
-import com.simba.themestore.model.PersonalMenuBean;
+import com.simba.themestore.model.personal.PersonalMenuBean;
 import com.simba.themestore.view.itemdecoration.SpaceItemDecoration;
 
 import java.util.ArrayList;

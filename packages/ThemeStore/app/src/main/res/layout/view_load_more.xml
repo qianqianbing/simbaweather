@@ -43,8 +43,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/brvah_load_failed"
-            android:textColor="#0dddb8" />
+            android:text="加载失败，请点我重试"
+            android:textColor="#4DFFFFFF"
+            android:textSize="@dimen/base_text_size_28" />
 
     </FrameLayout>
 
@@ -72,7 +73,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/brvah_load_end"
-            android:textColor="@android:color/darker_gray" />
+            android:text="已无更多内容"
+            android:textColor="#4DFFFFFF"
+            android:textSize="@dimen/base_text_size_28" />
     </FrameLayout>
 </FrameLayout>

@@ -23,10 +23,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".launch.NotLoggedActivity" />
-        <activity android:name=".launch.PersonalWallPaperActivity" />
-        <activity android:name=".launch.PersonalAboutActivity" />
-        <activity android:name=".launch.PersonalLockActivity" />
-        <activity android:name=".launch.PersonalThemeActivity" />
+        <activity android:name=".launch.personal.PersonalWallPaperActivity" />
+        <activity android:name=".launch.personal.PersonalAboutActivity" />
+        <activity android:name=".launch.personal.PersonalLockActivity" />
+        <activity android:name=".launch.personal.PersonalThemeActivity" />
+        <activity android:name=".launch.personal.UserAgreementActivity" />
     </application>
 
 </manifest>

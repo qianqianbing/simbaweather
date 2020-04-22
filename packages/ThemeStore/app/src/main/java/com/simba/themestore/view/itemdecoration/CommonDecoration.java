@@ -1,8 +1,6 @@
 package com.simba.themestore.view.itemdecoration;
 
-import android.content.Context;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,12 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class CommonDecoration extends RecyclerView.ItemDecoration {
 
-    private Context mContext;
-    private Drawable mDrawable;
     private int space;
 
-    public CommonDecoration(Context context, int space) {
-        this.mContext = context;
+    public CommonDecoration(int space) {
         this.space = space;
     }
 

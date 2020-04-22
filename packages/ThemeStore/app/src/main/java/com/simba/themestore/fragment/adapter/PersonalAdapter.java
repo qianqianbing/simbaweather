@@ -10,11 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.simba.themestore.R;
 import com.simba.themestore.fragment.adapter.viewholder.PersonalViewHolder;
-import com.simba.themestore.launch.PersonalAboutActivity;
-import com.simba.themestore.launch.PersonalLockActivity;
-import com.simba.themestore.launch.PersonalThemeActivity;
-import com.simba.themestore.launch.PersonalWallPaperActivity;
-import com.simba.themestore.model.PersonalMenuBean;
+import com.simba.themestore.launch.personal.PersonalAboutActivity;
+import com.simba.themestore.launch.personal.PersonalLockActivity;
+import com.simba.themestore.launch.personal.PersonalThemeActivity;
+import com.simba.themestore.launch.personal.PersonalWallPaperActivity;
+import com.simba.themestore.model.personal.PersonalMenuBean;
 
 import java.util.List;
 

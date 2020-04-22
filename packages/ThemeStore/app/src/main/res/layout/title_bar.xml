@@ -11,5 +11,13 @@
         android:layout_marginLeft="50px"
         android:src="@mipmap/icon_back" />
 
-
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="用户协议和隐私政策"
+        android:visibility="gone"
+        android:textColor="@color/base_white"
+        android:textSize="@dimen/base_text_size_dialog" />
 </RelativeLayout>

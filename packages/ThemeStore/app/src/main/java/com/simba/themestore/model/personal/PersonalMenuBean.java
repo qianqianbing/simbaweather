@@ -1,4 +1,4 @@
-package com.simba.themestore.model;
+package com.simba.themestore.model.personal;
 
 import java.io.Serializable;
 

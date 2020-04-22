@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100px">
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="50px"
+        android:src="@mipmap/icon_close" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/titleStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="44px"
+        android:layout_toRightOf="@+id/iv_back"
+        android:text="我的壁纸" />
+
+    <Button
+        android:id="@+id/btn_select_all"
+        style="@style/optionStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50px"
+        android:text="全选"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btn_delete"
+        style="@style/optionStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="64px"
+        android:layout_toRightOf="@+id/btn_select_all"
+        android:text="删除"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btn_edit"
+        style="@style/optionStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="40px"
+        android:text="编辑" />
+
+</RelativeLayout>

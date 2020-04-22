@@ -1,4 +1,4 @@
-package com.simba.themestore.launch;
+package com.simba.themestore.launch.personal;
 
 import android.os.Handler;
 
@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.simba.themestore.R;
-import com.simba.themestore.base.MyBaseActivity;
+import com.simba.themestore.base.EditBaseActivity;
 import com.simba.themestore.launch.adapter.PersonalWallPaperAdapter;
+import com.simba.themestore.model.personal.PersonalWallPaperBean;
 import com.simba.themestore.view.itemdecoration.SpaceItemDecoration;
 
 import java.util.ArrayList;
@@ -19,13 +20,13 @@ import java.util.List;
  * @Date : 2020/4/21
  * @Desc :
  */
-public class PersonalWallPaperActivity extends MyBaseActivity {
+public class PersonalWallPaperActivity extends EditBaseActivity implements EditBaseActivity.OnOptionListener {
     private RecyclerView recyclerView;
-    private List<String> mData;
+    private List<PersonalWallPaperBean> mData;
     private PersonalWallPaperAdapter wallPaperAdapter;
 
     @Override
-    protected int getLayoutId() {
+    protected int getLayoutID() {
         return R.layout.activity_personalwallpaper;
     }
 
@@ -42,7 +43,7 @@ public class PersonalWallPaperActivity extends MyBaseActivity {
     protected void initData() {
         mData = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            mData.add(i + "");
+            mData.add(new PersonalWallPaperBean());
         }
         wallPaperAdapter = new PersonalWallPaperAdapter(R.layout.item_personalwallpaper, mData);
         recyclerView.setAdapter(wallPaperAdapter);
@@ -54,12 +55,14 @@ public class PersonalWallPaperActivity extends MyBaseActivity {
                 loadMore();
             }
         });
+
+        setOptionListener(this);
     }
 
     private void loadMore() {
-        List<String> mData = new ArrayList<>();
+        List<PersonalWallPaperBean> mData = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            mData.add(i + "");
+            mData.add(new PersonalWallPaperBean());
         }
         wallPaperAdapter.addData(mData);
         new Handler().postDelayed(new Runnable() {
@@ -68,7 +71,33 @@ public class PersonalWallPaperActivity extends MyBaseActivity {
                 wallPaperAdapter.getLoadMoreModule().loadMoreComplete();
             }
         }, 10000);
+    }
 
+    @Override
+    public void onDelete() {
+
+    }
+
+    @Override
+    public void onEdit() {
+
+        wallPaperAdapter.setEdit(true);
+        wallPaperAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void cancelEdit() {
+        wallPaperAdapter.setEdit(false);
+        wallPaperAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onSelectAll() {
+
+    }
+
+    @Override
+    public void onReset() {
 
     }
 }
