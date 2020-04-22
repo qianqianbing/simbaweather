@@ -34,4 +34,13 @@ public class CacheHelper {
     public static void clear() {
         ACache.get(MyApplication.sContext).clear();
     }
+
+    public static void saveIsFirst(boolean isFirst) {
+        ACache.get(MyApplication.sContext).put("IS_FIRST", String.valueOf(isFirst));
+    }
+
+    public static boolean getIsFirst() {
+        String value = ACache.get(MyApplication.sContext).getAsString("IS_FIRST");
+        return value==null||"true".equalsIgnoreCase(value);
+    }
 }

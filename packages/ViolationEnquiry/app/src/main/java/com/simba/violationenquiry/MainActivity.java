@@ -20,6 +20,7 @@ import com.simba.violationenquiry.net.HttpRequest;
 import com.simba.violationenquiry.net.callback.ResultCallBack;
 import com.simba.violationenquiry.net.model.CarInfo;
 import com.simba.violationenquiry.ui.SectionsPagerAdapter;
+import com.simba.violationenquiry.utils.CacheHelper;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -56,6 +57,11 @@ public class MainActivity extends MyBaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+        if (CacheHelper.getIsFirst()) {
+            startActivity(AddNewCarActivity.class);
+            CacheHelper.saveIsFirst(false);
+        }
+
 //        if (allPermissionsGranted()) {
 //
 //        } else {

@@ -96,7 +96,7 @@ public class MultiplePickerManager {
             @Override
             public void onClick(View v) {
 
-                if (mConfirmListener != null) {
+                if (mConfirmListener != null && mLvMultiple.getCheckedItemCount() > 0) {
                     SparseBooleanArray checkedItemPositions = mLvMultiple.getCheckedItemPositions();
                     int count = mLvMultiple.getAdapter().getCount();
                     mConfirmListener.onClick(checkedItemPositions, count);
@@ -134,6 +134,7 @@ public class MultiplePickerManager {
             mDialog.cancel();
         }
     }
+
     public void setTitle(@StringRes int text) {
         mTvTitle.setText(text);
     }
@@ -141,6 +142,7 @@ public class MultiplePickerManager {
     public void setTitle(String text) {
         mTvTitle.setText(text);
     }
+
     public void show() {
 
         if (mDialog != null) {
