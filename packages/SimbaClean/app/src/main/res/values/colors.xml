@@ -7,7 +7,9 @@
     <color name="colorLoadingProgress">#6CF8FC</color>
     <color name="colorRadius">#2D313B</color>
     <color name="colorWhite">#FFFFFF</color>
-    <color name="white30">#1EFFFFFF</color>
+    <color name="white30">#4DFFFFFF</color>
+    <color name="white70">#B3FFFFFF</color>
+
 
     <color name="colorModule1">#0EA983</color>
     <color name="colorModule2">#CF390F</color>

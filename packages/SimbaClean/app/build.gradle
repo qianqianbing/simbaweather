@@ -2,13 +2,17 @@ apply plugin: 'com.android.application'
 apply from: '../../../config.gradle'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+//    compileSdkVersion 29
+//    buildToolsVersion "29.0.3"
+    compileSdkVersion android.compileSdkVersion
+    buildToolsVersion android.buildToolsVersion
 
     defaultConfig {
         applicationId "com.simba.clean"
-        minSdkVersion 16
-        targetSdkVersion 29
+//        minSdkVersion 16
+//        targetSdkVersion 29
+        minSdkVersion android.minSdkVersion
+        targetSdkVersion android.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
