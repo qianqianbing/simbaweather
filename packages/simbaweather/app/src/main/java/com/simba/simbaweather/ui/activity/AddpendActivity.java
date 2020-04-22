@@ -49,6 +49,7 @@ public class AddpendActivity extends BaseActivity<CityplanningContract.ICityplan
     private String edsearch;
     private String city;
     private String cityid;
+    private List<CityplanningBean.DataBean> data1;
 
     @Override
     protected int getLayoutId() {
@@ -57,6 +58,7 @@ public class AddpendActivity extends BaseActivity<CityplanningContract.ICityplan
 
     @Override
     protected void initView() {
+        super.initView();
         ImmersionBar.with(this)
                 .fullScreen(true)
                 .transparentNavigationBar()
@@ -100,20 +102,19 @@ public class AddpendActivity extends BaseActivity<CityplanningContract.ICityplan
 
     @Override
     public void CityplanningShowData(Response<List<CityplanningBean.DataBean>> response) {
-        List<CityplanningBean.DataBean> data = (List<CityplanningBean.DataBean>) response.body();
+        data1 = (List<CityplanningBean.DataBean>) response.body();
 
         intent1 = getIntent();
         city = intent1.getStringExtra("city");
 
-        TextView tv = findViewById(R.id.tv_dk);
         GridLayoutManager girdLayoutManager = new GridLayoutManager(this, 7);
         rcyCitytj.setLayoutManager(girdLayoutManager);
-        CityplanningAdapter cityplanningAdapter = new CityplanningAdapter(R.layout.item_citymanager, data);
+        CityplanningAdapter cityplanningAdapter = new CityplanningAdapter(R.layout.item_citymanager, data1);
         rcyCitytj.setAdapter(cityplanningAdapter);
         cityplanningAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                cityid = data.get(position).getId();
+                cityid = data1.get(position).getId();
                 SharedPreferences sp = getSharedPreferences("mysp", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putString("cityid0", cityid);

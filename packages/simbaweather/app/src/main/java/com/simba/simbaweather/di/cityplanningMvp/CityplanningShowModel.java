@@ -47,6 +47,7 @@ public class CityplanningShowModel implements CityplanningContract.ICityplanning
             e.printStackTrace();
         }
         OkGo.<List<SearchBean.DataBean>>post(SimbaUrl.WEATHER_GET_WEATHER_MATCHINGCITY)
+                .tag(this)
                 .upJson(jsonObject)
                 .execute(new JsonCallback<List<SearchBean.DataBean>>() {
                     @Override
