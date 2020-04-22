@@ -34,7 +34,7 @@ public abstract  class GlobalPopupWindow {
     private static final String LOG_TAG = "GlobalPopupWindow";
     private  View mView = null;
     private  WindowManager mWindowManager = null;
-    private  Context mContext = null;
+    public  Context mContext = null;
     public  Boolean isShown = false;
 
     public abstract int getWidth();
