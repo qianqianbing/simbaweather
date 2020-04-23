@@ -16,9 +16,6 @@ import com.simba.simbaweather.ui.activity.frag.Home_Frag;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 
 public class MainActivity extends BaseActivity implements ICityChangeView {
 
@@ -36,16 +33,19 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
     protected void initView() {
 
         showVp = findViewById(R.id.show_vp);
-        home_frag = new Home_Frag();
-        fragmentList.add(home_frag);
+
         CityManager.getInstance().registerCityChangeView(this);
-        List<Integer> cityIdList = CityManager.getInstance().getCityIdList();
-        if(cityIdList != null && cityIdList.size() != 0){
-            for (Integer cityId : cityIdList){
-                fragmentList.add(new Cinema_Frag(cityId));
+        List<CityManager.CityManagerBean> cityList = CityManager.getInstance().getCityList();
+        if(cityList != null && cityList.size() != 0){
+            for (CityManager.CityManagerBean city : cityList){
+                if(city.isLocationCity()){
+                    home_frag = new Home_Frag();
+                    fragmentList.add(home_frag);
+                }else {
+                    fragmentList.add(new Cinema_Frag(city.getCityId()));
+                }
             }
         }
-
         showVp.setAdapter(myFragmentPagerAdapter);
     }
 
@@ -79,11 +79,11 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
     }
 
     @Override
-    public void onCityChange(List<Integer> cityIdList) {
+    public void onCityChange(List<CityManager.CityManagerBean> cityList) {
         fragmentList = new ArrayList<>();
         fragmentList.add(home_frag);
-        for(Integer cityId : cityIdList){
-            fragmentList.add(new Cinema_Frag(cityId));
+        for(CityManager.CityManagerBean city : cityList){
+            fragmentList.add(new Cinema_Frag(city.getCityId()));
         }
         synchronized(this){
             myFragmentPagerAdapter.notifyDataSetChanged();

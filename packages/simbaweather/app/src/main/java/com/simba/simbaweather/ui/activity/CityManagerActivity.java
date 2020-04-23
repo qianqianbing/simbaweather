@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -68,7 +67,7 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
         rcv_cityweather.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL,false));
         myRecyclerViewAdapter = new MyRecyclerViewAdapter(this);
 
-        myRecyclerViewAdapter.setData(CityManager.getInstance().getCityIdList());
+        myRecyclerViewAdapter.setData(CityManager.getInstance().getCityList());
         rcv_cityweather.setAdapter(myRecyclerViewAdapter);
 
     }
@@ -99,16 +98,16 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
     class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.RecyclerHolder> {
 
         private Context mContext;
-        private List<Integer> cityIDList = new ArrayList<>();
+        private List<CityManager.CityManagerBean> cityList = new ArrayList<>();
 
         public MyRecyclerViewAdapter(Context mContext) {
             this.mContext = mContext;
         }
 
-        public void setData(List<Integer> dataList) {
+        public void setData(List<CityManager.CityManagerBean> dataList) {
             if (null != dataList) {
-                this.cityIDList.clear();
-                this.cityIDList.addAll(dataList);
+                this.cityList.clear();
+                this.cityList.addAll(dataList);
                 notifyDataSetChanged();
             }
         }
@@ -161,7 +160,7 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
                     }
                 });
             }else {
-                int cityId = cityIDList.get(position -1);
+                int cityId = cityList.get(position ).getCityId();
                 HttpRequest.getIntance().requestWeatherDataByCityId(activityContext, cityId , new HttpRequest.WeatherHandler() {
                     @Override
                     public void handleWeatherResult(Response<WeaTher.DataBean> response) {
@@ -215,11 +214,7 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
         public int getItemCount() {
 
             int size = 0;
-            if(cityIDList == null || cityIDList.size() == 0){
-                size = 2;
-            }else {
-                size = cityIDList.size() + 2;
-            }
+            size = cityList.size() + 1;
             Log.e(TAG, "size is " + size);
             return size;
         }
@@ -244,8 +239,8 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
     }
 
     @Override
-    public void onCityChange(List<Integer> cityIdList) {
-        myRecyclerViewAdapter.setData(CityManager.getInstance().getCityIdList());
+    public void onCityChange(List<CityManager.CityManagerBean> cityIdList) {
+        myRecyclerViewAdapter.setData(CityManager.getInstance().getCityList());
     }
 
 
