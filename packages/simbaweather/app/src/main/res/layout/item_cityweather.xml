@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_bg"
+    android:layout_width="400dp"
+    android:layout_height="460dp"
+    android:background="@mipmap/bg_city"
+    android:gravity="center">
+
+    <LinearLayout
+        android:id="@+id/ll_weather"
+        android:layout_width="400dp"
+        android:layout_height="460dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_citymangername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:textColor="@color/base_white"
+            android:text="南京市·鼓楼区" />
+
+        <ImageView
+            android:id="@+id/iv_citymangerimg1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/tv_citymangerwendu1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:textColor="#ffffffff"
+            android:textSize="72sp"
+            android:text="12°" />
+
+        <TextView
+            android:id="@+id/tv_citymangermaxmin1"
+            android:layout_width="113dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:textColor="#ffffffff"
+            android:textSize="28sp"
+            android:text="22° / 10°" />
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/bt_jump"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/base_icon_cancel"/>
+</RelativeLayout>
+
+
+
