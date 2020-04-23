@@ -16,9 +16,11 @@ import cn.kuwo.base.bean.online.BaseOnlineSection;
 import cn.kuwo.base.bean.online.OnlineRootInfo;
 import cn.kuwo.base.bean.quku.BaseQukuItem;
 import cn.kuwo.mod.quku.QukuRequestState;
+import cn.kuwo.open.ImageSize;
 import cn.kuwo.open.KwApi;
 import cn.kuwo.open.KwLogMgr;
 import cn.kuwo.open.OnDailyRecommendFetchListener;
+import cn.kuwo.open.OnImageFetchListener;
 import cn.kuwo.open.base.SearchType;
 
 public class MainActivity extends AppCompatActivity {
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
 
@@ -296,14 +299,37 @@ public class MainActivity extends AppCompatActivity {
                 if (state == QukuRequestState.SUCCESS) {
                     for (Music mMusic : musics) {
                         Log.i(TAG, "musics:" + mMusic.name);
+
+                        Log.i(TAG,"-----------------------------------------------");
                     }
+
+                    KwApi.fetchImage(musics.get(0), new OnImageFetchListener() {
+                        @Override
+                        public void onFetched(QukuRequestState state, String message, String imageUrl) {
+                            Log.i(TAG,"imageUrl----------------"+imageUrl);
+
+                        }
+                    }, ImageSize.SIZE_500);
+
+                    KwApi.fetchLyric(musics.get(1), new KwApi.OnLyricFetchListener() {
+                        @Override
+                        public void onFetched(QukuRequestState state, String message, String lyrics) {
+                            Log.i(TAG,lyrics);
+
+                        }
+                    });
+
                 }
             }
         });
     }
 
-    public void testQuku(){
+
+    public void musicDetial(){
+
     }
+
+
 
     @Override
     protected void onDestroy() {
