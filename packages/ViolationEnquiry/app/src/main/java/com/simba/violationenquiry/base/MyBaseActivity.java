@@ -35,7 +35,7 @@ public abstract class MyBaseActivity extends BaseActivity {
      * @param msg
      */
     protected void showToast(String msg) {
-        Toasty.info(this, msg);
+        Toasty.info(this, msg).show();;
     }
 
     /**
@@ -44,7 +44,7 @@ public abstract class MyBaseActivity extends BaseActivity {
      * @param msg
      */
     protected void showToast(@StringRes int msg) {
-        Toasty.info(this, msg);
+        Toasty.info(this, msg).show();
     }
 
     /**

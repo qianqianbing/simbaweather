@@ -231,7 +231,7 @@ public class CarInfoDetailFragment extends BaseLazyLoadFragment implements View.
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         if (getUserVisibleHint()) {
-                            showToast(R.string.query_fail);
+
                             showItemError(true);
                             if (isFirst) {
                                 showLoadingView(false);//进度对话框
@@ -239,6 +239,7 @@ public class CarInfoDetailFragment extends BaseLazyLoadFragment implements View.
                                     showErrorDialog();
                                 }
                             } else {
+                                showToast(R.string.query_fail);
                                 showItemLoading(false, isError);
                             }
                         }

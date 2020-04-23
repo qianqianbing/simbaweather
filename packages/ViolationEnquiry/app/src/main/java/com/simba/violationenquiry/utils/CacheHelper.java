@@ -2,7 +2,11 @@ package com.simba.violationenquiry.utils;
 
 import com.simba.base.utils.ACache;
 import com.simba.violationenquiry.MyApplication;
+import com.simba.violationenquiry.net.model.CarInfo;
 import com.simba.violationenquiry.net.model.detail.ViolateResData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author : chenjianbo
@@ -15,12 +19,14 @@ public class CacheHelper {
      */
     public static final int CACHE_TIME = 6 * 60 * 60;
 
+    public static final String CACHE_CAR_LIST = "CACHE_CAR_LIST";
+
     /**
      * @param carID
      * @param resData
      */
     public static void saveCarInfoDetail(String carID, ViolateResData resData) {
-        ACache.get(MyApplication.sContext).put(carID, resData, CACHE_TIME);
+        ACache.get(MyApplication.sContext).put(carID, resData);
     }
 
     /**
@@ -29,6 +35,18 @@ public class CacheHelper {
      */
     public static ViolateResData getCarInfoDetail(String carID) {
         return (ViolateResData) ACache.get(MyApplication.sContext).getAsObject(carID);
+    }
+
+
+    public static void saveCarInfoList(ArrayList<CarInfo> carInfoList) {
+        ACache.get(MyApplication.sContext).put(CACHE_CAR_LIST, carInfoList);
+    }
+
+    /**
+     * @return
+     */
+    public static List<CarInfo> getCarInfoList() {
+        return (List<CarInfo>) ACache.get(MyApplication.sContext).getAsObject(CACHE_CAR_LIST);
     }
 
     public static void clear() {
@@ -41,6 +59,6 @@ public class CacheHelper {
 
     public static boolean getIsFirst() {
         String value = ACache.get(MyApplication.sContext).getAsString("IS_FIRST");
-        return value==null||"true".equalsIgnoreCase(value);
+        return value == null || "true".equalsIgnoreCase(value);
     }
 }

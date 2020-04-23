@@ -141,11 +141,11 @@ public abstract class BaseLazyLoadFragment extends Fragment {
     }
 
     protected void showToast(String msg) {
-        Toasty.info(getContext(), msg);
+        Toasty.info(getContext(), msg).show();;
     }
 
     protected void showToast(@StringRes int msg) {
-        Toasty.info(getContext(), msg);
+        Toasty.info(getContext(), msg).show();;
     }
 
 

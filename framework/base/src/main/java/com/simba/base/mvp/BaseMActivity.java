@@ -88,7 +88,7 @@ public abstract class BaseMActivity<P extends BasePresenter> extends AppCompatAc
      * @param msg
      */
     public void showToast(String msg) {
-        Toasty.info(this, msg);
+        Toasty.info(this, msg).show();
     }
 
     /**
@@ -98,7 +98,7 @@ public abstract class BaseMActivity<P extends BasePresenter> extends AppCompatAc
      */
     @Override
     public void showToast(@StringRes int msg) {
-        Toasty.info(this, msg);
+        Toasty.info(this, msg).show();;
     }
 
     @Override

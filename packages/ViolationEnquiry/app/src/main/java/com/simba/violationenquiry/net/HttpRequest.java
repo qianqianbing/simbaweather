@@ -6,7 +6,6 @@ import android.util.SparseBooleanArray;
 import com.google.gson.reflect.TypeToken;
 import com.simba.base.network.OkGoUtil;
 import com.simba.base.network.SimbaUrl;
-import com.simba.base.network.exception.ClientException;
 import com.simba.base.network.model.GeneralResponse;
 import com.simba.base.network.model.SimpleResponse;
 import com.simba.base.network.utils.Convert;
@@ -20,6 +19,7 @@ import com.simba.violationenquiry.utils.DataTest;
 import org.json.JSONArray;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,10 +55,18 @@ public class HttpRequest {
         OkGoUtil<GeneralResponse<List<CarInfo>>> communicator = new OkGoUtil<>(cxt, SimbaUrl.REQUEST_CAR_LIST);
         try {
             GeneralResponse<List<CarInfo>> response = communicator.post(deviceID, type);
+            if (response.data != null) {
+                CacheHelper.saveCarInfoList((ArrayList<CarInfo>) response.data);
+            }
             callBack.onLoaded(response.data);
         } catch (Exception e) {
             e.printStackTrace();
-            callBack.onDataLoadedFailure(e);
+            List<CarInfo> carInfoList = CacheHelper.getCarInfoList();
+            if (carInfoList != null) {
+                callBack.onLoaded(carInfoList);
+            } else {
+                callBack.onDataLoadedFailure(e);
+            }
         }
 
     }
@@ -112,11 +120,7 @@ public class HttpRequest {
             callBack.onLoaded(response.data);
         } catch (Exception e) {//没有查到数据，缓存一个标记位
             e.printStackTrace();
-            if (e instanceof ClientException) {//是服务端出错再存
-                if (((ClientException) e).getCode() == 500) {
-                    CacheHelper.saveCarInfoDetail(carInfo.getId(), new ViolateResData(true));
-                }
-            }
+            CacheHelper.saveCarInfoDetail(carInfo.getId(), new ViolateResData(true));
             callBack.onDataLoadedFailure(e);
         }
     }
