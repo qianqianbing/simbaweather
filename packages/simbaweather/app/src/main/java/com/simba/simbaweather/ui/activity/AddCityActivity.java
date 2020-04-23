@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -57,6 +58,8 @@ public class AddCityActivity extends BaseActivity {
     Drawable editLeftDrawable, editRightDrawable;
     Animation animation;
     List<CityInfo> recommendCity;
+    LinearLayoutManager linearLayoutManager;//搜索结果横向布局管理器
+    GridLayoutManager gridLayoutManager;//推荐列表网格布局管理器
 
     @Override
     protected int getLayoutId() {
@@ -65,7 +68,9 @@ public class AddCityActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        rcyCitytj.setLayoutManager(new GridLayoutManager(this, 7));
+        linearLayoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
+        gridLayoutManager = new GridLayoutManager(this, 7);
+        rcyCitytj.setLayoutManager(gridLayoutManager);
         editLeftDrawable = getResources().getDrawable(R.mipmap.add_city_search_icon);
         editRightDrawable = getResources().getDrawable(R.mipmap.ic_add_city_search_closed);
         animation = AnimationUtils.loadAnimation(this, R.anim.anim_network_load_rotate);
@@ -80,7 +85,7 @@ public class AddCityActivity extends BaseActivity {
         localCity.setDistrict(cityName);
         localCity.setProvince(cityName);
 
-        cityplanningAdapter = new CityplanningAdapter(R.layout.item_citymanager);
+        cityplanningAdapter = new CityplanningAdapter(R.layout.item_add_city_recommend);
 
         //获取推荐城市列表
         recommendCityList();
@@ -88,6 +93,12 @@ public class AddCityActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
+        tvCi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         edSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -107,6 +118,7 @@ public class AddCityActivity extends BaseActivity {
                 } else {
                     edSearch.setCompoundDrawablesWithIntrinsicBounds(editLeftDrawable, null, null, null);
                     tvRecommendTitle.setVisibility(View.VISIBLE);
+                    rcyCitytj.setLayoutManager(gridLayoutManager);
                     cityplanningAdapter.setNewData(recommendCity);
                 }
             }
@@ -115,8 +127,7 @@ public class AddCityActivity extends BaseActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 String cityId = ((CityInfo) adapter.getItem(position)).getId();
- 				CityManager.getInstance().updateCityState(true, Integer.valueOf(cityId).intValue());
-                SpStaticUtils.put("cityid0", cityId);//本地保存
+                CityManager.getInstance().updateCityState(true, Integer.parseInt(cityId));
                 finish();
             }
         });
@@ -173,8 +184,10 @@ public class AddCityActivity extends BaseActivity {
 
                     @Override
                     public void onSuccess(Response<List<CityInfo>> response) {
-                        if (isCode200())
+                        if (isCode200()) {
+                            rcyCitytj.setLayoutManager(linearLayoutManager);
                             cityplanningAdapter.setNewData(response.body());
+                        }
                     }
 
                     @Override

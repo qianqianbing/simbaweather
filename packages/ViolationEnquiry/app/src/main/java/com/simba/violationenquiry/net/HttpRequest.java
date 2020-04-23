@@ -95,6 +95,7 @@ public class HttpRequest {
 
             ViolateResData violateResData = CacheHelper.getCarInfoDetail(carInfo.getId());
             if (violateResData != null) {
+                violateResData.setShowToast(false);
                 if (violateResData.isCache()) {//是否是请求之后的null
                     callBack.onDataLoadedFailure(new Exception(IS_CACHE));
                 } else {
@@ -120,8 +121,19 @@ public class HttpRequest {
             callBack.onLoaded(response.data);
         } catch (Exception e) {//没有查到数据，缓存一个标记位
             e.printStackTrace();
-            CacheHelper.saveCarInfoDetail(carInfo.getId(), new ViolateResData(true));
-            callBack.onDataLoadedFailure(e);
+            ViolateResData violateResData = CacheHelper.getCarInfoDetail(carInfo.getId());
+            if (violateResData != null) {
+                violateResData.setShowToast(true);
+                if (violateResData.isCache()) {//是否是请求之后的null
+                    callBack.onDataLoadedFailure(new Exception(IS_CACHE));
+                } else {
+                    callBack.onLoaded(violateResData);
+                }
+            } else {
+                CacheHelper.saveCarInfoDetail(carInfo.getId(), new ViolateResData(true, true));
+                callBack.onDataLoadedFailure(e);
+            }
+
         }
     }
 

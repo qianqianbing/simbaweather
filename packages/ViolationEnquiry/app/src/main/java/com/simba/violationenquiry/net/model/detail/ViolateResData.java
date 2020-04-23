@@ -26,13 +26,27 @@ public class ViolateResData implements Serializable {
      */
     private boolean isCache = false;
 
+    private boolean isShowToast=false;
+
     public ViolateResData() {
+    }
+
+    public boolean isShowToast() {
+        return isShowToast;
+    }
+
+    public void setShowToast(boolean showToast) {
+        isShowToast = showToast;
     }
 
     public ViolateResData(boolean isCache) {
         this.isCache = isCache;
     }
 
+    public ViolateResData(boolean isCache, boolean isShowToast) {
+        this.isCache = isCache;
+        this.isShowToast = isShowToast;
+    }
 
     public boolean isCache() {
         return isCache;

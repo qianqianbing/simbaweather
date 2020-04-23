@@ -26,7 +26,7 @@ public class CityplanningAdapter extends BaseQuickAdapter<CityInfo, BaseViewHold
     protected void convert(BaseViewHolder helper, CityInfo item) {
 
         helper.setText(R.id.tv_di, item.getDistrict());
-        if (item.getId() == "-1") {
+        if (item.getId().equals("-1")) {
             //本地定位城市
             helper.setTextColor(R.id.tv_di, localColor);
             helper.setBackgroundRes(R.id.ll_bg, R.mipmap.add_city_local_city_bg);
