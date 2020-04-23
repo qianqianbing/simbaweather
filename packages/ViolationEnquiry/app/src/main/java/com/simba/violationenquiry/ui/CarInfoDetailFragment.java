@@ -224,6 +224,9 @@ public class CarInfoDetailFragment extends BaseLazyLoadFragment implements View.
                             }
                             showItemError(false);
                             detailData = violateResData;
+                            if (detailData != null && detailData.isShowToast()) {
+                                showToast(R.string.query_fail);
+                            }
                             initPageData();
                         }
                     }
