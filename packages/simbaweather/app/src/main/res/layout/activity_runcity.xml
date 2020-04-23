@@ -53,6 +53,7 @@
                     android:textSize="32px" />
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/tv_compileoff"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

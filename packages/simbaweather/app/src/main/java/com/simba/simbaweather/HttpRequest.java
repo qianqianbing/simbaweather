@@ -9,7 +9,10 @@ import com.lzy.okgo.model.Response;
 import com.simba.base.network.ConstantDefine;
 import com.simba.base.network.JsonCallback;
 import com.simba.base.network.SimbaUrl;
+import com.simba.simbaweather.data.bean.CitySearchBean;
+import com.simba.simbaweather.data.bean.SearchBean;
 import com.simba.simbaweather.data.bean.WeaTher;
+import com.simba.simbaweather.di.cityidMvp.CityIdContract;
 import com.simba.simbaweather.di.weatherShowMvp.WeatherShowContract;
 
 
@@ -40,6 +43,7 @@ public class HttpRequest {
         void handleWeatherResult(Response<WeaTher.DataBean> response);
     }
 
+
     public void requestWeatherDataByLocation(Activity mContext, String lat, String lng, final WeatherHandler weatherHandler) {
         //gps定位获取经纬度发给后台拿到当地天气的数据
 
@@ -67,4 +71,27 @@ public class HttpRequest {
                     }
                 });
     }
+    public void requestWeatherDataByCityId(Activity mContext, int cityId, final WeatherHandler weatherHandler) {
+        //gps定位获取经纬度发给后台拿到当地天气的数据
+        JSONObject jsonObject = new JSONObject();
+
+
+            try {
+                jsonObject.put("cityid", ""+cityId);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            OkGo.<WeaTher.DataBean>post(SimbaUrl.WEATHER_GET_WEATHER_INDEXCITY)
+                    .tag(this)
+                    .upJson(jsonObject)
+                    .execute(new JsonCallback<WeaTher.DataBean>() {
+                        @Override
+                        public void onSuccess(Response<WeaTher.DataBean> response) {
+                            if (isCode200()) {
+                                weatherHandler.handleWeatherResult(response);
+                            }
+                        }
+                    });
+        }
+
 }

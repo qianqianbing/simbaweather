@@ -1,6 +1,7 @@
 package com.simba.violationenquiry.net;
 
 import android.content.Context;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 
 import com.google.gson.reflect.TypeToken;
@@ -91,6 +92,9 @@ public class HttpRequest {
             return;
         }
 
+    //    Log.e("getDetail", carInfo.getPlateno() + ":" + mustRefresh);
+
+
         if (!mustRefresh) {//不是必须刷新 先取缓存
 
             ViolateResData violateResData = CacheHelper.getCarInfoDetail(carInfo.getId());
@@ -104,6 +108,7 @@ public class HttpRequest {
                 return;
             }
         }
+
         Type type = new TypeToken<GeneralResponse<ViolateResData>>() {
         }.getType();
         OkGoUtil<GeneralResponse<ViolateResData>> communicator = new OkGoUtil<>(cxt, SimbaUrl.REQUEST_CAR_DETAIL);

@@ -233,6 +233,7 @@ public class CarInfoDetailFragment extends BaseLazyLoadFragment implements View.
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+
                         if (getUserVisibleHint()) {
 
                             showItemError(true);
@@ -256,10 +257,14 @@ public class CarInfoDetailFragment extends BaseLazyLoadFragment implements View.
      * @param show
      */
     private void showLoadingView(boolean show) {
+
         rlLoading.setVisibility(show ? View.VISIBLE : View.GONE);
+
         if (show) {
             AppUtils.startLoadingAnimation(ivLoading);
-        } else {
+        } else {//取消显示的时候恢复view
+
+            showItemLoading(false, false);
             AppUtils.endLoadingAnimation(ivLoading);
         }
 

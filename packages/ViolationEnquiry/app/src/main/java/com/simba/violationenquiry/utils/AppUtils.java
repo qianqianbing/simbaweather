@@ -35,7 +35,8 @@ public class AppUtils {
     }
 
     public static void endLoadingAnimation(ImageView imageView) {
-        imageView.clearAnimation();
+        if (imageView != null)
+            imageView.clearAnimation();
     }
 
     public static String getUpperValue(EditText editText) {

@@ -20,6 +20,8 @@ public interface AddCarInfoContract {
 
     interface AddView extends BaseView {
         void onAddSuccess();
+
+        void onAddFail(String value);
     }
 
     interface AddPresenter {

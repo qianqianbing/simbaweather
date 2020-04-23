@@ -12,6 +12,6 @@ import java.util.List;
 // 消息增删的view
 public interface ICityChangeView {
 
-    void onCityChange(List<Integer> cityIdList);
+    void onCityChange(List<CityManager.CityManagerBean> cityList);
 
 }
