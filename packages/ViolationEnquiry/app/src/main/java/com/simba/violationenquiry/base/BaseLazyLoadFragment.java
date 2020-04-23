@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 
+import com.lzy.okgo.OkGo;
 import com.simba.base.utils.Toasty;
 
 import io.reactivex.disposables.Disposable;
@@ -80,6 +81,7 @@ public abstract class BaseLazyLoadFragment extends Fragment {
         isInit = false;
         isLoad = false;
         stopLoad();
+
     }
 
     @Override
@@ -134,18 +136,20 @@ public abstract class BaseLazyLoadFragment extends Fragment {
      * 当视图已经对用户不可见并且加载过数据，如果需要在切换到其他页面时停止加载数据，可以覆写此方法
      */
     protected void stopLoad() {
-
+        OkGo.getInstance().cancelTag(getContext());//取消未处理的请求
         if (mDisposable != null && !mDisposable.isDisposed()) {
             mDisposable.dispose();
         }
     }
 
     protected void showToast(String msg) {
-        Toasty.info(getContext(), msg).show();;
+        Toasty.info(getContext(), msg).show();
+        ;
     }
 
     protected void showToast(@StringRes int msg) {
-        Toasty.info(getContext(), msg).show();;
+        Toasty.info(getContext(), msg).show();
+        ;
     }
 
 

@@ -109,6 +109,7 @@ public class MainActivity extends MyBaseActivity {
         sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), mData, this);
         viewPager.setAdapter(sectionsPagerAdapter);
         tabs.setupWithViewPager(viewPager);
+
         loadData();
     }
 
@@ -168,6 +169,7 @@ public class MainActivity extends MyBaseActivity {
                             setEmptyViewVisibility(true);
                             return;
                         }
+                        setEmptyViewVisibility(false);
                         optionLayout.setVisibility(View.VISIBLE);
                         mData = carInfoList;
                         sectionsPagerAdapter.refresh(mData);
