@@ -106,28 +106,33 @@ public class Cinema_Frag extends BaseFragment<CityIdContract.ICityIdView, CityId
     public void CityIdData(Response<CitySearchBean.DataBean> response) {
         weatherList = response.body().getWeatherList();
         if (response.body() != null) {
-            //定位城市
-            city = response.body().getCity().getCity();
-            district = response.body().getCity().getDistrict();
-            //实时温度
-            temp = response.body().getWeatherToday().getTemp();
-            //最高温度/最低温度
-            tempDay = response.body().getWeatherToday().getTempDay();
-            tempNight = response.body().getWeatherToday().getTempNight();
-            tvCity.setText("" + city + "·" + district);
-            tvTemperatureC.setText("" + temp + "°");
-            tvClimateC.setText("" + response.body().getWeatherToday().getCondition());
-            tvWindspeedC.setText("" + response.body().getWeatherToday().getWindDir() + "  " + response.body().getWeatherToday().getWindLevel() + "级");
-            tvMaxMinC.setText("" + tempDay + "°/" + tempNight + "°");
-            tvAirqualityC.setText("" + response.body().getWeatherToday().getAqi() + "  " + response.body().getWeatherToday().getAqiValue());
-            tvAirhumidityC.setText("湿度   " + response.body().getWeatherToday().getHumidity() + "%");
-            conditionId = response.body().getWeatherToday().getConditionId();
-            if (conditionId.equals("8")) {
-                beijingid.setBackgroundResource(R.drawable.bj_overcasrsky);
+            try {
+                //定位城市
+                city = response.body().getCity().getCity();
+                district = response.body().getCity().getDistrict();
+                //实时温度
+                temp = response.body().getWeatherToday().getTemp();
+                //最高温度/最低温度
+                tempDay = response.body().getWeatherToday().getTempDay();
+                tempNight = response.body().getWeatherToday().getTempNight();
+                tvCity.setText("" + city + "·" + district);
+                tvTemperatureC.setText("" + temp + "°");
+                tvClimateC.setText("" + response.body().getWeatherToday().getCondition());
+                tvWindspeedC.setText("" + response.body().getWeatherToday().getWindDir() + "  " + response.body().getWeatherToday().getWindLevel() + "级");
+                tvMaxMinC.setText("" + tempDay + "°/" + tempNight + "°");
+                tvAirqualityC.setText("" + response.body().getWeatherToday().getAqi() + "  " + response.body().getWeatherToday().getAqiValue());
+                tvAirhumidityC.setText("湿度   " + response.body().getWeatherToday().getHumidity() + "%");
+                conditionId = response.body().getWeatherToday().getConditionId();
+                if (conditionId.equals("8")) {
+                    beijingid.setBackgroundResource(R.drawable.bj_overcasrsky);
+                }
+                rvWeatherC.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+                CityIdAdapter cityIdAdapter = new CityIdAdapter(R.layout.item_weather, weatherList);
+                rvWeatherC.setAdapter(cityIdAdapter);
+            }catch (Exception e){
+                e.printStackTrace();
             }
-            rvWeatherC.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-            CityIdAdapter cityIdAdapter = new CityIdAdapter(R.layout.item_weather, weatherList);
-            rvWeatherC.setAdapter(cityIdAdapter);
+
         }
         tvRunacityC.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lzy.okgo.model.Response;
+import com.simba.base.utils.LocationUtil;
 import com.simba.simbaweather.R;
 import com.simba.simbaweather.data.bean.LocationUtils;
 import com.simba.simbaweather.data.bean.WeaTher;
@@ -88,25 +89,30 @@ public class Home_Frag extends BaseFragment<WeatherShowContract.IWeatherShowView
     public void WeatherShowData(Response<WeaTher.DataBean> response) {
         weatherList = response.body().getWeatherList();
         if (response.body() != null) {
-            //定位城市
-            city = response.body().getCity().getCity();
-            district = response.body().getCity().getDistrict();
-            //实时温度
-            temp = response.body().getWeatherToday().getTemp();
-            //最高温度/最低温度
-            tempDay = response.body().getWeatherToday().getTempDay();
-            tempNight = response.body().getWeatherToday().getTempNight();
-            tvCity.setText("" + city + "·" + district);
-            tvTemperature.setText("" + temp + "°");
-            tvClimate.setText("" + response.body().getWeatherToday().getCondition());
-            tvWindspeed.setText("" + response.body().getWeatherToday().getWindDir() + "  " + response.body().getWeatherToday().getWindLevel() + "级");
-            tvMaxMin.setText("" + tempDay + "°/" + tempNight + "°");
-            tvAirquality.setText("" + response.body().getWeatherToday().getAqi() + "  " + response.body().getWeatherToday().getAqiValue());
-            tvAirhumidity.setText("湿度   " + response.body().getWeatherToday().getHumidity() + "%");
-            conditionId = response.body().getWeatherToday().getConditionId();
-            if (conditionId.equals("8")) {
-                beijingid.setBackgroundResource(R.drawable.bj_overcasrsky);
+            try {
+                //定位城市
+                city = response.body().getCity().getCity();
+                district = response.body().getCity().getDistrict();
+                //实时温度
+                temp = response.body().getWeatherToday().getTemp();
+                //最高温度/最低温度
+                tempDay = response.body().getWeatherToday().getTempDay();
+                tempNight = response.body().getWeatherToday().getTempNight();
+                tvCity.setText("" + city + "·" + district);
+                tvTemperature.setText("" + temp + "°");
+                tvClimate.setText("" + response.body().getWeatherToday().getCondition());
+                tvWindspeed.setText("" + response.body().getWeatherToday().getWindDir() + "  " + response.body().getWeatherToday().getWindLevel() + "级");
+                tvMaxMin.setText("" + tempDay + "°/" + tempNight + "°");
+                tvAirquality.setText("" + response.body().getWeatherToday().getAqi() + "  " + response.body().getWeatherToday().getAqiValue());
+                tvAirhumidity.setText("湿度   " + response.body().getWeatherToday().getHumidity() + "%");
+                conditionId = response.body().getWeatherToday().getConditionId();
+                if (conditionId.equals("8")) {
+                    beijingid.setBackgroundResource(R.drawable.bj_overcasrsky);
+                }
+            }catch (Exception e){
+                e.printStackTrace();
             }
+
         }
         //设置recyclerview线性布局外加快速适配器
         rvWeather.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -120,7 +126,7 @@ public class Home_Frag extends BaseFragment<WeatherShowContract.IWeatherShowView
 
     @Override
     public void initData() {
-
+       /*
         gpsLocation = LocationUtils.getGPSLocation(getContext());
 
         Criteria c = new Criteria();//Criteria类是设置定位的标准信息（系统会根据你的要求，匹配最适合你的定位供应商），一个定位的辅助信息的类
@@ -136,11 +142,17 @@ public class Home_Frag extends BaseFragment<WeatherShowContract.IWeatherShowView
             Toast.makeText(getContext(), "best location: lat==" + best.getLatitude() + " lng==" + best.getLongitude(), Toast.LENGTH_SHORT).show();
         }
         if (gpsLocation == null) {
-            fPresenter.WeathershowRequestData("" + 32.298741, "" + 118.840485);
+
         } else {
             fPresenter.WeathershowRequestData("" + best.getAltitude(), "" + best.getLongitude());
         }
-
+        */
+       Location location = LocationUtil.getInstance(getContext()).getLocationInfo();
+       if(location == null){
+           fPresenter.WeathershowRequestData("" + 32.298741, "" + 118.840485);
+       }else {
+           fPresenter.WeathershowRequestData("" + location.getAltitude(), "" + location.getLongitude());
+       }
     }
 
     @Override

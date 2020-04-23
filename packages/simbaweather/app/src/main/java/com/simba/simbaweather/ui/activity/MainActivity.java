@@ -67,6 +67,7 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
             return "";
         }
     };
+
     @Override
     protected void initData() {
 
