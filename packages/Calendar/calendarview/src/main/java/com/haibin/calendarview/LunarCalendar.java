@@ -178,6 +178,9 @@ public final class LunarCalendar {
      * @return 传回农历 year年month月的总天数
      */
     public static int daysInLunarMonth(int year, int month) {
+        if (year < CalendarViewDelegate.MIN_YEAR)
+            return year = CalendarViewDelegate.MIN_YEAR;
+
         if ((LUNAR_INFO[year - CalendarViewDelegate.MIN_YEAR] & (0x10000 >> month)) == 0)
             return 29;
         else

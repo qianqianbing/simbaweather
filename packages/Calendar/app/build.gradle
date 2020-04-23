@@ -22,6 +22,10 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -37,4 +41,7 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:${dependVersion.okhttp3}"
     implementation "com.lzy.net:okgo:${dependVersion.okgo}"
     implementation "com.google.code.gson:gson:${dependVersion.gson}"
+    //butterkniffe
+    implementation "com.jakewharton:butterknife:${dependVersion.butterknife}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${dependVersion.butterknife}"
 }
