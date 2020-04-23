@@ -100,4 +100,14 @@ public class SimbaUrl {
      * 查询账号的信息
      */
     public final static String ACCOUNT_USER_INFO = BASE_HOST_ACCOUNT + "/login/userInfo";
+
+    /**
+     * 获取各种二维码的url
+     */
+    public final static String ACCOUNT_WEBAUTHLOGIN = BASE_HOST_ACCOUNT + "/login/webAuthLogin";
+
+    /**
+     * 获取各种二维码的url
+     */
+    public final static String ACCOUNT_ISA = BASE_HOST_ACCOUNT + "/vehicle/isActive\n";
 }

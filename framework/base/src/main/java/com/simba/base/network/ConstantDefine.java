@@ -12,6 +12,7 @@ public class ConstantDefine {
     public static final String ACTION = "action";
     public static final String CALLBACKURL = "callbackurl";
     public static final String DEVICEID = "deviceid";
+    public static final String VEHICLELOGINID = "vehicleLoginId";
     public static final String WeChatURL = "http://simbaui.simbalink.cn";
     public static final int QRTYPE_ACTIVATION = 0; //二维码类型 0：激活
     public static final int QRTYPE_LOGIN = 1; //二维码类型 1：登陆
@@ -26,4 +27,7 @@ public class ConstantDefine {
     //是否为车主：0否 1是
     public static final int CAR_OWNER = 1;
     public static final int NOT_CAR_OWNER = 0;
+
+    //登陆失败的原因
+    public static final int NETWORK_ERROR = 404;
 }
