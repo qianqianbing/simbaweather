@@ -21,8 +21,8 @@ public class AddAdapter extends BaseQuickAdapter<CitySearchBean.DataBean.Weather
 
     @Override
     protected void convert(BaseViewHolder helper, CitySearchBean.DataBean.WeatherTodayBean item) {
-        helper.setText(R.id.add_tv_temperature, item.getTemp() + "°");
-        helper.setText(R.id.add_tv_maxmin, item.getTempDay() + "°/" + item.getTempNight() + "°");
+        //helper.setText(R.id.add_tv_temperature, item.getTemp() + "°");
+        //helper.setText(R.id.add_tv_maxmin, item.getTempDay() + "°/" + item.getTempNight() + "°");
 
 
     }

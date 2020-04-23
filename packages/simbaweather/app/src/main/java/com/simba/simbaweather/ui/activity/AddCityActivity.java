@@ -21,6 +21,7 @@ import com.simba.base.base.BaseActivity;
 import com.simba.base.network.JsonCallback;
 import com.simba.base.network.SimbaUrl;
 import com.simba.base.utils.SpStaticUtils;
+import com.simba.simbaweather.CityManager;
 import com.simba.simbaweather.R;
 import com.simba.simbaweather.data.bean.CityInfo;
 import com.simba.simbaweather.ui.activity.view.DrawableEditText;
@@ -114,6 +115,7 @@ public class AddCityActivity extends BaseActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 String cityId = ((CityInfo) adapter.getItem(position)).getId();
+ 				CityManager.getInstance().updateCityState(true, Integer.valueOf(cityId).intValue());
                 SpStaticUtils.put("cityid0", cityId);//本地保存
                 finish();
             }

@@ -17,7 +17,7 @@ import com.simba.simbaweather.R;
 import com.simba.simbaweather.data.bean.CitySearchBean;
 import com.simba.simbaweather.di.cityidMvp.CityIdContract;
 import com.simba.simbaweather.di.cityidMvp.CityIdPresnter;
-import com.simba.simbaweather.ui.activity.RuncityActivity;
+import com.simba.simbaweather.ui.activity.CityManagerActivity;
 import com.simba.simbaweather.ui.adapter.CityIdAdapter;
 import com.simba.simbaweather.ui.base.BaseFragment;
 
@@ -72,17 +72,17 @@ public class Cinema_Frag extends BaseFragment<CityIdContract.ICityIdView, CityId
     @BindView(R.id.rv_weather_c)
     RecyclerView rvWeatherC;
     private SharedPreferences mysp;
-    private Intent intent;
     private List<CitySearchBean.DataBean.WeatherListBean> weatherList;
-    private String cityid0;
+    private int cityId = -1;
 
+    public Cinema_Frag(int cityId) {
+        this.cityId = cityId;
+    }
 
     @Override
     public void initData() {
-        mysp = getActivity().getSharedPreferences("mysp", Context.MODE_PRIVATE);
-        cityid0 = mysp.getString("cityid0", "");
-        Toast.makeText(getContext(), cityid0, Toast.LENGTH_SHORT).show();
-        fPresenter.RequestCityData(cityid0);
+        //mysp = getActivity().getSharedPreferences("mysp", Context.MODE_PRIVATE);
+        fPresenter.RequestCityData("" + cityId);
     }
 
     @Override
@@ -132,7 +132,7 @@ public class Cinema_Frag extends BaseFragment<CityIdContract.ICityIdView, CityId
         tvRunacityC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), RuncityActivity.class);
+                Intent intent = new Intent(getContext(), CityManagerActivity.class);
                 intent.putExtra("city", city);
                 intent.putExtra("district", district);
                 intent.putExtra("conditionId", conditionId);

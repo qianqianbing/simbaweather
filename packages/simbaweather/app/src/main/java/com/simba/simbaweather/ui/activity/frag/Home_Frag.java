@@ -19,7 +19,7 @@ import com.simba.simbaweather.data.bean.LocationUtils;
 import com.simba.simbaweather.data.bean.WeaTher;
 import com.simba.simbaweather.di.weatherShowMvp.WeatherShowContract;
 import com.simba.simbaweather.di.weatherShowMvp.WeatherShowPresenter;
-import com.simba.simbaweather.ui.activity.RuncityActivity;
+import com.simba.simbaweather.ui.activity.CityManagerActivity;
 import com.simba.simbaweather.ui.activity.view.RecyclerViewDivider;
 import com.simba.simbaweather.ui.adapter.WeatherAdapter;
 import com.simba.simbaweather.ui.base.BaseFragment;
@@ -170,7 +170,7 @@ public class Home_Frag extends BaseFragment<WeatherShowContract.IWeatherShowView
                 fPresenter.WeathershowRequestData("" + 32.298741, "" + 118.840485);
                 break;
             case R.id.tv_runacity:
-                Intent intent = new Intent(getContext(), RuncityActivity.class);
+                Intent intent = new Intent(getContext(), CityManagerActivity.class);
                 intent.putExtra("city", city);
                 intent.putExtra("district", district);
                 intent.putExtra("conditionId", conditionId);

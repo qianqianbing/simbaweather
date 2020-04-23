@@ -1,31 +1,32 @@
 package com.simba.simbaweather.ui.activity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.material.tabs.TabLayout;
 import com.simba.base.base.BaseActivity;
+import com.simba.simbaweather.CityManager;
+import com.simba.simbaweather.ICityChangeView;
 import com.simba.simbaweather.R;
 import com.simba.simbaweather.ui.activity.frag.Cinema_Frag;
 import com.simba.simbaweather.ui.activity.frag.Home_Frag;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements ICityChangeView {
 
-    @BindView(R.id.show_vp)
     ViewPager showVp;
-    @BindView(R.id.show_tab)
-    TabLayout showTab;
-    private Cinema_Frag cinema_frag;
-    private Home_Frag home_frag;
 
+
+    private Home_Frag home_frag;
+    ArrayList<Fragment> fragmentList = new ArrayList<>();
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
@@ -33,42 +34,39 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        ButterKnife.bind(this);
+
+        showVp = findViewById(R.id.show_vp);
         home_frag = new Home_Frag();
-        cinema_frag = new Cinema_Frag();
-        ArrayList<String> title = new ArrayList<>();
-        ArrayList<Fragment> list = new ArrayList<>();
-        list.add(home_frag);
-        list.add(cinema_frag);
-        title.add("");
-        title.add("");
-        showTab.setTabMode(TabLayout.MODE_SCROLLABLE);
-        showTab.setTabGravity(0);
-
-        showVp.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
-            @Override
-            public Fragment getItem(int i) {
-                return list.get(i);
+        fragmentList.add(home_frag);
+        CityManager.getInstance().registerCityChangeView(this);
+        List<Integer> cityIdList = CityManager.getInstance().getCityIdList();
+        if(cityIdList != null && cityIdList.size() != 0){
+            for (Integer cityId : cityIdList){
+                fragmentList.add(new Cinema_Frag(cityId));
             }
+        }
 
-            @Override
-            public int getCount() {
-                return list.size();
-            }
-
-            @Nullable
-            @Override
-            public CharSequence getPageTitle(int position) {
-                return title.get(position);
-            }
-        });
-
-        showTab.setupWithViewPager(showVp);
-        showTab.setTabMode(TabLayout.MODE_FIXED);
-        showTab.getTabAt(0).setText("").setIcon(R.mipmap.qiehuanone);
-        showTab.getTabAt(1).setText("").setIcon(R.mipmap.qiehuantwo);
+        showVp.setAdapter(myFragmentPagerAdapter);
     }
 
+    FragmentPagerAdapter myFragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+        @NonNull
+        @Override
+        public Fragment getItem(int i) {
+            return fragmentList.get(i);
+        }
+
+        @Override
+        public int getCount() {
+            return fragmentList.size();
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return "";
+        }
+    };
     @Override
     protected void initData() {
 
@@ -76,27 +74,24 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
-        showTab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                int position = tab.getPosition();
-                showVp.setCurrentItem(position);
-                if (position == 0) {
-                    showTab.getTabAt(0).setText("").setIcon(R.mipmap.qiehuanone);
-                    showTab.getTabAt(1).setText("").setIcon(R.mipmap.qiehuantwo);
-                } else if (position == 1) {
-                    showTab.getTabAt(1).setText("").setIcon(R.mipmap.qiehuanone);
-                    showTab.getTabAt(0).setText("").setIcon(R.mipmap.qiehuantwo);
-                }
-            }
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
+    }
 
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });
+    @Override
+    public void onCityChange(List<Integer> cityIdList) {
+        fragmentList = new ArrayList<>();
+        fragmentList.add(home_frag);
+        for(Integer cityId : cityIdList){
+            fragmentList.add(new Cinema_Frag(cityId));
+        }
+        synchronized(this){
+            myFragmentPagerAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        CityManager.getInstance().unRegisterCityChangeView(this);
     }
 }
