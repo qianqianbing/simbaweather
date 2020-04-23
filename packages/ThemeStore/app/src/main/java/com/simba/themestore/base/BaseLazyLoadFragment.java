@@ -1,5 +1,6 @@
 package com.simba.themestore.base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -141,13 +142,29 @@ public abstract class BaseLazyLoadFragment extends Fragment {
     }
 
     protected void showToast(String msg) {
-        Toasty.info(getContext(), msg);
+        Toasty.info(getContext(), msg).show();
     }
 
     protected void showToast(@StringRes int msg) {
-        Toasty.info(getContext(), msg);
+        Toasty.info(getContext(), msg).show();
     }
 
+    /**
+     * @param cls
+     * @param bundle
+     */
+    protected void startActivity(Class<?> cls, Bundle bundle) {
+        Intent intent = new Intent(getActivity(), cls);
+        intent.putExtras(bundle);
+        getActivity().startActivity(intent);
+    }
 
+    /**
+     * @param cls
+     */
+    protected void startActivity(Class<?> cls) {
+        Intent intent = new Intent(getActivity(), cls);
+        getActivity().startActivity(intent);
+    }
 }
 

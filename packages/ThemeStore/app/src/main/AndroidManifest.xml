@@ -28,6 +28,8 @@
         <activity android:name=".launch.personal.PersonalLockActivity" />
         <activity android:name=".launch.personal.PersonalThemeActivity" />
         <activity android:name=".launch.personal.UserAgreementActivity" />
+        <activity android:name=".launch.theme.ThemeDetailListActivity" />
+        <activity android:name=".launch.theme.ThemeDetailActivity" />
     </application>
 
 </manifest>

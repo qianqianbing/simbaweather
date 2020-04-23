@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:paddingLeft="75px"
+    android:paddingTop="43px">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="234px"
+            android:layout_height="wrap_content"
+
+            android:maxLines="5"
+            android:text=" 主题文字描述 主题文字 描述 主题文字
+ 描述 主题文字描述
+ 主题文字描述 主题
+ 文字描述 "
+            android:textColor="@color/base_white"
+            android:textSize="@dimen/base_text_size_28" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="79px"
+            android:text="作者：Simba  ui"
+            android:textColor="@color/base_white"
+            android:textSize="@dimen/base_text_size_28" />
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="76px"
+            android:background="@drawable/commit_bg"
+            android:text="应用"
+            android:textColor="@color/base_white"
+            android:textSize="@dimen/base_text_size_max" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="1px"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="90px"
+        android:layout_marginTop="70px"
+        android:layout_marginBottom="70px"
+        android:background="@drawable/divider_bg" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="51px" />
+</LinearLayout>
