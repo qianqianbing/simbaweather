@@ -3,6 +3,7 @@ package com.simba.violationenquiry;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -52,7 +53,7 @@ public class MainActivity extends MyBaseActivity {
 
 //    private static final int PERMISSIONS_REQUEST_CODE = 10;
 //    private static final String[] PERMISSIONS_REQUIRED = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-
+private Button btnAdd;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +95,7 @@ public class MainActivity extends MyBaseActivity {
         ivAdd = findViewById(R.id.iv_add_car_info);
         rlEmpty = findViewById(R.id.rl_empty);
         optionLayout = findViewById(R.id.ll_option);
+        btnAdd=findViewById(R.id.btn_add_car_info);
         ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -172,6 +174,7 @@ public class MainActivity extends MyBaseActivity {
                         setEmptyViewVisibility(false);
                         optionLayout.setVisibility(View.VISIBLE);
                         mData = carInfoList;
+                        checkAdd();
                         sectionsPagerAdapter.refresh(mData);
                         viewPager.setCurrentItem(0);
                     }
@@ -250,6 +253,13 @@ public class MainActivity extends MyBaseActivity {
 
     }
 
+    private void checkAdd() {
+        if (mData != null && mData.size() >= 10) {
+            btnAdd.setEnabled(false);
+        } else {
+            btnAdd.setEnabled(true);
+        }
+    }
  /*   private boolean allPermissionsGranted() {
         for (String permission : PERMISSIONS_REQUIRED) {
             if (ContextCompat.checkSelfPermission(getBaseContext(), permission) != PackageManager.PERMISSION_GRANTED) {

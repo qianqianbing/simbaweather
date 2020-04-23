@@ -80,7 +80,7 @@ public class AddCarPresenter extends BasePresenter<AddCarModel, AddCarInfoContra
                                 showToast(R.string.binding_success);
                                 getView().onAddSuccess();
                             } else {
-                                showToast(R.string.binding_fail);
+                                getView().onAddFail(response.message);
                             }
                         }
                     }
@@ -89,7 +89,7 @@ public class AddCarPresenter extends BasePresenter<AddCarModel, AddCarInfoContra
                     public void accept(Throwable throwable) throws Exception {
                         if (isViewAttached()) {
                             dismissLoading();
-                            showToast(R.string.binding_fail);
+                            getView().onAddFail(throwable.getMessage());
                         }
                     }
                 });

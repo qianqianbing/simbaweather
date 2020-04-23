@@ -210,6 +210,11 @@ public class AddNewCarActivity extends BaseMActivity<AddCarPresenter> implements
     }
 
     @Override
+    public void onAddFail(String value) {
+        showToast(value);
+    }
+
+    @Override
     public void showLoading() {
         super.showLoading();
     }
