@@ -46,27 +46,22 @@ public class MainActivity extends BaseActivity {
     ImageView iv_loading_cpu;
     @BindView(R.id.bt_clean)
     Button bt_clean;
-
     @BindView(R.id.view_memcounting)
     View view_memcounting;
     @BindView(R.id.view_memchart)
     View view_memchart;
-
     @BindView(R.id.ll_memcountnum)
     LinearLayout ll_memcountnum;
-
     @BindView(R.id.ll_remainmemcount)
     LinearLayout ll_remainmemcount;
     @BindView(R.id.tv_remainmem)
     TextView tv_remainmem;
-
     @BindView(R.id.tv_cpu)
     TextView tv_cpu;
     @BindView(R.id.ll_cpuper)
     LinearLayout ll_cpuper;
     @BindView(R.id.tv_cleanok)
     TextView tv_cleanok;
-
 
     private ObjectAnimator animator;
     private ObjectAnimator animator2;
