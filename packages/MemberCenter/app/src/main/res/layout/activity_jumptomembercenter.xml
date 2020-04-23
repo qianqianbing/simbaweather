@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/base_bg_app">
+
+    <ImageView
+        android:id="@+id/iv_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="31dp"
+        android:layout_marginLeft="47dp"
+        android:src="@drawable/base_icon_cancel">
+    </ImageView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textSize="@dimen/base_text_size_max"
+        android:textColor="@color/base_default_text_color"
+        android:text="@string/base_go_to_membercenter"/>
+
+    <Button
+        android:id="@+id/bt_jump"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="131dp"
+        android:layout_alignParentBottom="true"
+        android:textSize="@dimen/base_text_size_max"
+        android:gravity="center"
+        android:background="@drawable/base_icon_background_btn"
+        android:textColor="@color/base_default_text_color"
+        android:text="@string/base_go_login"/>
+</RelativeLayout>

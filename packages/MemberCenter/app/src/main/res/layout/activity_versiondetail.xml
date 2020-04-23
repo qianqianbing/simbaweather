@@ -39,6 +39,7 @@
                 android:textSize="@dimen/base_text_size_max"
                 android:text="@string/user_agreement"/>
             <ImageView
+                android:id="@+id/iv_useragreement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -50,7 +51,7 @@
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:background="@color/base_black"/>
+                android:background="@color/base_white_trans_4d"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -83,7 +84,7 @@
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:background="@color/base_black"/>
+                android:background="@color/base_white_trans_4d"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -116,7 +117,7 @@
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:background="@color/base_black"/>
+                android:background="@color/base_white_trans_4d"/>
         </RelativeLayout>
     </LinearLayout>
 

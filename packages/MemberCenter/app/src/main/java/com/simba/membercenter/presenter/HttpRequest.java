@@ -1,5 +1,6 @@
 package com.simba.membercenter.presenter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
@@ -25,7 +26,7 @@ import static com.simba.base.network.SimbaUrl.ACCOUNT_LOGIN;
 import static com.simba.base.network.SimbaUrl.ACCOUNT_USER_INFO;
 
 public class HttpRequest {
-    private static String TAG = "LoginActivity";
+    private static String TAG = "HttpRequest";
     private static HttpRequest httpRequest;
     AccountBeanDao accountBeanDao;
     public synchronized static HttpRequest getIntance() {
@@ -93,7 +94,7 @@ public class HttpRequest {
     }
 
     //通过账号密码登陆
-    public void loginWithPassword(final  String userName, String password){
+    public void loginWithPassword(Activity mContext, final  String userName, String password){
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(ConstantDefine.USERNAME, userName);
@@ -103,7 +104,7 @@ public class HttpRequest {
         }
 
         OkGo.<LoginResultBean>post(ACCOUNT_LOGIN)
-                .tag(this)
+                .tag(mContext)
                 .upJson(jsonObject)
                 .execute(new JsonCallback<LoginResultBean>() {
                     @Override
@@ -113,15 +114,33 @@ public class HttpRequest {
                             Log.e(TAG, "Token is " + loginResultBean.getToken());
 
                             token = loginResultBean.getToken();
-                            LocalAccountManager.getIntance().refreshLoginInfo(userName);
+                            if(token == null){
+                                mLoginView.onLoginFailed(response.getRawResponse().code());
+                            }else {
+                                LocalAccountManager.getIntance().refreshLoginInfo(userName);
 
-                            if(mLoginView != null){
-                                mLoginView.onLoginSucceed();
+                                if(mLoginView != null){
+                                    mLoginView.onLoginSucceed();
+                                }
                             }
+
                         }else {
-                            mLoginView.onLoginFailed();
+                            Log.e(TAG, "login failed");
+                            mLoginView.onLoginFailed(response.getRawResponse().code());
                         }
                     }
+
+                    @Override
+                    public int getHttpCode() {
+                        return super.getHttpCode();
+                    }
+
+                    @Override
+                     public void onError(Response<LoginResultBean> response) {
+                        Log.e(TAG, "login error " + getResponseCode() + " httpcode " + response.getRawResponse().code());
+                        mLoginView.onLoginFailed(response.getRawResponse().code());
+                         super.onError(response);
+                     }
                 });
     }
 

@@ -10,6 +10,6 @@ package com.simba.membercenter.view;
 public interface ILoginView {
 
     void onLoginSucceed();
-    void onLoginFailed();
+    void onLoginFailed(int failCode);
 
 }

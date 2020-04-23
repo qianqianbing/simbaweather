@@ -19,6 +19,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 
+import com.simba.base.base.BaseActivity;
 import com.simba.base.dialog.DialogUtil;
 import com.simba.membercenter.MyApplication;
 import com.simba.membercenter.R;
@@ -28,7 +29,7 @@ import com.simba.membercenter.presenter.MessagePresenter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MessageActivity extends Activity implements  IMessageView, View.OnClickListener{
+public class MessageActivity extends BaseActivity implements  IMessageView, View.OnClickListener{
 
     private static String TAG = "MainActivity";
     private ViewPager vp_message;
@@ -49,9 +50,12 @@ public class MessageActivity extends Activity implements  IMessageView, View.OnC
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected int getLayoutId() {
+        return R.layout.activity_message;
+    }
 
-        setContentView(R.layout.activity_message);
+    @Override
+    protected void initView() {
         vp_message = findViewById(R.id.vp_message);
         rl_nomessage = findViewById(R.id.rl_nomessage);
         rl_back = findViewById(R.id.rl_back);
@@ -67,6 +71,10 @@ public class MessageActivity extends Activity implements  IMessageView, View.OnC
         tv_back_title.setText(R.string.message);
 
         ll_viewGroup = findViewById(R.id.ll_viewGroup);
+    }
+
+    @Override
+    protected void initData() {
         messagePagerAdapter = new MessagePagerAdapter();
 
         MessagePresenter.getInstance().registerMessageView(this);
@@ -92,6 +100,13 @@ public class MessageActivity extends Activity implements  IMessageView, View.OnC
             @Override
             public void onPageScrollStateChanged(int state) { }
         });
+
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+
+
 
         super.onCreate(savedInstanceState);
     }

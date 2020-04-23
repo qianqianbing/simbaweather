@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 
 import com.greendao.gen.AccountBeanDao;
 import com.simba.base.DeviceAccountManager.DeviceAccountManager;
+import com.simba.base.base.BaseActivity;
 import com.simba.base.dialog.picker.SinglePickerManager;
 import com.simba.base.network.ConstantDefine;
 import com.simba.membercenter.DB.AccountBean;
@@ -29,7 +30,7 @@ import java.util.List;
 
 import static com.simba.base.network.ConstantDefine.CAR_OWNER;
 
-public class MainActivity extends Activity implements View.OnClickListener , IUserInfoView {
+public class MainActivity extends BaseActivity implements View.OnClickListener , IUserInfoView {
 
     private static String TAG = "MainActivity";
     private RelativeLayout rl_message, rl_more, rl_bind_wechat;
@@ -37,15 +38,21 @@ public class MainActivity extends Activity implements View.OnClickListener , IUs
     private ImageView iv_switch_account,iv_sex;
     AccountBeanDao accountBeanDao;
     private Context mContext;
+
     public static void startAcivity(){
         Intent intent = new Intent(MyApplication.getMyApplication().getApplicationContext(), MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         MyApplication.getMyApplication().getApplicationContext().startActivity(intent);
+
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        setContentView(R.layout.activity_main);
+    protected int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void initView() {
         mContext = this;
         tv_nickname = findViewById(R.id.tv_nickname);
         tv_id = findViewById(R.id.tv_id);
@@ -60,13 +67,18 @@ public class MainActivity extends Activity implements View.OnClickListener , IUs
         iv_switch_account.setOnClickListener(this);
         rl_bind_wechat = findViewById(R.id.rl_bind_wechat);
         rl_bind_wechat.setOnClickListener(this);
+
+    }
+
+    @Override
+    protected void initData() {
        /* if(! DeviceAccountManager.getInstance(mContext).isRealNameAuthentication()){
             RealNameAuthenticationPopupWindow realNameAuthenticationPopupWindow = new RealNameAuthenticationPopupWindow();
             realNameAuthenticationPopupWindow.showPopupWindow(getApplicationContext());
         }
         */
 
-       //在数据库中查询是否已经登陆
+        //在数据库中查询是否已经登陆
         AccountBean accountBean= LocalAccountManager.getIntance().getLoginAccount();
         if(accountBean == null ){
             LoginActivity.startAcivity();
@@ -79,7 +91,6 @@ public class MainActivity extends Activity implements View.OnClickListener , IUs
         HttpRequest.getIntance().registerUserInfoView(this);
 
         testInsertAccountInfo();
-        super.onCreate(savedInstanceState);
     }
 
     @Override

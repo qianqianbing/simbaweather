@@ -121,6 +121,7 @@
                 android:layout_height="@dimen/input_edittext_height"
                 android:layout_alignTop="@id/tv_password"
                 android:textSize="@dimen/base_text_size_large"
+                android:password="true"
                 android:hint="@string/input_password"
                 android:textColorHint="@color/base_white_trans_4d"
                 android:paddingLeft="30dp"
@@ -138,11 +139,21 @@
                     android:layout_height="50dp"
                     android:background="@drawable/button_select_background"/>
                 <TextView
+                    android:id="@+id/tv_iagree"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/bt_agress"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="13dp"
+                    android:textSize="@dimen/base_text_size_large"
+                    android:textColor="@color/base_white_trans_4d"
+                    android:text="@string/i_agree"/>
+                <TextView
+                    android:id="@+id/tv_useragreement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/tv_iagree"
+                    android:layout_centerVertical="true"
                     android:textSize="@dimen/base_text_size_large"
                     android:textColor="@color/base_white_trans_4d"
                     android:text="@string/agree_contact" />

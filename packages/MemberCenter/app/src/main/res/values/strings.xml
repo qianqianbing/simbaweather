@@ -18,7 +18,8 @@
     <string name="more">更多</string>
     <string name="input_phone_number">请输入您的手机号</string>
     <string name="input_password">请输入密码</string>
-    <string name="agree_contact">我已经阅读并同意用户协议，隐私政策</string>
+    <string name="agree_contact">用户协议，隐私政策</string>
+    <string name="i_agree">我已经阅读并同意</string>
     <string name="open_wechat_scan">打开 微信\n扫一扫注册/登陆</string>
 
     <string name="user_agreement">用户协议</string>
@@ -46,4 +47,7 @@
     <string name="real_name_authentication_note">尊敬的用户,根据国家工信部要求，使用车内流量须进行实名认证。为了您能正常使用车载流量，请及时实名认证（提交认证资料后，将会在30分钟内完成审核，如遇特殊情况可能延长）</string>
     <string name="unbind_account">解除账户绑定，请用微信扫码操作</string>
     <string name="account_manage">账号管理</string>
+
+    <string name="network_error">网络不佳,请稍后重试</string>
+    <string name="login_failed">登陆失败</string>
 </resources>
