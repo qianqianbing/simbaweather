@@ -25,29 +25,53 @@ import com.simba.base.base.BaseActivity;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+
 
 public class MainActivity extends BaseActivity {
 
+    @BindView(R.id.iv_loading_memory)
+    ImageView iv_loading_memory;
+    @BindView(R.id.chart)
+    PieChart mPieChart;
+    @BindView(R.id.gv_memory)
+    GridView gv_memory;
+    @BindView(R.id.waveProgressView)
+    WaveProgressView mWaveProgressView;
+    @BindView(R.id.view_cpucounting)
+    View view_cpucounting;
+    @BindView(R.id.view_cpuchart)
+    View view_cpuchart;
+    @BindView(R.id.iv_loading_cpu)
+    ImageView iv_loading_cpu;
+    @BindView(R.id.bt_clean)
+    Button bt_clean;
 
-    private ImageView iv_loading_memory;
-    private PieChart mPieChart;
-    private GridView gv_memory;
-    private WaveProgressView mWaveProgressView;
-    private View view_cpunting;
-    private View view_cpuchart;
-    private ImageView iv_loading_cpu;
-    private Button bt_clean;
+    @BindView(R.id.view_memcounting)
+    View view_memcounting;
+    @BindView(R.id.view_memchart)
+    View view_memchart;
+
+    @BindView(R.id.ll_memcountnum)
+    LinearLayout ll_memcountnum;
+
+    @BindView(R.id.ll_remainmemcount)
+    LinearLayout ll_remainmemcount;
+    @BindView(R.id.tv_remainmem)
+    TextView tv_remainmem;
+
+    @BindView(R.id.tv_cpu)
+    TextView tv_cpu;
+    @BindView(R.id.ll_cpuper)
+    LinearLayout ll_cpuper;
+    @BindView(R.id.tv_cleanok)
+    TextView tv_cleanok;
+
+
     private ObjectAnimator animator;
     private ObjectAnimator animator2;
-    private View view_memcounting;
-    private View view_memchart;
-    private LinearLayout ll_memcountnum;
-    private LinearLayout ll_remainmemcount;
-    private TextView tv_remainmem;
     private MemoryAdapter mMemoryAdapter;
-    private TextView tv_cpu;
-    private LinearLayout ll_cpuper;
-    private TextView tv_cleanok;
+
 
     private Handler mHandler = new Handler(new Handler.Callback() {
         @Override
@@ -75,23 +99,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
-        view_cpunting = findViewById(R.id.view_cpucounting);
-        view_cpuchart = findViewById(R.id.view_cpuchart);
-        iv_loading_cpu = findViewById(R.id.iv_loading_cpu);
-        bt_clean = findViewById(R.id.bt_clean);
-        view_memcounting = findViewById(R.id.view_memcounting);
-        view_memchart = findViewById(R.id.view_memchart);
-        mWaveProgressView = findViewById(R.id.waveProgressView);
-        iv_loading_memory = findViewById(R.id.iv_loading_memory);
-
-        ll_memcountnum = findViewById(R.id.ll_memcountnum);
-        ll_remainmemcount = findViewById(R.id.ll_remainmemcount);
-        tv_remainmem = findViewById(R.id.tv_remainmem);
-        gv_memory = findViewById(R.id.gv_memory);
-        tv_cpu = findViewById(R.id.tv_cpu);
-        ll_cpuper = findViewById(R.id.ll_cpuper);
-        tv_cleanok = findViewById(R.id.tv_cleanok);
 
         mMemoryAdapter = new MemoryAdapter();
         gv_memory.setAdapter(mMemoryAdapter);
@@ -145,7 +152,7 @@ public class MainActivity extends BaseActivity {
 
                         objectAnimator.start();
                     }
-                },3000);
+                }, 3000);
             }
         });
 
@@ -222,7 +229,7 @@ public class MainActivity extends BaseActivity {
 
         startCPULoadingAnim();
 
-        view_cpunting.setVisibility(View.VISIBLE);
+        view_cpucounting.setVisibility(View.VISIBLE);
         view_cpuchart.setVisibility(View.GONE);
         iv_loading_cpu.setVisibility(View.VISIBLE);
         bt_clean.setBackgroundResource(R.drawable.ic_clean_unable);
@@ -234,7 +241,7 @@ public class MainActivity extends BaseActivity {
 
                 if (animator != null) animator.cancel();
 
-                view_cpunting.setVisibility(View.GONE);
+                view_cpucounting.setVisibility(View.GONE);
                 view_cpuchart.setVisibility(View.VISIBLE);
                 iv_loading_cpu.setVisibility(View.GONE);
 
