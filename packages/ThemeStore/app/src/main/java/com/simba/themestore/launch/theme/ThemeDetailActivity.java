@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.simba.themestore.R;
 import com.simba.themestore.base.EditBaseActivity;
-import com.simba.themestore.launch.adapter.ThemeDetailAdapter;
+import com.simba.themestore.launch.adapter.theme.ThemeDetailAdapter;
 import com.simba.themestore.model.personal.PersonalThemeBean;
 import com.simba.themestore.view.itemdecoration.CommonDecoration;
 

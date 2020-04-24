@@ -21,7 +21,10 @@ import com.simba.themestore.model.ThemeBean;
 import com.simba.themestore.view.ViewPagerIndicator;
 import com.simba.themestore.view.itemdecoration.CommonDecoration;
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.listener.OnPageChangeListener;
+import com.youth.banner.transformer.ZoomOutPageTransformer;
+import com.youth.banner.util.BannerUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,9 +64,19 @@ public class ThemeFragment extends BaseLazyLoadFragment implements OnPageChangeL
 
         //添加切换监听
         banner.addOnPageChangeListener(this);
-        banner.setBannerGalleryMZ(60);
+        //圆角
+        banner.setBannerRound(BannerUtils.dp2px(5));
+        //banner.setBannerGalleryMZ(60);
+        banner.setBannerGalleryEffect(60, 0, 1f);
+        banner.setPageTransformer(new ZoomOutPageTransformer());
         banner.removeIndicator();
         banner.setUserInputEnabled(false);
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(Object data, int position) {
+                showToast("" + position);
+            }
+        });
         ViewPagerIndicator mIndicatorCircleLine = findViewById(R.id.indicator_circle_line);
         mIndicatorCircleLine.setViewPager(banner.getViewPager2(), true);
 

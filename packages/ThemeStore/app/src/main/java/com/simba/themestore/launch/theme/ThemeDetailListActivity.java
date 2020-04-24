@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.simba.themestore.R;
 import com.simba.themestore.base.EditBaseActivity;
+import com.simba.themestore.launch.WallPaperSettingActivity;
 import com.simba.themestore.launch.adapter.PersonalWallPaperAdapter;
 import com.simba.themestore.model.personal.PersonalWallPaperBean;
 import com.simba.themestore.view.itemdecoration.SpaceItemDecoration;
@@ -64,7 +65,7 @@ public class ThemeDetailListActivity extends EditBaseActivity {
         wallPaperAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                startActivity(ThemeDetailActivity.class);
+                startActivity(WallPaperSettingActivity.class);
             }
         });
 

@@ -1,4 +1,4 @@
-package com.simba.themestore.launch.adapter;
+package com.simba.themestore.launch.adapter.theme;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;

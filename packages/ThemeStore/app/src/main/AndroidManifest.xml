@@ -30,6 +30,7 @@
         <activity android:name=".launch.personal.UserAgreementActivity" />
         <activity android:name=".launch.theme.ThemeDetailListActivity" />
         <activity android:name=".launch.theme.ThemeDetailActivity" />
+        <activity android:name=".launch.WallPaperSettingActivity" />
     </application>
 
 </manifest>
