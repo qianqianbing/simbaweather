@@ -7,23 +7,28 @@ import android.util.Log;
 import com.greendao.gen.AccountBeanDao;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
+import com.simba.base.DeviceAccountManager.DeviceAccountManager;
 import com.simba.base.network.ConstantDefine;
 import com.simba.base.network.JsonCallback;
-import com.simba.membercenter.DB.AccountBean;
+import com.simba.membercenter.bean.AccountBean;
 import com.simba.membercenter.MyApplication;
 import com.simba.membercenter.bean.LoginResultBean;
-import com.simba.membercenter.view.IDeviceActivationView;
-import com.simba.membercenter.view.ILoginView;
-import com.simba.membercenter.view.IUserInfoView;
+import com.simba.membercenter.bean.UserCertificationBean;
+import com.simba.membercenter.bean.VehicleInfoBean;
+import com.simba.membercenter.bean.WeCharUrlBean;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import static com.simba.base.network.ConstantDefine.QRTYPE_ACTIVATION;
+import static com.simba.base.network.ConstantDefine.QRTYPE_LOGIN;
+import static com.simba.base.network.SimbaUrl.ACCOUNT_GET_QRCODE;
+import static com.simba.base.network.SimbaUrl.ACCOUNT_GET_VEHICLEINFO;
 import static com.simba.base.network.SimbaUrl.ACCOUNT_LOGIN;
 import static com.simba.base.network.SimbaUrl.ACCOUNT_USER_INFO;
+import static com.simba.base.network.SimbaUrl.VEHICLE_CERTIFICATION;
 
 public class HttpRequest {
     private static String TAG = "HttpRequest";
@@ -50,16 +55,7 @@ public class HttpRequest {
         return token;
     }
 
-    //获取激活状态
-    public void getDeviceActivationState(){
-        if(mDeviceActivationViews != null ){
-            for(IDeviceActivationView deviceActivationView : mDeviceActivationViews){
-                deviceActivationView.onDeviceNotActivation();
-            }
-        }
-    }
-
-    public void getUserInfo(Context mContext){
+    public void getUserInfo(Context mContext, UserInfoCallback mUserInfoView){
         OkGo.<AccountBean>post(ACCOUNT_USER_INFO)
                 .tag(mContext)
                 .headers("token",token)
@@ -79,22 +75,54 @@ public class HttpRequest {
                                 accountBeanFromDB.setOwned(accountBeanFromNet.getOwned());
                                 accountBeanDao.update(accountBeanFromDB);
                                 if(mUserInfoView != null){
-                                    mUserInfoView.onLoadSucceed(accountBeanFromDB);
+                                    mUserInfoView.onUserInfoResult(true,accountBeanFromDB);
                                 }
                                 continue;
                             }
 
                         }else {
                             if (mUserInfoView != null){
-                                mUserInfoView.onLoadFailed();
+                                mUserInfoView.onUserInfoResult(false,null);
                             }
                         }
                     }
                 });
     }
 
+    //获取实名认证信息
+    public void getUserCertificatedInfo(Context mContext,UserCertificatedInfoCallback userCertificatedInfoCallback){
+        OkGo.<UserCertificationBean>post(VEHICLE_CERTIFICATION)
+                .tag(mContext)
+                .headers("token",token)
+                .execute(new JsonCallback<UserCertificationBean>() {
+                    @Override
+                    public void onSuccess(Response<UserCertificationBean> response) {
+                        Log.e(TAG, "certificated code is " + response.getRawResponse().code());
+                        if(isCode200()){
+                            UserCertificationBean userCertificationBean = response.body();
+                            //实名认证：0否 1是
+                            if(userCertificationBean.getCertificated() == 0){
+                                userCertificatedInfoCallback.onUserCertificatedInfoResult(false);
+                            }else {
+                                userCertificatedInfoCallback.onUserCertificatedInfoResult(true);
+                            }
+
+                        }else {
+                            userCertificatedInfoCallback.onUserCertificatedInfoResult(false);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<UserCertificationBean> response) {
+                        Log.e(TAG, "certificated code is " + response.getRawResponse().code());
+                        super.onError(response);
+
+                    }
+                });
+    }
+
     //通过账号密码登陆
-    public void loginWithPassword(Activity mContext, final  String userName, String password){
+    public void loginWithPassword(Activity mContext, final  String userName, String password, LoginCallback loginHander){
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(ConstantDefine.USERNAME, userName);
@@ -112,21 +140,22 @@ public class HttpRequest {
                         if (isCode200()) {
                             LoginResultBean loginResultBean = response.body();
                             Log.e(TAG, "Token is " + loginResultBean.getToken());
+                            Log.e(TAG, "loginResultBean is " + loginResultBean);
 
                             token = loginResultBean.getToken();
                             if(token == null){
-                                mLoginView.onLoginFailed(response.getRawResponse().code());
+                                loginHander.onLoginResult(false, response.getRawResponse().code());
                             }else {
                                 LocalAccountManager.getIntance().refreshLoginInfo(userName);
 
-                                if(mLoginView != null){
-                                    mLoginView.onLoginSucceed();
+                                if(loginHander != null){
+                                    loginHander.onLoginResult(true,0);
                                 }
                             }
 
                         }else {
                             Log.e(TAG, "login failed");
-                            mLoginView.onLoginFailed(response.getRawResponse().code());
+                            loginHander.onLoginResult(false,response.getRawResponse().code());
                         }
                     }
 
@@ -138,42 +167,110 @@ public class HttpRequest {
                     @Override
                      public void onError(Response<LoginResultBean> response) {
                         Log.e(TAG, "login error " + getResponseCode() + " httpcode " + response.getRawResponse().code());
-                        mLoginView.onLoginFailed(response.getRawResponse().code());
+                        loginHander.onLoginResult(false, response.getRawResponse().code());
                          super.onError(response);
                      }
                 });
     }
-
-    private List<IDeviceActivationView> mDeviceActivationViews = new ArrayList<>();
-    public void registerDeviceActivationViews(IDeviceActivationView deviceActivationView) {
-        if(!mDeviceActivationViews.contains(deviceActivationView)){
-            mDeviceActivationViews.add(deviceActivationView);
+    //获取激活二维码
+    public void requestActivationQRCode(Context context, int vehicleLoginId, QRCodeCallback qrCodeCallback) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(ConstantDefine.ACTION, QRTYPE_ACTIVATION);
+            jsonObject.put(ConstantDefine.CALLBACKURL, ConstantDefine.WeChatURL);
+            jsonObject.put(ConstantDefine.DEVICEID, DeviceAccountManager.getInstance(MyApplication.getMyApplication().getApplicationContext()).getDeviceId());
+            jsonObject.put(ConstantDefine.VEHICLELOGINID, vehicleLoginId);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+
+        OkGo.<WeCharUrlBean>post(ACCOUNT_GET_QRCODE)
+                .tag(context)
+                .upJson(jsonObject)
+                .execute(new JsonCallback<WeCharUrlBean>() {
+                    @Override
+                    public void onSuccess(Response<WeCharUrlBean> response) {
+                        if (isCode200()) {
+                            WeCharUrlBean weCharUrl = response.body();
+                            Log.e(TAG, "activation QRCode is : " + weCharUrl.getUrl());
+                            qrCodeCallback.onQRCodeResult(true,weCharUrl.getUrl());
+                        }
+                    }
+                });
     }
 
-    public void unRegisterDeviceActivationViews(IDeviceActivationView deviceActivationView) {
-        if(mDeviceActivationViews.contains(deviceActivationView)){
-            mDeviceActivationViews.remove(deviceActivationView);
+    //获取二维码登陆的二维码
+    public void requestLoginQRCode(Context context, int vehicleLoginId, QRCodeCallback qrCodeCallback) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(ConstantDefine.ACTION, QRTYPE_LOGIN);
+            jsonObject.put(ConstantDefine.CALLBACKURL, ConstantDefine.WeChatURL);
+            jsonObject.put(ConstantDefine.DEVICEID, DeviceAccountManager.getInstance(MyApplication.getMyApplication().getApplicationContext()).getDeviceId());
+            jsonObject.put(ConstantDefine.VEHICLELOGINID, vehicleLoginId);
+            Log.e(TAG, "vehicleLoginId " + vehicleLoginId);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+
+        OkGo.<WeCharUrlBean>post(ACCOUNT_GET_QRCODE)
+                .tag(context)
+                .upJson(jsonObject)
+                .execute(new JsonCallback<WeCharUrlBean>() {
+                    @Override
+                    public void onSuccess(Response<WeCharUrlBean> response) {
+                        if (isCode200()) {
+                            WeCharUrlBean weCharUrl = response.body();
+                            Log.e(TAG, "Login weCharUrl " + weCharUrl.getUrl());
+                            qrCodeCallback.onQRCodeResult(true,weCharUrl.getUrl());
+                        }
+                    }
+                });
+    }
+    //获取车辆类型
+    public void requestVehicleInfo(Context context,UserVehicleInfoCallback userVehicleInfoCallback) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(ConstantDefine.DEVICEID, DeviceAccountManager.getInstance(MyApplication.getMyApplication().getApplicationContext()).getDeviceId());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        OkGo.<VehicleInfoBean>post(ACCOUNT_GET_VEHICLEINFO)
+                .tag(context)
+                .upJson(jsonObject)
+                .execute(new JsonCallback<VehicleInfoBean>() {
+                    @Override
+                    public void onSuccess(Response<VehicleInfoBean> response) {
+                        if (isCode200()) {
+                            VehicleInfoBean vehicleInfoBean = response.body();
+                            Log.e(TAG, "plate no: " + vehicleInfoBean.getPlateno() + " vehicle type " + vehicleInfoBean.getVehicleType());
+                            userVehicleInfoCallback.onUserVehicleInfoResult(vehicleInfoBean);
+                        }
+                    }
+                });
     }
 
-    //登陆相关接口
-    private ILoginView mLoginView;
-    public void registerLoginViews(ILoginView loginView) {
-        mLoginView = loginView;
+    // 获取二维码的回调
+    public interface QRCodeCallback {
+        void onQRCodeResult(boolean isSucceed, String  QRCodeURI);
+    }
+    //登陆成功失败的回调
+    public interface LoginCallback {
+        void onLoginResult(Boolean isSucceed, int failCode);
+    }
+    //获取用户信息
+    public interface UserInfoCallback {
+        void onUserInfoResult(boolean isSucceed, AccountBean accountBean);
     }
 
-    public void unRegisterLoginViews() {
-        mLoginView = null;
+    //获取用户信息
+    public interface UserCertificatedInfoCallback {
+        void onUserCertificatedInfoResult(boolean isCertificated);
     }
 
-    //获取用户信息相关接口
-    private IUserInfoView mUserInfoView ;
-    public void registerUserInfoView(IUserInfoView userInfoView){
-        mUserInfoView = userInfoView;
-    }
-
-    public void unRegisterUserInfoView(){
-        mUserInfoView = null;
+    //获取车型信息
+    public interface UserVehicleInfoCallback {
+        void onUserVehicleInfoResult(VehicleInfoBean vehicleInfoBean);
     }
 }

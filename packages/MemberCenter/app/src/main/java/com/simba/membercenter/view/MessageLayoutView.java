@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.simba.membercenter.R;
-import com.simba.membercenter.DB.MessageBean;
+import com.simba.membercenter.bean.MessageBean;
 
 public class MessageLayoutView extends RelativeLayout implements View.OnClickListener {
     private static String TAG = "MessageLayoutView";

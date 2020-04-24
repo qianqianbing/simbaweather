@@ -11,24 +11,17 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import com.greendao.gen.MessageBeanDao;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.model.Response;
+
 import com.simba.base.UI.Popupwindow.GlobalPopupWindow;
 import com.simba.base.DeviceAccountManager.DeviceAccountManager;
-import com.simba.base.network.ConstantDefine;
-import com.simba.base.network.JsonCallback;
-import com.simba.membercenter.DB.MessageBean;
-import com.simba.membercenter.bean.WeCharUrlBean;
+
+import com.simba.membercenter.bean.MessageBean;
+
+import com.simba.membercenter.presenter.HttpRequest;
 import com.simba.membercenter.presenter.LocalAccountManager;
 import com.simba.membercenter.ui.popupwindow.DeviceActivationPopupWindow;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.Random;
-
-import static com.simba.base.network.ConstantDefine.QRTYPE_ACTIVATION;
-import static com.simba.base.network.SimbaUrl.ACCOUNT_GET_QRCODE;
 
 /**
  * @description: 会员中心管理的service，因为要随着系统启动就工作，而且还要提供已登陆账号的信息给其他应用使用，所以使用service来实现
@@ -38,7 +31,7 @@ import static com.simba.base.network.SimbaUrl.ACCOUNT_GET_QRCODE;
 
 
 
-public class MemberCenterService extends Service  {
+public class MemberCenterService extends Service implements HttpRequest.QRCodeCallback {
     private static String TAG = "MemberCenterService";
     private BroadcastReceiver messageReceiver ;
     private MessageBeanDao messageBeanDao;
@@ -58,7 +51,7 @@ public class MemberCenterService extends Service  {
             Random random = new Random();//指定种子数字2147483647
             vehicleLoginId = random.nextInt(  1000000000);
             Log.e(TAG, "vehicleLoginId " + vehicleLoginId );
-            requestActivationQRCode();
+            HttpRequest.getIntance().requestActivationQRCode(this,vehicleLoginId, this);
         }
 
         super.onCreate();
@@ -103,54 +96,11 @@ public class MemberCenterService extends Service  {
         }
     }
 
-    private void requestActivationQRCode() {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put(ConstantDefine.ACTION, QRTYPE_ACTIVATION);
-            jsonObject.put(ConstantDefine.CALLBACKURL, ConstantDefine.WeChatURL);
-            jsonObject.put(ConstantDefine.DEVICEID, DeviceAccountManager.getInstance(MyApplication.getMyApplication().getApplicationContext()).getDeviceId());
-            jsonObject.put(ConstantDefine.VEHICLELOGINID, vehicleLoginId);
-        } catch (JSONException e) {
-            e.printStackTrace();
+    @Override
+    public void onQRCodeResult(boolean isSucceed, String QRCodeURI) {
+        if(isSucceed){
+            Log.e(TAG, "activation QRCode is : " + QRCodeURI);
+            showActivationDialog(QRCodeURI);
         }
-
-         OkGo.<WeCharUrlBean>post(ACCOUNT_GET_QRCODE)
-                .tag(this)
-                .upJson(jsonObject)
-                .execute(new JsonCallback<WeCharUrlBean>() {
-                    @Override
-                    public void onSuccess(Response<WeCharUrlBean> response) {
-                        if (isCode200()) {
-                            WeCharUrlBean weCharUrl = response.body();
-                            Log.e(TAG, "weCharUrl " + weCharUrl.getUrl());
-                            showActivationDialog(weCharUrl.getUrl());
-                        }
-                    }
-                });
-
-    }
-
-    private void requestActivationState() {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put(ConstantDefine.DEVICEID, DeviceAccountManager.getInstance(MyApplication.getMyApplication().getApplicationContext()).getDeviceId());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        OkGo.<WeCharUrlBean>post(ACCOUNT_GET_QRCODE)
-                .tag(this)
-                .upJson(jsonObject)
-                .execute(new JsonCallback<WeCharUrlBean>() {
-                    @Override
-                    public void onSuccess(Response<WeCharUrlBean> response) {
-                        if (isCode200()) {
-                            WeCharUrlBean weCharUrl = response.body();
-                            Log.e(TAG, "weCharUrl " + weCharUrl.getUrl());
-                            showActivationDialog(weCharUrl.getUrl());
-                        }
-                    }
-                });
-
     }
 }

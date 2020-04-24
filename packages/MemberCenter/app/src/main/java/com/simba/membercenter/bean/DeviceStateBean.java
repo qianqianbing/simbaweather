@@ -1,4 +1,4 @@
-package com.simba.membercenter.DB;
+package com.simba.membercenter.bean;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;

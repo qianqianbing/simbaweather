@@ -1,4 +1,4 @@
-package com.simba.membercenter.DB;
+package com.simba.membercenter.bean;
 
 import com.simba.base.dialog.model.KeyValue;
 

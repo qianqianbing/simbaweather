@@ -1,6 +1,5 @@
 package com.simba.membercenter.view;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,7 +22,7 @@ import com.simba.base.base.BaseActivity;
 import com.simba.base.dialog.DialogUtil;
 import com.simba.membercenter.MyApplication;
 import com.simba.membercenter.R;
-import com.simba.membercenter.DB.MessageBean;
+import com.simba.membercenter.bean.MessageBean;
 import com.simba.membercenter.presenter.MessagePresenter;
 
 import java.util.ArrayList;

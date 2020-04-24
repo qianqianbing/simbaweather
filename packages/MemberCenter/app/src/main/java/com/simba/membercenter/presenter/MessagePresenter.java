@@ -2,7 +2,7 @@ package com.simba.membercenter.presenter;
 
 import com.greendao.gen.MessageBeanDao;
 import com.simba.membercenter.MyApplication;
-import com.simba.membercenter.DB.MessageBean;
+import com.simba.membercenter.bean.MessageBean;
 import com.simba.membercenter.view.IMessageView;
 
 import java.util.List;
