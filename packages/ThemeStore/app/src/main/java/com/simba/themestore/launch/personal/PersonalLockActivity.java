@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.simba.themestore.R;
 import com.simba.themestore.base.EditBaseActivity;
-import com.simba.themestore.launch.adapter.PersonalThemeAdapter;
+import com.simba.themestore.launch.adapter.personal.PersonalThemeAdapter;
 import com.simba.themestore.model.personal.PersonalThemeBean;
 import com.simba.themestore.view.itemdecoration.CommonDecoration;
 

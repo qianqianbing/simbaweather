@@ -12,8 +12,7 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.simba.themestore.R;
 import com.simba.themestore.base.EditBaseActivity;
-import com.simba.themestore.launch.WallPaperSettingActivity;
-import com.simba.themestore.launch.adapter.PersonalWallPaperAdapter;
+import com.simba.themestore.launch.adapter.personal.PersonalWallPaperAdapter;
 import com.simba.themestore.model.personal.PersonalWallPaperBean;
 import com.simba.themestore.view.itemdecoration.SpaceItemDecoration;
 
@@ -23,7 +22,7 @@ import java.util.List;
 /**
  * @Author : chenjianbo
  * @Date : 2020/4/23
- * @Desc :
+ * @Desc :主题
  */
 public class ThemeDetailListActivity extends EditBaseActivity {
     private RecyclerView recyclerView;
@@ -37,7 +36,7 @@ public class ThemeDetailListActivity extends EditBaseActivity {
 
     @Override
     protected void initView() {
-        setTitleName("类型二");
+        setTitleName("类型一");
         hideEditButton();
         recyclerView = findViewById(R.id.recyclerView);
 
@@ -65,7 +64,7 @@ public class ThemeDetailListActivity extends EditBaseActivity {
         wallPaperAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                startActivity(WallPaperSettingActivity.class);
+                startActivity(ThemeDetailActivity.class);
             }
         });
 

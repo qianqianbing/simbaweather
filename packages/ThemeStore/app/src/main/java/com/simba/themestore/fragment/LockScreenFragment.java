@@ -2,14 +2,19 @@ package com.simba.themestore.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.simba.themestore.R;
 import com.simba.themestore.base.BaseLazyLoadFragment;
 import com.simba.themestore.fragment.adapter.LockScreenAdapter;
+import com.simba.themestore.launch.theme.ThemeDetailActivity;
 import com.simba.themestore.model.LockScreenBean;
 import com.simba.themestore.view.itemdecoration.SpaceItemDecoration;
 
@@ -62,6 +67,12 @@ public class LockScreenFragment extends BaseLazyLoadFragment {
             @Override
             public void onLoadMore() {
                 loadMore();
+            }
+        });
+        lockScreenAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                startActivity(ThemeDetailActivity.class);
             }
         });
     }

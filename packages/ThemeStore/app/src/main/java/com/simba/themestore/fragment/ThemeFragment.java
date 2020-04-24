@@ -3,18 +3,20 @@ package com.simba.themestore.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.HorizontalScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.simba.themestore.R;
-import com.simba.themestore.banner.ImageAdapter;
+import com.simba.themestore.banner.adapter.BannerImageAdapter;
 import com.simba.themestore.base.BaseLazyLoadFragment;
 import com.simba.themestore.fragment.adapter.ThemeAdapter;
+import com.simba.themestore.launch.theme.ThemeDetailActivity;
 import com.simba.themestore.launch.theme.ThemeDetailListActivity;
 import com.simba.themestore.model.DataBean;
 import com.simba.themestore.model.ThemeBean;
@@ -41,6 +43,7 @@ public class ThemeFragment extends BaseLazyLoadFragment implements OnPageChangeL
     private RecyclerView recyclerView;
     private List<ThemeBean> mData;
     private ThemeAdapter themeAdapter;
+    private HorizontalScrollView scrollView;
 
     public static ThemeFragment newInstance(int index) {
         ThemeFragment fragment = new ThemeFragment();
@@ -58,8 +61,9 @@ public class ThemeFragment extends BaseLazyLoadFragment implements OnPageChangeL
     @Override
     protected void initView() {
         banner = findViewById(R.id.banner);
+        scrollView = findViewById(R.id.scrollView);
         //设置适配器
-        ImageAdapter adapter = new ImageAdapter(DataBean.getTestData());
+        BannerImageAdapter adapter = new BannerImageAdapter(DataBean.getTestData());
         banner.setAdapter(adapter);
 
         //添加切换监听
@@ -74,7 +78,7 @@ public class ThemeFragment extends BaseLazyLoadFragment implements OnPageChangeL
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(Object data, int position) {
-                showToast("" + position);
+                startActivity(ThemeDetailActivity.class);
             }
         });
         ViewPagerIndicator mIndicatorCircleLine = findViewById(R.id.indicator_circle_line);
@@ -95,7 +99,7 @@ public class ThemeFragment extends BaseLazyLoadFragment implements OnPageChangeL
         for (int i = 0; i < 10; i++) {
             mData.add(new ThemeBean());
         }
-        themeAdapter = new ThemeAdapter(R.layout.item_fragment_theme, mData);
+        themeAdapter = new ThemeAdapter(mData);
         recyclerView.setAdapter(themeAdapter);
         CommonDecoration commonDecoration = new CommonDecoration(30);
         recyclerView.addItemDecoration(commonDecoration);
@@ -105,12 +109,22 @@ public class ThemeFragment extends BaseLazyLoadFragment implements OnPageChangeL
                 loadMore();
             }
         });
-        themeAdapter.setOnItemClickListener(new OnItemClickListener() {
+
+        themeAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
             @Override
-            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                startActivity(ThemeDetailListActivity.class);
+            public void onItemChildClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
+                switch (view.getId()) {
+                    case R.id.rl_title:
+                        startActivity(ThemeDetailListActivity.class);
+                        break;
+                    case R.id.rl_item:
+                    case R.id.rl_item_bottom:
+                        startActivity(ThemeDetailActivity.class);
+                }
+
             }
         });
+
     }
 
     private void loadMore() {
@@ -125,7 +139,7 @@ public class ThemeFragment extends BaseLazyLoadFragment implements OnPageChangeL
 
     @Override
     protected void lazyLoad() {
-
+        scrollView.scrollTo(0, 0);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.simba.themestore.fragment.adapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.module.LoadMoreModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
+import com.simba.themestore.R;
 import com.simba.themestore.model.ThemeBean;
 
 import java.util.List;
@@ -13,16 +14,16 @@ import java.util.List;
  * @Desc :
  */
 public class ThemeAdapter extends BaseQuickAdapter<ThemeBean, BaseViewHolder> implements LoadMoreModule {
-    public ThemeAdapter(int layoutResId, List<ThemeBean> data) {
-        super(layoutResId, data);
+
+    public ThemeAdapter(List<ThemeBean> data) {
+        super(R.layout.item_fragment_theme, data);
+        addChildClickViewIds(R.id.rl_title,R.id.rl_item,R.id.rl_item_bottom);
     }
 
-    public ThemeAdapter(int layoutResId) {
-        super(layoutResId);
-    }
 
     @Override
     protected void convert(BaseViewHolder holder, ThemeBean themeBean) {
+
 
     }
 }

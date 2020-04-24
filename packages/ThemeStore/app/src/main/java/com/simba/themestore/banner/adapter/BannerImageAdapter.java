@@ -1,4 +1,4 @@
-package com.simba.themestore.banner;
+package com.simba.themestore.banner.adapter;
 
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,9 +15,9 @@ import java.util.List;
 /**
  * 自定义布局，图片
  */
-public class ImageAdapter extends BannerAdapter<DataBean, ImageHolder> {
+public class BannerImageAdapter extends com.youth.banner.adapter.BannerAdapter<DataBean, ImageHolder> {
 
-    public ImageAdapter(List<DataBean> mDatas) {
+    public BannerImageAdapter(List<DataBean> mDatas) {
         //设置数据，也可以调用banner提供的方法,或者自己在adapter中实现
         super(mDatas);
     }
