@@ -28,6 +28,10 @@
         <activity android:name=".launch.personal.PersonalLockActivity" />
         <activity android:name=".launch.personal.PersonalThemeActivity" />
         <activity android:name=".launch.personal.UserAgreementActivity" />
+        <activity android:name=".launch.theme.ThemeDetailListActivity" />
+        <activity android:name=".launch.theme.ThemeDetailActivity" />
+        <activity android:name=".launch.wallpaper.WallPaperSettingActivity" />
+        <activity android:name=".launch.wallpaper.WallPaperListActivity" />
     </application>
 
 </manifest>

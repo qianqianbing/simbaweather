@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@null"
+    android:orientation="horizontal"
+    android:paddingLeft="50px"
+    android:paddingTop="41px">
+
+    <HorizontalScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
+                android:layout_width="1278px"
+                android:layout_height="480px"
+                >
+
+                <com.simba.themestore.view.ViewPagerIndicator
+                    android:id="@+id/indicator_circle_line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50px"
+                    android:layout_gravity="bottom"
+                    android:background="@null" />
+
+            </com.youth.banner.Banner>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="40px" />
+            </RelativeLayout>
+        </LinearLayout>
+    </HorizontalScrollView>
+</LinearLayout>

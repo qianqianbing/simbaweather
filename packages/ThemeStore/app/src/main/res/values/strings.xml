@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">主题商城</string>
-    <string name="personal_theme">我的壁纸</string>
+    <string name="personal_theme">我的主题</string>
     <string name="personal_lock">我的屏保</string>
     <string name="about">关于</string>
 
@@ -18,6 +18,13 @@
 
 如本协议有任何更新，我们会以消息推送等适当的方式告知用户。</string>
 
+
+    <string-array name="wallpaper_setting">
+        <item>应用壁纸</item>
+        <item>应用屏保</item>
+        <item>同时应用</item>
+
+    </string-array>
     <string-array name="personal_title">
         <item>主题</item>
         <item>壁纸</item>

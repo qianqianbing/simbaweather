@@ -29,7 +29,9 @@ ext {
             mpandroidchart   : "v3.1.0",  
 			annotation   : "1.1.0",   
 			zxing : "3.3.0",
-			butterknife : "10.2.1"
+			butterknife : "10.2.1",
+			glide : "4.8.0",
+			greendao:"3.2.2"
     ]
 
 }

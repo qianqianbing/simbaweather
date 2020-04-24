@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.simba.base.dialog.view.CheckableRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100px">
+
+    <TextView
+        android:id="@+id/cb_single"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@android:color/transparent"
+        android:duplicateParentState="true"
+        android:gravity="center"
+        android:textColor="@color/base_white"
+        android:textSize="@dimen/base_text_size_max" />
+
+</com.simba.base.dialog.view.CheckableRelativeLayout>

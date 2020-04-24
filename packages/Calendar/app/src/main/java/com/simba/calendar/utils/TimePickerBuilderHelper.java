@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
@@ -38,9 +37,9 @@ public class TimePickerBuilderHelper {
 
     public TimePickerBuilderHelper(Context context, final OnTimeSelectListener onTimeSelectListener) {
         java.util.Calendar startDate = java.util.Calendar.getInstance();
-        startDate.set(1990, 1, 1);
+        startDate.set(1900, 0, 1);
         java.util.Calendar endDate = java.util.Calendar.getInstance();
-        endDate.set(2099, 12, 30);
+        endDate.set(endDate.get(Calendar.YEAR) + 30, 11, 31);
         //时间选择器 ，自定义布局
         pvTime = new TimePickerBuilder(context,
                 new com.bigkoo.pickerview.listener.OnTimeSelectListener() {
@@ -69,7 +68,7 @@ public class TimePickerBuilderHelper {
                                 pvTime.dismiss();
                             }
                         });
-//                            //公农历切换
+
 //                            CheckBox cb_lunar = (CheckBox) v.findViewById(R.id.cb_lunar);
 //                            cb_lunar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 //                                @Override
@@ -81,25 +80,7 @@ public class TimePickerBuilderHelper {
 //                            });
                     }
 
-                    /**
-                     * 公农历切换后调整宽
-                     * @param v
-                     * @param yearWeight
-                     * @param weight
-                     */
-                    private void setTimePickerChildWeight(View v, float yearWeight, float weight) {
-                        ViewGroup timePicker = (ViewGroup) v.findViewById(R.id.timepicker);
-                        View year = timePicker.getChildAt(0);
-                        LinearLayout.LayoutParams lp = ((LinearLayout.LayoutParams) year.getLayoutParams());
-                        lp.weight = yearWeight;
-                        year.setLayoutParams(lp);
-                        for (int i = 1; i < timePicker.getChildCount(); i++) {
-                            View childAt = timePicker.getChildAt(i);
-                            LinearLayout.LayoutParams childLp = ((LinearLayout.LayoutParams) childAt.getLayoutParams());
-                            childLp.weight = weight;
-                            childAt.setLayoutParams(childLp);
-                        }
-                    }
+
                 })
                 .setDate(java.util.Calendar.getInstance())
                 .setRangDate(startDate, endDate)
@@ -112,6 +93,7 @@ public class TimePickerBuilderHelper {
                 .setTextColorOut(Color.parseColor("#494A51"))
                 .isAlphaGradient(true)
                 .setType(new boolean[]{true, true, true, false, false, false})
+                .setLabel("年", "月", "", "", "", "")
                 .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
                 .setDividerColor(Color.parseColor("#303238"))
                 .build();
@@ -134,6 +116,12 @@ public class TimePickerBuilderHelper {
                 dialogWindow.setDimAmount(0.5f);
             }
         }
+//
+//        //公农历切换
+//        pvTime.setLunarCalendar(!pvTime.isLunarCalendar());
+//        //自适应宽
+//        setTimePickerChildWeight(pvTime.getDialog().getWindow().getDecorView(), true ? 0.8f : 1f, true ? 1f : 1.1f);
+
     }
 
     public TimePickerView getTimePickerView() {
@@ -144,4 +132,24 @@ public class TimePickerBuilderHelper {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
+
+//    /**
+//     * 公农历切换后调整宽
+//     * @param v
+//     * @param yearWeight
+//     * @param weight
+//     */
+//    private void setTimePickerChildWeight(View v, float yearWeight, float weight) {
+//        ViewGroup timePicker = (ViewGroup) v.findViewById(R.id.timepicker);
+//        View year = timePicker.getChildAt(0);
+//        LinearLayout.LayoutParams lp = ((LinearLayout.LayoutParams) year.getLayoutParams());
+//        lp.weight = yearWeight;
+//        year.setLayoutParams(lp);
+//        for (int i = 1; i < timePicker.getChildCount(); i++) {
+//            View childAt = timePicker.getChildAt(i);
+//            LinearLayout.LayoutParams childLp = ((LinearLayout.LayoutParams) childAt.getLayoutParams());
+//            childLp.weight = weight;
+//            childAt.setLayoutParams(childLp);
+//        }
+//    }
 }

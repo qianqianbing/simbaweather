@@ -225,7 +225,7 @@ public class CarInfoDetailFragment extends BaseLazyLoadFragment implements View.
                             showItemError(false);
                             detailData = violateResData;
                             if (detailData != null && detailData.isShowToast()) {
-                                showToast(R.string.query_fail);
+                                showToast(R.string.time_out);
                             }
                             initPageData();
                         }
@@ -241,6 +241,8 @@ public class CarInfoDetailFragment extends BaseLazyLoadFragment implements View.
                                 showLoadingView(false);//进度对话框
                                 if (!HttpRequest.IS_CACHE.equals(throwable.getMessage())) {
                                     showErrorDialog();
+                                }else {
+                                    showToast(R.string.query_fail);
                                 }
                             } else {
                                 showToast(R.string.query_fail);

@@ -27,11 +27,11 @@ public class DataBean {
     public static List<DataBean> getTestData() {
         List<DataBean> list = new ArrayList<>();
         list.add(new DataBean(R.mipmap.test_bg, "相信自己,你努力的样子真的很美", 1));
-        list.add(new DataBean(R.mipmap.test_bg, "极致简约,梦幻小屋", 3));
+        list.add(new DataBean(R.mipmap.test_bgg, "极致简约,梦幻小屋", 3));
         list.add(new DataBean(R.mipmap.test_bg, "超级卖梦人", 3));
-        list.add(new DataBean(R.mipmap.test_bg, "夏季新搭配", 1));
-        list.add(new DataBean(R.mipmap.test_bg, "绝美风格搭配", 1));
-        list.add(new DataBean(R.mipmap.test_bg, "微微一笑 很倾城", 3));
+//        list.add(new DataBean(R.mipmap.test_bg, "夏季新搭配", 1));
+//        list.add(new DataBean(R.mipmap.test_bg, "绝美风格搭配", 1));
+//        list.add(new DataBean(R.mipmap.test_bg, "微微一笑 很倾城", 3));
         return list;
     }
 

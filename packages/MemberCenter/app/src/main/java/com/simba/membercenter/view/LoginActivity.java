@@ -2,7 +2,10 @@ package com.simba.membercenter.view;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -11,27 +14,66 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.Response;
+import com.simba.base.DeviceAccountManager.DeviceAccountManager;
+import com.simba.base.base.BaseActivity;
+import com.simba.base.network.ConstantDefine;
+import com.simba.base.network.JsonCallback;
 import com.simba.base.utils.Toasty;
 import com.simba.membercenter.MyApplication;
 import com.simba.base.utils.QRCodeUtil;
 import com.simba.membercenter.R;
+import com.simba.membercenter.bean.LoginResultBean;
+import com.simba.membercenter.bean.WeCharUrlBean;
 import com.simba.membercenter.presenter.HttpRequest;
 import com.simba.membercenter.presenter.LocalAccountManager;
 
-public class LoginActivity extends Activity implements View.OnClickListener, ILoginView{
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Random;
+
+import static com.simba.base.network.ConstantDefine.QRTYPE_ACTIVATION;
+import static com.simba.base.network.ConstantDefine.QRTYPE_LOGIN;
+import static com.simba.base.network.SimbaUrl.ACCOUNT_GET_QRCODE;
+import static com.simba.base.network.SimbaUrl.ACCOUNT_WEBAUTHLOGIN;
+
+public class LoginActivity extends BaseActivity implements View.OnClickListener, ILoginView{
     private static String TAG = "LoginActivity";
 
     private static int QRLoginType = 1;
     private static int AccountLoginType = 2;
 
     private RelativeLayout mRlQRLogin, mRlAccountLogin;
-    private TextView tv_Login1, tv_Login2;
+    private TextView tv_Login1, tv_Login2,tv_useragreement;
     private EditText et_username, et_password;
     private Button mBtLogin,bt_agress;
+
     private ImageView iv_QRCode_login,iv_cancel,iv_logintype;
+
     private static String USERNAME = "USERNAME";
+    //喜欢查询二维码扫码登陆的结果
+    private final static int CheckQRLoginResult = 100;
+    // 二维码的登陆id，随机数
+    private int vehicleLoginId ;
+    private Handler loginHander = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            switch (msg.what){
+                case CheckQRLoginResult:
+                    checkQRloginResult();
+                    loginHander.sendEmptyMessageDelayed(CheckQRLoginResult, 5000);
+                    break;
+
+            }
+            super.handleMessage(msg);
+        }
+    };
+
     public static void startAcivity(){
         Intent intent = new Intent(MyApplication.getMyApplication().getApplicationContext(), LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -46,16 +88,16 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+    protected int getLayoutId() {
+        return R.layout.activity_login;
+    }
+
+    @Override
+    protected void initData() {
         HttpRequest.getIntance().registerLoginViews(this);
 
-        initView();
         setListener();
-
         String userName = "" ;
-
         try {
             userName = getIntent().getStringExtra(USERNAME);
         }catch (Exception e){
@@ -65,15 +107,22 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
         if(userName != null && !userName.isEmpty()){
             initLoginType(userName);
         }
+
+
+        Random random = new Random();//指定种子数字2147483647
+        vehicleLoginId = random.nextInt(  1000000000);
+        Log.e(TAG, "vehicleLoginId " + vehicleLoginId );
+        requestLoginQRCode();
     }
 
     @Override
     protected void onDestroy() {
+        loginHander.removeMessages(CheckQRLoginResult);
         HttpRequest.getIntance().unRegisterLoginViews();
         super.onDestroy();
     }
 
-    private void initView(){
+    protected void initView(){
         tv_Login1 = findViewById(R.id.tv_Login1);
         tv_Login2 = findViewById(R.id.tv_Login2);
         mRlQRLogin = findViewById(R.id.rl_QRLogin);
@@ -87,6 +136,9 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
         bt_agress.setOnClickListener(this);
         iv_QRCode_login = findViewById(R.id.iv_QRCode_login);
         iv_QRCode_login.setImageBitmap(QRCodeUtil.createDefaultCodeBitmap("www.simbalink.cn", 225,225));
+        tv_useragreement = findViewById(R.id.tv_useragreement);
+        tv_useragreement.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG ); //下划线
+
     }
 
     private void setListener(){
@@ -95,11 +147,15 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
         mBtLogin.setOnClickListener(this);
         iv_cancel.setOnClickListener(this);
         iv_logintype.setOnClickListener(this);
+        tv_useragreement.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.tv_useragreement:
+                UserAgreementActivity.startAcivity();
+                break;
             case R.id.bt_agress:
                 Log.e(TAG, "bt_agress " + bt_agress.isSelected());
                 if(bt_agress.isSelected()){
@@ -112,8 +168,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
                 finish();
                 break;
             case R.id.tv_Login1:
-
-
                 break;
             case R.id.tv_Login2:
 
@@ -134,11 +188,15 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
                     Toasty.normal(getApplicationContext(),"请输入密码").show();
                     break;
                 }
-
-                HttpRequest.getIntance().loginWithPassword(userName,password);
+                if(!bt_agress.isSelected()){
+                    Toasty.normal(getApplicationContext(),"请阅读并同意用户协议").show();
+                    break;
+                }
+                HttpRequest.getIntance().loginWithPassword(this, userName,password);
                 break;
         }
     }
+
     //切换界面上的登陆方式
     private void switchLoginType(int loginType ){
         if (loginType == QRLoginType){
@@ -167,15 +225,84 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
 
     @Override
     public void onLoginSucceed() {
-
         MainActivity.startAcivity();
-
         ((Activity) this).overridePendingTransition(0, 0);
         finish();
     }
 
     @Override
-    public void onLoginFailed() {
+    public void onLoginFailed(int failCode) {
+        Log.e(TAG, "failCode is " + failCode);
+        switch (failCode){
+            case ConstantDefine.NETWORK_ERROR:
+                Toasty.normal(this,getResources().getString(R.string.network_error)).show();
+                break;
+            default:
+                Toasty.normal(this,getResources().getString(R.string.login_failed)).show();
+                break;
+        }
+    }
+
+    private void requestLoginQRCode() {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(ConstantDefine.ACTION, QRTYPE_LOGIN);
+            jsonObject.put(ConstantDefine.CALLBACKURL, ConstantDefine.WeChatURL);
+            jsonObject.put(ConstantDefine.DEVICEID, DeviceAccountManager.getInstance(MyApplication.getMyApplication().getApplicationContext()).getDeviceId());
+            jsonObject.put(ConstantDefine.VEHICLELOGINID, vehicleLoginId);
+            Log.e(TAG, "vehicleLoginId " + vehicleLoginId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        OkGo.<WeCharUrlBean>post(ACCOUNT_GET_QRCODE)
+                .tag(this)
+                .upJson(jsonObject)
+                .execute(new JsonCallback<WeCharUrlBean>() {
+                    @Override
+                    public void onSuccess(Response<WeCharUrlBean> response) {
+                        if (isCode200()) {
+                            WeCharUrlBean weCharUrl = response.body();
+                            Log.e(TAG, "Login weCharUrl " + weCharUrl.getUrl());
+                            iv_QRCode_login.setImageBitmap(QRCodeUtil.createDefaultCodeBitmap(weCharUrl.getUrl(), 225,225));
+                            loginHander.sendEmptyMessageAtTime(CheckQRLoginResult,2000);
+                        }
+                    }
+                });
+
+    }
+
+    private void checkQRloginResult() {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(ConstantDefine.DEVICEID, DeviceAccountManager.getInstance(MyApplication.getMyApplication().getApplicationContext()).getDeviceId());
+            Log.e(TAG, "vehicleLoginId " + vehicleLoginId);
+            jsonObject.put(ConstantDefine.VEHICLELOGINID, vehicleLoginId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        OkGo.<LoginResultBean>post(ACCOUNT_WEBAUTHLOGIN)
+                .tag(this)
+                .upJson(jsonObject)
+                .execute(new JsonCallback<LoginResultBean>() {
+                    @Override
+                    public void onSuccess(Response<LoginResultBean> response) {
+                        LoginResultBean loginResultBean = response.body();
+                        if (isCode200()) {
+
+                            Log.e(TAG, "QRCode LoginResultBean " + loginResultBean.getToken());
+                        }else {
+                            Log.e(TAG, "QRCode onSuccess LoginResultBean " + getResponseCode());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<LoginResultBean> response) {
+                        Log.e(TAG, "QRCode LoginResultBean " + response.getRawResponse());
+                        super.onError(response);
+                    }
+                });
 
     }
 }

@@ -2,6 +2,7 @@ package com.simba.calendar;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
@@ -10,14 +11,22 @@ import android.widget.TextView;
 import com.simba.base.base.BaseActivity;
 import com.simba.base.utils.SpStaticUtils;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class SettingActivity extends BaseActivity {
 
     public static final String KEY_SETTING_HOLIDAY_PUSH = "setting_holiday_push";
     public static final String KEY_SETTING_ALMANAC = "setting_almanac";
-    private TextView mTvSettingBack;
-    private TextView mTvSettingVersion;
-    private Switch mSwSettingHolidayPush;
-    private Switch mSwSettingAlmanac;
+
+    @BindView(R.id.tv_setting_back)
+    TextView mTvSettingBack;
+    @BindView(R.id.sw_setting_holiday_push)
+    Switch mSwSettingHolidayPush;
+    @BindView(R.id.sw_setting_almanac)
+    Switch mSwSettingAlmanac;
+    @BindView(R.id.tv_setting_version)
+    TextView mTvSettingVersion;
 
     @Override
     protected int getLayoutId() {
@@ -26,10 +35,6 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mTvSettingBack = (TextView) findViewById(R.id.tv_setting_back);
-        mTvSettingVersion = (TextView) findViewById(R.id.tv_setting_version);
-        mSwSettingHolidayPush = (Switch) findViewById(R.id.sw_setting_holiday_push);
-        mSwSettingAlmanac = (Switch) findViewById(R.id.sw_setting_almanac);
     }
 
     @Override
@@ -77,5 +82,12 @@ public class SettingActivity extends BaseActivity {
             e.printStackTrace();
         }
         return "";
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

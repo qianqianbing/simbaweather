@@ -92,6 +92,7 @@ public class SimbaUrl {
      * 获取各种二维码的url
      */
     public final static String ACCOUNT_GET_QRCODE = BASE_HOST_ACCOUNT + "/account/getQRCode";
+    //public final static String ACCOUNT_GET_QRCODE = BASE_HOST_ACCOUNT + "/vehicle/getQRCodeForVehicle";
     /**
      * 账号密码登陆
      */
@@ -100,4 +101,19 @@ public class SimbaUrl {
      * 查询账号的信息
      */
     public final static String ACCOUNT_USER_INFO = BASE_HOST_ACCOUNT + "/login/userInfo";
+
+    /**
+     * 查询二维码登陆是否成功
+     */
+    public final static String ACCOUNT_WEBAUTHLOGIN = BASE_HOST_ACCOUNT + "/login/webAuthLogin";
+
+    /**
+     * 车机是否激活
+     */
+    public final static String ACCOUNT_ISACTIVE = BASE_HOST_ACCOUNT + "/vehicle/isActive";
+    /**
+     * 是否实名认证
+     */
+    public final static String VEHICLE_CERTIFICATION = BASE_HOST_ACCOUNT + "/vehicle/isCertification";
+
 }

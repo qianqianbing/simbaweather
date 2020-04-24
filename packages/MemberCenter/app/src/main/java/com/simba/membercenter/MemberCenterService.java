@@ -25,6 +25,8 @@ import com.simba.membercenter.ui.popupwindow.DeviceActivationPopupWindow;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Random;
+
 import static com.simba.base.network.ConstantDefine.QRTYPE_ACTIVATION;
 import static com.simba.base.network.SimbaUrl.ACCOUNT_GET_QRCODE;
 
@@ -42,7 +44,8 @@ public class MemberCenterService extends Service  {
     private MessageBeanDao messageBeanDao;
     //消息中心发送消息给会员中心，测试代码
     private static String MessageIntent = "com.simba.messagecenter";
-
+    // 二维码的登陆id，随机数
+    private int vehicleLoginId ;
     @Override
     public void onCreate() {
         Log.e(TAG, "onCreate");
@@ -52,7 +55,10 @@ public class MemberCenterService extends Service  {
         //service 启动后首先检测设备是否激活，未激活需要弹框提示
         if(! DeviceAccountManager.getInstance(this).getDeviceActivation()){
             //获取激活二维码
-            requestQRCode();
+            Random random = new Random();//指定种子数字2147483647
+            vehicleLoginId = random.nextInt(  1000000000);
+            Log.e(TAG, "vehicleLoginId " + vehicleLoginId );
+            requestActivationQRCode();
         }
 
         super.onCreate();
@@ -97,17 +103,42 @@ public class MemberCenterService extends Service  {
         }
     }
 
-    private void requestQRCode() {
+    private void requestActivationQRCode() {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(ConstantDefine.ACTION, QRTYPE_ACTIVATION);
             jsonObject.put(ConstantDefine.CALLBACKURL, ConstantDefine.WeChatURL);
             jsonObject.put(ConstantDefine.DEVICEID, DeviceAccountManager.getInstance(MyApplication.getMyApplication().getApplicationContext()).getDeviceId());
+            jsonObject.put(ConstantDefine.VEHICLELOGINID, vehicleLoginId);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
          OkGo.<WeCharUrlBean>post(ACCOUNT_GET_QRCODE)
+                .tag(this)
+                .upJson(jsonObject)
+                .execute(new JsonCallback<WeCharUrlBean>() {
+                    @Override
+                    public void onSuccess(Response<WeCharUrlBean> response) {
+                        if (isCode200()) {
+                            WeCharUrlBean weCharUrl = response.body();
+                            Log.e(TAG, "weCharUrl " + weCharUrl.getUrl());
+                            showActivationDialog(weCharUrl.getUrl());
+                        }
+                    }
+                });
+
+    }
+
+    private void requestActivationState() {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(ConstantDefine.DEVICEID, DeviceAccountManager.getInstance(MyApplication.getMyApplication().getApplicationContext()).getDeviceId());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        OkGo.<WeCharUrlBean>post(ACCOUNT_GET_QRCODE)
                 .tag(this)
                 .upJson(jsonObject)
                 .execute(new JsonCallback<WeCharUrlBean>() {

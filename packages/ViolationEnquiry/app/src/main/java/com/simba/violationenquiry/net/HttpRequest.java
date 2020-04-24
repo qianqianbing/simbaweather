@@ -1,7 +1,6 @@
 package com.simba.violationenquiry.net;
 
 import android.content.Context;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 
 import com.google.gson.reflect.TypeToken;
@@ -10,12 +9,10 @@ import com.simba.base.network.SimbaUrl;
 import com.simba.base.network.model.GeneralResponse;
 import com.simba.base.network.model.SimpleResponse;
 import com.simba.base.network.utils.Convert;
-import com.simba.violationenquiry.MyApplication;
 import com.simba.violationenquiry.net.callback.ResultCallBack;
 import com.simba.violationenquiry.net.model.CarInfo;
 import com.simba.violationenquiry.net.model.detail.ViolateResData;
 import com.simba.violationenquiry.utils.CacheHelper;
-import com.simba.violationenquiry.utils.DataTest;
 
 import org.json.JSONArray;
 
@@ -40,17 +37,6 @@ public class HttpRequest {
      * @throws Exception
      */
     public static void getCarInfoList(ResultCallBack<List<CarInfo>> callBack, Context cxt, String deviceID) {
-        if (MyApplication.isDebug) {
-            try {
-                Thread.sleep(2000);
-                // callBack.onDataLoadedFailure(new Exception());
-                callBack.onLoaded(DataTest.getCarInfoList());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            return;
-        }
-
         Type type = new TypeToken<GeneralResponse<List<CarInfo>>>() {
         }.getType();
         OkGoUtil<GeneralResponse<List<CarInfo>>> communicator = new OkGoUtil<>(cxt, SimbaUrl.REQUEST_CAR_LIST);
@@ -81,21 +67,8 @@ public class HttpRequest {
      * @param mustRefresh 是否必须刷新
      */
     public static void getDetail(ResultCallBack<ViolateResData> callBack, Context cxt, CarInfo carInfo, boolean mustRefresh) {
-        if (MyApplication.isDebug) {
-            try {
-                Thread.sleep(2000);
-                callBack.onDataLoadedFailure(new Exception());
-                //  callBack.onLoaded(DataTest.getDetail());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            return;
-        }
-
-    //    Log.e("getDetail", carInfo.getPlateno() + ":" + mustRefresh);
-
-
-        if (!mustRefresh) {//不是必须刷新 先取缓存
+        //    Log.e("getDetail", carInfo.getPlateno() + ":" + mustRefresh);
+        if (!CacheHelper.getMustRefresh(carInfo.getId()) && !mustRefresh) {//不是必须刷新 先取缓存
 
             ViolateResData violateResData = CacheHelper.getCarInfoDetail(carInfo.getId());
             if (violateResData != null) {
@@ -108,7 +81,7 @@ public class HttpRequest {
                 return;
             }
         }
-
+        CacheHelper.saveMustRefresh(carInfo.getId(), false);
         Type type = new TypeToken<GeneralResponse<ViolateResData>>() {
         }.getType();
         OkGoUtil<GeneralResponse<ViolateResData>> communicator = new OkGoUtil<>(cxt, SimbaUrl.REQUEST_CAR_DETAIL);
@@ -123,6 +96,7 @@ public class HttpRequest {
                 return;
             }
             CacheHelper.saveCarInfoDetail(carInfo.getId(), response.data);
+
             callBack.onLoaded(response.data);
         } catch (Exception e) {//没有查到数据，缓存一个标记位
             e.printStackTrace();
