@@ -1,6 +1,7 @@
 package com.simba.calendar;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
@@ -14,6 +15,7 @@ import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 import com.simba.base.base.BaseActivity;
 import com.simba.base.network.JsonCallback;
 import com.simba.base.network.SimbaUrl;
@@ -30,34 +32,57 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import butterknife.BindView;
+
+
 public class MainActivity extends BaseActivity {
 
     private final String[] weeks = new String[]{"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
 
-    private TextView mTvMainLeftToday;
-    private TextView mTvMainLeftYearMonth;
-    private TextView mTvMainWeek;
-    private TextView mTvMainHoliday;
-    private TextView mTvMainLunar;
-    private TextView mTvMainTrunkAndBranch;
-    private TextView mTvMainShould;
-    private TextView mTvMainAWordADayStr;
-    private TextView mTvMainRightYearMonth;
-    private TextView mTvMainYearView;
-    private CalendarView mCvMainCalendarView;
-    private ImageView mIvMainToday;
-    private ImageView mIvMainSetting;
-    private TimePickerView pvTime;
-    private ImageView mIvManNetworkLoading;
-    private LinearLayout mLlMainShouldGroup;
-    private LinearLayout mLlMainAWordADay;
-    private LinearLayout mLlMainNetworkRetry;
-    private LinearLayout mLlMainNetworkLoading;
+    @BindView(R.id.tv_main_left_today)
+    TextView mTvMainLeftToday;
+    @BindView(R.id.tv_main_left_year_month)
+    TextView mTvMainLeftYearMonth;
+    @BindView(R.id.tv_main_week)
+    TextView mTvMainWeek;
+    @BindView(R.id.tv_main_lunar)
+    TextView mTvMainLunar;
+    @BindView(R.id.tv_main_trunk_and_branch)
+    TextView mTvMainTrunkAndBranch;
+    @BindView(R.id.tv_main_right_year_month)
+    TextView mTvMainRightYearMonth;
+    @BindView(R.id.tv_main_year_view)
+    TextView mTvMainYearView;
+    @BindView(R.id.cv_main_calendar_view)
+    CalendarView mCvMainCalendarView;
+    @BindView(R.id.iv_main_today)
+    ImageView mIvMainToday;
+    @BindView(R.id.iv_main_setting)
+    ImageView mIvMainSetting;
+    @BindView(R.id.tv_main_should)
+    TextView mTvMainShould;
+    @BindView(R.id.tv_main_should_group)
+    LinearLayout mLlMainShouldGroup;
+    @BindView(R.id.tv_main_holiday)
+    TextView mTvMainHoliday;
+    @BindView(R.id.tv_main_a_word_a_day_str)
+    TextView mTvMainAWordADayStr;
+    @BindView(R.id.ll_main_a_word_a_day)
+    LinearLayout mLlMainAWordADay;
+    @BindView(R.id.ll_main_network_retry)
+    LinearLayout mLlMainNetworkRetry;
+    @BindView(R.id.iv_man_network_loading)
+    ImageView mIvManNetworkLoading;
+    @BindView(R.id.ll_main_network_loading)
+    LinearLayout mLlMainNetworkLoading;
 
     //下面2个静态值方便在年视图中月份标记判断使用
     public static int CUR_MONTH, CUR_YEAR;
-    Boolean setting_almanac, setting_holiday;
-    Animation animation;
+    private TimePickerView pvTime;
+    private Boolean setting_almanac, setting_holiday;
+    private Animation animation;
+    boolean networkErr = false;
+    private Calendar today;
 
     @Override
     public int getLayoutId() {
@@ -66,37 +91,16 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        mTvMainLeftToday = (TextView) findViewById(R.id.tv_main_left_today);
-        mTvMainLeftYearMonth = (TextView) findViewById(R.id.tv_main_left_year_month);
-        mTvMainWeek = (TextView) findViewById(R.id.tv_main_week);
-        mTvMainHoliday = (TextView) findViewById(R.id.tv_main_holiday);
-        mTvMainLunar = (TextView) findViewById(R.id.tv_main_lunar);
-        mTvMainTrunkAndBranch = (TextView) findViewById(R.id.tv_main_trunk_and_branch);
-        mTvMainShould = (TextView) findViewById(R.id.tv_main_should);
-        mTvMainAWordADayStr = (TextView) findViewById(R.id.tv_main_a_word_a_day_str);
-        mTvMainRightYearMonth = (TextView) findViewById(R.id.tv_main_right_year_month);
-        mTvMainYearView = (TextView) findViewById(R.id.tv_main_year_view);
-        mCvMainCalendarView = (CalendarView) findViewById(R.id.cv_main_calendar_view);
-        mIvMainToday = (ImageView) findViewById(R.id.iv_main_today);
-        mIvMainSetting = (ImageView) findViewById(R.id.iv_main_setting);
-        mLlMainShouldGroup = (LinearLayout) findViewById(R.id.tv_main_should_group);
-
-
-        mLlMainAWordADay = (LinearLayout) findViewById(R.id.ll_main_a_word_a_day);
-        mLlMainNetworkRetry = (LinearLayout) findViewById(R.id.ll_main_network_retry);
-        mLlMainNetworkLoading = (LinearLayout) findViewById(R.id.ll_main_network_loading);
-        mIvManNetworkLoading = (ImageView) findViewById(R.id.iv_man_network_loading);
-
         animation = AnimationUtils.loadAnimation(this, R.anim.anim_main_network_load);
     }
 
     @Override
     public void initData() {
-        CUR_YEAR = mCvMainCalendarView.getCurYear();
-        CUR_MONTH = mCvMainCalendarView.getCurMonth();
-        mTvMainRightYearMonth.setText(String.format(Locale.SIMPLIFIED_CHINESE, "%d年%d月", CUR_YEAR, CUR_MONTH));
-        selectDay(mCvMainCalendarView.getSelectedCalendar());
-        updateWorkAndRestDay(CUR_YEAR);
+        //设置日历范围
+        mCvMainCalendarView.setRange(1900, 1, 1, mCvMainCalendarView.getCurYear() + 30, 12, 31);
+        today = mCvMainCalendarView.getSelectedCalendar();
+        selectDay(today);
+        updateWorkAndRestDay(today.getYear());
     }
 
     @Override
@@ -104,7 +108,9 @@ public class MainActivity extends BaseActivity {
         mTvMainRightYearMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showTimePicker();
+                java.util.Calendar calendar = java.util.Calendar.getInstance();
+                calendar.setTimeInMillis(mCvMainCalendarView.getSelectedCalendar().getTimeInMillis());
+                showTimePicker(calendar);
             }
         });
         mTvMainYearView.setOnClickListener(new View.OnClickListener() {
@@ -114,7 +120,6 @@ public class MainActivity extends BaseActivity {
                     mCvMainCalendarView.closeYearSelectLayout();
                     return;
                 }
-                mIvMainToday.setEnabled(true);
                 mCvMainCalendarView.showYearSelectLayout(mCvMainCalendarView.getCurYear());
             }
         });
@@ -123,10 +128,8 @@ public class MainActivity extends BaseActivity {
             public void onClick(View v) {
                 if (mCvMainCalendarView.isYearSelectLayoutVisible())
                     mCvMainCalendarView.closeYearSelectLayout();
-
                 mCvMainCalendarView.scrollToCurrent(true);
                 selectDay(mCvMainCalendarView.getSelectedCalendar());
-                mIvMainToday.setEnabled(false);
             }
         });
         mIvMainSetting.setOnClickListener(new View.OnClickListener() {
@@ -143,12 +146,14 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onCalendarSelect(Calendar calendar, boolean isClick) {
-                mIvMainToday.setEnabled(true);
-                mTvMainRightYearMonth.setText(String.format(Locale.SIMPLIFIED_CHINESE, "%d年%d月", calendar.getYear(), calendar.getMonth()));
-
                 selectDay(calendar);
-                CUR_MONTH = calendar.getMonth();
-                CUR_YEAR = calendar.getYear();
+            }
+        });
+        mCvMainCalendarView.setOnYearViewChangeListener(new CalendarView.OnYearViewChangeListener() {
+            @Override
+            public void onYearViewChange(boolean isClose) {
+                mTvMainYearView.setEnabled(isClose);
+                mTvMainYearView.setTextColor(isClose ? Color.WHITE : getResources().getColor(R.color.colorUnEnable));
             }
         });
         mLlMainNetworkRetry.setOnClickListener(new View.OnClickListener() {
@@ -164,8 +169,12 @@ public class MainActivity extends BaseActivity {
         super.onResume();
         setting_holiday = SpStaticUtils.getBoolean(SettingActivity.KEY_SETTING_HOLIDAY_PUSH, true);
         mTvMainHoliday.setVisibility(setting_holiday ? View.VISIBLE : View.GONE);
+
         setting_almanac = SpStaticUtils.getBoolean(SettingActivity.KEY_SETTING_ALMANAC, true);
-        mLlMainShouldGroup.setVisibility(setting_almanac ? View.VISIBLE : View.GONE);
+        if (setting_almanac && !networkErr)
+            mLlMainShouldGroup.setVisibility(View.VISIBLE);
+        else
+            mLlMainShouldGroup.setVisibility(View.GONE);
     }
 
     /**
@@ -174,9 +183,13 @@ public class MainActivity extends BaseActivity {
      * @param calendar
      */
     private void selectDay(Calendar calendar) {
+        CUR_MONTH = calendar.getMonth();
+        CUR_YEAR = calendar.getYear();
+
         mTvMainLeftToday.setText(String.valueOf(calendar.getDay()));
         mTvMainLeftYearMonth.setText(String.format(Locale.SIMPLIFIED_CHINESE, "%d-%s", calendar.getYear(), formatStr(calendar.getMonth())));
         mTvMainWeek.setText(weeks[calendar.getWeek()]);
+        mTvMainRightYearMonth.setText(String.format(Locale.SIMPLIFIED_CHINESE, "%d年%d月", calendar.getYear(), calendar.getMonth()));
 
         //设置节日
         if (!TextUtils.isEmpty(calendar.getSolarTerm())) {
@@ -189,6 +202,13 @@ public class MainActivity extends BaseActivity {
             mTvMainHoliday.setText("");
         }
 //        mTvMainHoliday.setText(calendar.getLunar());
+
+        //设置今天按钮状态
+        if (calendar.compareTo(today) == 0) {
+            mIvMainToday.setEnabled(false);
+        } else {
+            mIvMainToday.setEnabled(true);
+        }
 
         //更新农历数据，每日一言
         updateDailyInformation(calendar.getYear(), calendar.getMonth(), calendar.getDay());
@@ -211,30 +231,27 @@ public class MainActivity extends BaseActivity {
             e.printStackTrace();
         }
 
-        mTvMainTrunkAndBranch.setText("");
-        mTvMainLunar.setText("");
-        mLlMainShouldGroup.setVisibility(View.GONE);
-        mLlMainAWordADay.setVisibility(View.GONE);
-        mLlMainNetworkLoading.setVisibility(View.VISIBLE);
-        mIvManNetworkLoading.startAnimation(animation);
-        mLlMainNetworkRetry.setVisibility(View.GONE);
-
         OkGo.<DailyInformation>post(SimbaUrl.CALENDAR_GET_ALMANAC_BY_DATE)
                 .tag(this)
                 .upJson(jsonObject)
                 .execute(new JsonCallback<DailyInformation>() {
                     @Override
+                    public void onStart(Request<DailyInformation, ? extends Request> request) {
+                        super.onStart(request);
+                        mTvMainTrunkAndBranch.setText("");
+                        mTvMainLunar.setText("");
+                        mLlMainShouldGroup.setVisibility(View.GONE);
+                        mLlMainAWordADay.setVisibility(View.GONE);
+                        mLlMainNetworkLoading.setVisibility(View.VISIBLE);
+                        mIvManNetworkLoading.startAnimation(animation);
+                        mLlMainNetworkRetry.setVisibility(View.GONE);
+                    }
+
+                    @Override
                     public void onSuccess(Response<DailyInformation> response) {
                         if (isCode200()) {
-
-                            mLlMainShouldGroup.setVisibility(setting_almanac == null || setting_almanac ? View.VISIBLE : View.GONE);
-                            mLlMainAWordADay.setVisibility(View.VISIBLE);
-                            mLlMainNetworkLoading.setVisibility(View.GONE);
-                            mLlMainNetworkRetry.setVisibility(View.GONE);
-
                             DailyInformation dailyInformation = response.body();
                             mTvMainTrunkAndBranch.setText(String.format("%s年 【%s年】", dailyInformation.year, dailyInformation.animal));
-
                             if (dailyInformation.chinesedesc != null)
                                 mTvMainLunar.setText(dailyInformation.chinesedesc);
                             if (dailyInformation.proper != null)
@@ -247,10 +264,18 @@ public class MainActivity extends BaseActivity {
                     @Override
                     public void onFinish() {
                         super.onFinish();
+                        mIvManNetworkLoading.clearAnimation();
+                        mLlMainNetworkLoading.setVisibility(View.GONE);
                         if (!isCode200()) {
                             mLlMainShouldGroup.setVisibility(View.GONE);
-                            mLlMainNetworkLoading.setVisibility(View.GONE);
+                            mLlMainAWordADay.setVisibility(View.GONE);
                             mLlMainNetworkRetry.setVisibility(View.VISIBLE);
+                            networkErr = true;
+                        } else {
+                            mLlMainShouldGroup.setVisibility(setting_almanac == null || setting_almanac ? View.VISIBLE : View.GONE);
+                            mLlMainAWordADay.setVisibility(View.VISIBLE);
+                            mLlMainNetworkRetry.setVisibility(View.GONE);
+                            networkErr = false;
                         }
                     }
                 });
@@ -299,7 +324,7 @@ public class MainActivity extends BaseActivity {
     /**
      * 显示日期选择器
      */
-    private void showTimePicker() {
+    private void showTimePicker(java.util.Calendar calendar) {
         if (pvTime == null) {
             pvTime = new TimePickerBuilderHelper(this, new TimePickerBuilderHelper.OnTimeSelectListener() {
                 @Override
@@ -308,6 +333,7 @@ public class MainActivity extends BaseActivity {
                 }
             }).getTimePickerView();
         }
+        pvTime.setDate(calendar);
         pvTime.show();
     }
 
