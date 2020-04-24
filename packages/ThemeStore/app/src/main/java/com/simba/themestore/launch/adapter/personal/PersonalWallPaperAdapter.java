@@ -1,4 +1,4 @@
-package com.simba.themestore.launch.adapter;
+package com.simba.themestore.launch.adapter.personal;
 
 import android.view.View;
 

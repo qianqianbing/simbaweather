@@ -1,4 +1,4 @@
-package com.simba.themestore.launch;
+package com.simba.themestore.launch.wallpaper;
 
 import android.view.View;
 import android.widget.ImageView;

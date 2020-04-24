@@ -1,4 +1,4 @@
-package com.simba.themestore.launch.adapter;
+package com.simba.themestore.launch.adapter.personal;
 
 import android.view.View;
 
@@ -17,20 +17,20 @@ import java.util.List;
  * @Date : 2020/4/22
  * @Desc :
  */
-public class PersonalThemeAdapter extends BaseQuickAdapter<PersonalThemeBean, BaseViewHolder> implements LoadMoreModule {
+public class PersonalLockAdapter extends BaseQuickAdapter<PersonalThemeBean, BaseViewHolder> implements LoadMoreModule {
     private boolean isEdit = false;
 
-    public PersonalThemeAdapter(int layoutResId, List<PersonalThemeBean> data) {
+    public PersonalLockAdapter(int layoutResId, List<PersonalThemeBean> data) {
         super(layoutResId, data);
     }
 
-    public PersonalThemeAdapter(int layoutResId) {
+    public PersonalLockAdapter(int layoutResId) {
         super(layoutResId);
     }
 
     @Override
     protected void convert(BaseViewHolder holder, PersonalThemeBean personalThemeBean) {
-        GlideImageLoader.getInstance().loadImage(holder.itemView.getContext(), holder.getView(R.id.iv_theme), R.drawable.about_bg);
+        GlideImageLoader.getInstance().loadImage(holder.itemView.getContext(), holder.getView(R.id.iv_theme), R.drawable.test_theme);
 
         if (isEdit) {//编辑状态
             holder.setVisible(R.id.cb_single, true);

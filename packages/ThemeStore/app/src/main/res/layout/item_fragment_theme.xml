@@ -2,15 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="509px"
     android:layout_height="match_parent"
-
     android:orientation="vertical">
 
 
     <RelativeLayout
+        android:id="@+id/rl_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -26,7 +27,11 @@
             android:src="@mipmap/icon_more_green" />
     </RelativeLayout>
 
-    <include layout="@layout/item_theme" />
+    <include
+        android:id="@+id/rl_item"
+        layout="@layout/item_theme" />
 
-    <include layout="@layout/item_theme_bottom" />
+    <include
+        android:id="@+id/rl_item_bottom"
+        layout="@layout/item_theme_bottom" />
 </LinearLayout>

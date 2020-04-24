@@ -12,6 +12,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import com.simba.themestore.fragment.LockScreenFragment;
 import com.simba.themestore.fragment.PersonalFragment;
 import com.simba.themestore.fragment.ThemeFragment;
+import com.simba.themestore.fragment.WallpaperFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,16 +46,18 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position) {
-//            case 0:
-//            case 1:
+            case 0:
+                return ThemeFragment.newInstance(position);
+            case 1:
+                return WallpaperFragment.newInstance(position);
             case 2:
                 return LockScreenFragment.newInstance(position);
             case 3:
                 return PersonalFragment.newInstance(position);
-            default:
-                return ThemeFragment.newInstance(position);
+          /*  default:
+                return ThemeFragment.newInstance(position);*/
         }
-
+        return ThemeFragment.newInstance(position);
     }
 
     @Nullable
