@@ -1,8 +1,8 @@
 package com.simba.simbaweather.data;
 
+import com.blankj.utilcode.util.SPStaticUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.simba.base.base.BaseApplication;
-import com.simba.base.utils.SpStaticUtils;
-import com.simba.base.utils.SpUtils;
 import com.simba.simbaweather.CityManager;
 
 /**
@@ -17,7 +17,7 @@ public class MyApplication extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         mApplication = this;
-        SpStaticUtils.setDefaultSpUtils(SpUtils.getInstance(this, "mysp"));
+        SPStaticUtils.setDefaultSPUtils(SPUtils.getInstance( "mysp"));
         CityManager.getInstance();
     }
 

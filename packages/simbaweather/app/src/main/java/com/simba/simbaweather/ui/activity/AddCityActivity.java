@@ -21,7 +21,6 @@ import com.lzy.okgo.request.base.Request;
 import com.simba.base.base.BaseActivity;
 import com.simba.base.network.JsonCallback;
 import com.simba.base.network.SimbaUrl;
-import com.simba.base.utils.SpStaticUtils;
 import com.simba.simbaweather.CityManager;
 import com.simba.simbaweather.R;
 import com.simba.simbaweather.data.bean.CityInfo;
