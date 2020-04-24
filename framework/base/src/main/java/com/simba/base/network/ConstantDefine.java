@@ -8,6 +8,7 @@ package com.simba.base.network;
 
 public class ConstantDefine {
 
+
     //********************************************* 会员中心 ******************************************
     public static final String ACTION = "action";
     public static final String CALLBACKURL = "callbackurl";

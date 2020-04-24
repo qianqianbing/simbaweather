@@ -86,6 +86,8 @@ public class SimbaUrl {
 
 
     //********************************************* 会员中心App模块 ******************************************
+    //会员中心，用户协议地址
+    public static final String MENBERCENTER_USERAGGREMENT = "http://simbaui.simbalink.cn/page/user_agreement.html";
     //主机 结尾不要带,会员中心暂时和其他不一样
     public static String BASE_HOST_ACCOUNT = "http://simbaui.simbalink.cn/backend";
     /**
@@ -115,5 +117,10 @@ public class SimbaUrl {
      * 是否实名认证
      */
     public final static String VEHICLE_CERTIFICATION = BASE_HOST_ACCOUNT + "/vehicle/isCertification";
+
+    /**
+     * 获取车辆信息，车辆类型
+     */
+    public final static String ACCOUNT_GET_VEHICLEINFO = BASE_HOST_ACCOUNT + "/account/getVehicleInfo";
 
 }
