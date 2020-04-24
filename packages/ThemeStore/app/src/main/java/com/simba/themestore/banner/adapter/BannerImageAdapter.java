@@ -1,14 +1,20 @@
 package com.simba.themestore.banner.adapter;
 
+import android.graphics.drawable.Drawable;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.simba.themestore.R;
 import com.simba.themestore.banner.viewholder.ImageHolder;
 import com.simba.themestore.model.DataBean;
-import com.youth.banner.adapter.BannerAdapter;
+import com.youth.banner.util.BannerUtils;
 
 import java.util.List;
 
@@ -34,14 +40,7 @@ public class BannerImageAdapter extends com.youth.banner.adapter.BannerAdapter<D
     //创建ViewHolder，可以用viewType这个字段来区分不同的ViewHolder
     @Override
     public ImageHolder onCreateHolder(ViewGroup parent, int viewType) {
-        ImageView imageView = new ImageView(parent.getContext());
-        //注意，必须设置为match_parent，这个是viewpager2强制要求的
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
-        imageView.setLayoutParams(params);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        return new ImageHolder(imageView);
+        return new ImageHolder(BannerUtils.getView(parent, R.layout.banner_layout));
     }
 
     @Override
@@ -50,8 +49,22 @@ public class BannerImageAdapter extends com.youth.banner.adapter.BannerAdapter<D
         Glide.with(holder.itemView)
                 .load(data.imageRes)
                 .apply(RequestOptions.bitmapTransform(new RoundedCorners(20)))
-                .into(holder.imageView);
+                .into(new CustomTarget<Drawable>() {
+
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        holder.imageView.setImageDrawable(resource);
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                        // Remove the Drawable provided in onResourceReady from any Views and ensure
+                        // no references to it remain.
+                    }
+                });
+
 
     }
+
 
 }

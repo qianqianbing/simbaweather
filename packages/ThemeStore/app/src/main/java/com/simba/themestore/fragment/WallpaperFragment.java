@@ -74,7 +74,7 @@ public class WallpaperFragment extends BaseLazyLoadFragment {
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(Object data, int position) {
-                showToast("" + position);
+                startActivity(WallPaperSettingActivity.class);
             }
         });
         mIndicatorCircleLine = findViewById(R.id.indicator_circle_line);

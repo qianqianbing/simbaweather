@@ -20,9 +20,9 @@
 
             <com.youth.banner.Banner
                 android:id="@+id/banner"
-                android:layout_width="1272px"
+                android:layout_width="1278px"
                 android:layout_height="480px"
-                android:layout_margin="10dp">
+                >
 
                 <com.simba.themestore.view.ViewPagerIndicator
                     android:id="@+id/indicator_circle_line"
