@@ -26,17 +26,20 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "androidx.appcompat:appcompat:${dependVersion.appcompat}"
-    implementation "androidx.constraintlayout:constraintlayout:${dependVersion.constraintlayout}"
-    testImplementation "junit:junit:${dependVersion.junit}"
-    androidTestImplementation "androidx.test.espresso:espresso-core:${dependVersion.espresso_core}"
-    //必须使用
-    implementation "com.lzy.net:okgo:${dependVersion.okgo}"
-    implementation "com.google.code.gson:gson:${dependVersion.gson}"
-    implementation "com.gyf.immersionbar:immersionbar:${dependVersion.immersionbar}"//沉浸状态栏
+    //implementation 方式依赖可以提高gradle构建速度，但依赖的包仅在当前项目可用
+    //api 方式依赖可以穿透到所有依赖本库的module中
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    api "androidx.appcompat:appcompat:${dependVersion.appcompat}"
+    api "androidx.constraintlayout:constraintlayout:${dependVersion.constraintlayout}"
+    api "com.lzy.net:okgo:${dependVersion.okgo}"
+    api "com.google.code.gson:gson:${dependVersion.gson}"
+    api "com.gyf.immersionbar:immersionbar:${dependVersion.immersionbar}"//沉浸状态栏
     implementation "com.google.zxing:core:${dependVersion.zxing}"
+
     //butterkniffe
     implementation "com.jakewharton:butterknife:${dependVersion.butterknife}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${dependVersion.butterknife}"
+
+    // Android常用工具包
+    api 'com.blankj:utilcodex:1.28.1'
 }
