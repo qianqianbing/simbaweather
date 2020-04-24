@@ -5,18 +5,95 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/base_bg_app"
+    android:orientation="vertical"
     tools:context=".ui.activity.MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="85dp"
+        android:layout_marginRight="50dp">
+
+        <ImageView
+            android:id="@+id/img_location"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:src="@mipmap/location" />
+
+        <TextView
+            android:id="@+id/tv_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/img_location"
+            android:text="南京市·鼓楼区"
+            android:textColor="@color/base_white"
+            android:textSize="26sp" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="22dp"
+            android:layout_toRightOf="@id/tv_city"
+            android:text="中国天气  更新于："
+            android:textColor="#ffffffff"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/tv_refreshtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/tv_time"
+            android:src="@drawable/refreshbutton" />
+
+        <TextView
+            android:id="@+id/tv_runacity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="33dp"
+            android:background="@mipmap/bg_circle"
+            android:gravity="center"
+            android:paddingLeft="45dp"
+            android:paddingTop="17dp"
+            android:paddingRight="45dp"
+            android:paddingBottom="17dp"
+            android:text="管理城市"
+            android:textColor="@color/base_white"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="120dp"
         android:orientation="vertical">
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/show_vp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_marginRight="50dp"/>
 
-
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/show_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="60dp"
+            android:layout_marginBottom="@dimen/dp_40"
+            app:tabIndicatorHeight="0dp"
+            app:tabIndicatorFullWidth="false"
+            app:tabMode="fixed" />
     </RelativeLayout>
 </LinearLayout>

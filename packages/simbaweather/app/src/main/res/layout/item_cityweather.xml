@@ -11,29 +11,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/iv_citydelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="38dp"
+            android:background="@mipmap/icon_city_delete" />
+
         <LinearLayout
-            android:layout_marginLeft="60dp"
             android:layout_width="400dp"
             android:layout_height="460dp"
+            android:layout_marginLeft="60dp"
             android:background="@mipmap/bg_city"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="20dp">
+
             <TextView
                 android:id="@+id/tv_citymangername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
+                android:text="南京市·鼓楼区"
                 android:textColor="@color/base_white"
-                android:textSize="@dimen/base_text_size_large"
-                android:text="南京市·鼓楼区" />
+                android:textSize="@dimen/base_text_size_large" />
 
             <ImageView
                 android:id="@+id/iv_citymangerimg1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center" />
 
             <TextView
@@ -41,44 +50,43 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
+                android:text="12°"
                 android:textColor="#ffffffff"
-                android:textSize="72sp"
-                android:text="12°" />
+                android:textSize="72sp" />
 
             <TextView
                 android:id="@+id/tv_cityTempRang"
                 android:layout_width="113dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
+                android:text="22° / 10°"
                 android:textColor="#ffffffff"
-                android:textSize="28sp"
-                android:text="22° / 10°" />
+                android:textSize="28sp" />
 
         </LinearLayout>
-        <ImageView
-            android:id="@+id/iv_citydelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:background="@mipmap/icon_city_delete"/>
+
+
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/rl_jump"
-        android:layout_marginLeft="60dp"
         android:layout_width="400dp"
         android:layout_height="460dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="20dp"
         android:background="@mipmap/bg_city"
         android:orientation="vertical">
+
         <Button
             android:id="@+id/bt_jump"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:background="@mipmap/icon_city_add"/>
+            android:background="@mipmap/icon_city_add" />
     </RelativeLayout>
 </RelativeLayout>
 

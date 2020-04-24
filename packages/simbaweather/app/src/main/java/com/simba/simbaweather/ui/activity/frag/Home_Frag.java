@@ -1,14 +1,11 @@
 package com.simba.simbaweather.ui.activity.frag;
 
-import android.content.Intent;
-import android.location.Criteria;
 import android.location.Location;
-import android.text.format.Time;
-import android.view.View;
+import android.os.Handler;
+import android.os.Message;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,11 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.lzy.okgo.model.Response;
 import com.simba.base.utils.LocationUtil;
 import com.simba.simbaweather.R;
-import com.simba.simbaweather.data.bean.LocationUtils;
 import com.simba.simbaweather.data.bean.WeaTher;
 import com.simba.simbaweather.di.weatherShowMvp.WeatherShowContract;
 import com.simba.simbaweather.di.weatherShowMvp.WeatherShowPresenter;
-import com.simba.simbaweather.ui.activity.CityManagerActivity;
 import com.simba.simbaweather.ui.activity.view.RecyclerViewDivider;
 import com.simba.simbaweather.ui.adapter.WeatherAdapter;
 import com.simba.simbaweather.ui.base.BaseFragment;
@@ -28,7 +23,6 @@ import com.simba.simbaweather.ui.base.BaseFragment;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /*
  *@Auther:王自阳
@@ -39,10 +33,10 @@ import butterknife.OnClick;
  * */
 public class Home_Frag extends BaseFragment<WeatherShowContract.IWeatherShowView, WeatherShowPresenter<WeatherShowContract.IWeatherShowView>> implements WeatherShowContract.IWeatherShowView {
 
-    @BindView(R.id.img_location)
-    ImageView imgLocation;
-    @BindView(R.id.tv_city)
-    TextView tvCity;
+
+    //    @BindView(R.id.tv_city)
+//    TextView tvCity;
+//     tvCity.setText("" + city + "·" + district);
     @BindView(R.id.rv_weather)
     RecyclerView rvWeather;
     @BindView(R.id.tv_temperature)
@@ -61,20 +55,22 @@ public class Home_Frag extends BaseFragment<WeatherShowContract.IWeatherShowView
     TextView tvAirhumidity;
     @BindView(R.id.iv_ultravioletradiator)
     ImageView ivUltravioletradiator;
-    @BindView(R.id.v_ultravioletradiator)
-    TextView vUltravioletradiator;
     @BindView(R.id._ultravioletradiator)
     ImageView Ultravioletradiator;
     @BindView(R.id.tv_max_min)
     TextView tvMaxMin;
-    @BindView(R.id.tv_runacity)
-    TextView tvRunacity;
+    //    @BindView(R.id.tv_runacity)
+//    TextView tvRunacity;
     @BindView(R.id.beijingid)
     RelativeLayout beijingid;
-    @BindView(R.id.tv_refreshtime)
-    ImageView tvRefreshtime;
-    @BindView(R.id.tv_time)
-    TextView tvTime;
+    @BindView(R.id.tv_strengthgrade)
+    TextView tvStrengthgrade;
+    @BindView(R.id.tv_washcarstatus)
+    TextView tvWashcarstatus;
+//    @BindView(R.id.tv_refreshtime)
+//    ImageView tvRefreshtime;
+//    @BindView(R.id.tv_time)
+//    TextView tvTime;
 
     private List<WeaTher.DataBean.WeatherListBean> weatherList;
     private String conditionId;
@@ -84,6 +80,9 @@ public class Home_Frag extends BaseFragment<WeatherShowContract.IWeatherShowView
     private String tempDay;
     private String tempNight;
     private Location gpsLocation;
+    private WeatherAdapter weatherAdapter;
+    private String uviStatus;
+    private String washCarStatus;
 
     @Override
     public void WeatherShowData(Response<WeaTher.DataBean> response) {
@@ -98,25 +97,32 @@ public class Home_Frag extends BaseFragment<WeatherShowContract.IWeatherShowView
                 //最高温度/最低温度
                 tempDay = response.body().getWeatherToday().getTempDay();
                 tempNight = response.body().getWeatherToday().getTempNight();
-                tvCity.setText("" + city + "·" + district);
+                //紫外线
+                uviStatus = response.body().getWeatherToday().getUviStatus();
+                //洗车
+                washCarStatus = response.body().getWeatherToday().getWashCarStatus();
+
                 tvTemperature.setText("" + temp + "°");
                 tvClimate.setText("" + response.body().getWeatherToday().getCondition());
                 tvWindspeed.setText("" + response.body().getWeatherToday().getWindDir() + "  " + response.body().getWeatherToday().getWindLevel() + "级");
                 tvMaxMin.setText("" + tempDay + "°/" + tempNight + "°");
                 tvAirquality.setText("" + response.body().getWeatherToday().getAqi() + "  " + response.body().getWeatherToday().getAqiValue());
                 tvAirhumidity.setText("湿度   " + response.body().getWeatherToday().getHumidity() + "%");
+                tvStrengthgrade.setText("" + uviStatus);
+                tvWashcarstatus.setText("" + washCarStatus);
                 conditionId = response.body().getWeatherToday().getConditionId();
+                onlisteneritem.onItemClick(city,district);
                 if (conditionId.equals("8")) {
                     beijingid.setBackgroundResource(R.drawable.bj_overcasrsky);
                 }
-            }catch (Exception e){
+
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
         //设置recyclerview线性布局外加快速适配器
         rvWeather.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        WeatherAdapter weatherAdapter = new WeatherAdapter(R.layout.item_weather, response.body().getWeatherList());
+        weatherAdapter = new WeatherAdapter(R.layout.item_weather, response.body().getWeatherList());
         rvWeather.setAdapter(weatherAdapter);
         //设置自定义分割线
         rvWeather.addItemDecoration(new RecyclerViewDivider(getContext(), LinearLayoutManager.HORIZONTAL, R.drawable.itemdecoration));
@@ -147,12 +153,12 @@ public class Home_Frag extends BaseFragment<WeatherShowContract.IWeatherShowView
             fPresenter.WeathershowRequestData("" + best.getAltitude(), "" + best.getLongitude());
         }
         */
-       Location location = LocationUtil.getInstance(getContext()).getLocationInfo();
-       if(location == null){
-           fPresenter.WeathershowRequestData("" + 32.298741, "" + 118.840485);
-       }else {
-           fPresenter.WeathershowRequestData("" + location.getAltitude(), "" + location.getLongitude());
-       }
+        Location location = LocationUtil.getInstance(getContext()).getLocationInfo();
+        if (location == null) {
+            fPresenter.WeathershowRequestData("" + 32.298741, "" + 118.840485);
+        } else {
+            fPresenter.WeathershowRequestData("" + location.getAltitude(), "" + location.getLongitude());
+        }
     }
 
     @Override
@@ -165,32 +171,44 @@ public class Home_Frag extends BaseFragment<WeatherShowContract.IWeatherShowView
         return R.layout.item_home;
     }
 
-    @OnClick({R.id.tv_refreshtime, R.id.tv_runacity})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_refreshtime:
-                Time t = new Time(); // or Time t=new Time("GMT+8"); 加上Time Zone资料。
-                t.setToNow(); // 取得系统时间。
-                int year = t.year;
-                int month = t.month + 1;
-                int day = t.monthDay;
-                int hour = t.hour; // 0-23
-                int minute = t.minute;
-                int second = t.second;
-//                2020-03-23 19:32
-                tvTime.setText("中国天气  更新于：" + year + "-" + month + "-" + day + "  " + hour + ":" + minute);
-                fPresenter.WeathershowRequestData("" + 32.298741, "" + 118.840485);
-                break;
-            case R.id.tv_runacity:
-                Intent intent = new Intent(getContext(), CityManagerActivity.class);
-                intent.putExtra("city", city);
-                intent.putExtra("district", district);
-                intent.putExtra("conditionId", conditionId);
-                intent.putExtra("temp", temp);
-                intent.putExtra("tempDay", tempDay);
-                intent.putExtra("tempNight", tempNight);
-                startActivity(intent);
-                break;
-        }
+    //    @OnClick({R.id.tv_refreshtime, R.id.tv_runacity})
+//    public void onViewClicked(View view) {
+//        switch (view.getId()) {
+//            case R.id.tv_refreshtime:
+//                Time t = new Time(); // or Time t=new Time("GMT+8"); 加上Time Zone资料。
+//                t.setToNow(); // 取得系统时间。
+//                int year = t.year;
+//                int month = t.month + 1;
+//                int day = t.monthDay;
+//                int hour = t.hour; // 0-23
+//                int minute = t.minute;
+//                int second = t.second;
+////                2020-03-23 19:32
+//                tvTime.setText("中国天气  更新于：" + year + "-" + month + "-" + day + "  " + hour + ":" + minute);
+//                fPresenter.WeathershowRequestData("" + 32.298741, "" + 118.840485);
+//                weatherAdapter.notifyDataSetChanged();
+//                break;
+//            case R.id.tv_runacity:
+//                Intent intent = new Intent(getContext(), CityManagerActivity.class);
+//                intent.putExtra("city", city);
+//                intent.putExtra("district", district);
+//                intent.putExtra("conditionId", conditionId);
+//                intent.putExtra("temp", temp);
+//                intent.putExtra("tempDay", tempDay);
+//                intent.putExtra("tempNight", tempNight);
+//                startActivity(intent);
+//                break;
+//        }
+//    }
+    //回调接口
+    public interface onlisteneritem {
+        void onItemClick(String city, String district);
+    }
+
+    private onlisteneritem onlisteneritem;
+
+    //定义回调方法
+    public void setItemOnClickInterface(onlisteneritem onlisteneritem) {
+        this.onlisteneritem = onlisteneritem;
     }
 }
