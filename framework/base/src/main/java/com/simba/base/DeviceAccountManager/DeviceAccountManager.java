@@ -1,5 +1,6 @@
 package com.simba.base.DeviceAccountManager;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.database.Cursor;
@@ -25,6 +26,29 @@ public class DeviceAccountManager {
     public int getDeviceId(){
         return 1;
     }
+
+    //设备是否激活
+    public  boolean setDeviceActivation(boolean isActivation ){
+
+        Log.e(TAG, "setDeviceActivation " + isActivation);
+        Cursor cursor = mContext.getContentResolver().query(DEVICE_STATE_URI,null,null,null,null,null);
+        if (cursor != null && cursor.getCount() > 0) {
+            cursor.moveToLast();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(DEVICE_ID,getDeviceId());
+            contentValues.put(ACTIVATION_STATE, isActivation);
+            mContext.getContentResolver().update(DEVICE_STATE_URI, contentValues, "DEVICE_ID = ?", new String[]{""+getDeviceId()});
+        }else {
+            Log.e(TAG, "setDeviceActivation insert " + isActivation);
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(DEVICE_ID,getDeviceId());
+            contentValues.put(ACTIVATION_STATE, isActivation);
+            mContext.getContentResolver().insert(DEVICE_STATE_URI,contentValues);
+        }
+
+        return false;
+    }
+
     //设备是否激活
     public  boolean getDeviceActivation( ){
 
@@ -53,6 +77,7 @@ public class DeviceAccountManager {
 
     //获取已登陆的账号
     public String getLoginedAccount( ){
+        /*
         Cursor cursor = mContext.getContentResolver().query(DEVICE_STATE_URI,null,null,null,null,null);
         if (cursor != null && cursor.getCount() > 0) {
             cursor.moveToLast();
@@ -61,7 +86,7 @@ public class DeviceAccountManager {
 
             cursor.close();
             return userName;
-        }
+        }*/
         return "";
     }
 

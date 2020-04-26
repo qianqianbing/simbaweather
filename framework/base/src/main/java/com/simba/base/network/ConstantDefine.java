@@ -15,7 +15,7 @@ public class ConstantDefine {
     public static final String DEVICEID = "deviceid";
     public static final String VEHICLELOGINID = "vehicleLoginId";
     public static final String WeChatURL = "http://simbaui.simbalink.cn";
-
+    public static final String WeChatQRCodeURL = "http://simbaui.simbalink.cn/page/qrcode_simba.jpg";  //微信公众号的URL
     public static final int QRTYPE_ACTIVATION = 0; //二维码类型 0：激活
     public static final int QRTYPE_LOGIN = 1; //二维码类型 1：登陆
 
