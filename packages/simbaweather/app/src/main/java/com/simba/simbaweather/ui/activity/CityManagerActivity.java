@@ -102,6 +102,8 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
         private Context mContext;
         private List<CityInfoManager.CityManagerBean> cityManagerBeanList;
         private Map<Integer, WeatherBean> weatherBeanMap;
+        private WeatherBean weatherBean;
+        private int cityId;
 
         public MyRecyclerViewAdapter(Context mContext) {
             this.mContext = mContext;
@@ -119,6 +121,14 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
             return new RecyclerHolder(view);
         }
 
+        public String getCityNameByPosition(int position) {
+            if (weatherBeanMap != null) {
+                cityId = cityManagerBeanList.get(position).getCityId();
+                return weatherBeanMap.get(cityId).getCity().getCity() + "·" + weatherBeanMap.get(cityId).getCity().getDistrict();
+            }
+            return "";
+        }
+
         @Override
         public void onBindViewHolder(RecyclerHolder holder, int position) {
             holder.rl_weather.setVisibility(View.VISIBLE);
@@ -134,17 +144,19 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(CityManagerActivity.this, AddCityActivity.class);
+                        //todo
+                        intent.putExtra("cityname", weatherBeanMap.get(cityId).getCity().getDistrict());
                         startActivity(intent);
                     }
                 });
             } else {
                 int cityId = cityManagerBeanList.get(position).getCityId();
                 if (weatherBeanMap != null) {
-                    WeatherBean weatherBean = weatherBeanMap.get(cityId);
+                    weatherBean = weatherBeanMap.get(cityId);
                     if (isEditState) {
                         holder.mIvCityDelete.setVisibility(View.VISIBLE);
                         //本地定位不可被删除
-                        if (position==cityId){
+                        if (position == cityId) {
                             //当position等于cityid则隐藏删除按钮
                             holder.mIvCityDelete.setVisibility(View.GONE);
                         }

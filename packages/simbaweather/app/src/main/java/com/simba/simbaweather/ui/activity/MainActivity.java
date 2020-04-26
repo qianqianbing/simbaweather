@@ -213,6 +213,7 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
         @Override
         public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
             container.removeView(mViewList.get(position));
+
         }
 
         @Override
