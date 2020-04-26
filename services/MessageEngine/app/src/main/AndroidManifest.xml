@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.simba.base.message">
+    package="com.simba.message">
     <!--    android:sharedUserId="android.uid.system">-->
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />

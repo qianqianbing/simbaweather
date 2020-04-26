@@ -22,7 +22,7 @@ allprojects {
     ext {
         androidBuildToolsVersion = "29.0.2"
         androidMinSdkVersion = 19
-        androidTargetSdkVersion = 28
+        androidTargetSdkVersion = 19
         androidCompileSdkVersion = 28
 
         androidApplicationId = 'com.simba.message'
