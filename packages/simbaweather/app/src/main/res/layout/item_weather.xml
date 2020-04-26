@@ -2,10 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:layout_marginLeft="80dp"
-    android:layout_marginRight="80dp"
-    android:layout_marginTop="70dp"
-    android:layout_marginBottom="30dp"
+    android:layout_marginLeft="75dp"
+    android:layout_marginTop="80dp"
+    android:layout_marginRight="75dp"
     android:orientation="vertical">
 
     <TextView
@@ -13,45 +12,52 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:text="明天"
         android:textColor="@color/base_white"
-        android:textSize="32dp"
-        android:text="明天"/>
+        android:textSize="28dp" />
 
     <TextView
         android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="#FFFFFFFF"
-        android:textSize="32dp"
-        android:text="04/26"/>
+        android:layout_marginTop="@dimen/intro_margin_12"
+        android:layout_marginBottom="@dimen/intro_margin_12"
+        android:text="04/26"
+        android:textColor="#FF828387"
+        android:textSize="28dp" />
 
     <ImageView
+
         android:id="@+id/miv_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dp_10"
-        android:src="@mipmap/modeatesnow"
-        />
+        android:layout_marginTop="@dimen/intro_margin_12"
+        android:layout_marginBottom="@dimen/intro_margin_12"
+        android:src="@mipmap/modeatesnow" />
 
     <TextView
         android:id="@+id/tv_tirtmp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="@dimen/intro_margin_12"
+        android:layout_marginBottom="@dimen/intro_margin_12"
+        android:text="23/22"
         android:textColor="@color/base_white"
-        android:textSize="32dp"
-        android:text="23/22"/>
+        android:textSize="32dp" />
 
     <TextView
         android:id="@+id/tv_weathersituation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="@dimen/intro_margin_12"
+        android:layout_marginBottom="@dimen/intro_margin_12"
+        android:text="多云"
         android:textColor="@color/base_white"
-        android:textSize="32dp"
-        android:text="多云"/>
+        android:textSize="32dp" />
 </LinearLayout>
 
 

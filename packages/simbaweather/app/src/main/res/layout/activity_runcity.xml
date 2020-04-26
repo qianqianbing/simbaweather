@@ -15,15 +15,16 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="68dp">
 
             <ImageView
+                android:id="@+id/iv_back"
                 android:layout_width="32px"
                 android:layout_height="32px"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="92dp"
-                android:src="@mipmap/bg_direction"
-                android:id="@+id/iv_back"/>
+                android:src="@mipmap/bg_direction" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -34,46 +35,40 @@
                 android:textColor="#FFFFFFFF"
                 android:textSize="36sp" />
 
-            <RelativeLayout
+
+            <TextView
+                android:id="@+id/tv_compileon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true">
+                android:layout_centerVertical="true"
+                android:layout_marginRight="60dp"
+                android:background="@mipmap/add_circle"
+                android:gravity="center"
+                android:text="编辑"
+                android:textColor="#FFFFFFFF"
+                android:textSize="32px" />
 
-                <TextView
-                    android:id="@+id/tv_compileon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="60dp"
-                    android:background="@mipmap/add_circle"
-                    android:text="编辑"
-                    android:gravity="center"
-                    android:textColor="#FFFFFFFF"
-                    android:textSize="32px" />
+            <TextView
+                android:id="@+id/tv_compileoff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="60dp"
+                android:background="@mipmap/add_circle"
+                android:gravity="center"
+                android:text="完成"
+                android:textColor="#FFFFFFFF"
+                android:textSize="32px"
+                android:visibility="gone" />
 
-                <TextView
-                    android:visibility="gone"
-                    android:id="@+id/tv_compileoff"
-                    android:layout_width="wrap_content"
-                    android:gravity="center"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:background="@mipmap/add_circle"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="60dp"
-                    android:text="完成"
-                    android:textColor="#FFFFFFFF"
-                    android:textSize="32px" />
-            </RelativeLayout>
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_cityweather"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center">
-        </androidx.recyclerview.widget.RecyclerView>
+            android:layout_gravity="center"></androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 </LinearLayout>
