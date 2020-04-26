@@ -20,8 +20,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.blankj.utilcode.util.ResourceUtils;
 import com.simba.base.R;
-import com.simba.base.utils.ResourceUtils;
 
 import java.util.HashMap;
 

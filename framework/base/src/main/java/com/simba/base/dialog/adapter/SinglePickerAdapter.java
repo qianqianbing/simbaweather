@@ -6,10 +6,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 
+import com.blankj.utilcode.util.ResourceUtils;
 import com.simba.base.R;
 import com.simba.base.dialog.model.KeyValue;
 import com.simba.base.dialog.picker.SinglePickerManager;
-import com.simba.base.utils.ResourceUtils;
 
 import java.util.ArrayList;
 import java.util.List;

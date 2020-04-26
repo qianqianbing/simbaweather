@@ -5,7 +5,7 @@ import android.os.Bundle;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.simba.base.utils.ResourceUtils;
+import com.blankj.utilcode.util.ResourceUtils;
 import com.simba.themestore.R;
 import com.simba.themestore.base.BaseLazyLoadFragment;
 import com.simba.themestore.fragment.adapter.PersonalAdapter;

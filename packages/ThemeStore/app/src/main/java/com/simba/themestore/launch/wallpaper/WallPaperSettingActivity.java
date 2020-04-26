@@ -4,8 +4,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ResourceUtils;
 import com.simba.base.dialog.picker.SingleChooseManager;
-import com.simba.base.utils.ResourceUtils;
 import com.simba.themestore.R;
 import com.simba.themestore.base.MyBaseActivity;
 import com.simba.themestore.utils.img.GlideImageLoader;

@@ -4,9 +4,9 @@ package com.simba.themestore.view;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.ResourceUtils;
 import com.chad.library.adapter.base.loadmore.BaseLoadMoreView;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
-import com.simba.base.utils.ResourceUtils;
 import com.simba.themestore.R;
 
 /**
