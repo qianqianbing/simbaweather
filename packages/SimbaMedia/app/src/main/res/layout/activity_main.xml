@@ -6,11 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <GridView
-        android:id="@+id/gv"
+    <Button
+        android:id="@+id/bt1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:numColumns="3"
+        android:text="酷我接口调试"
         />
+
+
 
 </RelativeLayout>
