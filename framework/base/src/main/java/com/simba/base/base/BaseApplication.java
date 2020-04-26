@@ -5,6 +5,7 @@ import android.content.Context;
 
 import androidx.annotation.CallSuper;
 
+import com.blankj.utilcode.util.Utils;
 import com.simba.base.network.OkGoUtil;
 
 /**
@@ -25,6 +26,7 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         sContext = this;
+        Utils.init(this);
         OkGoUtil.init(this, true);
     }
 }

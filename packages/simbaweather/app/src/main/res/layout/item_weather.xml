@@ -4,27 +4,27 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="80dp"
     android:layout_marginRight="80dp"
-    android:layout_marginTop="80dp"
-    android:layout_marginBottom="70dp"
+    android:layout_marginTop="70dp"
+    android:layout_marginBottom="30dp"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tv_tomomorro"
+        android:id="@+id/tv_day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dp_10"
         android:textColor="@color/base_white"
-        android:textSize="32dp" />
+        android:textSize="32dp"
+        android:text="明天"/>
 
     <TextView
         android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dp_10"
         android:textColor="#FFFFFFFF"
-        android:textSize="32dp" />
+        android:textSize="32dp"
+        android:text="04/26"/>
 
     <ImageView
         android:id="@+id/miv_img"
@@ -32,6 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_10"
+        android:src="@mipmap/modeatesnow"
         />
 
     <TextView
@@ -39,18 +40,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dp_10"
         android:textColor="@color/base_white"
-        android:textSize="32dp" />
+        android:textSize="32dp"
+        android:text="23/22"/>
 
     <TextView
         android:id="@+id/tv_weathersituation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dp_10"
         android:textColor="@color/base_white"
-        android:textSize="32dp" />
+        android:textSize="32dp"
+        android:text="多云"/>
 </LinearLayout>
 
 

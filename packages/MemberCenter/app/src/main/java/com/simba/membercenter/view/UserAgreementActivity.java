@@ -7,6 +7,8 @@ import com.simba.base.base.BaseActivity;
 import com.simba.membercenter.MyApplication;
 import com.simba.membercenter.R;
 
+import static com.simba.base.network.SimbaUrl.MENBERCENTER_USERAGGREMENT;
+
 public class UserAgreementActivity extends BaseActivity {
 
     private WebView webView;
@@ -28,6 +30,6 @@ public class UserAgreementActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        webView.loadUrl("http://www.simbalink.cn/news/detail/1.html");
+        webView.loadUrl(MENBERCENTER_USERAGGREMENT);
     }
 }

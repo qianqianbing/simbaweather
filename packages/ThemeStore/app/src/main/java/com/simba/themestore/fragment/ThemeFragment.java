@@ -25,6 +25,11 @@ import com.simba.themestore.view.itemdecoration.CommonDecoration;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.listener.OnPageChangeListener;
+import com.youth.banner.transformer.MZScaleInTransformer;
+import com.youth.banner.transformer.RotateDownPageTransformer;
+import com.youth.banner.transformer.RotateUpPageTransformer;
+import com.youth.banner.transformer.RotateYTransformer;
+import com.youth.banner.transformer.ScaleInTransformer;
 import com.youth.banner.transformer.ZoomOutPageTransformer;
 import com.youth.banner.util.BannerUtils;
 
@@ -70,8 +75,8 @@ public class ThemeFragment extends BaseLazyLoadFragment implements OnPageChangeL
         banner.addOnPageChangeListener(this);
         //圆角
         banner.setBannerRound(BannerUtils.dp2px(5));
-        //banner.setBannerGalleryMZ(60);
-        banner.setBannerGalleryEffect(60, 0, 1f);
+     //   banner.setBannerGalleryMZ(60);
+        // banner.setBannerGalleryEffect(0, 0, 1f);
         banner.setPageTransformer(new ZoomOutPageTransformer());
         banner.removeIndicator();
         banner.setUserInputEnabled(false);

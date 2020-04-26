@@ -4,13 +4,11 @@ package com.simba.base.dialog.adapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ResourceUtils;
 import com.simba.base.R;
 import com.simba.base.dialog.model.KeyValue;
-import com.simba.base.dialog.picker.SinglePickerManager;
-import com.simba.base.utils.ResourceUtils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,9 @@
 package com.simba.membercenter.view;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -15,7 +15,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
@@ -30,19 +29,17 @@ import com.simba.membercenter.R;
 import com.simba.membercenter.bean.LoginResultBean;
 import com.simba.membercenter.bean.WeCharUrlBean;
 import com.simba.membercenter.presenter.HttpRequest;
-import com.simba.membercenter.presenter.LocalAccountManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Random;
 
-import static com.simba.base.network.ConstantDefine.QRTYPE_ACTIVATION;
 import static com.simba.base.network.ConstantDefine.QRTYPE_LOGIN;
 import static com.simba.base.network.SimbaUrl.ACCOUNT_GET_QRCODE;
 import static com.simba.base.network.SimbaUrl.ACCOUNT_WEBAUTHLOGIN;
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener, ILoginView{
+public class LoginActivity extends BaseActivity implements View.OnClickListener, HttpRequest.LoginCallback, HttpRequest.QRCodeCallback {
     private static String TAG = "LoginActivity";
 
     private static int QRLoginType = 1;
@@ -94,7 +91,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     protected void initData() {
-        HttpRequest.getIntance().registerLoginViews(this);
 
         setListener();
         String userName = "" ;
@@ -112,13 +108,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         Random random = new Random();//指定种子数字2147483647
         vehicleLoginId = random.nextInt(  1000000000);
         Log.e(TAG, "vehicleLoginId " + vehicleLoginId );
-        requestLoginQRCode();
+        HttpRequest.getIntance().requestLoginQRCode( this,  vehicleLoginId, this);
     }
 
     @Override
     protected void onDestroy() {
         loginHander.removeMessages(CheckQRLoginResult);
-        HttpRequest.getIntance().unRegisterLoginViews();
         super.onDestroy();
     }
 
@@ -192,7 +187,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                     Toasty.normal(getApplicationContext(),"请阅读并同意用户协议").show();
                     break;
                 }
-                HttpRequest.getIntance().loginWithPassword(this, userName,password);
+                HttpRequest.getIntance().loginWithPassword(this, userName,password,this);
                 break;
         }
     }
@@ -224,52 +219,22 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     @Override
-    public void onLoginSucceed() {
-        MainActivity.startAcivity();
-        ((Activity) this).overridePendingTransition(0, 0);
-        finish();
-    }
-
-    @Override
-    public void onLoginFailed(int failCode) {
-        Log.e(TAG, "failCode is " + failCode);
-        switch (failCode){
-            case ConstantDefine.NETWORK_ERROR:
-                Toasty.normal(this,getResources().getString(R.string.network_error)).show();
-                break;
-            default:
-                Toasty.normal(this,getResources().getString(R.string.login_failed)).show();
-                break;
+    public void onLoginResult(Boolean isSucceed, int failCode) {
+        if(isSucceed){
+            MainActivity.startAcivity();
+            ((Activity) this).overridePendingTransition(0, 0);
+            finish();
+        }else {
+            Log.e(TAG, "failCode is " + failCode);
+            switch (failCode){
+                case ConstantDefine.NETWORK_ERROR:
+                    Toasty.normal(this,getResources().getString(R.string.network_error)).show();
+                    break;
+                default:
+                    Toasty.normal(this,getResources().getString(R.string.login_failed)).show();
+                    break;
+            }
         }
-    }
-
-    private void requestLoginQRCode() {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put(ConstantDefine.ACTION, QRTYPE_LOGIN);
-            jsonObject.put(ConstantDefine.CALLBACKURL, ConstantDefine.WeChatURL);
-            jsonObject.put(ConstantDefine.DEVICEID, DeviceAccountManager.getInstance(MyApplication.getMyApplication().getApplicationContext()).getDeviceId());
-            jsonObject.put(ConstantDefine.VEHICLELOGINID, vehicleLoginId);
-            Log.e(TAG, "vehicleLoginId " + vehicleLoginId);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        OkGo.<WeCharUrlBean>post(ACCOUNT_GET_QRCODE)
-                .tag(this)
-                .upJson(jsonObject)
-                .execute(new JsonCallback<WeCharUrlBean>() {
-                    @Override
-                    public void onSuccess(Response<WeCharUrlBean> response) {
-                        if (isCode200()) {
-                            WeCharUrlBean weCharUrl = response.body();
-                            Log.e(TAG, "Login weCharUrl " + weCharUrl.getUrl());
-                            iv_QRCode_login.setImageBitmap(QRCodeUtil.createDefaultCodeBitmap(weCharUrl.getUrl(), 225,225));
-                            loginHander.sendEmptyMessageAtTime(CheckQRLoginResult,2000);
-                        }
-                    }
-                });
-
     }
 
     private void checkQRloginResult() {
@@ -303,6 +268,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                         super.onError(response);
                     }
                 });
+    }
 
+    @Override
+    public void onQRCodeResult(boolean isSucceed, String QRCodeURI) {
+        if(isSucceed){
+            Log.e(TAG, "QRCodeURI " +QRCodeURI);
+            iv_QRCode_login.setImageBitmap(QRCodeUtil.createDefaultCodeBitmap(QRCodeURI, 225,225));
+            loginHander.sendEmptyMessageAtTime(CheckQRLoginResult,2000);
+        }
     }
 }

@@ -2,15 +2,10 @@ package com.simba.membercenter.presenter;
 
 import com.greendao.gen.AccountBeanDao;
 import com.greendao.gen.DeviceStateBeanDao;
-import com.greendao.gen.MessageBeanDao;
 import com.simba.base.DeviceAccountManager.DeviceAccountManager;
 import com.simba.membercenter.MyApplication;
-import com.simba.membercenter.DB.AccountBean;
-import com.simba.membercenter.DB.DeviceStateBean;
-import com.simba.membercenter.view.IDeviceActivationView;
-import com.simba.membercenter.view.ILoginView;
+import com.simba.membercenter.bean.AccountBean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.simba.base.DeviceAccountManager.DeviceAccountManager.DEVICE_STATE_URI;
@@ -45,14 +40,6 @@ public class LocalAccountManager {
         return null;
     }
 
-    //获取激活状态
-    public void getDeviceActivationState(){
-        if(mDeviceActivationViews != null ){
-            for(IDeviceActivationView deviceActivationView : mDeviceActivationViews){
-                deviceActivationView.onDeviceNotActivation();
-            }
-        }
-    }
 
     public void quitLogin(){
         //只会查找出一个结果
@@ -102,18 +89,6 @@ public class LocalAccountManager {
         }
     }
 
-    private List<IDeviceActivationView> mDeviceActivationViews = new ArrayList<>();
-    public void registerDeviceActivationViews(IDeviceActivationView deviceActivationView) {
-        if(!mDeviceActivationViews.contains(deviceActivationView)){
-            mDeviceActivationViews.add(deviceActivationView);
-        }
-    }
-
-    public void unRegisterDeviceActivationViews(IDeviceActivationView deviceActivationView) {
-        if(mDeviceActivationViews.contains(deviceActivationView)){
-            mDeviceActivationViews.remove(deviceActivationView);
-        }
-    }
 
     public String getUserName() {
         return userName;

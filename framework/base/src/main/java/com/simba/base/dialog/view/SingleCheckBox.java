@@ -6,8 +6,8 @@ import android.util.AttributeSet;
 
 import androidx.appcompat.widget.AppCompatCheckBox;
 
+import com.blankj.utilcode.util.ResourceUtils;
 import com.simba.base.R;
-import com.simba.base.utils.ResourceUtils;
 
 /**
  * @Author : chenjianbo

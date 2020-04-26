@@ -86,12 +86,15 @@ public class SimbaUrl {
 
 
     //********************************************* 会员中心App模块 ******************************************
+    //会员中心，用户协议地址
+    public static final String MENBERCENTER_USERAGGREMENT = "http://simbaui.simbalink.cn/page/user_agreement.html";
     //主机 结尾不要带,会员中心暂时和其他不一样
     public static String BASE_HOST_ACCOUNT = "http://simbaui.simbalink.cn/backend";
     /**
      * 获取各种二维码的url
      */
     public final static String ACCOUNT_GET_QRCODE = BASE_HOST_ACCOUNT + "/account/getQRCode";
+    //public final static String ACCOUNT_GET_QRCODE = BASE_HOST_ACCOUNT + "/vehicle/getQRCodeForVehicle";
     /**
      * 账号密码登陆
      */
@@ -102,12 +105,22 @@ public class SimbaUrl {
     public final static String ACCOUNT_USER_INFO = BASE_HOST_ACCOUNT + "/login/userInfo";
 
     /**
-     * 获取各种二维码的url
+     * 查询二维码登陆是否成功
      */
     public final static String ACCOUNT_WEBAUTHLOGIN = BASE_HOST_ACCOUNT + "/login/webAuthLogin";
 
     /**
-     * 获取各种二维码的url
+     * 车机是否激活
      */
-    public final static String ACCOUNT_ISA = BASE_HOST_ACCOUNT + "/vehicle/isActive\n";
+    public final static String ACCOUNT_ISACTIVE = BASE_HOST_ACCOUNT + "/vehicle/isActive";
+    /**
+     * 是否实名认证
+     */
+    public final static String VEHICLE_CERTIFICATION = BASE_HOST_ACCOUNT + "/vehicle/isCertification";
+
+    /**
+     * 获取车辆信息，车辆类型
+     */
+    public final static String ACCOUNT_GET_VEHICLEINFO = BASE_HOST_ACCOUNT + "/account/getVehicleInfo";
+
 }

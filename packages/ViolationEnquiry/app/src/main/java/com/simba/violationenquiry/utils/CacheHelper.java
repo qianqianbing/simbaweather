@@ -61,4 +61,17 @@ public class CacheHelper {
         String value = ACache.get(MyApplication.sContext).getAsString("IS_FIRST");
         return value == null || "true".equalsIgnoreCase(value);
     }
+
+    public static void saveMustRefresh(String id, boolean mustRefresh) {
+        ACache.get(MyApplication.sContext, "MUST_REFRESH").put(id, String.valueOf(mustRefresh));
+    }
+
+    public static boolean getMustRefresh(String id) {
+        String value = ACache.get(MyApplication.sContext, "MUST_REFRESH").getAsString(id);
+        return value == null || "true".equalsIgnoreCase(value);
+    }
+
+    public static void clearMustRefresh() {
+        ACache.get(MyApplication.sContext, "MUST_REFRESH").clear();
+    }
 }

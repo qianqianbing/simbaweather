@@ -51,9 +51,10 @@ public class MainActivity extends MyBaseActivity {
     private RelativeLayout rlEmpty;
     private LinearLayout optionLayout;
 
-//    private static final int PERMISSIONS_REQUEST_CODE = 10;
+    //    private static final int PERMISSIONS_REQUEST_CODE = 10;
 //    private static final String[] PERMISSIONS_REQUIRED = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-private Button btnAdd;
+    private Button btnAdd;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +63,7 @@ private Button btnAdd;
             startActivity(AddNewCarActivity.class);
             CacheHelper.saveIsFirst(false);
         }
-
+        CacheHelper.clearMustRefresh();
 //        if (allPermissionsGranted()) {
 //
 //        } else {
@@ -95,7 +96,7 @@ private Button btnAdd;
         ivAdd = findViewById(R.id.iv_add_car_info);
         rlEmpty = findViewById(R.id.rl_empty);
         optionLayout = findViewById(R.id.ll_option);
-        btnAdd=findViewById(R.id.btn_add_car_info);
+        btnAdd = findViewById(R.id.btn_add_car_info);
         ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -177,6 +178,8 @@ private Button btnAdd;
                         checkAdd();
                         sectionsPagerAdapter.refresh(mData);
                         viewPager.setCurrentItem(0);
+
+
                     }
                 }, new Consumer<Throwable>() {
                     @Override

@@ -78,7 +78,7 @@
             android:textSize="@dimen/base_text_size_large"
             android:text="ID:"/>
         <TextView
-            android:id="@+id/iv_cartype"
+            android:id="@+id/tv_cartype"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/tv_nickname"
@@ -90,7 +90,7 @@
         <RelativeLayout
             android:layout_width="200dp"
             android:layout_height="40dp"
-            android:layout_below="@id/iv_cartype"
+            android:layout_below="@id/tv_cartype"
             android:layout_marginTop="20dp"
             android:layout_alignLeft="@id/tv_nickname">
             <ImageView
