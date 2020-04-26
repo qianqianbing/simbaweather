@@ -10,7 +10,7 @@ import java.util.Calendar;
  */
 public class WeekDayWheelAdapter implements WheelAdapter {
 
-    private final String[] weeks = new String[]{"周日", "周一", "周二", "周三", "周四", "周五", "周六"};
+    private final String[] weeks = new String[]{"日 周日", "日 周一", "日 周二", "日 周三", "日 周四", "日 周五", "日 周六"};
     private int minValue;
     private int maxValue;
     private int year, month;

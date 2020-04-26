@@ -1,8 +1,8 @@
 package com.simba.calendar;
 
+import com.blankj.utilcode.util.SPStaticUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.simba.base.base.BaseApplication;
-import com.simba.base.utils.SpStaticUtils;
-import com.simba.base.utils.SpUtils;
 
 /**
  * @类描述:
@@ -16,6 +16,6 @@ public class MyApplication extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        SpStaticUtils.setDefaultSpUtils(SpUtils.getInstance(this, "setting"));
+        SPStaticUtils.setDefaultSPUtils(SPUtils.getInstance("setting"));
     }
 }

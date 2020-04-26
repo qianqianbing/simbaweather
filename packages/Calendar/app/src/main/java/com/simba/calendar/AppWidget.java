@@ -9,11 +9,11 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import com.blankj.utilcode.util.SPStaticUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 import com.simba.base.network.JsonCallback;
 import com.simba.base.network.SimbaUrl;
-import com.simba.base.utils.SpStaticUtils;
 import com.simba.calendar.model.DailyInformation;
 
 import org.json.JSONObject;
@@ -59,7 +59,7 @@ public class AppWidget extends AppWidgetProvider {
 
 
         //根据配置 节日、黄历是否显示
-        boolean setting_almanac = SpStaticUtils.getBoolean(SettingActivity.KEY_SETTING_ALMANAC, true);
+        boolean setting_almanac = SPStaticUtils.getBoolean(SettingActivity.KEY_SETTING_ALMANAC, true);
         views.setViewVisibility(R.id.tv_widget_should, setting_almanac ? View.VISIBLE : View.GONE);
 
         //日历点击跳转

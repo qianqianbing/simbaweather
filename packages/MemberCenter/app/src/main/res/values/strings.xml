@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">个人中心</string>
+    <string name="app_name">会员中心</string>
     <string name="loading">加载中</string>
     <string name="QR_login">扫码登陆</string>
     <string name="Account_login">账号登陆</string>
@@ -29,7 +29,8 @@
 
     <string name="not_real_name">未实名</string>
     <string name="real_name">实名</string>
-    <string name="binding_weChat">绑定微信</string>
+    <string name="need_bind_weChat">绑定微信</string>
+    <string name="binded_weChat">微信已绑定</string>
 
     <string name="not_car_onwer">非车主</string>
     <string name="car_owner">车主</string>

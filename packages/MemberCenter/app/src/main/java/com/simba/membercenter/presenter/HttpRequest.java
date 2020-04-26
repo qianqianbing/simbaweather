@@ -97,7 +97,7 @@ public class HttpRequest {
                 .execute(new JsonCallback<UserCertificationBean>() {
                     @Override
                     public void onSuccess(Response<UserCertificationBean> response) {
-                        Log.e(TAG, "certificated code is " + response.getRawResponse().code());
+
                         if(isCode200()){
                             UserCertificationBean userCertificationBean = response.body();
                             //实名认证：0否 1是
@@ -137,25 +137,24 @@ public class HttpRequest {
                 .execute(new JsonCallback<LoginResultBean>() {
                     @Override
                     public void onSuccess(Response<LoginResultBean> response) {
+
                         if (isCode200()) {
                             LoginResultBean loginResultBean = response.body();
                             Log.e(TAG, "Token is " + loginResultBean.getToken());
-                            Log.e(TAG, "loginResultBean is " + loginResultBean);
 
                             token = loginResultBean.getToken();
                             if(token == null){
-                                loginHander.onLoginResult(false, response.getRawResponse().code());
+                                loginHander.onLoginResult(false, response.getRawResponse().code(),getResponseMessage());
                             }else {
                                 LocalAccountManager.getIntance().refreshLoginInfo(userName);
-
                                 if(loginHander != null){
-                                    loginHander.onLoginResult(true,0);
+                                    loginHander.onLoginResult(true,0,getResponseMessage());
                                 }
                             }
 
                         }else {
                             Log.e(TAG, "login failed");
-                            loginHander.onLoginResult(false,response.getRawResponse().code());
+                            loginHander.onLoginResult(false, getResponseCode(), getResponseMessage());
                         }
                     }
 
@@ -167,7 +166,7 @@ public class HttpRequest {
                     @Override
                      public void onError(Response<LoginResultBean> response) {
                         Log.e(TAG, "login error " + getResponseCode() + " httpcode " + response.getRawResponse().code());
-                        loginHander.onLoginResult(false, response.getRawResponse().code());
+                        loginHander.onLoginResult(false, response.getRawResponse().code(), getResponseMessage());
                          super.onError(response);
                      }
                 });
@@ -257,7 +256,7 @@ public class HttpRequest {
     }
     //登陆成功失败的回调
     public interface LoginCallback {
-        void onLoginResult(Boolean isSucceed, int failCode);
+        void onLoginResult(Boolean isSucceed, int failCode, String message);
     }
     //获取用户信息
     public interface UserInfoCallback {
