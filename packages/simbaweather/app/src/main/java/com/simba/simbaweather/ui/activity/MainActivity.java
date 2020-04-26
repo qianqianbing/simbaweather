@@ -55,10 +55,7 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
     @BindView(R.id.show_tab)
     TabLayout showTab;
 
-
-    ArrayList<Fragment> fragmentList = new ArrayList<>();
-    ArrayList<String> title = new ArrayList<>();
-    private Runnable update;
+    private static String TAG = "MainActivity";
     private WeatherPagerAdapter weatherPagerAdapter;
     int position;
 
@@ -123,6 +120,11 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
         private List<View> mViewList;
         private View mRootView;
 
+        public WeatherPagerAdapter() {
+            super();
+            mViewList = new ArrayList<>();
+        }
+
         public String getCityNameByPosition(int position) {
             if (weatherBeanMap != null) {
                 int cityId = cityManagerBeanList.get(position).getCityId();
@@ -145,11 +147,16 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
         }
 
         public void initViewList() {
-            mViewList = new ArrayList<>();
-            for (CityInfoManager.CityManagerBean cityManagerBean : cityManagerBeanList) {
+            for(int i = 0; i < cityManagerBeanList.size() ; i++){
+//            for (CityInfoManager.CityManagerBean cityManagerBean : cityManagerBeanList) {
+                CityInfoManager.CityManagerBean cityManagerBean = cityManagerBeanList.get(i);
+                if(mViewList.size() > i){
+                    mRootView = mViewList.get(i);
+                }else {
+                    LayoutInflater layoutInflater = getLayoutInflater();
+                    mRootView = layoutInflater.inflate(R.layout.item_cinema, null, false);
+                }
 
-                LayoutInflater layoutInflater = getLayoutInflater();
-                mRootView = layoutInflater.inflate(R.layout.item_cinema, null, false);
                 if (weatherBeanMap != null) {
                     WeatherBean weatherBean;
                     if (cityManagerBean.isLocationCity()) {
@@ -194,7 +201,11 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
                     ((ImageView) mRootView.findViewById(R.id.weather_data_4).findViewById(R.id.miv_img)).setImageDrawable(WeatherIconUtil.getWeatherIconByType(MyApplication.getMyApplication(), weatherBeanList.get(3).getConditionId()));
 
                 }
-                mViewList.add(mRootView);
+                if(mViewList.size() > i){
+                }else {
+                    mViewList.add(mRootView);
+                }
+
             }
         }
 
@@ -206,12 +217,14 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
         @NonNull
         @Override
         public Object instantiateItem(@NonNull ViewGroup container, int position) {
+            Log.e(TAG, "instantiateItem" + position);
             container.addView(mViewList.get(position));
             return mViewList.get(position);
         }
 
         @Override
         public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+            Log.e(TAG, "destroyItem" + position);
             container.removeView(mViewList.get(position));
 
         }
