@@ -116,52 +116,58 @@
             android:layout_marginBottom="180dp"
             android:background="@color/base_white_trans_4d"/>
         <RelativeLayout
+
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="59dp">
             <RelativeLayout
-
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="216dp"
-                android:layout_width="202dp"
+                android:layout_toLeftOf="@id/v_divider"
+                android:layout_marginRight="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent">
                 <ImageView
+                    android:id="@+id/iv_certificatedinfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/icon_realname"
-                    android:layout_alignParentLeft="true"/>
+                    android:src="@drawable/icon_realname"/>
                 <TextView
+                    android:id="@+id/tv_certificatedinfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/base_text_size_max"
                     android:textColor="@color/base_default_text_color"
-                    android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@id/iv_certificatedinfo"
+                    android:layout_marginLeft="@dimen/popupwin_padding_top"
                     android:text="@string/not_real_name"/>
             </RelativeLayout>
             <View
+                android:id="@+id/v_divider"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/line_division"
                 android:layout_centerInParent="true"/>
             <RelativeLayout
+                android:layout_toRightOf="@id/v_divider"
+                android:layout_marginLeft="150dp"
                 android:id="@+id/rl_bind_wechat"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="216dp"
-                android:layout_width="202dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent">
                 <ImageView
+                    android:id="@+id/iv_wechatbind"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/icon_wechat"
                     android:layout_alignParentLeft="true"/>
                 <TextView
+                    android:id="@+id/tv_wechatbind"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/base_text_size_max"
                     android:textColor="@color/base_default_text_color"
-                    android:layout_alignParentRight="true"
-                    android:text="@string/binding_weChat"/>
+                    android:layout_toRightOf="@id/iv_wechatbind"
+                    android:layout_marginLeft="@dimen/popupwin_padding_top"
+                    android:text="@string/need_bind_weChat"/>
             </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>

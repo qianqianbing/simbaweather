@@ -219,7 +219,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     @Override
-    public void onLoginResult(Boolean isSucceed, int failCode) {
+    public void onLoginResult(Boolean isSucceed, int failCode, String message) {
+        Log.e(TAG, "loginResult is " + isSucceed + "; failCode is " + failCode + "; message " + message);
         if(isSucceed){
             MainActivity.startAcivity();
             ((Activity) this).overridePendingTransition(0, 0);
@@ -231,7 +232,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                     Toasty.normal(this,getResources().getString(R.string.network_error)).show();
                     break;
                 default:
-                    Toasty.normal(this,getResources().getString(R.string.login_failed)).show();
+                    Toasty.normal(this, message).show();
                     break;
             }
         }
