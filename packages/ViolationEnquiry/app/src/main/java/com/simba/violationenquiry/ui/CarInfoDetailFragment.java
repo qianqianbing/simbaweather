@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.simba.base.utils.ResourceUtils;
+import com.blankj.utilcode.util.ResourceUtils;
 import com.simba.violationenquiry.R;
 import com.simba.violationenquiry.add.AddNewCarActivity;
 import com.simba.violationenquiry.base.BaseLazyLoadFragment;
