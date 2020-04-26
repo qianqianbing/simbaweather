@@ -3,6 +3,7 @@ package com.simba.themestore.view.itemdecoration;
 import android.graphics.Rect;
 import android.view.View;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -20,7 +21,11 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+        LinearLayoutManager layoutManager = (LinearLayoutManager) parent.getLayoutManager();
         outRect.top = space;
+        if (parent.getChildAdapterPosition(view) == layoutManager.getItemCount() - 1) {
+            outRect.right = space;
+        }
     }
 
 }

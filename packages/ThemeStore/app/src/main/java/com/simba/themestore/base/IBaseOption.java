@@ -5,5 +5,8 @@ package com.simba.themestore.base;
  * @Date : 2020/4/22
  * @Desc :
  */
-public class BaseAdapter {
+public interface IBaseOption {
+    void selectOption(boolean isSelectAll);
+
+
 }

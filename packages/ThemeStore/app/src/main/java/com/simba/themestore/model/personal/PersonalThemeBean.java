@@ -1,5 +1,7 @@
 package com.simba.themestore.model.personal;
 
+import com.simba.themestore.model.AbstractChoose;
+
 import java.io.Serializable;
 
 /**
@@ -7,8 +9,7 @@ import java.io.Serializable;
  * @Date : 2020/4/22
  * @Desc :
  */
-public class PersonalThemeBean implements Serializable {
-    private boolean isChecked = false;
+public class PersonalThemeBean extends AbstractChoose implements Serializable {
 
     public PersonalThemeBean(boolean isChecked) {
         this.isChecked = isChecked;
@@ -17,11 +18,4 @@ public class PersonalThemeBean implements Serializable {
     public PersonalThemeBean() {
     }
 
-    public boolean isChecked() {
-        return isChecked;
-    }
-
-    public void setChecked(boolean checked) {
-        isChecked = checked;
-    }
 }
