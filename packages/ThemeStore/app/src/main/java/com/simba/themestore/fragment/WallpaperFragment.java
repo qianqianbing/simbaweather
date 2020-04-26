@@ -67,7 +67,7 @@ public class WallpaperFragment extends BaseLazyLoadFragment {
         banner.setAdapter(adapter);
 
         banner.setBannerRound(BannerUtils.dp2px(5));
-        banner.setBannerGalleryEffect(60, 0, 1f);
+    //    banner.setBannerGalleryEffect(60, 0, 1f);
         banner.setPageTransformer(new ZoomOutPageTransformer());
         banner.removeIndicator();
         banner.setUserInputEnabled(false);

@@ -15,14 +15,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".launch.MainActivity">
+        <activity android:name=".launch.NotLoggedActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".launch.NotLoggedActivity" />
+        <activity android:name=".launch.MainActivity" />
         <activity android:name=".launch.personal.PersonalWallPaperActivity" />
         <activity android:name=".launch.personal.PersonalAboutActivity" />
         <activity android:name=".launch.personal.PersonalLockActivity" />

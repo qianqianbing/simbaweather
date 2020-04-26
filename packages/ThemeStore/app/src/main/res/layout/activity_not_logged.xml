@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/base_bg_app"
@@ -33,9 +34,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80px"
-        android:onClick="start"
         android:background="@mipmap/icon_btn_bg"
+        android:onClick="start"
         android:text="前往登录"
         android:textColor="@color/base_white"
         android:textSize="@dimen/base_text_size_34" />
+
+    <com.simba.themestore.view.ProgressButton
+        android:id="@+id/progress"
+        android:layout_width="152px"
+        android:layout_height="64px"
+        android:layout_marginTop="80px"
+        android:gravity="center"
+        android:visibility="gone"
+        app:loadingColor="#596CF8FC"
+        app:radius="32px"
+        app:stopColor="#1AFFFFFF"
+        app:textSize="@dimen/base_text_size_max" />
 </LinearLayout>

@@ -18,7 +18,12 @@
 
 如本协议有任何更新，我们会以消息推送等适当的方式告知用户。</string>
 
-
+    <string-array name="main_page_menu">
+        <item>主题</item>
+        <item>壁纸</item>
+        <item>屏保</item>
+        <item>我的</item>
+    </string-array>
     <string-array name="wallpaper_setting">
         <item>应用壁纸</item>
         <item>应用屏保</item>
