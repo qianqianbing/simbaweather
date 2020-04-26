@@ -325,7 +325,7 @@ public class CalendarView extends FrameLayout {
         mWeekBar.animate()
                 .translationY(-mWeekBar.getHeight())
                 .setInterpolator(new LinearInterpolator())
-                .setDuration(260)
+                .setDuration(280)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
@@ -342,12 +342,13 @@ public class CalendarView extends FrameLayout {
         mMonthPager.animate()
                 .scaleX(0)
                 .scaleY(0)
-                .setDuration(260)
+                .setDuration(280)
                 .setInterpolator(new LinearInterpolator())
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
+                        mMonthPager.setVisibility(GONE);
                         if (mDelegate.mYearViewChangeListener != null) {
                             mDelegate.mYearViewChangeListener.onYearViewChange(false);
                         }
@@ -386,6 +387,7 @@ public class CalendarView extends FrameLayout {
     private void closeSelectLayout(final int position) {
         mYearViewPager.setVisibility(GONE);
         mWeekBar.setVisibility(VISIBLE);
+        mMonthPager.setVisibility(VISIBLE);
         if (position == mMonthPager.getCurrentItem()) {
             if (mDelegate.mCalendarSelectListener != null &&
                     mDelegate.getSelectMode() != CalendarViewDelegate.SELECT_MODE_SINGLE) {
@@ -408,7 +410,7 @@ public class CalendarView extends FrameLayout {
         mMonthPager.animate()
                 .scaleX(1)
                 .scaleY(1)
-                .setDuration(180)
+                .setDuration(280)
                 .setInterpolator(new LinearInterpolator())
                 .setListener(new AnimatorListenerAdapter() {
                     @Override

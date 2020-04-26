@@ -1,7 +1,6 @@
 package com.simba.calendar;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
@@ -11,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.blankj.utilcode.util.SPStaticUtils;
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarView;
 import com.lzy.okgo.OkGo;
@@ -20,7 +20,6 @@ import com.simba.base.base.BaseActivity;
 import com.simba.base.network.JsonCallback;
 import com.simba.base.network.SimbaUrl;
 import com.simba.base.utils.LogUtil;
-import com.simba.base.utils.SpStaticUtils;
 import com.simba.calendar.model.DailyInformation;
 import com.simba.calendar.model.StatutoryHoliday;
 import com.simba.calendar.utils.TimePickerBuilderHelper;
@@ -120,7 +119,7 @@ public class MainActivity extends BaseActivity {
                     mCvMainCalendarView.closeYearSelectLayout();
                     return;
                 }
-                mCvMainCalendarView.showYearSelectLayout(mCvMainCalendarView.getCurYear());
+                mCvMainCalendarView.showYearSelectLayout(mCvMainCalendarView.getSelectedCalendar().getYear());
             }
         });
         mIvMainToday.setOnClickListener(new View.OnClickListener() {
@@ -152,8 +151,8 @@ public class MainActivity extends BaseActivity {
         mCvMainCalendarView.setOnYearViewChangeListener(new CalendarView.OnYearViewChangeListener() {
             @Override
             public void onYearViewChange(boolean isClose) {
-                mTvMainYearView.setEnabled(isClose);
-                mTvMainYearView.setTextColor(isClose ? Color.WHITE : getResources().getColor(R.color.colorUnEnable));
+                if (!isClose)
+                    mIvMainToday.setEnabled(true);
             }
         });
         mLlMainNetworkRetry.setOnClickListener(new View.OnClickListener() {
@@ -167,10 +166,10 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setting_holiday = SpStaticUtils.getBoolean(SettingActivity.KEY_SETTING_HOLIDAY_PUSH, true);
+        setting_holiday = SPStaticUtils.getBoolean(SettingActivity.KEY_SETTING_HOLIDAY_PUSH, true);
         mTvMainHoliday.setVisibility(setting_holiday ? View.VISIBLE : View.GONE);
 
-        setting_almanac = SpStaticUtils.getBoolean(SettingActivity.KEY_SETTING_ALMANAC, true);
+        setting_almanac = SPStaticUtils.getBoolean(SettingActivity.KEY_SETTING_ALMANAC, true);
         if (setting_almanac && !networkErr)
             mLlMainShouldGroup.setVisibility(View.VISIBLE);
         else
@@ -251,7 +250,8 @@ public class MainActivity extends BaseActivity {
                     public void onSuccess(Response<DailyInformation> response) {
                         if (isCode200()) {
                             DailyInformation dailyInformation = response.body();
-                            mTvMainTrunkAndBranch.setText(String.format("%s年 【%s年】", dailyInformation.year, dailyInformation.animal));
+                            if (dailyInformation.year != null && dailyInformation.animal != null)
+                                mTvMainTrunkAndBranch.setText(String.format("%s年 【%s年】", dailyInformation.year, dailyInformation.animal));
                             if (dailyInformation.chinesedesc != null)
                                 mTvMainLunar.setText(dailyInformation.chinesedesc);
                             if (dailyInformation.proper != null)
@@ -266,16 +266,16 @@ public class MainActivity extends BaseActivity {
                         super.onFinish();
                         mIvManNetworkLoading.clearAnimation();
                         mLlMainNetworkLoading.setVisibility(View.GONE);
-                        if (!isCode200()) {
-                            mLlMainShouldGroup.setVisibility(View.GONE);
-                            mLlMainAWordADay.setVisibility(View.GONE);
-                            mLlMainNetworkRetry.setVisibility(View.VISIBLE);
-                            networkErr = true;
-                        } else {
+                        if (isCode200()) {
                             mLlMainShouldGroup.setVisibility(setting_almanac == null || setting_almanac ? View.VISIBLE : View.GONE);
                             mLlMainAWordADay.setVisibility(View.VISIBLE);
                             mLlMainNetworkRetry.setVisibility(View.GONE);
                             networkErr = false;
+                        } else {
+                            mLlMainShouldGroup.setVisibility(View.GONE);
+                            mLlMainAWordADay.setVisibility(View.GONE);
+                            mLlMainNetworkRetry.setVisibility(View.VISIBLE);
+                            networkErr = true;
                         }
                     }
                 });

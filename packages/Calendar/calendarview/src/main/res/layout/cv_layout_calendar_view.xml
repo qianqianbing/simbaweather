@@ -44,7 +44,7 @@
         android:layout_marginTop="30dp"
         android:drawableTop="@drawable/shape_year_view_title_bg"
         android:drawableBottom="@drawable/shape_year_view_title_bg"
-        android:drawablePadding="12dp"
+        android:drawablePadding="13dp"
         android:gravity="center"
         android:textColor="#fff"
         android:textSize="32sp"
@@ -54,9 +54,7 @@
         android:id="@+id/selectLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="120dp"
         android:background="#ffffff"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
         android:visibility="gone" />
 </merge>
