@@ -7,194 +7,203 @@
 
 
     <LinearLayout
-        android:layout_width="1759dp"
-        android:layout_height="449dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginRight="50dp"
-        android:background="@drawable/circular">
+        android:layout_marginLeft="50dp"
+        android:background="@drawable/bg_app">
 
-        <LinearLayout
+
+        <RelativeLayout
+            android:id="@+id/beijingid"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_app">
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="80dp"
+                android:layout_marginTop="45dp"
+                android:textColor="#ffffffff"
+                android:textSize="128sp"
+                tools:text="12°" />
+            <TextView
+                android:id="@+id/tv_climate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="56dp"
+                android:layout_marginTop="85dp"
+                android:layout_toRightOf="@id/tv_temperature"
+                android:textColor="#ffffffff"
+                android:textSize="28sp"
+                tools:text="多云" />
 
+            <TextView
+                android:id="@+id/tv_airquality"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_marginTop="88dp"
+                android:layout_toRightOf="@+id/tv_climate"
+                android:gravity="center"
+                android:textColor="#ffffffff"
+                android:textSize="20sp"
+                tools:text="优 36" />
+
+            <TextView
+                android:id="@+id/tv_max_min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="55dp"
+                android:layout_marginTop="150dp"
+                android:layout_toRightOf="@id/tv_temperature"
+                android:textColor="#ffffffff"
+                android:textSize="28sp"
+                tools:text="18°/ 8°" />
+
+            <ImageView
+                android:id="@+id/iv_windspeed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_temperature"
+                android:layout_marginLeft="90dp"
+                android:layout_marginTop="15dp"
+                android:src="@mipmap/wind" />
+
+            <TextView
+                android:id="@+id/tv_windspeed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="230dp"
+                android:layout_toRightOf="@id/iv_windspeed"
+                android:textColor="#ffffffff"
+                android:textSize="20sp"
+                tools:text="东南风 5级" />
+
+            <ImageView
+                android:id="@+id/iv_airhumidity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="74dp"
+                android:layout_marginTop="230dp"
+                android:layout_toRightOf="@id/tv_windspeed"
+                android:src="@mipmap/waterdrop" />
+
+            <TextView
+                android:id="@+id/tv_airhumidity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="21dp"
+                android:layout_marginTop="230dp"
+                android:layout_toRightOf="@id/iv_airhumidity"
+                android:textColor="#ffffffff"
+                android:textSize="20sp"
+                tools:text="湿度 45%" />
 
             <RelativeLayout
-                android:id="@+id/beijingid"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/tv_temperature"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="80dp"
-                    android:layout_marginTop="45dp"
-                    android:textColor="#ffffffff"
-                    android:textSize="128sp"
-                    tools:text="12°" />
-
-                <TextView
-                    android:id="@+id/tv_climate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="56dp"
-                    android:layout_marginTop="85dp"
-                    android:layout_toRightOf="@id/tv_temperature"
-                    android:textColor="#ffffffff"
-                    android:textSize="28sp"
-                    tools:text="多云" />
-
-                <TextView
-                    android:id="@+id/tv_airquality"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="23dp"
-                    android:layout_marginTop="88dp"
-                    android:layout_toRightOf="@+id/tv_climate"
-                    android:gravity="center"
-                    android:textColor="#ffffffff"
-                    android:textSize="20sp"
-                    tools:text="优 36" />
-
-                <TextView
-                    android:id="@+id/tv_max_min"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="55dp"
-                    android:layout_marginTop="150dp"
-                    android:layout_toRightOf="@id/tv_temperature"
-                    android:textColor="#ffffffff"
-                    android:textSize="28sp"
-                    tools:text="18°/ 8°" />
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="75dp"
+                android:layout_marginBottom="65dp">
 
                 <ImageView
-                    android:id="@+id/iv_windspeed"
+                    android:id="@+id/iv_ultravioletradiator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_temperature"
-                    android:layout_marginLeft="90dp"
-                    android:layout_marginTop="15dp"
-                    android:src="@mipmap/wind" />
+                    android:src="@mipmap/ultraviolertray" />
 
-                <TextView
-                    android:id="@+id/tv_windspeed"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginTop="230dp"
-                    android:layout_toRightOf="@id/iv_windspeed"
-                    android:textColor="#ffffffff"
-                    android:textSize="20sp"
-                    tools:text="东南风 5级" />
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_toRightOf="@id/iv_ultravioletradiator"
+                    android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/iv_airhumidity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="74dp"
-                    android:layout_marginTop="230dp"
-                    android:layout_toRightOf="@id/tv_windspeed"
-                    android:src="@mipmap/waterdrop" />
-
-                <TextView
-                    android:id="@+id/tv_airhumidity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="21dp"
-                    android:layout_marginTop="230dp"
-                    android:layout_toRightOf="@id/iv_airhumidity"
-                    android:textColor="#ffffffff"
-                    android:textSize="20sp"
-                    tools:text="湿度 45%" />
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="75dp"
-                    android:layout_marginBottom="65dp">
-
-                    <ImageView
-                        android:id="@+id/iv_ultravioletradiator"
+                    <TextView
+                        android:id="@+id/tv_strengthgrade"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="弱"
+                        android:textColor="#FFFFFFFF"
+                        android:textSize="28px" />
 
-                        android:src="@mipmap/ultraviolertray" />
-
-                    <LinearLayout
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_toRightOf="@id/iv_ultravioletradiator"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tv_strengthgrade"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="弱"
-                            android:textColor="#FFFFFFFF"
-                            android:textSize="28px" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="紫外线"
-                            android:textColor="#FFFFFFFF"
-                            android:textSize="22px" />
-                    </LinearLayout>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="310dp"
-                    android:layout_marginBottom="68dp">
-
-                    <ImageView
-                        android:id="@+id/_ultravioletradiator"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/car" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_toRightOf="@id/_ultravioletradiator"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="非常建议"
-                            android:id="@+id/tv_washcarstatus"
-                            android:textColor="#FFFFFFFF"
-                            android:textSize="28px" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="洗车"
-                            android:textColor="#FFFFFFFF"
-                            android:textSize="22px" />
-                    </LinearLayout>
-
-
-                </RelativeLayout>
+                        android:text="紫外线"
+                        android:textColor="#FFFFFFFF"
+                        android:textSize="22px" />
+                </LinearLayout>
             </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="310dp"
+                android:layout_marginBottom="68dp">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_weather_c"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                <ImageView
+                    android:id="@+id/_ultravioletradiator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/car" />
 
-            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_toRightOf="@id/_ultravioletradiator"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="非常建议"
+                        android:id="@+id/tv_washcarstatus"
+                        android:textColor="#FFFFFFFF"
+                        android:textSize="28px" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="洗车"
+                        android:textColor="#FFFFFFFF"
+                        android:textSize="22px" />
+                </LinearLayout>
+
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:orientation="horizontal">
+            <include android:id="@+id/weather_data_1"
+                layout="@layout/item_weather"
+                android:layout_height="fill_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"/>
+            <include android:id="@+id/weather_data_2"
+                layout="@layout/item_weather"
+                android:layout_height="fill_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"/>
+            <include android:id="@+id/weather_data_3"
+                layout="@layout/item_weather"
+                android:layout_height="fill_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"/>
+            <include android:id="@+id/weather_data_4"
+                layout="@layout/item_weather"
+                android:layout_height="fill_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"/>
         </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

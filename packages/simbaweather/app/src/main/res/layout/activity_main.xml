@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/base_bg_app"
-    android:orientation="vertical"
-    tools:context=".ui.activity.MainActivity">
+    android:background="@drawable/base_bg_app">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="85dp"
-        android:layout_marginRight="50dp">
+        android:layout_marginLeft="52dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginRight="60dp">
 
         <ImageView
             android:id="@+id/img_location"
@@ -54,36 +52,29 @@
             android:layout_toRightOf="@id/tv_time"
             android:src="@drawable/refreshbutton" />
 
-        <TextView
-            android:id="@+id/tv_runacity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginRight="33dp"
-            android:background="@mipmap/bg_circle"
-            android:gravity="center"
-            android:paddingLeft="45dp"
-            android:paddingTop="17dp"
-            android:paddingRight="45dp"
-            android:paddingBottom="17dp"
-            android:text="管理城市"
-            android:textColor="@color/base_white"
-            android:textSize="20sp" />
-    </RelativeLayout>
 
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_runacity"
+        android:layout_width="216dp"
+        android:layout_height="64dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="18dp"
+        android:layout_marginRight="64dp"
+        android:background="@mipmap/bg_circle"
+        android:gravity="center"
+        android:text="管理城市"
+        android:textColor="@color/base_white"
+        android:textSize="@dimen/base_text_size_max" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="120dp"
-        android:orientation="vertical">
-
+        android:layout_marginTop="108dp">
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/show_vp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginRight="50dp"/>
+            android:layout_marginBottom="50dp"/>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/show_tab"
@@ -91,9 +82,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginRight="60dp"
-            android:layout_marginBottom="@dimen/dp_40"
             app:tabIndicatorHeight="0dp"
             app:tabIndicatorFullWidth="false"
             app:tabMode="fixed" />
     </RelativeLayout>
-</LinearLayout>
+</RelativeLayout>

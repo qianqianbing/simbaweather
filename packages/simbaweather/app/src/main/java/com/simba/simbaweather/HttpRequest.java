@@ -2,28 +2,16 @@ package com.simba.simbaweather;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
-import com.simba.base.network.ConstantDefine;
 import com.simba.base.network.JsonCallback;
 import com.simba.base.network.SimbaUrl;
-import com.simba.simbaweather.data.bean.CitySearchBean;
-import com.simba.simbaweather.data.bean.SearchBean;
-import com.simba.simbaweather.data.bean.WeaTher;
-import com.simba.simbaweather.di.cityidMvp.CityIdContract;
-import com.simba.simbaweather.di.weatherShowMvp.WeatherShowContract;
+import com.simba.simbaweather.data.bean.WeatherBean;
 
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.simba.base.network.SimbaUrl.ACCOUNT_LOGIN;
-import static com.simba.base.network.SimbaUrl.ACCOUNT_USER_INFO;
 
 public class HttpRequest {
     private static String TAG = "HttpRequest";
@@ -40,11 +28,11 @@ public class HttpRequest {
 
     }
     public interface WeatherHandler{
-        void handleWeatherResult(Response<WeaTher.DataBean> response);
+        void handleWeatherResult(int cityId, Response<WeatherBean> response);
     }
 
 
-    public void requestWeatherDataByLocation(Activity mContext, String lat, String lng, final WeatherHandler weatherHandler) {
+    public void requestWeatherDataByLocation(Context mContext, String lat, String lng, final WeatherHandler weatherHandler) {
         //gps定位获取经纬度发给后台拿到当地天气的数据
 
         JSONObject jsonObject = new JSONObject();
@@ -56,22 +44,24 @@ public class HttpRequest {
             e.printStackTrace();
         }
 
-        OkGo.<WeaTher.DataBean>post(SimbaUrl.WEATHER_GET_INDEX_LOCATION)
+        OkGo.<WeatherBean>post(SimbaUrl.WEATHER_GET_INDEX_LOCATION)
                 .tag(mContext)
                 .upJson(jsonObject)
-                .execute(new JsonCallback<WeaTher.DataBean>() {
+                .execute(new JsonCallback<WeatherBean>() {
 
-                    private WeaTher.DataBean data;
+                    private WeatherBean data;
 
                     @Override
-                    public void onSuccess(Response<WeaTher.DataBean> response) {
+                    public void onSuccess(Response<WeatherBean> response) {
                         if (isCode200()) {
-                            weatherHandler.handleWeatherResult(response);
+                            weatherHandler.handleWeatherResult(0, response);
                         }
                     }
                 });
     }
-    public void requestWeatherDataByCityId(Activity mContext, int cityId, final WeatherHandler weatherHandler) {
+
+
+    public void requestWeatherDataByCityId(Context mContext, int cityId, final WeatherHandler weatherHandler) {
         //gps定位获取经纬度发给后台拿到当地天气的数据
         JSONObject jsonObject = new JSONObject();
 
@@ -81,14 +71,14 @@ public class HttpRequest {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            OkGo.<WeaTher.DataBean>post(SimbaUrl.WEATHER_GET_WEATHER_INDEXCITY)
-                    .tag(this)
+            OkGo.<WeatherBean>post(SimbaUrl.WEATHER_GET_WEATHER_INDEXCITY)
+                    .tag(mContext)
                     .upJson(jsonObject)
-                    .execute(new JsonCallback<WeaTher.DataBean>() {
+                    .execute(new JsonCallback<WeatherBean>() {
                         @Override
-                        public void onSuccess(Response<WeaTher.DataBean> response) {
+                        public void onSuccess(Response<WeatherBean> response) {
                             if (isCode200()) {
-                                weatherHandler.handleWeatherResult(response);
+                                weatherHandler.handleWeatherResult(cityId, response);
                             }
                         }
                     });

@@ -1,35 +1,35 @@
 package com.simba.simbaweather.ui.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.text.format.Time;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.simba.base.base.BaseActivity;
-import com.simba.simbaweather.CityManager;
+import com.simba.simbaweather.CityInfoManager;
 import com.simba.simbaweather.ICityChangeView;
 import com.simba.simbaweather.R;
-import com.simba.simbaweather.ui.activity.frag.Cinema_Frag;
-import com.simba.simbaweather.ui.activity.frag.Home_Frag;
+import com.simba.simbaweather.data.MyApplication;
+import com.simba.simbaweather.data.WeatherIconUtil;
+import com.simba.simbaweather.data.bean.WeatherBean;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
@@ -49,12 +49,7 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
     @BindView(R.id.show_tab)
     TabLayout showTab;
 
-
-    private Home_Frag home_frag;
-    ArrayList<Fragment> fragmentList = new ArrayList<>();
-    ArrayList<String> title = new ArrayList<>();
-    private Runnable update;
-
+    WeatherPagerAdapter weatherPagerAdapter;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
@@ -62,40 +57,22 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
 
     @Override
     protected void initView() {
-
         showVp = findViewById(R.id.show_vp);
-        home_frag = new Home_Frag();
-        fragmentList.add(home_frag);
-        title.add("");
-        CityManager.getInstance().registerCityChangeView(this);
+        CityInfoManager.getInstance().registerCityChangeView(this,this);
 
-        List<CityManager.CityManagerBean> cityIdList = CityManager.getInstance().getCityList();
-        if (cityIdList != null && cityIdList.size() != 0) {
-            for (CityManager.CityManagerBean city : cityIdList) {
-                if (city.isLocationCity()) {
-                    home_frag = new Home_Frag();
-                    fragmentList.add(home_frag);
-                } else {
-                    fragmentList.add(new Cinema_Frag(city.getCityId()));
-                }
-            }
-        }
-        /**
-         * 设置tab为可滚动模式
-         */
+        //showVp.setAdapter(myFragmentPagerAdapter);
+        weatherPagerAdapter = new WeatherPagerAdapter();
+        weatherPagerAdapter.setWeatherInfoList(CityInfoManager.getInstance().getCityList(), null);
 
+        showVp.setAdapter(weatherPagerAdapter );
 
-        /**
-         * viewpager加载适配器
-         */
-        showVp.setAdapter(myFragmentPagerAdapter);
-        /**
-         * tablayout关联viewpager
-         */
         showTab.setupWithViewPager(showVp);
 
+        for (CityInfoManager.CityManagerBean cityManagerBean : CityInfoManager.getInstance().getCityList()){
+            showTab.getTabAt(0).setText("").setIcon(R.mipmap.stripswitch);
+        }
         showTab.getTabAt(0).setText("").setIcon(R.mipmap.stripswitch);
-        showTab.getTabAt(1).setText("").setIcon(R.mipmap.circledrop);
+      //  showTab.getTabAt(1).setText("").setIcon(R.mipmap.circledrop);
 //        showTab.getTabAt(2).setText("").setIcon(R.mipmap.circledrop);
 //        showTab.getTabAt(3).setText("").setIcon(R.mipmap.circledrop);
 //        showTab.getTabAt(4).setText("").setIcon(R.mipmap.circledrop);
@@ -108,6 +85,7 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
 
             @Override
             public void onPageSelected(int position) {
+                tvCity.setText(weatherPagerAdapter.getCityNameByPosition(position));
                 if (position == 0) {
                     Log.i("tian", "onPageSelected: " + position);
                     showTab.getTabAt(0).setText("").setIcon(R.mipmap.stripswitch);
@@ -144,8 +122,6 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
 //                    showTab.getTabAt(3).setText("").setIcon(R.mipmap.circledrop);
 //                    showTab.getTabAt(4).setText("").setIcon(R.mipmap.stripswitch);
                 }
-
-
             }
 
             @Override
@@ -156,34 +132,110 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
 
     }
 
-    FragmentPagerAdapter myFragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
-        @NonNull
-        @Override
-        public Fragment getItem(int i) {
-            return fragmentList.get(i);
-        }
-
-        @Override
-        public int getCount() {
-            return fragmentList.size();
-        }
-
-        @Nullable
-        @Override
-        public CharSequence getPageTitle(int position) {
+    class WeatherPagerAdapter extends PagerAdapter{
+        private List<CityInfoManager.CityManagerBean> cityManagerBeanList;
+        private  Map<Integer, WeatherBean> weatherBeanMap;
+        private List<View> mViewList;
+        public String getCityNameByPosition(int position){
+            if(weatherBeanMap != null){
+                int cityId = cityManagerBeanList.get(position).getCityId();
+               return weatherBeanMap.get(cityId).getCity().getDistrict();
+            }
             return "";
         }
-    };
+        public void setWeatherInfoList(List<CityInfoManager.CityManagerBean> cityManagerBeanList, Map<Integer, WeatherBean> weatherInfoList) {
+            this.cityManagerBeanList = cityManagerBeanList;
+            this.weatherBeanMap = weatherInfoList;
+
+            initViewList();
+            notifyDataSetChanged();
+            tvCity.setText(getCityNameByPosition(0));
+        }
+        @Override
+        public int getCount() {
+            return cityManagerBeanList.size();
+        }
+
+        public void initViewList(){
+            mViewList = new ArrayList<>();
+            for (CityInfoManager.CityManagerBean cityManagerBean : cityManagerBeanList){
+
+                LayoutInflater layoutInflater = getLayoutInflater();
+                View mRootView = layoutInflater.inflate(R.layout.item_cinema,null,false);
+                if(weatherBeanMap != null){
+                    WeatherBean weatherBean;
+                    if(cityManagerBean.isLocationCity()){
+                        weatherBean = weatherBeanMap.get(0);
+                    }else {
+                        weatherBean = weatherBeanMap.get(cityManagerBean.getCityId());
+                    }
+
+                    ((TextView)mRootView.findViewById(R.id.tv_temperature)).setText( weatherBean.getWeatherToday().getTemp() + "°");
+                    ((TextView)mRootView.findViewById(R.id.tv_climate)).setText( weatherBean.getWeatherToday().getCondition() );
+                    ((TextView)mRootView.findViewById(R.id.tv_windspeed)).setText( weatherBean.getWeatherToday().getWindDir() + " " + weatherBean.getWeatherToday().getWindLevel() );
+                    ((TextView)mRootView.findViewById(R.id.tv_max_min)).setText( weatherBean.getWeatherToday().getTempDay() + "°/" + weatherBean.getWeatherToday().getTempNight() +  "°" );
+                    ((TextView)mRootView.findViewById(R.id.tv_airquality)).setText( weatherBean.getWeatherToday().getAqi() + "  " + weatherBean.getWeatherToday().getAqiValue());
+                    ((TextView)mRootView.findViewById(R.id.tv_airhumidity)).setText( "湿度   " + weatherBean.getWeatherToday().getHumidity() + "%");
+                    ((TextView)mRootView.findViewById(R.id.tv_strengthgrade)).setText( weatherBean.getWeatherToday().getUviStatus());
+                    ((TextView)mRootView.findViewById(R.id.tv_washcarstatus)).setText( weatherBean.getWeatherToday().getWashCarStatus());
+
+
+                    List<WeatherBean.WeatherListBean> weatherBeanList = weatherBean.getWeatherList();
+                    ((TextView)mRootView.findViewById(R.id.weather_data_1).findViewById(R.id.tv_day)).setText(weatherBeanList.get(0).getDayStr());
+                    ((TextView)mRootView.findViewById(R.id.weather_data_1).findViewById(R.id.tv_date)).setText(weatherBeanList.get(0).getDate());
+                    ((TextView)mRootView.findViewById(R.id.weather_data_1).findViewById(R.id.tv_weathersituation)).setText(weatherBeanList.get(0).getCondition());
+                    ((TextView)mRootView.findViewById(R.id.weather_data_1).findViewById(R.id.tv_tirtmp)).setText(weatherBeanList.get(0).getTempDay() + "°/" + weatherBeanList.get(0).getTempNight() + "°");
+                    ((ImageView)mRootView.findViewById(R.id.weather_data_1).findViewById(R.id.miv_img)).setImageDrawable(WeatherIconUtil.getWeatherIconByType(MyApplication.getMyApplication(), weatherBeanList.get(0).getConditionId()));
+
+                    ((TextView)mRootView.findViewById(R.id.weather_data_2).findViewById(R.id.tv_day)).setText(weatherBeanList.get(1).getDayStr());
+                    ((TextView)mRootView.findViewById(R.id.weather_data_2).findViewById(R.id.tv_date)).setText(weatherBeanList.get(1).getDate());
+                    ((TextView)mRootView.findViewById(R.id.weather_data_2).findViewById(R.id.tv_weathersituation)).setText(weatherBeanList.get(1).getCondition());
+                    ((TextView)mRootView.findViewById(R.id.weather_data_2).findViewById(R.id.tv_tirtmp)).setText(weatherBeanList.get(1).getTempDay() + "°/" + weatherBeanList.get(1).getTempNight() + "°");
+                    ((ImageView)mRootView.findViewById(R.id.weather_data_2).findViewById(R.id.miv_img)).setImageDrawable(WeatherIconUtil.getWeatherIconByType(MyApplication.getMyApplication(), weatherBeanList.get(1).getConditionId()));
+
+                    ((TextView)mRootView.findViewById(R.id.weather_data_3).findViewById(R.id.tv_day)).setText(weatherBeanList.get(2).getDayStr());
+                    ((TextView)mRootView.findViewById(R.id.weather_data_3).findViewById(R.id.tv_date)).setText(weatherBeanList.get(2).getDate());
+                    ((TextView)mRootView.findViewById(R.id.weather_data_3).findViewById(R.id.tv_weathersituation)).setText(weatherBeanList.get(2).getCondition());
+                    ((TextView)mRootView.findViewById(R.id.weather_data_3).findViewById(R.id.tv_tirtmp)).setText(weatherBeanList.get(2).getTempDay() + "°/" + weatherBeanList.get(2).getTempNight() + "°");
+                    ((ImageView)mRootView.findViewById(R.id.weather_data_3).findViewById(R.id.miv_img)).setImageDrawable(WeatherIconUtil.getWeatherIconByType(MyApplication.getMyApplication(), weatherBeanList.get(2).getConditionId()));
+
+                    ((TextView)mRootView.findViewById(R.id.weather_data_4).findViewById(R.id.tv_day)).setText(weatherBeanList.get(3).getDayStr());
+                    ((TextView)mRootView.findViewById(R.id.weather_data_4).findViewById(R.id.tv_date)).setText(weatherBeanList.get(3).getDate());
+                    ((TextView)mRootView.findViewById(R.id.weather_data_4).findViewById(R.id.tv_weathersituation)).setText(weatherBeanList.get(3).getCondition());
+                    ((TextView)mRootView.findViewById(R.id.weather_data_4).findViewById(R.id.tv_tirtmp)).setText(weatherBeanList.get(3).getTempDay() + "°/" + weatherBeanList.get(3).getTempNight() + "°");
+                    ((ImageView)mRootView.findViewById(R.id.weather_data_4).findViewById(R.id.miv_img)).setImageDrawable(WeatherIconUtil.getWeatherIconByType(MyApplication.getMyApplication(), weatherBeanList.get(3).getConditionId()));
+
+                }
+                mViewList.add(mRootView);
+
+            }
+        }
+        @Override
+        public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
+            return view == object;
+        }
+
+        @NonNull
+        @Override
+        public Object instantiateItem(@NonNull ViewGroup container, int position) {
+            container.addView(mViewList.get(position));
+            return mViewList.get(position);
+        }
+
+        @Override
+        public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+            container.removeView(mViewList.get(position));
+        }
+
+        @Override
+        public int getItemPosition(@NonNull Object object) {
+            return POSITION_NONE;
+        }
+    }
 
     @Override
     protected void initData() {
-        home_frag.setItemOnClickInterface(new Home_Frag.onlisteneritem() {
-            @Override
-            public void onItemClick(String city, String district) {
-                Log.i("11111111", "onItemClick: "+city+district);
-                tvCity.setText(""+city+"·"+district);
-            }
-        });
+
 
     }
 
@@ -194,22 +246,15 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
 
 
     @Override
-    public void onCityChange(List<CityManager.CityManagerBean> cityList) {
-        fragmentList = new ArrayList<>();
-        fragmentList.add(home_frag);
-        for (CityManager.CityManagerBean city : cityList) {
-            fragmentList.add(new Cinema_Frag(city.getCityId()));
-        }
-        synchronized (this) {
-            myFragmentPagerAdapter.notifyDataSetChanged();
-        }
+    public void onCityChange(List<CityInfoManager.CityManagerBean> cityManagerBeanList, Map<Integer,WeatherBean> weatherBeanMap) {
+        weatherPagerAdapter.setWeatherInfoList(cityManagerBeanList, weatherBeanMap);
     }
 
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        CityManager.getInstance().unRegisterCityChangeView(this);
+        CityInfoManager.getInstance().unRegisterCityChangeView(this);
     }
 
 
@@ -227,27 +272,7 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
                 int second = t.second;
 //                2020-03-23 19:32
                 tvTime.setText("中国天气  更新于：" + year + "-" + month + "-" + day + "  " + hour + ":" + minute);
-                // home_frag.fPresenter.WeathershowRequestData("" + 32.298741, "" + 118.840485);
-                Handler handler = new Handler();
 
-                Runnable mRunnable = new Runnable() {
-                    public void run() {
-                        Message msg = new Message();
-                        handler.sendMessage(msg);
-                    }
-                };
-                /**
-                 * 页面刷新点击一次
-                 * */
-                Handler h
-                        = new Handler() {
-                    @Override
-                    public void handleMessage(Message msg) {
-
-                        Toast.makeText(MainActivity.this, "收到啦" + msg, Toast.LENGTH_LONG).show();
-                        home_frag.fPresenter.WeathershowRequestData("" + 32.298741, "" + 118.840485);
-                    }
-                };
 
                 break;
             case R.id.tv_runacity:
