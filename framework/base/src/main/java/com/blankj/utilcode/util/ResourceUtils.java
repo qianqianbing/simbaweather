@@ -1,6 +1,12 @@
 package com.blankj.utilcode.util;
 
+import android.app.Activity;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.RawRes;
@@ -299,5 +305,67 @@ public final class ResourceUtils {
     public static List<String> readRaw2List(@RawRes final int resId,
                                             final String charsetName) {
         return UtilsBridge.inputStream2Lines(Utils.getApp().getResources().openRawResource(resId), charsetName);
+    }
+
+
+    public static String getString(Integer resID) {
+
+        String string = Utils.getApp().getString(resID);
+        return string;
+    }
+
+    public static String[] getStringArray(Integer resID) {
+        String[] string = Utils.getApp().getResources().getStringArray(resID);
+        return string;
+    }
+
+    public static int[] getIntegerArray(int arrayId) {
+        TypedArray typedArray = Utils.getApp().getResources().obtainTypedArray(arrayId);
+        final int len = typedArray.length();
+        int imageList[] = new int[len];
+        for (int i = 0; i < len; i++) {
+            imageList[i] = typedArray.getResourceId(i, 0);
+        }
+        typedArray.recycle();
+        return imageList;
+    }
+
+    public static int getColor(Integer resID) {
+
+        int color = Utils.getApp().getResources().getColor(resID);
+        return color;
+    }
+
+    public static View getLayoutView(Integer resID) {
+
+        View view = LayoutInflater.from(Utils.getApp()).inflate(resID, null);
+        return view;
+    }
+
+    public static View getViewFollowParent(Integer resID, ViewGroup parent) {
+
+        View view = LayoutInflater.from(Utils.getApp()).inflate(resID, parent, false);
+        return view;
+    }
+
+    public static int getDimen(Integer resID) {
+
+        int dimen = Utils.getApp().getResources().getDimensionPixelOffset(resID);
+
+        return dimen;
+    }
+
+    public static Drawable getDrawable(Integer resID) {
+
+        Drawable drawable = Utils.getApp().getResources().getDrawable(resID);
+
+        return drawable;
+    }
+
+    /**
+     * 获取activity的根view
+     */
+    public static View getActivityRoot(Activity activity) {
+        return ((ViewGroup) activity.findViewById(Window.ID_ANDROID_CONTENT)).getChildAt(0);
     }
 }

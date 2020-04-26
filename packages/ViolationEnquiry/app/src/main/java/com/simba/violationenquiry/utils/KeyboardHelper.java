@@ -19,15 +19,13 @@ package com.simba.violationenquiry.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
-import android.os.Build;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.blankj.utilcode.util.ResourceUtils;
 import com.simba.base.dialog.DensityUtil;
-import com.simba.base.utils.ResourceUtils;
 
 /**
  * @Author : chenjianbo

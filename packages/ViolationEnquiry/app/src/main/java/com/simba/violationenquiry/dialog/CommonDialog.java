@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.simba.base.utils.ResourceUtils;
+import com.blankj.utilcode.util.ResourceUtils;
 import com.simba.violationenquiry.R;
 
 /**

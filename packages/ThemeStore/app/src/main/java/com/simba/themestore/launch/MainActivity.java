@@ -1,11 +1,15 @@
 package com.simba.themestore.launch;
 
+import androidx.annotation.NonNull;
+import androidx.viewpager2.widget.ViewPager2;
+
+import com.blankj.utilcode.util.ResourceUtils;
 import com.google.android.material.tabs.TabLayout;
-import com.simba.base.UI.view.NoScrollViewPager;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.simba.themestore.R;
 import com.simba.themestore.base.MyBaseActivity;
 import com.simba.themestore.launch.adapter.SectionsPagerAdapter;
-import com.youth.banner.listener.OnPageChangeListener;
+import com.youth.banner.transformer.AlphaPageTransformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +19,10 @@ import java.util.List;
  * @Date : 2020/4/17
  * @Desc :
  */
-public class MainActivity extends MyBaseActivity  {
+public class MainActivity extends MyBaseActivity {
     private SectionsPagerAdapter sectionsPagerAdapter;
     private List<String> mData;
-    private NoScrollViewPager viewPager;
+    private ViewPager2 viewPager;
     private TabLayout tabs;
 
     @Override
@@ -36,13 +40,22 @@ public class MainActivity extends MyBaseActivity  {
     @Override
     protected void initData() {
         mData = new ArrayList<>();
-        mData.add("主题");
-        mData.add("壁纸");
-        mData.add("屏保");
-        mData.add("我的");
-        sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), mData, this);
+        String[] menuValues = ResourceUtils.getStringArray(R.array.main_page_menu);
+        for (String menu : menuValues) {
+            mData.add(menu);
+        }
+        sectionsPagerAdapter = new SectionsPagerAdapter(this, mData);
         viewPager.setAdapter(sectionsPagerAdapter);
-        tabs.setupWithViewPager(viewPager);
+        viewPager.setUserInputEnabled(false);
+        viewPager.setOffscreenPageLimit(4);
+        viewPager.setPageTransformer(new AlphaPageTransformer());
+        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabs, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                tab.setText(mData.get(position));
+            }
+        });
+        tabLayoutMediator.attach();
     }
 
 

@@ -34,7 +34,7 @@ public abstract class EditBaseActivity extends AppCompatActivity {
     protected Button btnDelete;
     protected Button btnSelect;
     protected OnOptionListener optionListener;
-    protected boolean isSelectAll = true;
+    protected boolean isSelectAll = false;
     protected boolean isEdit = false;
     protected Disposable mDisposable;
     /**
@@ -104,16 +104,9 @@ public abstract class EditBaseActivity extends AppCompatActivity {
                 }
                 break;
                 case R.id.btn_select_all: {
-                    if (isSelectAll) {//全选状态
-                        btnSelect.setText("全不选");
-                        if (optionListener != null) {
-                            optionListener.onReset();
-                        }
-                    } else {
-                        btnSelect.setText("全选");
-                        if (optionListener != null) {
-                            optionListener.onSelectAll();
-                        }
+                    btnSelect.setText(isSelectAll ? "全选" : "全不选");
+                    if (optionListener != null) {
+                        optionListener.onSelectAll(!isSelectAll);
                     }
                     isSelectAll = !isSelectAll;
                 }
@@ -125,15 +118,15 @@ public abstract class EditBaseActivity extends AppCompatActivity {
     };
 
     private void setEdit() {
-        if (isEdit) {//已经是编辑模式了
+        if (isEdit) {//已经是编辑模式了 做取消的
             mTVTitle.setVisibility(View.VISIBLE);
             mIvLeftBack.setVisibility(View.VISIBLE);
             btnEdit.setText("编辑");
             btnDelete.setVisibility(View.GONE);
             btnSelect.setVisibility(View.GONE);
-            if (optionListener != null) {
-                optionListener.cancelEdit();
-            }
+            //初始化全选按钮状态
+            isSelectAll = false;
+            btnSelect.setText("全选");
         } else {
             mTVTitle.setVisibility(View.GONE);
             mIvLeftBack.setVisibility(View.GONE);
@@ -141,11 +134,10 @@ public abstract class EditBaseActivity extends AppCompatActivity {
             btnEdit.setText("取消");
             btnDelete.setVisibility(View.VISIBLE);
             btnSelect.setVisibility(View.VISIBLE);
+        }
 
-            if (optionListener != null) {
-                optionListener.onEdit();
-            }
-
+        if (optionListener != null) {
+            optionListener.onEdit(!isEdit);
         }
         isEdit = !isEdit;
     }
@@ -248,13 +240,10 @@ public abstract class EditBaseActivity extends AppCompatActivity {
     public interface OnOptionListener {
         void onDelete();
 
-        void onEdit();
+        void onEdit(boolean isOnEdit);
 
-        void cancelEdit();
+        void onSelectAll(boolean isSelectAll);
 
-        void onSelectAll();
-
-        void onReset();
     }
 }
 

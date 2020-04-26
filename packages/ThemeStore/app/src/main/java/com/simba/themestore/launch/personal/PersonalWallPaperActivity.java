@@ -79,25 +79,14 @@ public class PersonalWallPaperActivity extends EditBaseActivity implements EditB
     }
 
     @Override
-    public void onEdit() {
-
-        wallPaperAdapter.setEdit(true);
-        wallPaperAdapter.notifyDataSetChanged();
+    public void onEdit(boolean isOnEdit) {
+        wallPaperAdapter.setEdit(isOnEdit);
     }
 
     @Override
-    public void cancelEdit() {
-        wallPaperAdapter.setEdit(false);
-        wallPaperAdapter.notifyDataSetChanged();
+    public void onSelectAll(boolean isSelectAll) {
+        wallPaperAdapter.selectOption(isSelectAll);
     }
 
-    @Override
-    public void onSelectAll() {
 
-    }
-
-    @Override
-    public void onReset() {
-
-    }
 }

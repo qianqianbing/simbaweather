@@ -41,7 +41,7 @@ public class PersonalThemeActivity extends EditBaseActivity implements EditBaseA
         for (int i = 0; i < 10; i++) {
             mData.add(new PersonalThemeBean());
         }
-        themeAdapter = new PersonalThemeAdapter(R.layout.item_personal_theme, mData);
+        themeAdapter = new PersonalThemeAdapter(mData);
         recyclerView.setAdapter(themeAdapter);
         CommonDecoration commonDecoration = new CommonDecoration(30);
         recyclerView.addItemDecoration(commonDecoration);
@@ -71,26 +71,14 @@ public class PersonalThemeActivity extends EditBaseActivity implements EditBaseA
     }
 
     @Override
-    public void onEdit() {
-
-        themeAdapter.setEdit(true);
-        themeAdapter.notifyDataSetChanged();
+    public void onEdit(boolean isOnEdit) {
+        themeAdapter.setEdit(isOnEdit);
     }
 
     @Override
-    public void cancelEdit() {
-        themeAdapter.setEdit(false);
-        themeAdapter.notifyDataSetChanged();
+    public void onSelectAll(boolean isSelectAll) {
+        themeAdapter.selectOption(isSelectAll);
     }
 
 
-    @Override
-    public void onSelectAll() {
-
-    }
-
-    @Override
-    public void onReset() {
-
-    }
 }

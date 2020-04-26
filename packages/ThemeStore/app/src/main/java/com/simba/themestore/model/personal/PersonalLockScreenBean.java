@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @Date : 2020/4/22
  * @Desc :
  */
-public class PersonalWallPaperBean extends AbstractChoose implements Serializable {
+public class PersonalLockScreenBean extends AbstractChoose implements Serializable {
 
 
 

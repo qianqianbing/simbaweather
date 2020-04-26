@@ -1,13 +1,9 @@
 package com.simba.themestore.launch.adapter;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.simba.themestore.fragment.LockScreenFragment;
 import com.simba.themestore.fragment.PersonalFragment;
@@ -22,29 +18,24 @@ import java.util.List;
  * @Date : 2020/4/3
  * @Desc :
  */
-public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
+public class SectionsPagerAdapter extends FragmentStateAdapter {
 
 
     private List<String> mData;
-    private final Context mContext;
 
-    public SectionsPagerAdapter(@NonNull FragmentManager fm, List<String> mData, Context mContext) {
-        super(fm);
+    public SectionsPagerAdapter(AppCompatActivity activity, List<String> mData) {
+        super(activity);
         if (mData == null) {
             mData = new ArrayList<>();
         }
         this.mData = mData;
-        this.mContext = mContext;
+
     }
 
-//    public SectionsPagerAdapter(Context context, FragmentManager fm) {
-//        super(fm);
-//        mContext = context;
-//    }
 
-
+    @NonNull
     @Override
-    public Fragment getItem(int position) {
+    public Fragment createFragment(int position) {
         switch (position) {
             case 0:
                 return ThemeFragment.newInstance(position);
@@ -54,28 +45,13 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
                 return LockScreenFragment.newInstance(position);
             case 3:
                 return PersonalFragment.newInstance(position);
-          /*  default:
-                return ThemeFragment.newInstance(position);*/
+
         }
         return ThemeFragment.newInstance(position);
     }
 
-    @Nullable
     @Override
-    public CharSequence getPageTitle(int position) {
-        return mData.get(position);
-    }
-
-    @Override
-    public int getCount() {
+    public int getItemCount() {
         return mData.size();
     }
-
-
-    @Override
-    public int getItemPosition(@NonNull Object object) {
-        return PagerAdapter.POSITION_NONE;
-    }
-
-
 }

@@ -32,16 +32,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
 
     private static String TAG = "MainActivity";
     private RelativeLayout rl_message, rl_more, rl_bind_wechat;
-    private TextView tv_nickname, tv_id, tv_owned, tv_cartype;
+    private TextView tv_nickname, tv_id, tv_owned, tv_cartype , tv_certificatedinfo,tv_wechatbind;
     private ImageView iv_switch_account, iv_sex, iv_member;
     AccountBeanDao accountBeanDao;
     private Context mContext;
 
+    //用户微信是否已经绑定
+    boolean isWeChatBind = false;
     public static void startAcivity() {
         Intent intent = new Intent(MyApplication.getMyApplication().getApplicationContext(), MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         MyApplication.getMyApplication().getApplicationContext().startActivity(intent);
-
     }
 
     @Override
@@ -66,7 +67,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
         iv_switch_account.setOnClickListener(this);
         rl_bind_wechat = findViewById(R.id.rl_bind_wechat);
         rl_bind_wechat.setOnClickListener(this);
-
+        tv_certificatedinfo = findViewById(R.id.tv_certificatedinfo);
+        tv_wechatbind = findViewById(R.id.tv_wechatbind);
     }
 
     @Override
@@ -111,7 +113,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
                 VersionDetailsActivity.startAcivity();
                 break;
             case R.id.rl_bind_wechat:
-                new UnbindPopupWindow().showPopupWindow(getApplicationContext());
+                if(!isWeChatBind){
+                    new UnbindPopupWindow().showPopupWindow(getApplicationContext());
+                }
+
                 break;
             case R.id.iv_switch_account:
                 final List<AccountBean> accountBeans = accountBeanDao.loadAll();
@@ -149,12 +154,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
             accountBeanDao.insert(accountBean4);
         }
     }
-
+    // 用户信息的主函数接口
     @Override
     public void onUserInfoResult(boolean isSucceed, AccountBean accountBean) {
         if(isSucceed){
             if (accountBean != null) {
+                //别名
                 tv_nickname.setText(accountBean.getNickname());
+                //设置ID
                 String userName = accountBean.getPhone();
                 String id = userName.substring(0, 3) + "****" + userName.substring(7, userName.length());
                 tv_id.setText(id);
@@ -174,22 +181,37 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
                         iv_sex.setImageDrawable(getResources().getDrawable(R.drawable.icon_woman));
                         break;
                 }
+
+                //设置用户头像
                 RequestOptions options = new RequestOptions()
                         .placeholder(R.drawable.icon_wechat)//图片加载出来前，显示的图片
                         .fallback(R.drawable.icon_wechat) //url为空的时候,显示的图片
                         .error(R.drawable.icon_wechat);//图片加载失败后，显示的图片
                 Glide.with(this).load(accountBean.getHeadimgurl()).apply(options).into(iv_member);
-
+                //微信是否已绑定
+                if(accountBean.getOpenid() == null || accountBean.getOpenid().isEmpty()){
+                    tv_wechatbind.setText(R.string.need_bind_weChat);
+                    isWeChatBind = false;
+                }else {
+                    tv_wechatbind.setText(R.string.binded_weChat);
+                    isWeChatBind = true;
+                }
             }
         }
     }
 
+    //实名认证的回调函数
     @Override
     public void onUserCertificatedInfoResult(boolean isCertificated) {
         Log.e(TAG, "usecertificate " + isCertificated);
-
+        if (isCertificated) {
+            tv_certificatedinfo.setText(R.string.real_name);
+        } else {
+            tv_certificatedinfo.setText(R.string.not_real_name);
+        }
     }
 
+    //车辆类型的回调函数
     @Override
     public void onUserVehicleInfoResult(VehicleInfoBean vehicleInfoBean) {
         if(vehicleInfoBean != null){

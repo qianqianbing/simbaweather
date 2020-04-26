@@ -17,6 +17,16 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def SEP = "-"
+            def buildType = variant.variantData.variantConfiguration.buildType.name
+            def date = new Date();
+            def formattedDate = date.format('yyyyMMdd-HHmm')
+            outputFileName = "${applicationId}${SEP}${formattedDate}${SEP}${buildType}.apk"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
