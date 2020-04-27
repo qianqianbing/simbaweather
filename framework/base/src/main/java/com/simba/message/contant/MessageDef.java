@@ -6,7 +6,7 @@ package com.simba.message.contant;
 public interface MessageDef {
 
     interface Message {
-        byte DEFAULT = (byte) 0xb0;
+        byte DEFAULT = (byte) 0x00;
 
         /**
          * 会员中心消息推送
