@@ -39,14 +39,14 @@ public class SimbaCloudProtocol implements IProtocol {
 
     @Override
     public String getServerIP() {
-        String ip = SystemProperties.get("debug.cloud.ip", "192.168.12.2");
+        String ip = SystemProperties.get("debug.message.ip", "192.168.12.2");
         Log.i(TAG, "SERVER_IP " + ip);
         return ip;
     }
 
     @Override
     public int getServerPort() {
-        return 60000;
+        return 20000;
     }
 
     @Override

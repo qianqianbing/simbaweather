@@ -1,19 +1,27 @@
 package com.simba.message;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.SystemClock;
 import android.util.Log;
 
+import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
 import com.simba.message.manager.ParserManager;
 import com.simba.message.transport.MessageSocket;
 import com.simba.message.util.DataUtils;
 import com.simba.base.os.ServiceManager;
 import com.simba.message.manager.ProtocolFactory;
+import com.simba.message.util.N;
 
 import java.util.ArrayList;
 
@@ -35,6 +43,8 @@ public class MessageService extends Service {
         Log.d(TAG, "onCreate().");
         mContext = this.getApplicationContext();
 
+        startForeground();
+
         ProtocolFactory.creat().init(mContext);
 
         mTBox = new MessageImpl(this, mHandler);
@@ -46,6 +56,25 @@ public class MessageService extends Service {
         new Thread(new SendThread()).start();
         new Thread(new ConnectThread()).start();
     }
+
+    private void startForeground() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createNotificationChannel(N.ChannelId, "MessageService needs to be running forever.");
+        }
+
+        startForeground(100, new NotificationCompat.Builder(this, N.ChannelId).build());
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private void createNotificationChannel(String channelId, String channelName){
+        NotificationChannel channel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT);
+        channel.setDescription(channelId);
+        channel.enableLights(true);
+        // Register the channel with system; you can't change the importance
+        // or other notification behaviors after this
+        NotificationManagerCompat.from(mContext).createNotificationChannel(channel);
+    }
+
 
     @Override
     public IBinder onBind(Intent arg0) {

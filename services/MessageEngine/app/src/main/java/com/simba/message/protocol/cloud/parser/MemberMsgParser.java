@@ -35,7 +35,7 @@ public class MemberMsgParser extends BaseParser {
 
         switch (msgOwner){
             case SimbaCloudCmd.MessageOwner.NOTIFICATION:
-                N.tapNotification(context, "会员中心", msg, R.drawable.ic_member);
+                N.show(context, "会员中心", msg, R.drawable.ic_member);
                 break;
             case SimbaCloudCmd.MessageOwner.App:
             default:
@@ -45,7 +45,7 @@ public class MemberMsgParser extends BaseParser {
 
                 if(!ModelDefine.MEMBERCENTER_PACKAGENAME.equals(N.getTopActivityPackageName(context))){
                     // 会员中心不在前台， 则以通知提示
-                    N.tapNotification(context, "会员中心", msg, R.drawable.ic_member, ModelDefine.MEMBERCENTER_PACKAGENAME, ModelDefine.MEMBERCENTER_MAIN_ACTIVITY);
+                    N.show(context, "会员中心", msg, R.drawable.ic_member, ModelDefine.MEMBERCENTER_PACKAGENAME, ModelDefine.MEMBERCENTER_MAIN_ACTIVITY);
                 }else{
                     mCallBack.handleCallback(dataWrapper);
                 }

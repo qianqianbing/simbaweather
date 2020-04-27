@@ -1,14 +1,17 @@
 package com.simba.message;
 
 import android.content.Context;
+import android.os.Binder;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.os.Parcel;
 import android.os.RemoteCallbackList;
+import android.os.RemoteException;
 import android.util.Log;
 import android.util.SparseArray;
 
-import com.simba.message.bean.CloudStateData;
+import com.simba.message.bean.SocketStateData;
 import com.simba.message.protocol.MessageCmd;
 import com.simba.service.callbacks.IServiceDataCallback;
 import com.simba.service.data.DataWrapper;
@@ -20,7 +23,7 @@ import com.simba.message.manager.ProtocolFactory;
  */
 public class MessageImpl extends IMessage.Stub {
 
-    private static final String TAG = "TBox";
+    private static final String TAG = "Msg";
 
     private Context mContext;
     private Handler mHandler;
@@ -31,26 +34,26 @@ public class MessageImpl extends IMessage.Stub {
         mHandler = handler;
 
         ProtocolFactory.creat().initialParsers(mParseCallback);
-        onCloudStateDataCallback();
+        onSocketStateDataCallback();
     }
 
-    private void onCloudStateDataCallback(){
-        DataWrapper dataWrapper = new DataWrapper(new CloudStateData(mSocketConnect), CloudStateData.CODE);
+    private void onSocketStateDataCallback() {
+        DataWrapper dataWrapper = new DataWrapper(new SocketStateData(mSocketConnect), SocketStateData.CODE);
         Log.i(TAG, "handleCallback " + dataWrapper);
         mParseCallback.cache(dataWrapper);
 
         onDataCallback(dataWrapper);
     }
 
-
     private boolean mSocketConnect = false;
+
     public void setSocketConnect(boolean connect) {
         if (mSocketConnect != connect) {
             mSocketConnect = connect;
             if (!connect) {
                 mDataArray.clear();
             }
-            onCloudStateDataCallback();
+            onSocketStateDataCallback();
         }
     }
 
@@ -90,19 +93,55 @@ public class MessageImpl extends IMessage.Stub {
         mCallbacks.finishBroadcast();
     }
 
+    private class PidDeathRecipient implements IBinder.DeathRecipient {
+
+        private int pid;
+        private IServiceDataCallback callback;
+
+        public PidDeathRecipient(int pid, IServiceDataCallback callback) {
+            this.pid = pid;
+            this.callback = callback;
+        }
+
+        @Override
+        public void binderDied() {
+            Log.i(TAG, "Prcess[" + pid + "] died, rm its callback.");
+
+            callback.asBinder().unlinkToDeath(this, 0);
+            mCallbacks.unregister(callback);
+            mDeathRecipients.remove(pid);
+            callback = null;
+        }
+    };
+
     /**
      * Client IServiceDataCallback RemoteCallbackList
      */
     private final RemoteCallbackList<IServiceDataCallback> mCallbacks = new RemoteCallbackList<IServiceDataCallback>();
 
+    private final SparseArray<DeathRecipient> mDeathRecipients = new SparseArray<>();
+
     @Override
-    public void registerCallback(IServiceDataCallback iServiceDataCallback) {
-        mCallbacks.register(iServiceDataCallback);
+    public void registerCallback(IServiceDataCallback callback) {
+        int pid = Binder.getCallingPid();
+        mDeathRecipients.put(pid, new PidDeathRecipient(pid, callback));
+        try {
+            callback.asBinder().linkToDeath(mDeathRecipients.get(pid), 0);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
+        mCallbacks.register(callback);
+        Log.i(TAG, "Prcess[" + pid + "] register ok.");
     }
 
     @Override
-    public void unregisterCallback(IServiceDataCallback iServiceDataCallback) {
-        mCallbacks.unregister(iServiceDataCallback);
+    public void unregisterCallback(IServiceDataCallback callback) {
+        int pid = Binder.getCallingPid();
+        callback.asBinder().unlinkToDeath(mDeathRecipients.get(pid), 0);
+        mCallbacks.unregister(callback);
+        mDeathRecipients.remove(pid);
+        Log.i(TAG, "Prcess[" + pid + "] unregister ok.");
     }
 
     protected SparseArray<DataWrapper> mDataArray = new SparseArray<DataWrapper>();

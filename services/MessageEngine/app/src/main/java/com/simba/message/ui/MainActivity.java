@@ -29,7 +29,9 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        Log.i(TAG, "onCreate().");
+        this.setContentView(R.layout.activity_main);
 
 //        Log.e(TAG, DataUtils.bytes2HexString(DataUtils.int2ByteArray(128)));
 //        Log.e(TAG, DataUtils.bytes2HexString("网易新闻".getBytes()));
@@ -51,6 +53,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.i(TAG, "onDestroy().");
 
         this.unregisterReceiver(notificationReceiver);
         mManager.unregisterCallback(mCallback);
@@ -64,10 +67,10 @@ public class MainActivity extends Activity {
                 if("com.android.launcher".equals(N.getTopActivityPackageName(getApplicationContext()))){
                     Toast.makeText(getApplicationContext(), "AI 卡片优先", Toast.LENGTH_SHORT).show();
                 }else{
-                    N.tapNotification(getApplicationContext());
+                    N.show(getApplicationContext());
                 }
             }
-        }, 3333);
+        }, 1234);
     }
 
     private OnInitListener mListener = new OnInitListener() {
@@ -85,7 +88,7 @@ public class MainActivity extends Activity {
 
         @Override
         public void onServiceDisconnected() {
-            Log.i(TAG, "TBox Service Disconnected");
+            Log.i(TAG, "Msg Service Disconnected");
         }
     };
 
