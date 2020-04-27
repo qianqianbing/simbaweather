@@ -20,6 +20,8 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.blankj.utilcode.util.NetworkUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.tabs.TabLayout;
 import com.simba.base.base.BaseActivity;
 import com.simba.base.utils.LogUtil;
@@ -58,6 +60,7 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
     private static String TAG = "MainActivity";
     private WeatherPagerAdapter weatherPagerAdapter;
     int position;
+    private boolean connected;
 
     @Override
     protected int getLayoutId() {
@@ -77,7 +80,6 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
         showVp.setAdapter(weatherPagerAdapter);
 
         showTab.setupWithViewPager(showVp);
-
 
         setTab(position);
 
@@ -112,6 +114,7 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
             showTab.getTabAt(i).setText("").setIcon(R.mipmap.circledrop);
         }
         showTab.getTabAt(position).setText("").setIcon(R.mipmap.stripswitch);
+
     }
 
     class WeatherPagerAdapter extends PagerAdapter {
@@ -126,6 +129,7 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
         }
 
         public String getCityNameByPosition(int position) {
+
             if (weatherBeanMap != null) {
                 int cityId = cityManagerBeanList.get(position).getCityId();
                 return weatherBeanMap.get(cityId).getCity().getCity() + "·" + weatherBeanMap.get(cityId).getCity().getDistrict();
@@ -147,12 +151,12 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
         }
 
         public void initViewList() {
-            for(int i = 0; i < cityManagerBeanList.size() ; i++){
+            for (int i = 0; i < cityManagerBeanList.size(); i++) {
 //            for (CityInfoManager.CityManagerBean cityManagerBean : cityManagerBeanList) {
                 CityInfoManager.CityManagerBean cityManagerBean = cityManagerBeanList.get(i);
-                if(mViewList.size() > i){
+                if (mViewList.size() > i) {
                     mRootView = mViewList.get(i);
-                }else {
+                } else {
                     LayoutInflater layoutInflater = getLayoutInflater();
                     mRootView = layoutInflater.inflate(R.layout.item_cinema, null, false);
                 }
@@ -201,8 +205,8 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
                     ((ImageView) mRootView.findViewById(R.id.weather_data_4).findViewById(R.id.miv_img)).setImageDrawable(WeatherIconUtil.getWeatherIconByType(MyApplication.getMyApplication(), weatherBeanList.get(3).getConditionId()));
 
                 }
-                if(mViewList.size() > i){
-                }else {
+                if (mViewList.size() > i) {
+                } else {
                     mViewList.add(mRootView);
                 }
 
@@ -269,6 +273,13 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
                 int second = t.second;
 //                2020-03-23 19:32
                 tvTime.setText("中国天气  更新于：" + year + "-" + month + "-" + day + "  " + hour + ":" + minute);
+                connected = NetworkUtils.isConnected();
+                if (connected){
+                    CityInfoManager.getInstance().requestWeatherInfo();
+                }
+                else {
+                    ToastUtils.setBgResource(R.mipmap.bg_back);
+                }
 
                 break;
             case R.id.tv_runacity:

@@ -19,20 +19,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CityInfoManager implements  HttpRequest.WeatherHandler{
+public class CityInfoManager implements HttpRequest.WeatherHandler {
     private static String TAG = "CityManager";
     SharedPreferences sp;
     List<ICityChangeView> iCityChangeViewList;
-    List<CityManagerBean> cityList ;
-    Map<Integer , WeatherBean> weatherBeanMap;
+    List<CityManagerBean> cityList;
+    Map<Integer, WeatherBean> weatherBeanMap;
 
     private static CityInfoManager cityManager;
     private static String CITY_STATE = "cityState";
 
 
-
-    public static CityInfoManager getInstance(){
-        if (cityManager == null){
+    public static CityInfoManager getInstance() {
+        if (cityManager == null) {
             cityManager = new CityInfoManager();
         }
         return cityManager;
@@ -40,42 +39,42 @@ public class CityInfoManager implements  HttpRequest.WeatherHandler{
 
     public CityInfoManager() {
 
-       sp = MyApplication.getMyApplication().getSharedPreferences("mysp", Context.MODE_PRIVATE);
+        sp = MyApplication.getMyApplication().getSharedPreferences("mysp", Context.MODE_PRIVATE);
 
-       cityList = getDataList(CITY_STATE);
-       if(cityList == null || cityList.size() == 0){
-           cityList.add(new CityManagerBean(true, 0,""));
-           setDataList(CITY_STATE, cityList);
-       }
+        cityList = getDataList(CITY_STATE);
+        if (cityList == null || cityList.size() == 0) {
+            cityList.add(new CityManagerBean(true, 0, ""));
+            setDataList(CITY_STATE, cityList);
+        }
 
         List<CityManagerBean> getList = getDataList(CITY_STATE);
-        for(CityManagerBean cityBean :getList){
-            Log.e(TAG,"city id  " + cityBean.getCityId() + " city name " + cityBean.getCityName());
+        for (CityManagerBean cityBean : getList) {
+            Log.e(TAG, "city id  " + cityBean.getCityId() + " city name " + cityBean.getCityName());
         }
     }
 
-    public List<CityManagerBean> getCityList(){
+    public List<CityManagerBean> getCityList() {
         return cityList;
     }
 
-    public void updateCityState(boolean isAdd, int cityId ){
+    public void updateCityState(boolean isAdd, int cityId) {
         //增加城市
-        if(isAdd){
+        if (isAdd) {
             boolean isContained = false;
-            for(CityManagerBean cityBean :cityList){
-                if(cityBean.getCityId() == cityId){
+            for (CityManagerBean cityBean : cityList) {
+                if (cityBean.getCityId() == cityId) {
                     isContained = true;
                     break;
                 }
             }
-            if(!isContained){
+            if (!isContained) {
                 cityList.add(new CityManagerBean(false, cityId, ""));
             }
 
-        }else {
+        } else {
             boolean isContained = false;
-            for(CityManagerBean cityBean :cityList){
-                if(cityBean.getCityId() == cityId){
+            for (CityManagerBean cityBean : cityList) {
+                if (cityBean.getCityId() == cityId) {
                     isContained = true;
                     cityList.remove(cityBean);
                     break;
@@ -88,24 +87,24 @@ public class CityInfoManager implements  HttpRequest.WeatherHandler{
     }
 
 
-    public void registerCityChangeView(ICityChangeView iCityChangeView, Activity context){
-        if(iCityChangeViewList == null){
+    public void registerCityChangeView(ICityChangeView iCityChangeView, Activity context) {
+        if (iCityChangeViewList == null) {
             iCityChangeViewList = new ArrayList<>();
         }
-        if (!iCityChangeViewList.contains(iCityChangeView)){
+        if (!iCityChangeViewList.contains(iCityChangeView)) {
             iCityChangeViewList.add(iCityChangeView);
         }
 
         //如果天气的列表为空或者和城市列表个数不一样，需要请求网络
-        Log.e(TAG,"city size is " + cityList.size());
-        if(weatherBeanMap == null || weatherBeanMap.size() != cityList.size()){
+        Log.e(TAG, "city size is " + cityList.size());
+        if (weatherBeanMap == null || weatherBeanMap.size() != cityList.size()) {
             requestWeatherInfo();
-        }else {
+        } else {
             iCityChangeView.onCityChange(cityList, weatherBeanMap);
         }
     }
 
-    public void requestWeatherInfo(){
+    public void requestWeatherInfo() {
         weatherBeanMap = new HashMap<>();
         if (cityList != null && cityList.size() != 0) {
             for (CityInfoManager.CityManagerBean city : cityList) {
@@ -122,34 +121,37 @@ public class CityInfoManager implements  HttpRequest.WeatherHandler{
             }
         }
     }
-    public void unRegisterCityChangeView(ICityChangeView iCityChangeView){
-        if(iCityChangeViewList.contains(iCityChangeView)){
+
+    public void unRegisterCityChangeView(ICityChangeView iCityChangeView) {
+        if (iCityChangeViewList.contains(iCityChangeView)) {
             iCityChangeViewList.remove(iCityChangeView);
         }
     }
 
     /**
      * 保存List
+     *
      * @param tag
      * @param datalist
      */
-    public  void setDataList(String tag, List<CityManagerBean> datalist) {
+    public void setDataList(String tag, List<CityManagerBean> datalist) {
         if (null == datalist || datalist.size() <= 0)
             return;
 
         Gson gson = new Gson();
         //转换成json数据，再保存
         String strJson = gson.toJson(datalist);
-        sp.edit().putString(tag,strJson).commit();
+        sp.edit().putString(tag, strJson).commit();
     }
 
     /**
      * 获取List
+     *
      * @param tag
      * @return
      */
-    public  List<CityManagerBean> getDataList(String tag) {
-        List<CityManagerBean> datalist=new ArrayList<CityManagerBean>();
+    public List<CityManagerBean> getDataList(String tag) {
+        List<CityManagerBean> datalist = new ArrayList<CityManagerBean>();
         String strJson = sp.getString(tag, null);
         if (null == strJson) {
             return datalist;
@@ -162,17 +164,17 @@ public class CityInfoManager implements  HttpRequest.WeatherHandler{
     }
 
     @Override
-    public synchronized  void handleWeatherResult(int cityId, Response<WeatherBean> response) {
+    public synchronized void handleWeatherResult(int cityId, Response<WeatherBean> response) {
 
         WeatherBean weatherBean = response.body();
         weatherBeanMap.put(cityId, weatherBean);
         Log.e(TAG, "cityId " + cityId + " weatherBeanMap size is " + weatherBeanMap.size());
 
         //说明所有的请求都已经完成
-        if(weatherBeanMap.size() == cityList.size()){
+        if (weatherBeanMap.size() == cityList.size()) {
 
-            for (ICityChangeView iCityChangeView : iCityChangeViewList){
-                iCityChangeView.onCityChange(cityList,weatherBeanMap);
+            for (ICityChangeView iCityChangeView : iCityChangeViewList) {
+                iCityChangeView.onCityChange(cityList, weatherBeanMap);
             }
         }
     }

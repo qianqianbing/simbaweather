@@ -72,7 +72,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="108dp">
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="#2000" />
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/show_vp"
             android:layout_marginTop="50dp"
@@ -85,9 +89,46 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginRight="60dp"
-            app:tabIndicatorFullWidth="false"
+            app:tabGravity="fill"
             app:tabIndicatorHeight="0dp"
-            app:tabMode="fixed" />
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/base_bg_app"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="150dp"
+                android:src="@mipmap/stripswitch"
+                android:id="@+id/delete"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/delete"
+                android:id="@+id/tv"
+                android:layout_marginTop="60dp"
+                android:text="定位不到城市，请稍后重试"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/base_text_size_28" />
+            <TextView
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="60dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv"
+                android:textSize="@dimen/base_text_size_34"
+                android:gravity="center"
+                android:textColor="#FFFFFF"
+                android:text="重试"
+                android:background="@mipmap/networkcircle"/>
+        </RelativeLayout>
     </RelativeLayout>
+
 </RelativeLayout>
