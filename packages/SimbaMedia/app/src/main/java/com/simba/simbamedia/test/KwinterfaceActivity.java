@@ -143,36 +143,37 @@ public class KwinterfaceActivity extends Activity {
                 if (state == QukuRequestState.SUCCESS) {
                     for (BaseOnlineSection mBaseOnlineSection : info.getOnlineSections()) {
                         Log.i(TAG, "label:" + mBaseOnlineSection.getLabel());
-                        Log.i(TAG, "mdigest:" + mBaseOnlineSection.getMdigest());
-                        Log.i(TAG, "type:" + mBaseOnlineSection.getType());
-                        Log.i(TAG, "appDesc:" + mBaseOnlineSection.getAppDesc());
-                        Log.i(TAG, "appUrl:" + mBaseOnlineSection.getAppUrl());
-                        Log.i(TAG, "adText:" + mBaseOnlineSection.getAdText());
-                        Log.i(TAG, "androidUrl:" + mBaseOnlineSection.getAndroidUrl());
-                        Log.i(TAG, "action:" + mBaseOnlineSection.getAction());
-                        Log.i(TAG, "img:" + mBaseOnlineSection.getImg());
-                        Log.i(TAG, "arUrl:" + mBaseOnlineSection.getArUrl());
-                        Log.i(TAG, "adType:" + mBaseOnlineSection.getAdType());
-                        Log.i(TAG, "hasClassfy:" + mBaseOnlineSection.getHasClassfy());
-                        Log.i(TAG, "moreType:" + mBaseOnlineSection.getMoreType());
                         Log.i(TAG, "name:" + mBaseOnlineSection.getName());
-                        Log.i(TAG, "mData:" + mBaseOnlineSection.getMdata());
-                        Log.i(TAG, "id:" +  mBaseOnlineSection.getMid());
+//                        Log.i(TAG, "mdigest:" + mBaseOnlineSection.getMdigest());
+//                        Log.i(TAG, "type:" + mBaseOnlineSection.getType());
+//                        Log.i(TAG, "appDesc:" + mBaseOnlineSection.getAppDesc());
+//                        Log.i(TAG, "appUrl:" + mBaseOnlineSection.getAppUrl());
+//                        Log.i(TAG, "adText:" + mBaseOnlineSection.getAdText());
+//                        Log.i(TAG, "androidUrl:" + mBaseOnlineSection.getAndroidUrl());
+//                        Log.i(TAG, "action:" + mBaseOnlineSection.getAction());
+//                        Log.i(TAG, "img:" + mBaseOnlineSection.getImg());
+//                        Log.i(TAG, "arUrl:" + mBaseOnlineSection.getArUrl());
+//                        Log.i(TAG, "adType:" + mBaseOnlineSection.getAdType());
+//                        Log.i(TAG, "hasClassfy:" + mBaseOnlineSection.getHasClassfy());
+//                        Log.i(TAG, "moreType:" + mBaseOnlineSection.getMoreType());
+//                        Log.i(TAG, "mData:" + mBaseOnlineSection.getMdata());
+//                        Log.i(TAG, "id:" +  mBaseOnlineSection.getMid());
 
                         Log.i(TAG, "--------------------------------------------------------------------");
                         for (BaseQukuItem mBaseQukuItem : mBaseOnlineSection.getOnlineInfos()) {
-                            Log.i(TAG, "BaseQukuItemId:" + mBaseQukuItem.getId());
-                            Log.i(TAG, "qukuItemType:" + mBaseQukuItem.getQukuItemType());
                             Log.i(TAG, "name:" + mBaseQukuItem.getName());
-                            Log.i(TAG, "imageUrl:" + mBaseQukuItem.getImageUrl());
-                            Log.i(TAG, "smallImageUrl:" + mBaseQukuItem.getSmallImageUrl());
-                            Log.i(TAG, "extend:" + mBaseQukuItem.getExtend());
-                            Log.i(TAG, "description:" + mBaseQukuItem.getDescription());
-                            Log.i(TAG, "url:" + mBaseQukuItem.getUrl());
-                            Log.i(TAG, "info:" + mBaseQukuItem.getInfo());
-                            Log.i(TAG, "publish:" + mBaseQukuItem.getPublish());
-                            Log.i(TAG, "isNew:" + mBaseQukuItem.getIsNew());
-                            Log.i(TAG, "updateTime:" + mBaseQukuItem.getUpdateTime());
+
+//                            Log.i(TAG, "BaseQukuItemId:" + mBaseQukuItem.getId());
+//                            Log.i(TAG, "qukuItemType:" + mBaseQukuItem.getQukuItemType());
+//                            Log.i(TAG, "imageUrl:" + mBaseQukuItem.getImageUrl());
+//                            Log.i(TAG, "smallImageUrl:" + mBaseQukuItem.getSmallImageUrl());
+//                            Log.i(TAG, "extend:" + mBaseQukuItem.getExtend());
+//                            Log.i(TAG, "description:" + mBaseQukuItem.getDescription());
+//                            Log.i(TAG, "url:" + mBaseQukuItem.getUrl());
+//                            Log.i(TAG, "info:" + mBaseQukuItem.getInfo());
+//                            Log.i(TAG, "publish:" + mBaseQukuItem.getPublish());
+//                            Log.i(TAG, "isNew:" + mBaseQukuItem.getIsNew());
+//                            Log.i(TAG, "updateTime:" + mBaseQukuItem.getUpdateTime());
                             Log.i(TAG, "***********************************************************");
                         }
                     }
@@ -195,17 +196,18 @@ public class KwinterfaceActivity extends Activity {
                         Log.i(TAG, "label:" + mBaseOnlineSection.getLabel());
                         Log.i(TAG, "--------------------------------------------------------------------");
                         for (BaseQukuItem mBaseQukuItem : mBaseOnlineSection.getOnlineInfos()) {
-                            Log.i(TAG, "qukuItemType:" + mBaseQukuItem.getQukuItemType());
                             Log.i(TAG, "name:" + mBaseQukuItem.getName());
-                            Log.i(TAG, "imageUrl:" + mBaseQukuItem.getImageUrl());
-                            Log.i(TAG, "smallImageUrl:" + mBaseQukuItem.getSmallImageUrl());
-                            Log.i(TAG, "extend:" + mBaseQukuItem.getExtend());
-                            Log.i(TAG, "description:" + mBaseQukuItem.getDescription());
                             Log.i(TAG, "url:" + mBaseQukuItem.getUrl());
                             Log.i(TAG, "info:" + mBaseQukuItem.getInfo());
-                            Log.i(TAG, "publish:" + mBaseQukuItem.getPublish());
-                            Log.i(TAG, "isNew:" + mBaseQukuItem.getIsNew());
-                            Log.i(TAG, "updateTime:" + mBaseQukuItem.getUpdateTime());
+                            Log.i(TAG, "imageUrl:" + mBaseQukuItem.getImageUrl());
+
+//                            Log.i(TAG, "qukuItemType:" + mBaseQukuItem.getQukuItemType());
+//                            Log.i(TAG, "smallImageUrl:" + mBaseQukuItem.getSmallImageUrl());
+//                            Log.i(TAG, "extend:" + mBaseQukuItem.getExtend());
+//                            Log.i(TAG, "description:" + mBaseQukuItem.getDescription());
+//                            Log.i(TAG, "publish:" + mBaseQukuItem.getPublish());
+//                            Log.i(TAG, "isNew:" + mBaseQukuItem.getIsNew());
+//                            Log.i(TAG, "updateTime:" + mBaseQukuItem.getUpdateTime());
                             Log.i(TAG, "***********************************************************");
                         }
                     }
@@ -226,19 +228,20 @@ public class KwinterfaceActivity extends Activity {
 
                     for (BaseOnlineSection mBaseOnlineSection : info.getOnlineSections()) {
                         Log.i(TAG, "label:" + mBaseOnlineSection.getLabel());
-                        Log.i(TAG, "--------------------------------------------------------------------");
+                        Log.i(TAG, "------------------------------------------------------------");
                         for (BaseQukuItem mBaseQukuItem : mBaseOnlineSection.getOnlineInfos()) {
-                            Log.i(TAG, "qukuItemType:" + mBaseQukuItem.getQukuItemType());
                             Log.i(TAG, "name:" + mBaseQukuItem.getName());
-                            Log.i(TAG, "imageUrl:" + mBaseQukuItem.getImageUrl());
-                            Log.i(TAG, "smallImageUrl:" + mBaseQukuItem.getSmallImageUrl());
-                            Log.i(TAG, "extend:" + mBaseQukuItem.getExtend());
-                            Log.i(TAG, "description:" + mBaseQukuItem.getDescription());
-                            Log.i(TAG, "url:" + mBaseQukuItem.getUrl());
-                            Log.i(TAG, "info:" + mBaseQukuItem.getInfo());
-                            Log.i(TAG, "publish:" + mBaseQukuItem.getPublish());
-                            Log.i(TAG, "isNew:" + mBaseQukuItem.getIsNew());
-                            Log.i(TAG, "updateTime:" + mBaseQukuItem.getUpdateTime());
+//
+//                            Log.i(TAG, "qukuItemType:" + mBaseQukuItem.getQukuItemType());
+//                            Log.i(TAG, "imageUrl:" + mBaseQukuItem.getImageUrl());
+//                            Log.i(TAG, "smallImageUrl:" + mBaseQukuItem.getSmallImageUrl());
+//                            Log.i(TAG, "extend:" + mBaseQukuItem.getExtend());
+//                            Log.i(TAG, "description:" + mBaseQukuItem.getDescription());
+//                            Log.i(TAG, "url:" + mBaseQukuItem.getUrl());
+//                            Log.i(TAG, "info:" + mBaseQukuItem.getInfo());
+//                            Log.i(TAG, "publish:" + mBaseQukuItem.getPublish());
+//                            Log.i(TAG, "isNew:" + mBaseQukuItem.getIsNew());
+//                            Log.i(TAG, "updateTime:" + mBaseQukuItem.getUpdateTime());
                             Log.i(TAG, "***********************************************************");
                         }
                     }
@@ -258,19 +261,17 @@ public class KwinterfaceActivity extends Activity {
                     for (BaseOnlineSection mBaseOnlineSection : info.getOnlineSections()) {
                         Log.i(TAG, "label:" + mBaseOnlineSection.getLabel());
                         Log.i(TAG, "name:" + mBaseOnlineSection.getName());
-                        Log.i(TAG, "mData:" + mBaseOnlineSection.getMdata());
-                        Log.i(TAG, "mdigest:" + mBaseOnlineSection.getMdigest());
-                        Log.i(TAG, "type:" + mBaseOnlineSection.getType());
-                        Log.i(TAG, "appDesc:" + mBaseOnlineSection.getAppDesc());
-                        Log.i(TAG, "appUrl:" + mBaseOnlineSection.getAppUrl());
-                        Log.i(TAG, "adText:" + mBaseOnlineSection.getAdText());
-                        Log.i(TAG, "androidUrl:" + mBaseOnlineSection.getAndroidUrl());
-                        Log.i(TAG, "img:" + mBaseOnlineSection.getImg());
-                        Log.i(TAG, "action:" + mBaseOnlineSection.getAction());
-                        Log.i(TAG, "adType:" + mBaseOnlineSection.getAdType());
-                        Log.i(TAG, "moreType:" + mBaseOnlineSection.getMoreType());
-
-
+//                        Log.i(TAG, "mData:" + mBaseOnlineSection.getMdata());
+//                        Log.i(TAG, "mdigest:" + mBaseOnlineSection.getMdigest());
+//                        Log.i(TAG, "type:" + mBaseOnlineSection.getType());
+//                        Log.i(TAG, "appDesc:" + mBaseOnlineSection.getAppDesc());
+//                        Log.i(TAG, "appUrl:" + mBaseOnlineSection.getAppUrl());
+//                        Log.i(TAG, "adText:" + mBaseOnlineSection.getAdText());
+//                        Log.i(TAG, "androidUrl:" + mBaseOnlineSection.getAndroidUrl());
+//                        Log.i(TAG, "img:" + mBaseOnlineSection.getImg());
+//                        Log.i(TAG, "action:" + mBaseOnlineSection.getAction());
+//                        Log.i(TAG, "adType:" + mBaseOnlineSection.getAdType());
+//                        Log.i(TAG, "moreType:" + mBaseOnlineSection.getMoreType());
                         Log.i(TAG, "--------------------------------------------------------------------");
                         for (BaseQukuItem mBaseQukuItem : mBaseOnlineSection.getOnlineInfos()) {
                             Log.i(TAG, "name:" + mBaseQukuItem.getName());
@@ -351,17 +352,17 @@ public class KwinterfaceActivity extends Activity {
                 if (state == QukuRequestState.SUCCESS) {
                     for (BaseOnlineSection mBaseOnlineSection : info.getOnlineSections()) {
                         for (BaseQukuItem mBaseQukuItem : mBaseOnlineSection.getOnlineInfos()) {
-                            Log.i(TAG, "qukuItemType:" + mBaseQukuItem.getQukuItemType());
                             Log.i(TAG, "name:" + mBaseQukuItem.getName());
-                            Log.i(TAG, "imageUrl:" + mBaseQukuItem.getImageUrl());
-                            Log.i(TAG, "smallImageUrl:" + mBaseQukuItem.getSmallImageUrl());
-                            Log.i(TAG, "extend:" + mBaseQukuItem.getExtend());
-                            Log.i(TAG, "description:" + mBaseQukuItem.getDescription());
-                            Log.i(TAG, "url:" + mBaseQukuItem.getUrl());
-                            Log.i(TAG, "info:" + mBaseQukuItem.getInfo());
-                            Log.i(TAG, "publish:" + mBaseQukuItem.getPublish());
-                            Log.i(TAG, "isNew:" + mBaseQukuItem.getIsNew());
-                            Log.i(TAG, "updateTime:" + mBaseQukuItem.getUpdateTime());
+//                            Log.i(TAG, "qukuItemType:" + mBaseQukuItem.getQukuItemType());
+//                            Log.i(TAG, "imageUrl:" + mBaseQukuItem.getImageUrl());
+//                            Log.i(TAG, "smallImageUrl:" + mBaseQukuItem.getSmallImageUrl());
+//                            Log.i(TAG, "extend:" + mBaseQukuItem.getExtend());
+//                            Log.i(TAG, "description:" + mBaseQukuItem.getDescription());
+//                            Log.i(TAG, "url:" + mBaseQukuItem.getUrl());
+//                            Log.i(TAG, "info:" + mBaseQukuItem.getInfo());
+//                            Log.i(TAG, "publish:" + mBaseQukuItem.getPublish());
+//                            Log.i(TAG, "isNew:" + mBaseQukuItem.getIsNew());
+//                            Log.i(TAG, "updateTime:" + mBaseQukuItem.getUpdateTime());
                             Log.i(TAG, "--------------------------------------");
                         }
                     }
@@ -418,17 +419,17 @@ public class KwinterfaceActivity extends Activity {
             public void onFetch(QukuRequestState state, String s, List<BaseQukuItem> list) {
                 if (state == QukuRequestState.SUCCESS) {
                     for (BaseQukuItem mBaseQukuItem : list) {
-                        Log.i(TAG, "qukuItemType:" + mBaseQukuItem.getQukuItemType());
                         Log.i(TAG, "name:" + mBaseQukuItem.getName());
-                        Log.i(TAG, "imageUrl:" + mBaseQukuItem.getImageUrl());
-                        Log.i(TAG, "smallImageUrl:" + mBaseQukuItem.getSmallImageUrl());
-                        Log.i(TAG, "extend:" + mBaseQukuItem.getExtend());
-                        Log.i(TAG, "description:" + mBaseQukuItem.getDescription());
-                        Log.i(TAG, "url:" + mBaseQukuItem.getUrl());
-                        Log.i(TAG, "info:" + mBaseQukuItem.getInfo());
-                        Log.i(TAG, "publish:" + mBaseQukuItem.getPublish());
-                        Log.i(TAG, "isNew:" + mBaseQukuItem.getIsNew());
-                        Log.i(TAG, "updateTime:" + mBaseQukuItem.getUpdateTime());
+//                        Log.i(TAG, "qukuItemType:" + mBaseQukuItem.getQukuItemType());
+//                        Log.i(TAG, "imageUrl:" + mBaseQukuItem.getImageUrl());
+//                        Log.i(TAG, "smallImageUrl:" + mBaseQukuItem.getSmallImageUrl());
+//                        Log.i(TAG, "extend:" + mBaseQukuItem.getExtend());
+//                        Log.i(TAG, "description:" + mBaseQukuItem.getDescription());
+//                        Log.i(TAG, "url:" + mBaseQukuItem.getUrl());
+//                        Log.i(TAG, "info:" + mBaseQukuItem.getInfo());
+//                        Log.i(TAG, "publish:" + mBaseQukuItem.getPublish());
+//                        Log.i(TAG, "isNew:" + mBaseQukuItem.getIsNew());
+//                        Log.i(TAG, "updateTime:" + mBaseQukuItem.getUpdateTime());
                         Log.i(TAG, "--------------------------------------");
                     }
 
@@ -445,17 +446,17 @@ public class KwinterfaceActivity extends Activity {
                 if (state == QukuRequestState.SUCCESS) {
                     for (BaseOnlineSection mBaseOnlineSection : info.getOnlineSections()) {
                         for (BaseQukuItem mBaseQukuItem : mBaseOnlineSection.getOnlineInfos()) {
-                            Log.i(TAG, "qukuItemType:" + mBaseQukuItem.getQukuItemType());
                             Log.i(TAG, "name:" + mBaseQukuItem.getName());
-                            Log.i(TAG, "imageUrl:" + mBaseQukuItem.getImageUrl());
-                            Log.i(TAG, "smallImageUrl:" + mBaseQukuItem.getSmallImageUrl());
-                            Log.i(TAG, "extend:" + mBaseQukuItem.getExtend());
-                            Log.i(TAG, "description:" + mBaseQukuItem.getDescription());
-                            Log.i(TAG, "url:" + mBaseQukuItem.getUrl());
-                            Log.i(TAG, "info:" + mBaseQukuItem.getInfo());
-                            Log.i(TAG, "publish:" + mBaseQukuItem.getPublish());
-                            Log.i(TAG, "isNew:" + mBaseQukuItem.getIsNew());
-                            Log.i(TAG, "updateTime:" + mBaseQukuItem.getUpdateTime());
+//                            Log.i(TAG, "qukuItemType:" + mBaseQukuItem.getQukuItemType());
+//                            Log.i(TAG, "imageUrl:" + mBaseQukuItem.getImageUrl());
+//                            Log.i(TAG, "smallImageUrl:" + mBaseQukuItem.getSmallImageUrl());
+//                            Log.i(TAG, "extend:" + mBaseQukuItem.getExtend());
+//                            Log.i(TAG, "description:" + mBaseQukuItem.getDescription());
+//                            Log.i(TAG, "url:" + mBaseQukuItem.getUrl());
+//                            Log.i(TAG, "info:" + mBaseQukuItem.getInfo());
+//                            Log.i(TAG, "publish:" + mBaseQukuItem.getPublish());
+//                            Log.i(TAG, "isNew:" + mBaseQukuItem.getIsNew());
+//                            Log.i(TAG, "updateTime:" + mBaseQukuItem.getUpdateTime());
                             Log.i(TAG, "--------------------------------------");
                         }
                     }
@@ -505,17 +506,18 @@ public class KwinterfaceActivity extends Activity {
                     if (state == QukuRequestState.SUCCESS) {
                         for (BaseOnlineSection mBaseOnlineSection : onlineRootInfo.getOnlineSections()) {
                             for (BaseQukuItem mBaseQukuItem : mBaseOnlineSection.getOnlineInfos()) {
-                                Log.i(TAG, "qukuItemType:" + mBaseQukuItem.getQukuItemType());
                                 Log.i(TAG, "name:" + mBaseQukuItem.getName());
-                                Log.i(TAG, "imageUrl:" + mBaseQukuItem.getImageUrl());
-                                Log.i(TAG, "smallImageUrl:" + mBaseQukuItem.getSmallImageUrl());
-                                Log.i(TAG, "extend:" + mBaseQukuItem.getExtend());
-                                Log.i(TAG, "description:" + mBaseQukuItem.getDescription());
-                                Log.i(TAG, "url:" + mBaseQukuItem.getUrl());
-                                Log.i(TAG, "info:" + mBaseQukuItem.getInfo());
-                                Log.i(TAG, "publish:" + mBaseQukuItem.getPublish());
-                                Log.i(TAG, "isNew:" + mBaseQukuItem.getIsNew());
-                                Log.i(TAG, "updateTime:" + mBaseQukuItem.getUpdateTime());
+//
+//                                Log.i(TAG, "qukuItemType:" + mBaseQukuItem.getQukuItemType());
+//                                Log.i(TAG, "imageUrl:" + mBaseQukuItem.getImageUrl());
+//                                Log.i(TAG, "smallImageUrl:" + mBaseQukuItem.getSmallImageUrl());
+//                                Log.i(TAG, "extend:" + mBaseQukuItem.getExtend());
+//                                Log.i(TAG, "description:" + mBaseQukuItem.getDescription());
+//                                Log.i(TAG, "url:" + mBaseQukuItem.getUrl());
+//                                Log.i(TAG, "info:" + mBaseQukuItem.getInfo());
+//                                Log.i(TAG, "publish:" + mBaseQukuItem.getPublish());
+//                                Log.i(TAG, "isNew:" + mBaseQukuItem.getIsNew());
+//                                Log.i(TAG, "updateTime:" + mBaseQukuItem.getUpdateTime());
                                 Log.i(TAG, "-----------------------------------------------------------------");
                             }
                         }
@@ -538,15 +540,15 @@ public class KwinterfaceActivity extends Activity {
                             for (BaseQukuItem mBaseQukuItem : mBaseOnlineSection.getOnlineInfos()) {
                                 Log.i(TAG, "qukuItemType:" + mBaseQukuItem.getQukuItemType());
                                 Log.i(TAG, "name:" + mBaseQukuItem.getName());
-                                Log.i(TAG, "imageUrl:" + mBaseQukuItem.getImageUrl());
-                                Log.i(TAG, "smallImageUrl:" + mBaseQukuItem.getSmallImageUrl());
-                                Log.i(TAG, "extend:" + mBaseQukuItem.getExtend());
-                                Log.i(TAG, "description:" + mBaseQukuItem.getDescription());
-                                Log.i(TAG, "url:" + mBaseQukuItem.getUrl());
-                                Log.i(TAG, "info:" + mBaseQukuItem.getInfo());
-                                Log.i(TAG, "publish:" + mBaseQukuItem.getPublish());
-                                Log.i(TAG, "isNew:" + mBaseQukuItem.getIsNew());
-                                Log.i(TAG, "updateTime:" + mBaseQukuItem.getUpdateTime());
+//                                Log.i(TAG, "imageUrl:" + mBaseQukuItem.getImageUrl());
+//                                Log.i(TAG, "smallImageUrl:" + mBaseQukuItem.getSmallImageUrl());
+//                                Log.i(TAG, "extend:" + mBaseQukuItem.getExtend());
+//                                Log.i(TAG, "description:" + mBaseQukuItem.getDescription());
+//                                Log.i(TAG, "url:" + mBaseQukuItem.getUrl());
+//                                Log.i(TAG, "info:" + mBaseQukuItem.getInfo());
+//                                Log.i(TAG, "publish:" + mBaseQukuItem.getPublish());
+//                                Log.i(TAG, "isNew:" + mBaseQukuItem.getIsNew());
+//                                Log.i(TAG, "updateTime:" + mBaseQukuItem.getUpdateTime());
                                 Log.i(TAG, "-----------------------------------------------------------------");
                             }
                         }
