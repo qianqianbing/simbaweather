@@ -36,7 +36,7 @@ public class NewsParser extends BaseParser {
 
         switch (msgOwner){
             case SimbaCloudCmd.MessageOwner.NOTIFICATION:
-                N.tapNotification(context, title, message, R.drawable.ic_news_wy);
+                N.show(context, title, message, R.drawable.icon_news_wy);
                 break;
             default:
                 break;

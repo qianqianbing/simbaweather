@@ -3,7 +3,7 @@ package com.simba.service.data;
 import android.util.Log;
 import android.util.SparseArray;
 
-import com.simba.message.bean.CloudStateData;
+import com.simba.message.bean.SocketStateData;
 import com.simba.message.bean.MemeberMsgData;
 import com.simba.message.bean.MemeberInfoData;
 
@@ -12,7 +12,7 @@ public class DataTypeHelper {
 
     static {
         // Message
-        sClassList.put(CloudStateData.CODE, CloudStateData.class);
+        sClassList.put(SocketStateData.CODE, SocketStateData.class);
         sClassList.put(MemeberMsgData.CODE, MemeberMsgData.class);
         sClassList.put(MemeberInfoData.CODE, MemeberInfoData.class);
     }

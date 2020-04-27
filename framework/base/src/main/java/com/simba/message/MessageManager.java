@@ -26,12 +26,14 @@ public class MessageManager {
 
     static final String SERVICE_NAME = "simba.message";
     static final String ACTION = "action.simba.service.message";
+    static final String PKG = "com.simba.message";
+    static final String CLZ = "com.simba.message.MessageService";
 
     private static MessageManager mHolder = null;
     private MessageManager(Context ctx) {
         mContext = ctx.getApplicationContext();
 
-        initBinder(false);
+        initBinderIfNeed(false);
     }
 
     public static MessageManager getInstance(Context ctx) {
@@ -52,11 +54,12 @@ public class MessageManager {
     }
 
     private IMessage mService;
+    private boolean mIntentBinder;
     private ServiceConnection mServiceConn = new ServiceConnection() {
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            init(service);
+            initBinder(service, true);
         }
 
         @Override
@@ -70,11 +73,55 @@ public class MessageManager {
         }
     };
 
-    private void init(IBinder service) {
+    private Runnable mBinderCheckRunnable = new Runnable() {
+        @Override
+        public void run() {
+            initBinderIfNeed(true);
+        }
+    };
+
+    private IBinder.DeathRecipient mDeathRecipient = new IBinder.DeathRecipient() {
+
+        @Override
+        public void binderDied() {
+            Log.i(TAG, "msg binder died.");
+
+            if (mService == null) return;
+            mService.asBinder().unlinkToDeath(this, 0);
+            mService = null;
+
+            // rebind
+            bindService();
+        }
+    };
+
+    private void initBinder(IBinder service, boolean intentBinder) {
+        mIntentBinder = intentBinder;
+
+        try {
+            service.linkToDeath(mDeathRecipient, 0);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
         mService = IMessage.Stub.asInterface(service);
+
         Log.i(TAG, "msg bind ok");
         if (mListener != null) {
             mListener.onServiceConnected();
+        }
+    }
+
+    private void initBinderIfNeed(boolean bind){
+        IBinder service = ServiceManager.getService(SERVICE_NAME);
+        if (service != null) {
+            initBinder(service, false);
+        } else {
+            if(bind){
+                bindService();
+            }else{
+                Log.w(TAG, "IBinder service is null.");
+            }
         }
     }
 
@@ -84,7 +131,8 @@ public class MessageManager {
                 mListener.onServiceConnected();
             }
         } else {
-            boolean r = mContext.bindService(new Intent(ACTION), mServiceConn, Context.BIND_AUTO_CREATE);
+            boolean r = mContext.bindService(new Intent(ACTION).setClassName(PKG, CLZ), mServiceConn, Context.BIND_AUTO_CREATE);
+            Log.e(TAG, "bindService ret="+r);
             if(!r){
                 if(mHandler == null){
                     mHandler = new Handler(Looper.getMainLooper());
@@ -95,30 +143,14 @@ public class MessageManager {
         }
     }
 
-    private Runnable mBinderCheckRunnable = new Runnable() {
-        @Override
-        public void run() {
-            initBinder(true);
-        }
-    };
-
-    private void initBinder(boolean bind){
-        IBinder service = ServiceManager.getService(SERVICE_NAME);
-        if (service != null) {
-            init(service);
-        } else {
-            if(bind){
-                bindService();
-            }else{
-                Log.w(TAG, "IBinder service is null.");
-            }
-        }
-    }
-
-    @Deprecated
     public void unbindService() {
         mListener = null;
-        mService = null;
+
+        if(mService != null){
+            mService.asBinder().unlinkToDeath(mDeathRecipient, 0);
+            if(mIntentBinder) mContext.unbindService(mServiceConn);
+            mService = null;
+        }
     }
 
     /**
