@@ -56,7 +56,6 @@ dependencies {
     implementation "org.greenrobot:greendao:${dependVersion.greendao}"
     implementation "com.github.bumptech.glide:glide:${dependVersion.glide}"
     annotationProcessor "com.github.bumptech.glide:compiler:${dependVersion.glide}"
-    implementation files('libs\\messagelib_v1.0.jar')
 
 
 }
