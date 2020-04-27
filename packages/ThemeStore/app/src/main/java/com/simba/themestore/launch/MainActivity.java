@@ -7,6 +7,7 @@ import com.blankj.utilcode.util.ResourceUtils;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.simba.themestore.R;
+import com.simba.themestore.banner.NonPageTransformer;
 import com.simba.themestore.base.MyBaseActivity;
 import com.simba.themestore.launch.adapter.SectionsPagerAdapter;
 import com.youth.banner.transformer.AlphaPageTransformer;
@@ -48,7 +49,7 @@ public class MainActivity extends MyBaseActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         viewPager.setUserInputEnabled(false);
         viewPager.setOffscreenPageLimit(4);
-        viewPager.setPageTransformer(new AlphaPageTransformer());
+        viewPager.setPageTransformer(new NonPageTransformer());
         TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabs, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {

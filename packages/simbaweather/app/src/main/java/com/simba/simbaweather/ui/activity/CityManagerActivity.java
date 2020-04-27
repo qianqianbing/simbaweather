@@ -63,14 +63,15 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
         rcv_cityweather.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         myRecyclerViewAdapter = new MyRecyclerViewAdapter(this);
 
-        myRecyclerViewAdapter.setData(CityInfoManager.getInstance().getCityList(),null);
+        myRecyclerViewAdapter.setData(CityInfoManager.getInstance().getCityList(), null);
+
         rcv_cityweather.setAdapter(myRecyclerViewAdapter);
         try {
             Thread.sleep(300);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        CityInfoManager.getInstance().registerCityChangeView(this,this);
+        CityInfoManager.getInstance().registerCityChangeView(this, this);
     }
 
     @Override
@@ -85,7 +86,7 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
                 break;
             case R.id.tv_compileoff:
                 //关闭
-               isEditState = false;
+                isEditState = false;
                 mTvCompileoff.setVisibility(View.INVISIBLE);
                 mTvCompileon.setVisibility(View.VISIBLE);
                 myRecyclerViewAdapter.notifyDataSetChanged();
@@ -99,16 +100,19 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
     class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.RecyclerHolder> {
 
         private Context mContext;
-        private List<CityInfoManager.CityManagerBean> cityManagerBeanList ;
+        private List<CityInfoManager.CityManagerBean> cityManagerBeanList;
         private Map<Integer, WeatherBean> weatherBeanMap;
+        private WeatherBean weatherBean;
+        private int cityId;
+
         public MyRecyclerViewAdapter(Context mContext) {
             this.mContext = mContext;
         }
 
         public void setData(List<CityInfoManager.CityManagerBean> cityManagerBeanList, Map<Integer, WeatherBean> weatherBeanMap) {
-                this.cityManagerBeanList = cityManagerBeanList;
-                this.weatherBeanMap = weatherBeanMap;
-                notifyDataSetChanged();
+            this.cityManagerBeanList = cityManagerBeanList;
+            this.weatherBeanMap = weatherBeanMap;
+            notifyDataSetChanged();
         }
 
         @Override
@@ -117,11 +121,20 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
             return new RecyclerHolder(view);
         }
 
+        public String getCityNameByPosition(int position) {
+            if (weatherBeanMap != null) {
+                cityId = cityManagerBeanList.get(position).getCityId();
+                return weatherBeanMap.get(cityId).getCity().getCity() + "·" + weatherBeanMap.get(cityId).getCity().getDistrict();
+            }
+            return "";
+        }
+
         @Override
         public void onBindViewHolder(RecyclerHolder holder, int position) {
             holder.rl_weather.setVisibility(View.VISIBLE);
             holder.rl_jump.setVisibility(View.GONE);
             holder.mIvCityDelete.setVisibility(View.GONE);
+
             //最后一个 跳转的item
             if (position == getItemCount() - 1) {
 
@@ -131,15 +144,22 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(CityManagerActivity.this, AddCityActivity.class);
+                        //todo
+                        intent.putExtra("cityname", weatherBeanMap.get(cityId).getCity().getDistrict());
                         startActivity(intent);
                     }
                 });
             } else {
                 int cityId = cityManagerBeanList.get(position).getCityId();
-                if(weatherBeanMap != null ){
-                    WeatherBean weatherBean = weatherBeanMap.get(cityId);
+                if (weatherBeanMap != null) {
+                    weatherBean = weatherBeanMap.get(cityId);
                     if (isEditState) {
                         holder.mIvCityDelete.setVisibility(View.VISIBLE);
+                        //本地定位不可被删除
+                        if (position == cityId) {
+                            //当position等于cityid则隐藏删除按钮
+                            holder.mIvCityDelete.setVisibility(View.GONE);
+                        }
                         holder.mIvCityDelete.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -195,10 +215,11 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
 
         class RecyclerHolder extends RecyclerView.ViewHolder {
             TextView mTvCityName, mTvCityTemp, mTvCityTempRang;
-            private ImageView mIvCityDelete,mIvCityImg;
+            private ImageView mIvCityDelete, mIvCityImg;
             RelativeLayout rl_weather;
             RelativeLayout rl_jump;
             Button bt_jump;
+
             private RecyclerHolder(View itemView) {
                 super(itemView);
                 mTvCityName = (TextView) itemView.findViewById(R.id.tv_citymangername);

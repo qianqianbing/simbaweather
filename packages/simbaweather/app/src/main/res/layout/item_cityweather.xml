@@ -2,29 +2,23 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ll_bg"
-    android:layout_width="460dp"
+    android:layout_width="wrap_content"
     android:layout_height="460dp"
     android:gravity="center">
 
     <RelativeLayout
         android:id="@+id/rl_weather"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/iv_citydelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="38dp"
-            android:background="@mipmap/icon_city_delete" />
 
         <LinearLayout
             android:layout_width="400dp"
             android:layout_height="460dp"
-            android:layout_marginLeft="60dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
             android:background="@mipmap/bg_city"
-            android:orientation="vertical"
-            android:layout_marginTop="20dp">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_citymangername"
@@ -69,6 +63,12 @@
 
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/iv_citydelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:background="@mipmap/icon_city_delete" />
 
     </RelativeLayout>
 
@@ -76,7 +76,7 @@
         android:id="@+id/rl_jump"
         android:layout_width="400dp"
         android:layout_height="460dp"
-        android:layout_marginLeft="60dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
         android:background="@mipmap/bg_city"
         android:orientation="vertical">

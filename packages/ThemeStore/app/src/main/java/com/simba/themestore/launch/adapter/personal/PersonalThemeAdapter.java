@@ -2,8 +2,6 @@ package com.simba.themestore.launch.adapter.personal;
 
 import android.view.View;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.module.LoadMoreModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.simba.base.dialog.view.SingleCheckBox;
 import com.simba.themestore.R;
@@ -17,22 +15,19 @@ import java.util.List;
  * @Date : 2020/4/22
  * @Desc :
  */
-public class PersonalThemeAdapter extends BaseQuickAdapter<PersonalThemeBean, BaseViewHolder> implements LoadMoreModule {
-    private boolean isEdit = false;
+public class PersonalThemeAdapter extends BasePersonalAdapter<PersonalThemeBean> {
 
-    public PersonalThemeAdapter(int layoutResId, List<PersonalThemeBean> data) {
-        super(layoutResId, data);
-    }
 
-    public PersonalThemeAdapter(int layoutResId) {
-        super(layoutResId);
+    public PersonalThemeAdapter(List<PersonalThemeBean> data) {
+        super(R.layout.item_personal_theme, data);
+
     }
 
     @Override
     protected void convert(BaseViewHolder holder, PersonalThemeBean personalThemeBean) {
         GlideImageLoader.getInstance().loadImage(holder.itemView.getContext(), holder.getView(R.id.iv_theme), R.drawable.about_bg);
 
-        if (isEdit) {//编辑状态
+        if (isEdit()) {//编辑状态
             holder.setVisible(R.id.cb_single, true);
             SingleCheckBox singleCheckBox = holder.getView(R.id.cb_single);
             singleCheckBox.setChecked(personalThemeBean.isChecked());
@@ -48,11 +43,5 @@ public class PersonalThemeAdapter extends BaseQuickAdapter<PersonalThemeBean, Ba
         }
     }
 
-    public boolean isEdit() {
-        return isEdit;
-    }
 
-    public void setEdit(boolean edit) {
-        isEdit = edit;
-    }
 }

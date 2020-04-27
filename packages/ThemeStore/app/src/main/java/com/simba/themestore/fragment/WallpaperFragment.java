@@ -2,6 +2,7 @@ package com.simba.themestore.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.HorizontalScrollView;
 
@@ -14,7 +15,7 @@ import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.simba.themestore.R;
 import com.simba.themestore.banner.adapter.BannerImageAdapter;
-import com.simba.themestore.base.BaseLazyLoadFragment;
+import com.simba.themestore.base.BaseMainFragment;
 import com.simba.themestore.fragment.adapter.WallPaperAdapter;
 import com.simba.themestore.launch.wallpaper.WallPaperListActivity;
 import com.simba.themestore.launch.wallpaper.WallPaperSettingActivity;
@@ -35,7 +36,7 @@ import java.util.List;
  * @Date : 2020/4/20
  * @Desc :
  */
-public class WallpaperFragment extends BaseLazyLoadFragment {
+public class WallpaperFragment extends BaseMainFragment {
 
     private static final String ARG_SECTION_NUMBER = "ARG_SECTION_NUMBER";
     private Banner banner;
@@ -60,14 +61,14 @@ public class WallpaperFragment extends BaseLazyLoadFragment {
 
     @Override
     protected void initView() {
-        banner = findViewById(R.id.banner);
-        scrollView = findViewById(R.id.scrollView);
+        banner = getView(R.id.banner);
+        scrollView = getView(R.id.scrollView);
         //设置适配器
         BannerImageAdapter adapter = new BannerImageAdapter(DataBean.getTestData());
         banner.setAdapter(adapter);
 
         banner.setBannerRound(BannerUtils.dp2px(5));
-    //    banner.setBannerGalleryEffect(60, 0, 1f);
+        //    banner.setBannerGalleryEffect(60, 0, 1f);
         banner.setPageTransformer(new ZoomOutPageTransformer());
         banner.removeIndicator();
         banner.setUserInputEnabled(false);
@@ -77,17 +78,18 @@ public class WallpaperFragment extends BaseLazyLoadFragment {
                 startActivity(WallPaperSettingActivity.class);
             }
         });
-        mIndicatorCircleLine = findViewById(R.id.indicator_circle_line);
+        mIndicatorCircleLine = getView(R.id.indicator_circle_line);
         mIndicatorCircleLine.setViewPager(banner.getViewPager2(), true);
 
 
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = getView(R.id.recyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         CommonDecoration commonDecoration = new CommonDecoration(30);
         recyclerView.addItemDecoration(commonDecoration);
+        Log.e(TAG, "initView");
     }
 
     @Override
@@ -130,11 +132,6 @@ public class WallpaperFragment extends BaseLazyLoadFragment {
                 wallPaperAdapter.getLoadMoreModule().loadMoreFail();
             }
         }, 10000);
-    }
-
-    @Override
-    protected void lazyLoad() {
-        scrollView.scrollTo(0, 0);
     }
 
 

@@ -12,6 +12,8 @@ import com.simba.membercenter.MyApplication;
 import com.simba.base.utils.QRCodeUtil;
 import com.simba.membercenter.R;
 
+import static com.simba.base.network.ConstantDefine.WeChatQRCodeURL;
+
 public class WeChatHelpPopupWindow extends GlobalPopupWindow implements View.OnClickListener {
     private static String TAG = "DeviceActivationPopupWindow";
     private TextView bt_close;
@@ -34,7 +36,7 @@ public class WeChatHelpPopupWindow extends GlobalPopupWindow implements View.OnC
         bt_close = view.findViewById(R.id.tv_close);
         bt_close.setOnClickListener(this);
         iv_QR_help = view.findViewById(R.id.iv_QR_help);
-        iv_QR_help.setImageBitmap(QRCodeUtil.createDefaultCodeBitmap("www.simbalink.cn", 184,184));
+        iv_QR_help.setImageBitmap(QRCodeUtil.createDefaultCodeBitmap(WeChatQRCodeURL, 184,184));
         return view;
     }
 

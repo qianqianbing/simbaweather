@@ -1,5 +1,6 @@
 package com.simba.simbaweather.ui.activity;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -59,6 +60,8 @@ public class AddCityActivity extends BaseActivity {
     List<CityInfo> recommendCity;
     LinearLayoutManager linearLayoutManager;//搜索结果横向布局管理器
     GridLayoutManager gridLayoutManager;//推荐列表网格布局管理器
+    private Intent intent;
+    private String cityname;
 
     @Override
     protected int getLayoutId() {
@@ -77,12 +80,13 @@ public class AddCityActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        String cityName = getIntent().getStringExtra("city");
+        intent = getIntent();
+        cityname = intent.getStringExtra("cityname");
         localCity = new CityInfo();
         localCity.setId("-1");
-        localCity.setCity(cityName);
-        localCity.setDistrict(cityName);
-        localCity.setProvince(cityName);
+        localCity.setCity(cityname);
+        localCity.setDistrict(cityname);
+        localCity.setProvince(cityname);
 
         cityplanningAdapter = new CityplanningAdapter(R.layout.item_add_city_recommend);
 

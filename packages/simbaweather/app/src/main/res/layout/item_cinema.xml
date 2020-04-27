@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="@dimen/dp_40"
     android:orientation="vertical">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginRight="50dp"
         android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
         android:background="@drawable/bg_app">
 
 
@@ -18,33 +19,51 @@
             android:id="@+id/beijingid"
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/tv_temperature"
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:id="@+id/rl_temp"
+                android:layout_width="220dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="80dp"
-                android:layout_marginTop="45dp"
-                android:textColor="#ffffffff"
-                android:textSize="128sp"
-                tools:text="12°" />
+                android:layout_marginTop="45dp">
+
+                <TextView
+                    android:id="@+id/tv_temperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ffffffff"
+                    android:textSize="128sp"
+                    tools:text="12°" />
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/tv_climate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="56dp"
                 android:layout_marginTop="85dp"
-                android:layout_toRightOf="@id/tv_temperature"
+                android:layout_toRightOf="@id/rl_temp"
                 android:textColor="#ffffffff"
                 android:textSize="28sp"
                 tools:text="多云" />
 
+            <ImageView
+                android:id="@+id/img_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/intro_margin_35"
+                android:layout_marginTop="93dp"
+                android:layout_toRightOf="@id/tv_climate"
+                android:src="@mipmap/airimg" />
+
             <TextView
+
                 android:id="@+id/tv_airquality"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="23dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="88dp"
-                android:layout_toRightOf="@+id/tv_climate"
+                android:layout_toRightOf="@+id/img_iv"
                 android:gravity="center"
                 android:textColor="#ffffffff"
                 android:textSize="20sp"
@@ -54,9 +73,9 @@
                 android:id="@+id/tv_max_min"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="55dp"
+                android:layout_marginLeft="56dp"
                 android:layout_marginTop="150dp"
-                android:layout_toRightOf="@id/tv_temperature"
+                android:layout_toRightOf="@id/rl_temp"
                 android:textColor="#ffffffff"
                 android:textSize="28sp"
                 tools:text="18°/ 8°" />
@@ -65,8 +84,8 @@
                 android:id="@+id/iv_windspeed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_temperature"
-                android:layout_marginLeft="90dp"
+                android:layout_below="@id/rl_temp"
+                android:layout_marginLeft="80dp"
                 android:layout_marginTop="15dp"
                 android:src="@mipmap/wind" />
 
@@ -79,15 +98,15 @@
                 android:layout_toRightOf="@id/iv_windspeed"
                 android:textColor="#ffffffff"
                 android:textSize="20sp"
-                tools:text="东南风 5级" />
+                tools:text="东南风5级" />
 
             <ImageView
                 android:id="@+id/iv_airhumidity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="74dp"
+                android:layout_marginLeft="56dp"
                 android:layout_marginTop="230dp"
-                android:layout_toRightOf="@id/tv_windspeed"
+                android:layout_toRightOf="@id/rl_temp"
                 android:src="@mipmap/waterdrop" />
 
             <TextView
@@ -99,14 +118,16 @@
                 android:layout_toRightOf="@id/iv_airhumidity"
                 android:textColor="#ffffffff"
                 android:textSize="20sp"
-                tools:text="湿度 45%" />
+                tools:text="湿度45%" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/tv_windspeed"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="75dp"
-                android:layout_marginBottom="65dp">
+                android:layout_marginLeft="80dp"
+                android:layout_marginTop="160dp"
+                android:layout_marginBottom="70dp">
 
                 <ImageView
                     android:id="@+id/iv_ultravioletradiator"
@@ -141,9 +162,12 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/tv_airhumidity"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="310dp"
-                android:layout_marginBottom="68dp">
+                android:layout_marginLeft="56dp"
+                android:layout_marginTop="160dp"
+                android:layout_marginBottom="70dp"
+                android:layout_toRightOf="@+id/rl_temp">
 
                 <ImageView
                     android:id="@+id/_ultravioletradiator"
@@ -159,10 +183,10 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_washcarstatus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="非常建议"
-                        android:id="@+id/tv_washcarstatus"
                         android:textColor="#FFFFFFFF"
                         android:textSize="28px" />
 
@@ -181,28 +205,55 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="80dp"
 
             android:orientation="horizontal">
-            <include android:id="@+id/weather_data_1"
+
+            <include
+                android:id="@+id/weather_data_1"
                 layout="@layout/item_weather"
-                android:layout_height="fill_parent"
                 android:layout_width="0dp"
-                android:layout_weight="1"/>
-            <include android:id="@+id/weather_data_2"
+                android:layout_height="fill_parent"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/crossline" />
+
+            <include
+                android:id="@+id/weather_data_2"
                 layout="@layout/item_weather"
-                android:layout_height="fill_parent"
                 android:layout_width="0dp"
-                android:layout_weight="1"/>
-            <include android:id="@+id/weather_data_3"
+                android:layout_height="fill_parent"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@mipmap/crossline" />
+
+            <include
+                android:id="@+id/weather_data_3"
                 layout="@layout/item_weather"
-                android:layout_height="fill_parent"
                 android:layout_width="0dp"
-                android:layout_weight="1"/>
-            <include android:id="@+id/weather_data_4"
+                android:layout_height="fill_parent"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/crossline" />
+
+            <include
+                android:id="@+id/weather_data_4"
                 layout="@layout/item_weather"
-                android:layout_height="fill_parent"
                 android:layout_width="0dp"
-                android:layout_weight="1"/>
+                android:layout_height="fill_parent"
+                android:layout_weight="1" />
         </LinearLayout>
 
     </LinearLayout>

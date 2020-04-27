@@ -1,13 +1,14 @@
 package com.simba.themestore.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ResourceUtils;
 import com.simba.themestore.R;
-import com.simba.themestore.base.BaseLazyLoadFragment;
+import com.simba.themestore.base.BaseMainFragment;
 import com.simba.themestore.fragment.adapter.PersonalAdapter;
 import com.simba.themestore.model.personal.PersonalMenuBean;
 import com.simba.themestore.view.itemdecoration.SpaceItemDecoration;
@@ -20,7 +21,7 @@ import java.util.List;
  * @Date : 2020/4/20
  * @Desc :
  */
-public class PersonalFragment extends BaseLazyLoadFragment {
+public class PersonalFragment extends BaseMainFragment {
     private static final String ARG_SECTION_NUMBER = "ARG_SECTION_NUMBER";
     private List<PersonalMenuBean> mData;
     private RecyclerView recyclerView;
@@ -40,9 +41,10 @@ public class PersonalFragment extends BaseLazyLoadFragment {
 
     @Override
     protected void initView() {
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = getView(R.id.recyclerView);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(gridLayoutManager);
+        Log.e(TAG,"initView");
     }
 
     @Override
@@ -61,8 +63,5 @@ public class PersonalFragment extends BaseLazyLoadFragment {
 
     }
 
-    @Override
-    protected void lazyLoad() {
 
-    }
 }

@@ -8,8 +8,8 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SPStaticUtils;
 import com.simba.base.base.BaseActivity;
-import com.simba.base.utils.SpStaticUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,8 +39,8 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        mSwSettingHolidayPush.setChecked(SpStaticUtils.getBoolean(SettingActivity.KEY_SETTING_HOLIDAY_PUSH, true));
-        mSwSettingAlmanac.setChecked(SpStaticUtils.getBoolean(SettingActivity.KEY_SETTING_ALMANAC, true));
+        mSwSettingHolidayPush.setChecked(SPStaticUtils.getBoolean(SettingActivity.KEY_SETTING_HOLIDAY_PUSH, true));
+        mSwSettingAlmanac.setChecked(SPStaticUtils.getBoolean(SettingActivity.KEY_SETTING_ALMANAC, true));
         mTvSettingVersion.setText(getVersionCode());
     }
 
@@ -56,14 +56,14 @@ public class SettingActivity extends BaseActivity {
         mSwSettingHolidayPush.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SpStaticUtils.put(KEY_SETTING_HOLIDAY_PUSH, isChecked);
+                SPStaticUtils.put(KEY_SETTING_HOLIDAY_PUSH, isChecked);
             }
         });
 
         mSwSettingAlmanac.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SpStaticUtils.put(KEY_SETTING_ALMANAC, isChecked);
+                SPStaticUtils.put(KEY_SETTING_ALMANAC, isChecked);
                 AppWidget.updateLunarView(SettingActivity.this, isChecked);
             }
         });

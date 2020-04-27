@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.simba.themestore.R;
 import com.simba.themestore.base.EditBaseActivity;
-import com.simba.themestore.launch.adapter.personal.PersonalThemeAdapter;
-import com.simba.themestore.model.personal.PersonalThemeBean;
+import com.simba.themestore.launch.adapter.personal.PersonalLockAdapter;
+import com.simba.themestore.model.personal.PersonalLockScreenBean;
 import com.simba.themestore.view.itemdecoration.CommonDecoration;
 
 import java.util.ArrayList;
@@ -17,8 +17,8 @@ import java.util.List;
 
 public class PersonalLockActivity extends EditBaseActivity implements EditBaseActivity.OnOptionListener {
     private RecyclerView recyclerView;
-    private List<PersonalThemeBean> mData;
-    private PersonalThemeAdapter themeAdapter;
+    private List<PersonalLockScreenBean> mData;
+    private PersonalLockAdapter lockAdapter;
 
     @Override
     protected int getLayoutID() {
@@ -39,13 +39,13 @@ public class PersonalLockActivity extends EditBaseActivity implements EditBaseAc
         setTitleName(R.string.personal_lock);
         mData = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            mData.add(new PersonalThemeBean());
+            mData.add(new PersonalLockScreenBean());
         }
-        themeAdapter = new PersonalThemeAdapter(R.layout.item_personal_theme, mData);
-        recyclerView.setAdapter(themeAdapter);
+        lockAdapter = new PersonalLockAdapter(mData);
+        recyclerView.setAdapter(lockAdapter);
         CommonDecoration commonDecoration = new CommonDecoration(30);
         recyclerView.addItemDecoration(commonDecoration);
-        themeAdapter.getLoadMoreModule().setOnLoadMoreListener(new OnLoadMoreListener() {
+        lockAdapter.getLoadMoreModule().setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
                 loadMore();
@@ -60,7 +60,7 @@ public class PersonalLockActivity extends EditBaseActivity implements EditBaseAc
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                themeAdapter.getLoadMoreModule().loadMoreEnd();
+                lockAdapter.getLoadMoreModule().loadMoreEnd();
             }
         }, 10000);
     }
@@ -71,26 +71,14 @@ public class PersonalLockActivity extends EditBaseActivity implements EditBaseAc
     }
 
     @Override
-    public void onEdit() {
-
-        themeAdapter.setEdit(true);
-        themeAdapter.notifyDataSetChanged();
+    public void onEdit(boolean isOnEdit) {
+        lockAdapter.setEdit(isOnEdit);
     }
 
     @Override
-    public void cancelEdit() {
-        themeAdapter.setEdit(false);
-        themeAdapter.notifyDataSetChanged();
+    public void onSelectAll(boolean isSelectAll) {
+        lockAdapter.selectOption(isSelectAll);
     }
 
 
-    @Override
-    public void onSelectAll() {
-
-    }
-
-    @Override
-    public void onReset() {
-
-    }
 }
