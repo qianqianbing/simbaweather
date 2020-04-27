@@ -2,6 +2,7 @@ package com.simba.themestore.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -12,7 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.simba.themestore.R;
-import com.simba.themestore.base.BaseLazyLoadFragment;
+import com.simba.themestore.base.BaseMainFragment;
 import com.simba.themestore.fragment.adapter.LockScreenAdapter;
 import com.simba.themestore.launch.theme.ThemeDetailActivity;
 import com.simba.themestore.model.LockScreenBean;
@@ -26,7 +27,7 @@ import java.util.List;
  * @Date : 2020/4/20
  * @Desc :
  */
-public class LockScreenFragment extends BaseLazyLoadFragment {
+public class LockScreenFragment extends BaseMainFragment {
     private static final String ARG_SECTION_NUMBER = "ARG_SECTION_NUMBER";
     private RecyclerView recyclerView;
     private List<LockScreenBean> mData;
@@ -47,10 +48,11 @@ public class LockScreenFragment extends BaseLazyLoadFragment {
 
     @Override
     protected void initView() {
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = getView(R.id.recyclerView);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         gridLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setLayoutManager(gridLayoutManager);
+        Log.e(TAG,"initView");
     }
 
     @Override
@@ -87,8 +89,5 @@ public class LockScreenFragment extends BaseLazyLoadFragment {
         }, 10000);
     }
 
-    @Override
-    protected void lazyLoad() {
 
-    }
 }
