@@ -2,8 +2,6 @@ package com.simba.simbaweather.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,9 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -25,6 +20,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.tabs.TabLayout;
 import com.simba.base.base.BaseActivity;
 import com.simba.base.utils.LogUtil;
+import com.simba.base.utils.Toasty;
 import com.simba.simbaweather.CityInfoManager;
 import com.simba.simbaweather.ICityChangeView;
 import com.simba.simbaweather.R;
@@ -58,9 +54,21 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
     TabLayout showTab;
 
     private static String TAG = "MainActivity";
+    @BindView(R.id.tv_refreshthread)
+    ImageView tvRefreshthread;
+    @BindView(R.id.delete)
+    ImageView delete;
+    @BindView(R.id.tv)
+    TextView tv;
     private WeatherPagerAdapter weatherPagerAdapter;
     int position;
     private boolean connected;
+    private int year;
+    private int month;
+    private int day;
+    private int hour;
+    private int minute;
+    private WeatherBean weatherBean;
 
     @Override
     protected int getLayoutId() {
@@ -109,7 +117,13 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
     }
 
     private void setTab(int position) {
-        LogUtil.e(showTab.getTabCount() + "");
+//        定位图标只在首页展示
+        if (position > 0) {
+            imgLocation.setVisibility(View.INVISIBLE);
+        } else {
+            imgLocation.setVisibility(View.VISIBLE);
+        }
+//        LogUtil.e(showTab.getTabCount() + "");
         for (int i = 0; i < showTab.getTabCount(); i++) {
             showTab.getTabAt(i).setText("").setIcon(R.mipmap.circledrop);
         }
@@ -132,7 +146,13 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
 
             if (weatherBeanMap != null) {
                 int cityId = cityManagerBeanList.get(position).getCityId();
-                return weatherBeanMap.get(cityId).getCity().getCity() + "·" + weatherBeanMap.get(cityId).getCity().getDistrict();
+                if (position==cityId){
+                    return  weatherBeanMap.get(cityId).getCity().getCity()+"·"+ weatherBeanMap.get(cityId).getCity().getDistrict();
+                }
+                else {
+                    return  weatherBeanMap.get(cityId).getCity().getDistrict();
+                }
+
             }
             return "";
         }
@@ -162,7 +182,7 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
                 }
 
                 if (weatherBeanMap != null) {
-                    WeatherBean weatherBean;
+
                     if (cityManagerBean.isLocationCity()) {
                         weatherBean = weatherBeanMap.get(0);
                     } else {
@@ -259,32 +279,75 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
         CityInfoManager.getInstance().unRegisterCityChangeView(this);
     }
 
-    @OnClick({R.id.tv_refreshtime, R.id.tv_runacity})
+    @OnClick({R.id.tv_refreshtime, R.id.tv_runacity, R.id.tv_refreshthread})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_refreshtime:
                 Time t = new Time(); // or Time t=new Time("GMT+8"); 加上Time Zone资料。
                 t.setToNow(); // 取得系统时间。
-                int year = t.year;
-                int month = t.month + 1;
-                int day = t.monthDay;
-                int hour = t.hour; // 0-23
-                int minute = t.minute;
+                year = t.year;
+                month = t.month + 1;
+                day = t.monthDay;
+                // 0-23
+                hour = t.hour;
+                minute = t.minute;
                 int second = t.second;
 //                2020-03-23 19:32
-                tvTime.setText("中国天气  更新于：" + year + "-" + month + "-" + day + "  " + hour + ":" + minute);
-                connected = NetworkUtils.isConnected();
-                if (connected){
-                    CityInfoManager.getInstance().requestWeatherInfo();
-                }
-                else {
-                    ToastUtils.setBgResource(R.mipmap.bg_back);
-                }
+                tvRefreshthread.setVisibility(View.VISIBLE);
+                tvRefreshtime.setVisibility(View.INVISIBLE);
+                tvTime.setText("天气刷新中，请稍等");
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(1000);
+                            connected = NetworkUtils.isConnected();
+                            if (connected) {
+                                tvRefreshtime.setVisibility(View.VISIBLE);
+                                tvRefreshthread.setVisibility(View.INVISIBLE);
+                                CityInfoManager.getInstance().requestWeatherInfo();
+                                tvTime.setText("中国天气  更新于：" + year + "-0" + month + "-" + day + "  " + hour + ":" + minute);
+                            } else {
+                                ToastUtils.setBgResource(R.mipmap.bg_back);
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
 
                 break;
             case R.id.tv_runacity:
                 Intent intent = new Intent(this, CityManagerActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.tv_refreshthread:
+//                2020-03-23 19:32
+                tvRefreshthread.setVisibility(View.VISIBLE);
+                tvRefreshtime.setVisibility(View.INVISIBLE);
+                tvTime.setText("天气刷新中，请稍等");
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(1000);
+                            connected = NetworkUtils.isConnected();
+                            if (connected) {
+                                tvRefreshtime.setVisibility(View.VISIBLE);
+                                tvRefreshthread.setVisibility(View.INVISIBLE);
+                                CityInfoManager.getInstance().requestWeatherInfo();
+                                tvTime.setText("中国天气  更新于：" + year + "-" + month + "-" + day + "  " + hour + ":" + minute);
+                            } else {
+                                Toast.makeText(mContext, "没有网络了", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
                 break;
         }
     }

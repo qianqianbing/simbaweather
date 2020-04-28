@@ -15,11 +15,12 @@
 
         <ImageView
             android:id="@+id/img_location"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
-            android:src="@mipmap/location" />
+            android:src="@mipmap/location"
+            />
 
         <TextView
             android:id="@+id/tv_city"
@@ -42,6 +43,16 @@
             android:text="中国天气  更新于："
             android:textColor="#FF7C7E82"
             android:textSize="24dp" />
+
+        <ImageView
+            android:id="@+id/tv_refreshthread"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"
+            android:layout_toRightOf="@id/tv_time"
+            android:src="@mipmap/refreshthread" />
 
         <ImageView
             android:id="@+id/tv_refreshtime"
@@ -72,16 +83,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="108dp">
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="@dimen/dp_10"
             android:background="#2000" />
+
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/show_vp"
-            android:layout_marginTop="50dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="50dp"
             android:layout_marginBottom="50dp" />
 
         <com.google.android.material.tabs.TabLayout
@@ -90,44 +103,45 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             app:tabGravity="fill"
-            app:tabIndicatorHeight="0dp"
-            />
+            app:tabIndicatorHeight="0dp" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/base_bg_app"
-            android:visibility="gone"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <ImageView
+                android:id="@+id/delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="150dp"
-                android:src="@mipmap/stripswitch"
-                android:id="@+id/delete"/>
+                android:src="@mipmap/stripswitch" />
 
             <TextView
+                android:id="@+id/tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_below="@id/delete"
-                android:id="@+id/tv"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="60dp"
                 android:text="定位不到城市，请稍后重试"
                 android:textColor="#FFFFFF"
                 android:textSize="@dimen/base_text_size_28" />
+
             <TextView
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="60dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv"
-                android:textSize="@dimen/base_text_size_34"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="60dp"
+                android:background="@mipmap/networkcircle"
                 android:gravity="center"
-                android:textColor="#FFFFFF"
                 android:text="重试"
-                android:background="@mipmap/networkcircle"/>
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/base_text_size_34" />
         </RelativeLayout>
     </RelativeLayout>
 

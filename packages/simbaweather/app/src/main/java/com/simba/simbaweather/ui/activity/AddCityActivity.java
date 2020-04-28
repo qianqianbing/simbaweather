@@ -82,6 +82,7 @@ public class AddCityActivity extends BaseActivity {
     protected void initData() {
         intent = getIntent();
         cityname = intent.getStringExtra("cityname");
+        String cityid = intent.getStringExtra("cityid");
         localCity = new CityInfo();
         localCity.setId("-1");
         localCity.setCity(cityname);
