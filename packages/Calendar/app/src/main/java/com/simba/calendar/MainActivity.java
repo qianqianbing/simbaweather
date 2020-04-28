@@ -153,6 +153,8 @@ public class MainActivity extends BaseActivity {
             public void onYearViewChange(boolean isClose) {
                 if (!isClose)
                     mIvMainToday.setEnabled(true);
+
+                mTvMainYearView.setText(isClose ? "年视图" : "月视图");
             }
         });
         mLlMainNetworkRetry.setOnClickListener(new View.OnClickListener() {

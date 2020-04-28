@@ -71,12 +71,12 @@ public class BasePickerView {
             //创建对话框
             createDialog();
             //给背景设置点击事件,这样当点击内容以外的地方会关闭界面
-            dialogView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dismiss();
-                }
-            });
+//            dialogView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    dismiss();
+//                }
+//            });
         } else {
             //如果只是要显示在屏幕的下方
             //decorView是activity的根View,包含 contentView 和 titleView
