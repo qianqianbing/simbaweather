@@ -17,6 +17,11 @@
         <item name="android:maxHeight">51dip</item>
     </style>
 
+    <style name="base_progressBarStyle">
+        <item name="android:indeterminateDrawable">@drawable/base_progress_large</item>
+
+    </style>
+
     <style name="base_login_edit_style">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>

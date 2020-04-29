@@ -127,5 +127,17 @@ public class SimbaUrl {
      * 获取主题主界面列表
      */
     public final static String MAIN_THEME_LIST = BASE_HOST + "/VehicleTheme/queryTheme";
+    /**
+     * 获取主题主界面轮播图
+     */
+    public final static String MAIN_THEME_BANNER = BASE_HOST + "/VehicleTheme/queryRecommendTheme";
+    /**
+     * 获取主题类型列表
+     */
+    public final static String MAIN_THEME_TYPE_LIST = BASE_HOST + "/VehicleTheme/queryCategorySkin";
+    /**
+     * 获取主题详情
+     */
+    public final static String MAIN_THEME_DETAIL = BASE_HOST + "/VehicleTheme/querySkinDetails";
 
 }

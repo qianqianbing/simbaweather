@@ -2,9 +2,8 @@ package com.simba.themestore.utils.img;
 
 import android.content.Context;
 import android.net.Uri;
-import android.widget.ImageView;
 
-import java.net.URI;
+import androidx.appcompat.widget.AppCompatImageView;
 
 /**
  * @Author : chenjianbo
@@ -20,7 +19,7 @@ public interface GlideImageWrapper {
      * @param imageView 视图
      * @param uri       图片的uri
      */
-    void loadImage(Context context, ImageView imageView, Uri uri);
+    void loadImage(Context context, AppCompatImageView imageView, Uri uri);
 
 
     /**
@@ -30,10 +29,10 @@ public interface GlideImageWrapper {
      * @param imageView
      * @param res
      */
-    void loadImage(Context context, ImageView imageView, int res);
+    void loadImage(Context context, AppCompatImageView imageView, int res);
 
 
-    void loadImage(Context context, ImageView imageView, String imgPath, int resize);
+    void loadImage(Context context, AppCompatImageView imageView, String imgPath, int resize);
 
     /**
      * 从文件加载图片
@@ -42,7 +41,7 @@ public interface GlideImageWrapper {
      * @param imageView 视图
      * @param imgPath   图片路径
      */
-    void loadCongestedImage(Context context, ImageView imageView, String imgPath);
+    void loadCongestedImage(Context context, AppCompatImageView imageView, String imgPath);
 
 
     /**
@@ -52,6 +51,6 @@ public interface GlideImageWrapper {
      * @param imageView 视图
      * @param uri
      */
-    void loadImage(Context context, ImageView imageView, URI uri);
+    void loadImage(Context context, AppCompatImageView imageView, String uri);
 
 }
