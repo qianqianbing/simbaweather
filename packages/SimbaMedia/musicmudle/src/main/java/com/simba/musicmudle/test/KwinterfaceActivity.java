@@ -35,7 +35,7 @@ import cn.kuwo.open.base.PhoneCodeResult;
 import cn.kuwo.open.base.SearchType;
 
 
-@Route(path = "/module/musicfragment")
+@Route(path = "/module/1")
     public class KwinterfaceActivity extends Activity {
     private String TAG = "KwinterfaceActivity";
     List<String> names;
