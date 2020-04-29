@@ -3,6 +3,7 @@ package com.simba.simbaweather.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,11 +67,7 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
         myRecyclerViewAdapter.setData(CityInfoManager.getInstance().getCityList(), null);
 
         rcv_cityweather.setAdapter(myRecyclerViewAdapter);
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
         CityInfoManager.getInstance().registerCityChangeView(this, this);
     }
 
@@ -83,7 +80,6 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
                 mTvCompileoff.setVisibility(View.VISIBLE);
                 mTvCompileon.setVisibility(View.INVISIBLE);
                 myRecyclerViewAdapter.notifyDataSetChanged();
-                //BUG点击的时候location图标会消失但是跟编辑和完成无关
                 break;
             case R.id.tv_compileoff:
                 //关闭
@@ -124,13 +120,12 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
 
         public String getCityNameByPosition(int position) {
             if (weatherBeanMap != null) {
-                cityId = cityManagerBeanList.get(position).getCityId();
-                if (position==cityId){
+                int cityId = cityManagerBeanList.get(position).getCityId();
+                if (position == 0) {
                     return weatherBeanMap.get(cityId).getCity().getCity() + "·" + weatherBeanMap.get(cityId).getCity().getDistrict();
-                }else {
-                    return weatherBeanMap.get(cityId).getCity().getCity();
+                } else {
+                    return weatherBeanMap.get(cityId).getCity().getDistrict();
                 }
-
             }
             return "";
         }
@@ -140,37 +135,56 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
             holder.rl_weather.setVisibility(View.VISIBLE);
             holder.rl_jump.setVisibility(View.GONE);
             holder.mIvCityDelete.setVisibility(View.GONE);
-
-            if (position==cityId){
+//          只显示当前定位的location
+            if (position == 0) {
                 holder.Location.setVisibility(View.VISIBLE);
             }
-            else {
-                holder.Location.setVisibility(View.INVISIBLE);
-            }
-            //最后一个 跳转的item
+            //从管理城市页面一个点击跳转到首页
+//            holder.itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    int cityId = cityManagerBeanList.get(position).getCityId();
+//                    //  Toast.makeText(mContext, "跳转成功"+weatherBeanMap.get(position).getWeatherToday().getAqi(), Toast.LENGTH_SHORT).show();
+//                    CityInfoManager.getInstance().updateCityState(true, cityId);
+//                    Toast.makeText(mContext, "" + cityId, Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(CityManagerActivity.this, MainActivity.class);
+//                    startActivity(intent);
+//                }
+//            });
+// 最后一个 跳转的item
             if (position == getItemCount() - 1) {
                 holder.rl_weather.setVisibility(View.GONE);
                 holder.rl_jump.setVisibility(View.VISIBLE);
+
                 holder.bt_jump.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(CityManagerActivity.this, AddCityActivity.class);
-                        intent.putExtra("cityname", weatherBeanMap.get(cityId).getCity().getDistrict());
-                        intent.putExtra("cityid",weatherBean.getCity().getCityid());
-                        startActivity(intent);
+                        if (getItemCount() >= 6) {
+
+                            Toast toast = Toast.makeText(getApplicationContext(),
+                                    "本功能只能添加五个页面", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+
+                        } else {
+                            Intent intent = new Intent(CityManagerActivity.this, AddCityActivity.class);
+                            intent.putExtra("cityname", weatherBeanMap.get(cityId).getCity().getDistrict());
+                            intent.putExtra("cityid", weatherBean.getCity().getCityid());
+                            startActivity(intent);
+                        }
                     }
                 });
             } else {
                 int cityId = cityManagerBeanList.get(position).getCityId();
                 if (weatherBeanMap != null) {
                     weatherBean = weatherBeanMap.get(cityId);
+
                     if (isEditState) {
                         holder.mIvCityDelete.setVisibility(View.VISIBLE);
                         //本地定位不可被删除
-                        if (position == cityId) {
+                        if (position == 0) {
                             //当position等于cityid则隐藏删除按钮
                             holder.mIvCityDelete.setVisibility(View.GONE);
-
                         }
 
                         holder.mIvCityDelete.setOnClickListener(new View.OnClickListener() {
@@ -186,8 +200,7 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
                                                 mTvCompileoff.setVisibility(View.VISIBLE);
                                                 mTvCompileon.setVisibility(View.INVISIBLE);
                                                 LogUtil.e(dialogAction + "删除成功");
-                                                holder.mIvCityDelete.setVisibility(View.INVISIBLE);
-                                               // Toast.makeText(CityManagerActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
+                                                // Toast.makeText(CityManagerActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
                                                 CityInfoManager.getInstance().updateCityState(false, cityId);
                                                 myRecyclerViewAdapter.notifyDataSetChanged();
                                             }
@@ -206,8 +219,8 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
                     }
                     try {
                         holder.mTvCityName.setText(getCityNameByPosition(position));
-                        holder.mTvCityTemp.setText(weatherBean.getWeatherToday().getTemp()+"°");
-                        holder.mTvCityTempRang.setText(weatherBean.getWeatherToday().getTemp()+"°/"+weatherBean.getWeatherToday().getTempDay()+"°");
+                        holder.mTvCityTemp.setText(weatherBean.getWeatherToday().getTemp() + "°");
+                        holder.mTvCityTempRang.setText(weatherBean.getWeatherToday().getTempDay() + "°/" + weatherBean.getWeatherToday().getTempNight() + "°");
                         holder.mIvCityImg.setImageDrawable(WeatherIconUtil.getWeatherIconByType(MyApplication.getMyApplication(), weatherBean.getWeatherToday().getConditionId()));
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -227,7 +240,7 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
         }
 
         class RecyclerHolder extends RecyclerView.ViewHolder {
-            TextView mTvCityName, mTvCityTemp, mTvCityTempRang,Location;
+            TextView mTvCityName, mTvCityTemp, mTvCityTempRang, Location;
             private ImageView mIvCityDelete, mIvCityImg;
             RelativeLayout rl_weather;
             RelativeLayout rl_jump;
@@ -236,7 +249,7 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
             private RecyclerHolder(View itemView) {
                 super(itemView);
                 mTvCityName = (TextView) itemView.findViewById(R.id.tv_citymangername);
-                Location=itemView.findViewById(R.id.location);
+                Location = itemView.findViewById(R.id.location);
                 mTvCityTemp = itemView.findViewById(R.id.tv_cityTemp);
                 mIvCityImg = itemView.findViewById(R.id.iv_cityimg);
                 mTvCityTempRang = itemView.findViewById(R.id.tv_cityTempRang);

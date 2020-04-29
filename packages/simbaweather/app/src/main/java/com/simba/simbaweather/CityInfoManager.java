@@ -59,6 +59,9 @@ public class CityInfoManager implements HttpRequest.WeatherHandler {
 
     public void updateCityState(boolean isAdd, int cityId) {
         //增加城市
+        //情况是如果第一次添加城市是天津
+        //第二次是其他城市这个是没有问题
+        //但是如果第二城市是北京的话就会有问题
         if (isAdd) {
             boolean isContained = false;
             for (CityManagerBean cityBean : cityList) {

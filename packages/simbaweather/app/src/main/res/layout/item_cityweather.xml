@@ -39,6 +39,7 @@
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginTop="20dp"
                 android:id="@+id/location"
+                android:visibility="invisible"
                 android:drawableRight="@mipmap/location" />
 
             <ImageView
