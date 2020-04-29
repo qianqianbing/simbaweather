@@ -7,6 +7,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -15,9 +16,12 @@ import com.simba.base.dialog.DialogUtil;
 
 
 public class MainActivity extends Activity implements View.OnClickListener{
+
     private static String TAG = "MainActivity";
-    private TextView tv_nickname;
-    private ImageView iv_switch_account,iv_userimage;
+
+    private TextView tv_nickname, tv_level, tv_id, tv_cartype;
+    private ProgressBar pb_level;
+    private ImageView iv_switch_account, iv_userimage;
 
     public static void startAcivity() {
         Intent intent = new Intent(MyApplication.getMyApplication().getApplicationContext(), MainActivity.class);
@@ -38,7 +42,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
         }
         tv_nickname = findViewById(R.id.tv_nickname);
         iv_userimage = findViewById(R.id.iv_userimage);
-        iv_switch_account  = findViewById(R.id.iv_switch_account);
+        tv_level = findViewById(R.id.tv_level);
+        pb_level = findViewById(R.id.pb_level);
+        tv_id = findViewById(R.id.tv_id);
+        tv_cartype = findViewById(R.id.tv_cartype);
+
+        iv_switch_account = findViewById(R.id.iv_switch_account);
         iv_switch_account.setOnClickListener(this);
         UserInfoBean userInfoBean = UserInfoManager.getInstance().getUserInfoData();
         if(userInfoBean  == null){
@@ -52,6 +61,19 @@ public class MainActivity extends Activity implements View.OnClickListener{
                     .fallback(R.drawable.icon_wechat) //url为空的时候,显示的图片
                     .error(R.drawable.icon_wechat);//图片加载失败后，显示的图片
             Glide.with(this).load(userInfoBean.getHeadimgurl()).apply(options).into(iv_userimage);
+            String strLevel = "成长等级 LV" + userInfoBean.getLevel() + " ("+ userInfoBean.getCurrentLevelPoint() + "\\" + userInfoBean.getNextLevelPoint() +  ")";
+            tv_level.setText(strLevel);
+
+            int curLevel = Integer.parseInt( userInfoBean.getCurrentLevelPoint());
+            int nextLevel = Integer.parseInt( userInfoBean.getNextLevelPoint());
+            pb_level.setMax(nextLevel);
+            pb_level.setProgress(curLevel);
+
+            String userName = userInfoBean.getId();
+            String id = "ID: " + userName.substring(0, 3) + "****" + userName.substring(7, userName.length());
+            tv_id.setText(id);
+
+            tv_cartype.setText("设备： " + userInfoBean.getVehicleType());
         }
     }
 
