@@ -4,12 +4,11 @@ import android.content.Context;
 import android.util.Log;
 
 import com.simba.message.R;
-import com.simba.message.contant.MessageDef;
 import com.simba.message.protocol.BaseParser;
-import com.simba.message.protocol.cloud.SimbaCloudCmd;
-import com.simba.message.protocol.cloud.SimbaCloudUtils;
-import com.simba.message.util.DataUtils;
 import com.simba.message.util.N;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * (网易)新闻消息解析器
@@ -21,30 +20,23 @@ public class NewsParser extends BaseParser {
     }
 
     @Override
-    public void parse(byte[] cmdBytes) {
+    public void parse(int cmdType, String jsonData) {
+        Log.i(TAG, jsonData);
 
-        byte msgOwner = cmdBytes[4];
-        byte msgLevel = cmdBytes[5];
+        try {
+            JSONObject obj = new JSONObject(jsonData);
 
-        int titleLen = DataUtils.getUnsignedByte(cmdBytes[8]);
-        String title = new String(cmdBytes, 8 + 1, titleLen);
+            int code = obj.getInt("code");
+            if(code == 200){
+                String title = obj.getString("title");
+                String message = obj.getString("message");
+                Log.i(TAG, "title=" + title+", message="+message);
 
-        int msgOffset = 8 + 1 + titleLen;
-        int messageLen = DataUtils.getUnsignedByte(cmdBytes[msgOffset]);
-        String message = new String(cmdBytes, msgOffset + 1, messageLen);
-        Log.i(TAG, "title=" + title+", message="+message);
-
-        switch (msgOwner){
-            case SimbaCloudCmd.MessageOwner.NOTIFICATION:
                 N.show(context, title, message, R.drawable.icon_news_wy);
-                break;
-            default:
-                break;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
-    @Override
-    public boolean check(byte[] cmdBytes) {
-        return SimbaCloudUtils.getCmdType(cmdBytes) == MessageDef.Message.NEWS;
-    }
 }

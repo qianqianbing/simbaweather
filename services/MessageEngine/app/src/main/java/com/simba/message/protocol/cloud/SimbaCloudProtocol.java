@@ -61,11 +61,21 @@ public class SimbaCloudProtocol implements IProtocol {
     }
 
     @Override
+    public int getCmdLength(byte[] cmdBytes) {
+        return SimbaCloudUtils.getCmdLength(cmdBytes);
+    }
+
+    @Override
+    public int getCmdStart() {
+        return SimbaCloudUtils.getCmdStart();
+    }
+
+    @Override
     public void queryIfNeed(ArrayList<byte[]> cmds){
     }
 
-    byte BCC = DataUtils.bcc(SimbaCloudCmd.UpDownLink.ACK, MessageDef.Message.DEFAULT, SimbaCloudCmd.MessageOwner.DEFAULT);
-    byte[] ACK_CMD = new byte[]{SimbaCloudCmd.HEADER, SimbaCloudCmd.HEADEREX, SimbaCloudCmd.UpDownLink.ACK, MessageDef.Message.DEFAULT, SimbaCloudCmd.MessageOwner.DEFAULT, /*消息等级*/0x0, /*消息长度高位*/0x0, /*消息长度低位*/0x0, BCC};
+    byte BCC = DataUtils.bcc(SimbaCloudCmd.UpDownLink.ACK, (byte) 0x0);
+    byte[] ACK_CMD = new byte[]{SimbaCloudCmd.HEADER, SimbaCloudCmd.HEADEREX, SimbaCloudCmd.UpDownLink.ACK, /*消息类型高位*/0x0, /*消息类型低位*/0x0, /*消息长度高位*/0x0, /*消息长度低位*/0x0, BCC};
 
     @Override
     public byte[] getDefaultCmd() {
@@ -90,7 +100,6 @@ public class SimbaCloudProtocol implements IProtocol {
         String dataStr = null;
         switch (msg.what){
             case MessageCmd.MSG_STATUS_ACK:
-
 
                 break;
             default:

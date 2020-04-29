@@ -1,4 +1,4 @@
-package com.simba.violationenquiry.net.callback;
+package com.simba.base.network.model.callback;
 
 /**
  * @Author : chenjianbo

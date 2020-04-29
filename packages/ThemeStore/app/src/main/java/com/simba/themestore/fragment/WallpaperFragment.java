@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.widget.HorizontalScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,7 +18,6 @@ import com.simba.themestore.base.BaseMainFragment;
 import com.simba.themestore.fragment.adapter.WallPaperAdapter;
 import com.simba.themestore.launch.wallpaper.WallPaperListActivity;
 import com.simba.themestore.launch.wallpaper.WallPaperSettingActivity;
-import com.simba.themestore.model.DataBean;
 import com.simba.themestore.model.WallPaperBean;
 import com.simba.themestore.view.ViewPagerIndicator;
 import com.simba.themestore.view.itemdecoration.CommonDecoration;
@@ -43,7 +41,7 @@ public class WallpaperFragment extends BaseMainFragment {
     private RecyclerView recyclerView;
     private List<WallPaperBean> mData;
     private WallPaperAdapter wallPaperAdapter;
-    private HorizontalScrollView scrollView;
+
     private ViewPagerIndicator mIndicatorCircleLine;
 
     public static WallpaperFragment newInstance(int index) {
@@ -55,6 +53,18 @@ public class WallpaperFragment extends BaseMainFragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        banner.start();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        banner.stop();
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.fragment_theme;
     }
@@ -62,9 +72,9 @@ public class WallpaperFragment extends BaseMainFragment {
     @Override
     protected void initView() {
         banner = getView(R.id.banner);
-        scrollView = getView(R.id.scrollView);
+
         //设置适配器
-        BannerImageAdapter adapter = new BannerImageAdapter(DataBean.getTestData());
+        BannerImageAdapter adapter = new BannerImageAdapter();
         banner.setAdapter(adapter);
 
         banner.setBannerRound(BannerUtils.dp2px(5));

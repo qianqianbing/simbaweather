@@ -10,8 +10,9 @@ import android.os.Looper;
 import android.os.RemoteException;
 import android.util.Log;
 
-import com.simba.message.bean.MemeberMsgData;
 import com.simba.base.os.ServiceManager;
+import com.simba.message.bean.MemeberMsgData;
+import com.simba.message.bean.SocketStateData;
 import com.simba.service.callbacks.IServiceDataCallback;
 import com.simba.service.callbacks.OnInitListener;
 import com.simba.service.data.DataWrapper;
@@ -19,28 +20,28 @@ import com.simba.service.data.DataWrapper;
 /**
  * @author chefengyun
  */
-public class MessageManager {
-    private final String TAG = "MessageManager";
+public class CommandEngnie {
+    private final String TAG = "CommandEngnie";
     private Context mContext;
     private Handler mHandler;
 
-    static final String SERVICE_NAME = "simba.message";
-    static final String ACTION = "action.simba.service.message";
+    static final String SERVICE_NAME = "simba.command";
+    static final String ACTION = "action.simba.service.command";
     static final String PKG = "com.simba.message";
-    static final String CLZ = "com.simba.message.MessageService";
+    static final String CLZ = "com.simba.message.CommandService";
 
-    private static MessageManager mHolder = null;
-    private MessageManager(Context ctx) {
+    private static CommandEngnie mHolder = null;
+    private CommandEngnie(Context ctx) {
         mContext = ctx.getApplicationContext();
 
         initBinderIfNeed(false);
     }
 
-    public static MessageManager getInstance(Context ctx) {
+    public static CommandEngnie getInstance(Context ctx) {
         if (mHolder == null) {
-            synchronized (MessageManager.class) {
+            synchronized (CommandEngnie.class) {
                 if (mHolder == null) {
-                    mHolder = new MessageManager(ctx);
+                    mHolder = new CommandEngnie(ctx);
                 }
             }
         }
@@ -53,7 +54,7 @@ public class MessageManager {
         mListener = l;
     }
 
-    private IMessage mService;
+    private ICommand mService;
     private boolean mIntentBinder;
     private ServiceConnection mServiceConn = new ServiceConnection() {
 
@@ -64,9 +65,8 @@ public class MessageManager {
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            Log.d(TAG, "msg disconnect.");
+            Log.d(TAG, "cmd disconnect.");
 
-            mService = null;
             if (mListener != null) {
                 mListener.onServiceDisconnected();
             }
@@ -84,14 +84,15 @@ public class MessageManager {
 
         @Override
         public void binderDied() {
-            Log.i(TAG, "msg binder died.");
+            Log.i(TAG, "cmd binder died.");
 
-            if (mService == null) return;
-            mService.asBinder().unlinkToDeath(this, 0);
-            mService = null;
+            if (mService != null){
+                mService.asBinder().unlinkToDeath(this, 0);
+                mService = null;
+            }
 
             // rebind
-            bindService();
+            rebindService(2000);
         }
     };
 
@@ -104,9 +105,9 @@ public class MessageManager {
             e.printStackTrace();
         }
 
-        mService = IMessage.Stub.asInterface(service);
+        mService = ICommand.Stub.asInterface(service);
 
-        Log.i(TAG, "msg bind ok");
+        Log.i(TAG, "cmd bind ok");
         if (mListener != null) {
             mListener.onServiceConnected();
         }
@@ -132,15 +133,19 @@ public class MessageManager {
             }
         } else {
             boolean r = mContext.bindService(new Intent(ACTION).setClassName(PKG, CLZ), mServiceConn, Context.BIND_AUTO_CREATE);
-            Log.e(TAG, "bindService ret="+r);
             if(!r){
-                if(mHandler == null){
-                    mHandler = new Handler(Looper.getMainLooper());
-                }
-                mHandler.removeCallbacks(mBinderCheckRunnable);
-                mHandler.postDelayed(mBinderCheckRunnable, 5000);
+                Log.e(TAG, "bindService failed and rebind after 5s.");
+                rebindService(5000);
             }
         }
+    }
+
+    private void rebindService(long delayMillis){
+        if(mHandler == null){
+            mHandler = new Handler(Looper.getMainLooper());
+        }
+        mHandler.removeCallbacks(mBinderCheckRunnable);
+        mHandler.postDelayed(mBinderCheckRunnable, delayMillis);
     }
 
     public void unbindService() {
@@ -193,6 +198,24 @@ public class MessageManager {
                 e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * 获取Socket连接状态
+     * @return
+     */
+    public boolean getSocketState() {
+        if (isBinder(true)) {
+            try {
+                DataWrapper dataWrapper = mService.getData(SocketStateData.CODE);
+                if (dataWrapper != null) {
+                    return ((SocketStateData) dataWrapper.getData()).isConnect();
+                }
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 
     /**

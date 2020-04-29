@@ -44,7 +44,7 @@ public class PersonalFragment extends BaseMainFragment {
         recyclerView = getView(R.id.recyclerView);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(gridLayoutManager);
-        Log.e(TAG,"initView");
+        Log.e(TAG, "initView");
     }
 
     @Override
@@ -60,7 +60,7 @@ public class PersonalFragment extends BaseMainFragment {
         recyclerView.setAdapter(personalAdapter);
         SpaceItemDecoration commonDecoration = new SpaceItemDecoration(39);
         recyclerView.addItemDecoration(commonDecoration);
-
+        recyclerView.setNestedScrollingEnabled(false);
     }
 
 

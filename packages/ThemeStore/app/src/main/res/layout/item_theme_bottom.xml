@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="510px"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rl_item_bottom"
+    android:layout_width="510px"
     android:layout_height="190px"
     android:layout_marginTop="32px">
 
 
-    <ImageView
-        android:id="@+id/iv_lock_screen"
+    <com.simba.themestore.view.RadiusImageView
+        android:id="@+id/iv_theme_bottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/about_bg" />
+        app:corner_radius="20px" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,7 +23,7 @@
         android:paddingRight="21px">
 
         <TextView
-            android:id="@+id/tv_name"
+            android:id="@+id/tv_theme_name_bottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -31,7 +32,7 @@
             android:textSize="@dimen/base_text_size_28" />
 
         <TextView
-            android:id="@+id/tv_state"
+            android:id="@+id/tv_theme_state_bottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

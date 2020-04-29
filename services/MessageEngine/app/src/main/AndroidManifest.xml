@@ -32,9 +32,20 @@
             android:process=":remote"
             android:excludeFromRecents="true"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            android:process=":remote">
             <intent-filter>
                 <action android:name="action.simba.service.message" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".CommandService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":parse">
+            <intent-filter>
+                <action android:name="action.simba.service.command" />
             </intent-filter>
         </service>
 

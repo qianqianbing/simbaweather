@@ -34,16 +34,12 @@ public class ParserManager {
         mParserList.put(cmdType, parser);
     }
 
-    public void parseCmd(byte[] cmdBytes) {
-        BaseParser parser = mParserList.get(ProtocolFactory.creat().getCmdType(cmdBytes));
+    public void parseCmd(int cmdType, String jsonData) {
+        BaseParser parser = mParserList.get(cmdType);
         if (parser != null) {
-            if (parser.check(cmdBytes)) {
-                parser.parse(cmdBytes);
-            } else {
-                Log.w(TAG, "cannot parse use " + parser);
-            }
+            parser.parse(cmdType, jsonData);
         } else {
-            Log.w(TAG, "no such parse...");
+            Log.w(TAG, "no such parse[" + cmdType + "]...");
         }
     }
 }
