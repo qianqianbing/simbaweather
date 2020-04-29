@@ -1,60 +1,33 @@
-package com.simba.message;
+package com.simba.message.impl;
 
 import android.content.Context;
 import android.os.Binder;
-import android.os.Handler;
-import android.os.IBinder;
-import android.os.Message;
 import android.os.Parcel;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 import android.util.Log;
 import android.util.SparseArray;
 
-import com.simba.message.bean.SocketStateData;
-import com.simba.message.protocol.MessageCmd;
+import com.simba.message.ICommand;
+import com.simba.message.manager.ProtocolFactory;
+import com.simba.message.protocol.BaseParser;
 import com.simba.service.callbacks.IServiceDataCallback;
 import com.simba.service.data.DataWrapper;
-import com.simba.message.protocol.BaseParser;
-import com.simba.message.manager.ProtocolFactory;
 
 /**
  * @author chefengyun
  */
-public class MessageImpl extends IMessage.Stub {
+public class CommandImpl extends ICommand.Stub {
 
     private static final String TAG = "Msg";
 
     private Context mContext;
-    private Handler mHandler;
 
-    public MessageImpl(Context ctx, Handler handler) {
+    public CommandImpl(Context ctx) {
         super();
         mContext = ctx;
-        mHandler = handler;
 
         ProtocolFactory.creat().initialParsers(mParseCallback);
-        onSocketStateDataCallback();
-    }
-
-    private void onSocketStateDataCallback() {
-        DataWrapper dataWrapper = new DataWrapper(new SocketStateData(mSocketConnect), SocketStateData.CODE);
-        Log.i(TAG, "handleCallback " + dataWrapper);
-        mParseCallback.cache(dataWrapper);
-
-        onDataCallback(dataWrapper);
-    }
-
-    private boolean mSocketConnect = false;
-
-    public void setSocketConnect(boolean connect) {
-        if (mSocketConnect != connect) {
-            mSocketConnect = connect;
-            if (!connect) {
-                mDataArray.clear();
-            }
-            onSocketStateDataCallback();
-        }
     }
 
     private BaseParser.ParseCallback mParseCallback = new BaseParser.ParseCallback() {
@@ -68,14 +41,6 @@ public class MessageImpl extends IMessage.Stub {
         public void cache(DataWrapper dataWrapper) {
             mDataArray.put(dataWrapper.getDataCode(), dataWrapper);
         }
-
-        @Override
-        public void statusAck(int msgType) {
-            Message msg = mHandler.obtainMessage(MessageCmd.MSG_STATUS_ACK);
-            msg.arg1 = msgType;
-            mHandler.sendMessage(msg);
-        }
-
     };
 
     public synchronized void onDataCallback(DataWrapper dataWrapper) {
@@ -93,7 +58,7 @@ public class MessageImpl extends IMessage.Stub {
         mCallbacks.finishBroadcast();
     }
 
-    private class PidDeathRecipient implements IBinder.DeathRecipient {
+    private class PidDeathRecipient implements DeathRecipient {
 
         private int pid;
         private IServiceDataCallback callback;

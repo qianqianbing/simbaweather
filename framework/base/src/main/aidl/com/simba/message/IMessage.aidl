@@ -1,14 +1,11 @@
 package com.simba.message;
 
-import com.simba.service.callbacks.IServiceDataCallback;
-import com.simba.service.data.DataWrapper;
+import com.simba.message.IMessageCallback;
 
 interface IMessage {
 
-    void registerCallback(IServiceDataCallback cb);
+    void registerCallback(IMessageCallback cb);
 
-    void unregisterCallback(IServiceDataCallback cb);
-
-    DataWrapper getData(int dataType);
+    void unregisterCallback(IMessageCallback cb);
 
 }
