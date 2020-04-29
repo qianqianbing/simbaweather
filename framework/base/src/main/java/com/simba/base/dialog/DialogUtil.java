@@ -182,6 +182,11 @@ public class DialogUtil extends Dialog implements View.OnClickListener {
         return this;
     }
 
+    public DialogUtil contentTextSize(int textSize) {
+        tv_content.setTextSize(textSize);
+        return this;
+    }
+
     public DialogUtil content(int contentResId) {
         tv_content.setText(contentResId);
         tv_content.setVisibility(View.VISIBLE);
@@ -214,6 +219,11 @@ public class DialogUtil extends Dialog implements View.OnClickListener {
         return this;
     }
 
+    public DialogUtil positiveTextSize(int textSize) {
+        tv_positive.setTextSize(textSize);
+        return this;
+    }
+
     public DialogUtil positiveTextColor(int color) {
         tv_positive.setTextColor(color);
         return this;
@@ -236,6 +246,11 @@ public class DialogUtil extends Dialog implements View.OnClickListener {
     public DialogUtil negativeText(int negativeTextId) {
         tv_negative.setText(negativeTextId);
         tv_negative.setVisibility(View.VISIBLE);
+        return this;
+    }
+
+    public DialogUtil negativeTextSize(int textSize) {
+        tv_negative.setTextSize(textSize);
         return this;
     }
 

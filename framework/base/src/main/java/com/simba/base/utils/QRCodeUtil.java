@@ -21,7 +21,7 @@ public class QRCodeUtil {
 
     //默认生成二维码的函数
     public static Bitmap createDefaultCodeBitmap(String content, int width, int height){
-        return createQRCodeBitmap(content, width, height,"UTF-8","H", "1", Color.BLACK, Color.WHITE);
+        return createQRCodeBitmap(content, width, height,"UTF-8","H", "", Color.BLACK, Color.WHITE);
     }
 
     /**
@@ -61,9 +61,9 @@ public class QRCodeUtil {
                 hints.put(EncodeHintType.ERROR_CORRECTION, error_correction_level);
             }
             // 空白边距设置
-            if (!TextUtils.isEmpty(margin)) {
-                hints.put(EncodeHintType.MARGIN, margin);
-            }
+            //if (!TextUtils.isEmpty(margin)) {
+                hints.put(EncodeHintType.MARGIN, "0");
+            //}
             /** 2.将配置参数传入到QRCodeWriter的encode方法生成BitMatrix(位矩阵)对象 */
             BitMatrix bitMatrix = new QRCodeWriter().encode(content, BarcodeFormat.QR_CODE, width, height, hints);
 
