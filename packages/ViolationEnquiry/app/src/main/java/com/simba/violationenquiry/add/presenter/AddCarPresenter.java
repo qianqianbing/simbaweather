@@ -2,11 +2,11 @@ package com.simba.violationenquiry.add.presenter;
 
 import com.simba.base.mvp.presenter.BasePresenter;
 import com.simba.base.network.model.SimpleResponse;
+import com.simba.base.network.model.callback.ResultCallBack;
 import com.simba.violationenquiry.R;
 import com.simba.violationenquiry.add.contract.AddCarInfoContract;
 import com.simba.violationenquiry.add.model.AddCarModel;
 import com.simba.violationenquiry.net.HttpRequest;
-import com.simba.violationenquiry.net.callback.ResultCallBack;
 import com.simba.violationenquiry.net.model.CarInfo;
 
 import io.reactivex.Observable;

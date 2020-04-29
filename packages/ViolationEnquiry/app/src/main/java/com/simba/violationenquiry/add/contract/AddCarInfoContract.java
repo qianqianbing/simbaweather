@@ -5,7 +5,7 @@ import android.content.Context;
 import com.simba.base.mvp.model.BaseModel;
 import com.simba.base.mvp.view.BaseView;
 import com.simba.base.network.model.SimpleResponse;
-import com.simba.violationenquiry.net.callback.ResultCallBack;
+import com.simba.base.network.model.callback.ResultCallBack;
 import com.simba.violationenquiry.net.model.CarInfo;
 
 /**
