@@ -5,11 +5,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/base_bg_app">
-
+  <ImageView
+      android:id="@+id/iv_cancel"
+      android:layout_width="24px"
+      android:layout_height="24px"
+      android:src="@drawable/icon_cancel"
+      android:layout_alignParentTop="true"
+      android:layout_alignParentLeft="true"
+      android:layout_marginLeft="@dimen/cancel_padding_left"
+      android:layout_marginTop="@dimen/cancel_padding_top"/>
   <ImageView
       android:id="@+id/iv_QRCode"
+      android:layout_width="@dimen/QRCode_width"
+      android:layout_height="@dimen/QRCode_height"
+      android:layout_centerInParent="true"/>
+  <TextView
+      android:layout_below="@id/iv_QRCode"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_centerInParent="true"/>
+      android:text="打开微信\n扫一扫注册/登陆"
+      android:textColor="@color/base_default_text_color"
+      android:textSize="@dimen/base_text_size_medium"
+      android:gravity="center"
+      android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>
