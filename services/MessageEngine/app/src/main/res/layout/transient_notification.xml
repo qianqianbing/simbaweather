@@ -18,7 +18,7 @@
      type in the "widget_frame" layout. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="195px"
     android:paddingTop="20px"
     android:paddingBottom="40px"
     android:paddingLeft="30px"
@@ -34,8 +34,8 @@
 
         <ImageView
             android:id="@android:id/icon"
-            android:layout_width="80px"
-            android:layout_height="80px"/>
+            android:layout_width="50px"
+            android:layout_height="50px"/>
 
         <TextView
             android:id="@android:id/title"
@@ -43,15 +43,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingLeft="20px"
-            android:textColor="#62afbb"
-            android:textSize="16sp" />
+            android:textColor="#6CF8FC"
+            android:textSize="28px" />
 
         <TextView
             android:id="@android:id/summary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#999"
-            android:textSize="16sp" />
+            android:textColor="@android:color/white"
+            android:textSize="26px" />
 
     </LinearLayout>
 
@@ -62,6 +62,6 @@
         android:singleLine="true"
         android:layout_marginTop="40px"
         android:textColor="@android:color/white"
-        android:textSize="18sp" />
+        android:textSize="33px" />
 
 </LinearLayout>

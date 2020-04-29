@@ -8,20 +8,20 @@ import com.simba.message.contant.MessageDef;
 /**
  * @author chefengyun
  *
- * 与云端的连接状态
+ * 与云端 Sokcet 的连接状态
  *
  */
-public class CloudStateData implements Parcelable {
+public class SocketStateData implements Parcelable {
 
     boolean connect;
 
-    public static final int CODE = MessageDef.Message.DEFAULT;
+    public static final int CODE = MessageDef.Message.SOCKET_STATE;
 
-    public CloudStateData(boolean connect) {
+    public SocketStateData(boolean connect) {
         this.connect = connect;
     }
 
-    protected CloudStateData(Parcel in) {
+    protected SocketStateData(Parcel in) {
         readFromParcel(in);
     }
 
@@ -39,15 +39,15 @@ public class CloudStateData implements Parcelable {
         return 0;
     }
 
-    public static final Creator<CloudStateData> CREATOR = new Creator<CloudStateData>() {
+    public static final Creator<SocketStateData> CREATOR = new Creator<SocketStateData>() {
         @Override
-        public CloudStateData createFromParcel(Parcel in) {
-            return new CloudStateData(in);
+        public SocketStateData createFromParcel(Parcel in) {
+            return new SocketStateData(in);
         }
 
         @Override
-        public CloudStateData[] newArray(int size) {
-            return new CloudStateData[size];
+        public SocketStateData[] newArray(int size) {
+            return new SocketStateData[size];
         }
     };
 
@@ -57,6 +57,6 @@ public class CloudStateData implements Parcelable {
 
     @Override
     public String toString() {
-        return "CloudStateData[connect=" + connect + "]";
+        return "SocketStateData[connect=" + connect + "]";
     }
 }

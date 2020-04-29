@@ -66,6 +66,15 @@ public class WeatherBean {
             private String province;
             private String city;
             private String district;
+            private String cityid;
+
+            public String getCityid() {
+                return cityid;
+            }
+
+            public void setCityid(String cityid) {
+                this.cityid = cityid;
+            }
 
             public String getCurrentid() {
                 return currentid;

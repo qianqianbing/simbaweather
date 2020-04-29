@@ -8,7 +8,6 @@ import com.blankj.utilcode.util.ResourceUtils;
 import com.simba.base.dialog.picker.SingleChooseManager;
 import com.simba.themestore.R;
 import com.simba.themestore.base.MyBaseActivity;
-import com.simba.themestore.utils.img.GlideImageLoader;
 
 /**
  * @Author : chenjianbo
@@ -37,7 +36,7 @@ public class WallPaperSettingActivity extends MyBaseActivity implements View.OnC
 
     @Override
     protected void initData() {
-        GlideImageLoader.getInstance().loadResImage(this, ivWallPaper, R.mipmap.about_bg);
+        //    GlideImageLoader.getInstance().loadResImage(this, ivWallPaper, R.mipmap.about_bg);
     }
 
     @Override

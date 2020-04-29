@@ -13,10 +13,10 @@ import java.util.List;
  * @Date : 2020/4/22
  * @Desc :
  */
-public class ThemeDetailAdapter extends BaseQuickAdapter<PersonalThemeBean, BaseViewHolder>   {
+public class ThemeDetailAdapter extends BaseQuickAdapter<PersonalThemeBean, BaseViewHolder> {
 
-    public ThemeDetailAdapter(int layoutResId, List<PersonalThemeBean> data) {
-        super(layoutResId, data);
+    public ThemeDetailAdapter(List<PersonalThemeBean> data) {
+        super(R.layout.item_theme_detail, data);
     }
 
     public ThemeDetailAdapter(int layoutResId) {

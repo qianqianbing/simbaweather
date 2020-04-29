@@ -14,9 +14,9 @@ public class SimbaUrl {
 
 
     //环境类型
-    private static String SERVER_TYPE = "debug";
+    private static String SERVER_TYPE = "gray";
 
-    //主机 结尾不要带/
+    //主机 结尾不要带"/"
     public static String BASE_HOST;
 
     /**
@@ -26,7 +26,7 @@ public class SimbaUrl {
         if ("debug".equals(SERVER_TYPE)) {                    //测试环境
             BASE_HOST = "http://cp.simbalink.cn/backend";
         } else if ("gray".equals(SERVER_TYPE)) {              //灰度环境
-            BASE_HOST = "";
+            BASE_HOST = "http://192.168.12.51:10005";
         } else {
             BASE_HOST = "";           //生产环境
         }
@@ -69,20 +69,19 @@ public class SimbaUrl {
     /**
      * 根据经纬度获取当地天气
      */
-    public final static String WEATHER_GET_INDEX_LOCATION=BASE_HOST+"weather/index/location";
+    public final static String WEATHER_GET_INDEX_LOCATION = BASE_HOST + "weather/index/location";
     /**
      * 城市推荐列表
      */
-    public final static String WEATHER_GET_WEATHER_RECOMMENDCITYLIST=BASE_HOST+"weather/recommendCityList";
+    public final static String WEATHER_GET_WEATHER_RECOMMENDCITYLIST = BASE_HOST + "weather/recommendCityList";
     /**
      * 城市模糊查询
      */
-    public final static String WEATHER_GET_WEATHER_MATCHINGCITY=BASE_HOST+"weather/matchingCity";
+    public final static String WEATHER_GET_WEATHER_MATCHINGCITY = BASE_HOST + "weather/matchingCity";
     /**
      * 城市ID查询
      */
-    public final static String WEATHER_GET_WEATHER_INDEXCITY=BASE_HOST+"weather/index/city";
-
+    public final static String WEATHER_GET_WEATHER_INDEXCITY = BASE_HOST + "weather/index/city";
 
 
     //********************************************* 会员中心App模块 ******************************************
@@ -122,5 +121,23 @@ public class SimbaUrl {
      * 获取车辆信息，车辆类型
      */
     public final static String ACCOUNT_GET_VEHICLEINFO = BASE_HOST_ACCOUNT + "/account/getVehicleInfo";
+
+    //*********************************************主题商城App模块 ******************************************
+    /**
+     * 获取主题主界面列表
+     */
+    public final static String MAIN_THEME_LIST = BASE_HOST + "/VehicleTheme/queryTheme";
+    /**
+     * 获取主题主界面轮播图
+     */
+    public final static String MAIN_THEME_BANNER = BASE_HOST + "/VehicleTheme/queryRecommendTheme";
+    /**
+     * 获取主题类型列表
+     */
+    public final static String MAIN_THEME_TYPE_LIST = BASE_HOST + "/VehicleTheme/queryCategorySkin";
+    /**
+     * 获取主题详情
+     */
+    public final static String MAIN_THEME_DETAIL = BASE_HOST + "/VehicleTheme/querySkinDetails";
 
 }

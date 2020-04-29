@@ -14,28 +14,35 @@ public class SimbaCloudUtils {
     private static final String TAG = "HikvisionUtils";
 
     public static int getCmdType(byte[] cmdBytes){
-        return cmdBytes[3];
+        return DataUtils.getUnsignedByte(cmdBytes[3]) * 256 + DataUtils.getUnsignedByte(cmdBytes[4]);
+    }
+
+    public static int getCmdLength(byte[] cmdBytes){
+        return DataUtils.getUnsignedByte(cmdBytes[5]) * 256 + DataUtils.getUnsignedByte(cmdBytes[6]);
+    }
+
+    public static int getCmdStart(){
+        return 7;
     }
 
     /**
      * 检查指令长度是否符合
      *
-     * @param cmds
+     * @param cmdBytes
      * @return
      */
-    private static byte[] checkCmdLen(byte[] cmds) {
-        if (cmds.length < SimbaCloudCmd.MIN_LEN) {
+    private static byte[] checkCmdLen(byte[] cmdBytes) {
+        if (cmdBytes.length < SimbaCloudCmd.MIN_LEN) {
             Log.w(TAG, "Illegal cmd length of less than " + SimbaCloudCmd.MIN_LEN);
             return null;
         }
 
-        int cmdLen = DataUtils.getUnsignedByte(cmds[6]) * 128 + DataUtils.getUnsignedByte(cmds[7]);
-        int checkLen = SimbaCloudCmd.MIN_LEN + cmdLen;
-        if (checkLen == cmds.length) {
+        int checkLen = SimbaCloudCmd.MIN_LEN + getCmdLength(cmdBytes);
+        if (checkLen == cmdBytes.length) {
             // TODO bcc check
-            return cmds;
+            return cmdBytes;
         } else {
-            Log.w(TAG, "Illegal cmd length, need " + checkLen + ", but found " + cmds.length);
+            Log.w(TAG, "Illegal cmd length, need " + checkLen + ", but found " + cmdBytes.length);
             return null;
         }
     }

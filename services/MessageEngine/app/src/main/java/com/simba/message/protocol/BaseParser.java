@@ -27,12 +27,8 @@ public abstract class BaseParser {
         void handleCallback(DataWrapper dataWrapper);
 
         void cache(DataWrapper dataWrapper);
-
-        void statusAck(int msgType);
     }
 
-    public abstract void parse(byte[] cmdBytes);
-
-    public abstract boolean check(byte[] cmdBytes);
+    public abstract void parse(int cmdType, String jsonData);
 
 }

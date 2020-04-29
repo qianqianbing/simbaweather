@@ -13,7 +13,7 @@ import java.util.List;
  * @Date : 2020/4/22
  * @Desc :默认添加加载更多
  */
-public abstract class BasePersonalAdapter<T extends AbstractChoose> extends BaseQuickAdapter<T, BaseViewHolder> implements LoadMoreModule, IBaseOption {
+public abstract class BasePersonalAdapter<T extends AbstractChoose> extends BaseQuickAdapter<T, BaseViewHolder> implements IBaseOption {
     private boolean isEdit = false;
 
     public BasePersonalAdapter(int layoutResId, List<T> data) {

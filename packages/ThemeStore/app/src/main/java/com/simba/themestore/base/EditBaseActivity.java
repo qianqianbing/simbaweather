@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,15 +34,19 @@ public abstract class EditBaseActivity extends AppCompatActivity {
     protected Button btnEdit;
     protected Button btnDelete;
     protected Button btnSelect;
-    protected OnOptionListener optionListener;
     protected boolean isSelectAll = false;
     protected boolean isEdit = false;
     protected Disposable mDisposable;
+    private OnOptionListener optionListener;
+    protected OnRetryListener onRetryListener;
     /**
      * 进度dialog
      */
     private DialogUtil publicDialog;
 
+    private RelativeLayout rlLoading;
+    private RelativeLayout rlError;
+    private Button btnRetry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +55,8 @@ public abstract class EditBaseActivity extends AppCompatActivity {
         try {
 
             mLlRoot = findViewById(R.id.ll_root);
-
+            rlLoading = findViewById(R.id.rl_loading);
+            rlError = findViewById(R.id.rl_error);
             View vgContent = getLayoutInflater().inflate(getLayoutID(), null);
             mLlRoot.addView(vgContent, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             ImmersionBar.with(this).init();
@@ -58,7 +64,7 @@ public abstract class EditBaseActivity extends AppCompatActivity {
             initView();
             initData();
             initClick();
-
+            loadData();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -76,13 +82,14 @@ public abstract class EditBaseActivity extends AppCompatActivity {
         btnEdit = findViewById(R.id.btn_edit);
         btnDelete = findViewById(R.id.btn_delete);
         btnSelect = findViewById(R.id.btn_select_all);
-
+        btnRetry = findViewById(R.id.btn_retry);
 
         //返回键监听
         mIvLeftBack.setOnClickListener(clickListener);
         btnEdit.setOnClickListener(clickListener);
         btnDelete.setOnClickListener(clickListener);
         btnSelect.setOnClickListener(clickListener);
+        btnRetry.setOnClickListener(clickListener);
     }
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
@@ -109,6 +116,12 @@ public abstract class EditBaseActivity extends AppCompatActivity {
                         optionListener.onSelectAll(!isSelectAll);
                     }
                     isSelectAll = !isSelectAll;
+                }
+                break;
+                case R.id.btn_retry: {
+                    if (onRetryListener != null) {
+                        onRetryListener.onRetry();
+                    }
                 }
                 break;
                 default:
@@ -160,7 +173,15 @@ public abstract class EditBaseActivity extends AppCompatActivity {
 
     protected void initClick() {
     }
+    protected void loadData() {
+    }
+    public OnRetryListener getOnRetryListener() {
+        return onRetryListener;
+    }
 
+    public void setOnRetryListener(OnRetryListener onRetryListener) {
+        this.onRetryListener = onRetryListener;
+    }
 
     /**
      * 设置标题
@@ -225,6 +246,21 @@ public abstract class EditBaseActivity extends AppCompatActivity {
         }
     }
 
+    protected void showLoading() {
+        rlLoading.setVisibility(View.VISIBLE);
+        rlError.setVisibility(View.GONE);
+    }
+
+    protected void dismissLoading() {
+        rlLoading.setVisibility(View.GONE);
+        rlError.setVisibility(View.GONE);
+    }
+
+    protected void showError() {
+        rlLoading.setVisibility(View.GONE);
+        rlError.setVisibility(View.VISIBLE);
+    }
+
     protected void startActivity(Class aClass) {
         startActivity(aClass, null);
     }
@@ -244,6 +280,10 @@ public abstract class EditBaseActivity extends AppCompatActivity {
 
         void onSelectAll(boolean isSelectAll);
 
+    }
+
+    public interface OnRetryListener {
+        void onRetry();
     }
 }
 

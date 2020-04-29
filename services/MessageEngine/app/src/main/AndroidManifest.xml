@@ -2,6 +2,7 @@
     package="com.simba.message">
     <!--    android:sharedUserId="android.uid.system">-->
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -26,14 +27,25 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.AboutActivity" />
-
         <service
             android:name=".MessageService"
+            android:process=":remote"
+            android:excludeFromRecents="true"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            android:process=":remote">
             <intent-filter>
                 <action android:name="action.simba.service.message" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".CommandService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":parse">
+            <intent-filter>
+                <action android:name="action.simba.service.command" />
             </intent-filter>
         </service>
 

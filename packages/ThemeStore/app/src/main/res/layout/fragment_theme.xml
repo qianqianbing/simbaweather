@@ -7,6 +7,16 @@
     android:paddingLeft="50px"
     android:paddingTop="41px">
 
+    <include
+        android:id="@+id/rl_loading"
+        layout="@layout/loading_view"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/rl_error"
+        layout="@layout/error_view"
+        android:visibility="gone" />
+
     <HorizontalScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
@@ -21,8 +31,7 @@
             <com.youth.banner.Banner
                 android:id="@+id/banner"
                 android:layout_width="1278px"
-                android:layout_height="480px"
-                >
+                android:layout_height="480px">
 
                 <com.simba.themestore.view.ViewPagerIndicator
                     android:id="@+id/indicator_circle_line"

@@ -13,12 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ResourceUtils;
+import com.simba.base.network.model.callback.ResultCallBack;
 import com.simba.violationenquiry.R;
 import com.simba.violationenquiry.add.AddNewCarActivity;
 import com.simba.violationenquiry.base.BaseLazyLoadFragment;
 import com.simba.violationenquiry.dialog.CommonDialog;
 import com.simba.violationenquiry.net.HttpRequest;
-import com.simba.violationenquiry.net.callback.ResultCallBack;
 import com.simba.violationenquiry.net.model.CarInfo;
 import com.simba.violationenquiry.net.model.detail.ViolateResData;
 import com.simba.violationenquiry.net.model.detail.ViolateResDetail;

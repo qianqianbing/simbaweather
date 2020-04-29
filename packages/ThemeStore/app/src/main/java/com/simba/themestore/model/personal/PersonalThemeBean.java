@@ -11,39 +11,70 @@ import org.greenrobot.greendao.annotation.Id;
  * @Date : 2020/4/22
  * @Desc :
  */
-@Entity(nameInDb = "ThemeDTO")
-public class PersonalThemeBean extends AbstractChoose  {
+@Entity(nameInDb = "PersonalThemeDTO")
+public class PersonalThemeBean extends AbstractChoose {
 
 
-    @Id(autoincrement = true)
-    private long id;
+    @Id
+    private String id;
+    private String typeid;
+    private String title;
+    private String coverurl;
+    private String vipID;
 
-    private String name;
-
-    @Generated(hash = 24642812)
-    public PersonalThemeBean(long id, String name) {
+    @Generated(hash = 407168230)
+    public PersonalThemeBean(String id, String typeid, String title,
+                             String coverurl, String vipID) {
         this.id = id;
-        this.name = name;
+        this.typeid = typeid;
+        this.title = title;
+        this.coverurl = coverurl;
+        this.vipID = vipID;
     }
 
     @Generated(hash = 1900821006)
     public PersonalThemeBean() {
     }
 
-    public long getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getName() {
-        return this.name;
+    public String getTypeid() {
+        return this.typeid;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTypeid(String typeid) {
+        this.typeid = typeid;
     }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getCoverurl() {
+        return this.coverurl;
+    }
+
+    public void setCoverurl(String coverurl) {
+        this.coverurl = coverurl;
+    }
+
+    public String getVipID() {
+        return this.vipID;
+    }
+
+    public void setVipID(String vipID) {
+        this.vipID = vipID;
+    }
+
 
 }
