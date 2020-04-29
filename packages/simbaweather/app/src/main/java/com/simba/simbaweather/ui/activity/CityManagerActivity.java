@@ -67,7 +67,7 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
 
         rcv_cityweather.setAdapter(myRecyclerViewAdapter);
         try {
-            Thread.sleep(300);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -83,6 +83,7 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
                 mTvCompileoff.setVisibility(View.VISIBLE);
                 mTvCompileon.setVisibility(View.INVISIBLE);
                 myRecyclerViewAdapter.notifyDataSetChanged();
+                //BUG点击的时候location图标会消失但是跟编辑和完成无关
                 break;
             case R.id.tv_compileoff:
                 //关闭
@@ -124,7 +125,12 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
         public String getCityNameByPosition(int position) {
             if (weatherBeanMap != null) {
                 cityId = cityManagerBeanList.get(position).getCityId();
-                return weatherBeanMap.get(cityId).getCity().getCity() + "·" + weatherBeanMap.get(cityId).getCity().getDistrict();
+                if (position==cityId){
+                    return weatherBeanMap.get(cityId).getCity().getCity() + "·" + weatherBeanMap.get(cityId).getCity().getDistrict();
+                }else {
+                    return weatherBeanMap.get(cityId).getCity().getCity();
+                }
+
             }
             return "";
         }
@@ -135,17 +141,22 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
             holder.rl_jump.setVisibility(View.GONE);
             holder.mIvCityDelete.setVisibility(View.GONE);
 
+            if (position==cityId){
+                holder.Location.setVisibility(View.VISIBLE);
+            }
+            else {
+                holder.Location.setVisibility(View.INVISIBLE);
+            }
             //最后一个 跳转的item
             if (position == getItemCount() - 1) {
-
                 holder.rl_weather.setVisibility(View.GONE);
                 holder.rl_jump.setVisibility(View.VISIBLE);
                 holder.bt_jump.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(CityManagerActivity.this, AddCityActivity.class);
-                        //todo
                         intent.putExtra("cityname", weatherBeanMap.get(cityId).getCity().getDistrict());
+                        intent.putExtra("cityid",weatherBean.getCity().getCityid());
                         startActivity(intent);
                     }
                 });
@@ -159,7 +170,9 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
                         if (position == cityId) {
                             //当position等于cityid则隐藏删除按钮
                             holder.mIvCityDelete.setVisibility(View.GONE);
+
                         }
+
                         holder.mIvCityDelete.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -170,14 +183,13 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
                                         .onPositive(new DialogUtil.SingleButtonCallback() {
                                             @Override
                                             public void onClick(DialogUtil dialogUtil, DialogUtil.DialogAction dialogAction) {
-                                                mTvCompileoff.setVisibility(View.INVISIBLE);
-                                                mTvCompileon.setVisibility(View.VISIBLE);
-                                                holder.mIvCityDelete.setVisibility(View.INVISIBLE);
+                                                mTvCompileoff.setVisibility(View.VISIBLE);
+                                                mTvCompileon.setVisibility(View.INVISIBLE);
                                                 LogUtil.e(dialogAction + "删除成功");
-                                                Toast.makeText(CityManagerActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
+                                                holder.mIvCityDelete.setVisibility(View.INVISIBLE);
+                                               // Toast.makeText(CityManagerActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
                                                 CityInfoManager.getInstance().updateCityState(false, cityId);
                                                 myRecyclerViewAdapter.notifyDataSetChanged();
-
                                             }
                                         })
                                         .onNegative(new DialogUtil.SingleButtonCallback() {
@@ -193,14 +205,15 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
                         });
                     }
                     try {
-                        holder.mTvCityName.setText(weatherBean.getCity().getCity() + "·" + weatherBean.getCity().getDistrict());
-                        holder.mTvCityTemp.setText(weatherBean.getWeatherToday().getTemp());
-                        holder.mTvCityTempRang.setText(weatherBean.getWeatherToday().getDate());
+                        holder.mTvCityName.setText(getCityNameByPosition(position));
+                        holder.mTvCityTemp.setText(weatherBean.getWeatherToday().getTemp()+"°");
+                        holder.mTvCityTempRang.setText(weatherBean.getWeatherToday().getTemp()+"°/"+weatherBean.getWeatherToday().getTempDay()+"°");
                         holder.mIvCityImg.setImageDrawable(WeatherIconUtil.getWeatherIconByType(MyApplication.getMyApplication(), weatherBean.getWeatherToday().getConditionId()));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
+
             }
         }
 
@@ -214,7 +227,7 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
         }
 
         class RecyclerHolder extends RecyclerView.ViewHolder {
-            TextView mTvCityName, mTvCityTemp, mTvCityTempRang;
+            TextView mTvCityName, mTvCityTemp, mTvCityTempRang,Location;
             private ImageView mIvCityDelete, mIvCityImg;
             RelativeLayout rl_weather;
             RelativeLayout rl_jump;
@@ -223,6 +236,7 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
             private RecyclerHolder(View itemView) {
                 super(itemView);
                 mTvCityName = (TextView) itemView.findViewById(R.id.tv_citymangername);
+                Location=itemView.findViewById(R.id.location);
                 mTvCityTemp = itemView.findViewById(R.id.tv_cityTemp);
                 mIvCityImg = itemView.findViewById(R.id.iv_cityimg);
                 mTvCityTempRang = itemView.findViewById(R.id.tv_cityTempRang);

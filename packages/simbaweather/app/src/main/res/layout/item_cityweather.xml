@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="400dp"
             android:layout_height="460dp"
             android:layout_marginLeft="30dp"
@@ -24,6 +24,7 @@
                 android:id="@+id/tv_citymangername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
@@ -31,12 +32,23 @@
                 android:textColor="@color/base_white"
                 android:textSize="@dimen/base_text_size_large" />
 
+            <TextView
+                android:layout_toRightOf="@id/tv_citymangername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginTop="20dp"
+                android:id="@+id/location"
+                android:drawableRight="@mipmap/location" />
+
             <ImageView
                 android:id="@+id/iv_cityimg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_below="@id/tv_citymangername"
                 android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
                 android:gravity="center" />
 
             <TextView
@@ -46,6 +58,8 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
+                android:layout_below="@id/iv_cityimg"
+                android:layout_centerHorizontal="true"
                 android:text="12°"
                 android:textColor="#ffffffff"
                 android:textSize="72sp" />
@@ -57,11 +71,13 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
+                android:layout_below="@id/tv_cityTemp"
                 android:text="22° / 10°"
+                android:layout_centerHorizontal="true"
                 android:textColor="#ffffffff"
                 android:textSize="28sp" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/iv_citydelete"
@@ -72,22 +88,22 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_jump"
-        android:layout_width="400dp"
-        android:layout_height="460dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
-        android:background="@mipmap/bg_city"
-        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/rl_jump"
+            android:layout_width="400dp"
+            android:layout_height="460dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@mipmap/bg_city"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/bt_jump"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:background="@mipmap/icon_city_add" />
-    </RelativeLayout>
+            <Button
+                android:id="@+id/bt_jump"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@mipmap/icon_city_add" />
+        </RelativeLayout>
 </RelativeLayout>
 
 
