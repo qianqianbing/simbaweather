@@ -6,206 +6,72 @@
     android:orientation="vertical"
     android:background="@drawable/base_bg_app">
 
-    <RelativeLayout
-        android:id="@+id/rl_account"
-        android:layout_width="754px"
-        android:layout_height="460px"
-        android:layout_marginLeft="10px"
-        android:layout_centerVertical="true"
-        android:background="@drawable/background_account">
-        <ImageView
-            android:id="@+id/iv_switch_account"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="22dp"
-            android:layout_marginRight="22dp"
-            android:src="@drawable/icon_switch"/>
-        <ImageView
-            android:id="@+id/iv_sex"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/icon_woman"/>
-        <ImageView
-            android:id="@+id/iv_member"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginLeft="60dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/icon_wechat"/>
-        <RelativeLayout
-            android:layout_width="162dp"
-            android:layout_height="40dp"
-            android:layout_below="@id/iv_member"
-            android:layout_marginTop="20dp"
-            android:layout_alignLeft="@id/iv_member">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_carowmer"/>
-            <TextView
-                android:id="@+id/tv_owned"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentRight="true"
-                android:textColor="@color/base_default_text_color"
-                android:textSize="@dimen/base_text_size_max"
-                android:text="@string/not_car_onwer"/>
-        </RelativeLayout>
-        <TextView
-            android:id="@+id/tv_nickname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="382dp"
-            android:textColor="@color/base_default_text_color"
-            android:textSize="@dimen/base_text_size_large"
-            android:text="奇瑞车主"/>
-        <TextView
-            android:id="@+id/tv_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/tv_nickname"
-            android:layout_below="@id/tv_nickname"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/base_day_common_line"
-            android:textSize="@dimen/base_text_size_medium"
-            android:text="ID:"/>
-        <TextView
-            android:id="@+id/tv_cartype"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/tv_nickname"
-            android:layout_below="@id/tv_id"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/base_day_common_line"
-            android:textSize="@dimen/base_text_size_medium"
-            android:text="车型：奇瑞新能源 "/>
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@id/rl_message"
+        android:layout_alignBottom="@id/rl_more"
+        android:layout_toLeftOf="@id/rl_message"
+        android:layout_marginRight="@dimen/main_frame_marggin_right"
+        android:layout_marginLeft="@dimen/main_frame_marggin_left"
+        layout="@layout/frame_userinfo" />
 
-        <View
-            android:layout_width="900dp"
-            android:layout_height="1dp"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="90dp"
-            android:background="@color/base_white_trans_4d"/>
-        <RelativeLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="10dp">
-            <RelativeLayout
-                android:layout_toLeftOf="@id/v_divider"
-                android:layout_marginRight="150dp"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:id="@+id/iv_certificatedinfo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_realname"/>
-                <TextView
-                    android:id="@+id/tv_certificatedinfo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/base_text_size_medium"
-                    android:textColor="@color/base_default_text_color"
-                    android:layout_toRightOf="@id/iv_certificatedinfo"
-                    android:layout_marginLeft="@dimen/popupwin_padding_top"
-                    android:text="@string/not_real_name"/>
-            </RelativeLayout>
-            <View
-                android:id="@+id/v_divider"
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/line_division"
-                android:layout_centerInParent="true"/>
-            <RelativeLayout
-                android:layout_toRightOf="@id/v_divider"
-                android:layout_marginLeft="150dp"
-                android:id="@+id/rl_bind_wechat"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:id="@+id/iv_wechatbind"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_wechat"
-                    android:layout_alignParentLeft="true"/>
-                <TextView
-                    android:id="@+id/tv_wechatbind"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/base_text_size_medium"
-                    android:textColor="@color/base_default_text_color"
-                    android:layout_toRightOf="@id/iv_wechatbind"
-                    android:layout_marginLeft="@dimen/popupwin_padding_top"
-                    android:text="@string/need_bind_weChat"/>
-            </RelativeLayout>
-        </RelativeLayout>
-    </RelativeLayout>
     <RelativeLayout
         android:id="@+id/rl_message"
-        android:layout_width="300dp"
-        android:layout_height="130dp"
+        android:layout_width="@dimen/message_frame_width"
+        android:layout_height="@dimen/message_frame_height"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginTop="@dimen/message_frame_marggin_top"
+        android:layout_marginRight="@dimen/message_frame_marggin_right"
         android:background="@drawable/background_message">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/iv_message"
+            android:layout_width="@dimen/message_icon_width"
+            android:layout_height="@dimen/message_icon_height"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="@dimen/message_icon_marggin_left"
+            android:layout_marginBottom="@dimen/message_icon_marggin_button"
             android:src="@drawable/icon_message"/>
         <TextView
+            android:layout_toRightOf="@id/iv_message"
+            android:layout_alignTop="@id/iv_message"
+            android:layout_marginLeft="@dimen/text_marggin_more_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/message"
             android:textColor="@color/base_default_text_color"
             android:textSize="@dimen/base_text_size_medium"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="170dp"
-            android:layout_marginBottom="45dp"/>
+            android:text="@string/message"
+            />
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/rl_more"
-        android:layout_width="300dp"
-        android:layout_height="130dp"
+        android:layout_width="@dimen/message_frame_width"
+        android:layout_height="@dimen/message_frame_height"
         android:background="@drawable/background_more"
        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_marginBottom="@dimen/message_frame_marggin_button"
+        android:layout_marginRight="@dimen/message_frame_marggin_right">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/iv_more"
+            android:layout_width="@dimen/more_icon_width"
+            android:layout_height="@dimen/more_icon_height"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="@dimen/message_icon_marggin_left"
+            android:layout_marginBottom="@dimen/message_icon_marggin_button"
             android:src="@drawable/icon_more"/>
         <TextView
+            android:layout_toRightOf="@id/iv_more"
+            android:layout_alignTop="@id/iv_more"
+            android:layout_marginLeft="@dimen/text_marggin_more_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/base_default_text_color"
             android:textSize="@dimen/base_text_size_medium"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="170dp"
-            android:layout_marginBottom="45dp"
             android:text="@string/more"/>
     </RelativeLayout>
 

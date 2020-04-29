@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/base_bg_app">
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignLeft="@id/ll_message"
+        android:layout_alignRight="@id/ll_message"
+        android:layout_marginTop="@dimen/main_info_marggin_top"
+        android:layout_marginBottom="@dimen/main_info_marggin_top"
+        android:layout_above="@id/ll_message"
+        layout="@layout/frame_userinfo" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_message"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/message_frame_height"
+        android:orientation="horizontal"
+        android:layout_marginRight="@dimen/message_frame_marggin_right"
+        android:layout_marginLeft="@dimen/message_frame_marggin_left"
+        android:layout_marginBottom="@dimen/message_frame_marggin_button"
+        android:layout_alignParentBottom="true">
+        <RelativeLayout
+            android:id="@+id/rl_message"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_more">
+            <ImageView
+                android:id="@+id/iv_message"
+                android:layout_width="@dimen/message_icon_width"
+                android:layout_height="@dimen/message_icon_height"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/message_icon_marggin_left"
+                android:layout_marginBottom="@dimen/message_icon_marggin_button"
+                android:src="@drawable/icon_message"/>
+            <TextView
+                android:layout_toRightOf="@id/iv_message"
+                android:layout_alignTop="@id/iv_message"
+                android:layout_marginLeft="@dimen/text_marggin_more_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/base_default_text_color"
+                android:textSize="@dimen/base_text_size_medium"
+                android:text="@string/message"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_more"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/more_frame_marggin_left"
+            android:background="@drawable/background_more">
+
+            <ImageView
+                android:id="@+id/iv_more"
+                android:layout_width="@dimen/more_icon_width"
+                android:layout_height="@dimen/more_icon_height"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/message_icon_marggin_left"
+                android:layout_marginBottom="@dimen/message_icon_marggin_button"
+                android:src="@drawable/icon_more"/>
+            <TextView
+                android:layout_toRightOf="@id/iv_more"
+                android:layout_alignTop="@id/iv_more"
+                android:layout_marginLeft="@dimen/text_marggin_more_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/base_default_text_color"
+                android:textSize="@dimen/base_text_size_medium"
+                android:text="@string/more"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
