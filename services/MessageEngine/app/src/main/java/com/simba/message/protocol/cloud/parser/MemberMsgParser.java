@@ -6,13 +6,12 @@ import android.util.Log;
 import com.simba.base.define.ModelDefine;
 import com.simba.message.R;
 import com.simba.message.bean.MemeberMsgData;
-import com.simba.message.contant.MessageDef;
 import com.simba.message.protocol.BaseParser;
-import com.simba.message.protocol.cloud.SimbaCloudCmd;
-import com.simba.message.protocol.cloud.SimbaCloudUtils;
-import com.simba.message.util.DataUtils;
 import com.simba.message.util.N;
 import com.simba.service.data.DataWrapper;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * 会员中心消息解析器
@@ -24,37 +23,32 @@ public class MemberMsgParser extends BaseParser {
     }
 
     @Override
-    public void parse(byte[] cmdBytes) {
+    public void parse(int cmdType, String jsonData) {
+        Log.i(TAG, jsonData);
 
-        byte msgOwner = cmdBytes[4];
-        byte msgLevel = cmdBytes[5];
+        try {
+            JSONObject obj = new JSONObject(jsonData);
 
-        int len = DataUtils.getUnsignedByte(cmdBytes[7]);
-        String msg = new String(cmdBytes, 8, len);
-        Log.i(TAG, "msg="+msg);
+            int code = obj.getInt("code");
+            if(code == 200){
+                String title = obj.getString("title");
+                String message = obj.getString("message");
 
-        switch (msgOwner){
-            case SimbaCloudCmd.MessageOwner.NOTIFICATION:
-                N.tapNotification(context, "会员中心", msg, R.drawable.ic_member);
-                break;
-            case SimbaCloudCmd.MessageOwner.App:
-            default:
-                final MemeberMsgData data = new MemeberMsgData("", "", msg, "");
+                final MemeberMsgData data = new MemeberMsgData("", title, message, "");
                 final DataWrapper dataWrapper = new DataWrapper(data, MemeberMsgData.CODE);
                 mCallBack.cache(dataWrapper);
 
-                if(!ModelDefine.MEMBERCENTER_PACKAGENAME.equals(N.getTopActivityPackageName(context))){
-                    // 会员中心不在前台， 则以通知提示
-                    N.tapNotification(context, "会员中心", msg, R.drawable.ic_member, ModelDefine.MEMBERCENTER_PACKAGENAME, ModelDefine.MEMBERCENTER_MAIN_ACTIVITY);
-                }else{
+                String topPackage = N.getTopActivityPackageName(context);
+                if(ModelDefine.MEMBERCENTER_PACKAGENAME.equals(topPackage) || "com.shuiyes.appstore".equals(topPackage)){
                     mCallBack.handleCallback(dataWrapper);
+                }else{
+                    // 会员中心不在前台， 则以通知提示
+                    N.show(context, title, message, R.drawable.ic_member, ModelDefine.MEMBERCENTER_PACKAGENAME, ModelDefine.MEMBERCENTER_MAIN_ACTIVITY);
                 }
-                break;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
-    @Override
-    public boolean check(byte[] cmdBytes) {
-        return SimbaCloudUtils.getCmdType(cmdBytes) == MessageDef.Message.MEMBER_MSG;
-    }
 }

@@ -5,7 +5,7 @@ ext {
             // 用于Gradle编译项目的工具版本
             buildToolsVersion: "29.0.3",
             // 最低支持Android版本
-            minSdkVersion    : 16,
+            minSdkVersion    : 19,
             // 目标版本
             targetSdkVersion : 27,
             // 设置是否使用混淆

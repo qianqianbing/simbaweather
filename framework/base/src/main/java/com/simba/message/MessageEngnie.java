@@ -10,35 +10,36 @@ import android.os.Looper;
 import android.os.RemoteException;
 import android.util.Log;
 
-import com.simba.message.bean.MemeberMsgData;
 import com.simba.base.os.ServiceManager;
-import com.simba.service.callbacks.IServiceDataCallback;
 import com.simba.service.callbacks.OnInitListener;
-import com.simba.service.data.DataWrapper;
 
 /**
  * @author chefengyun
  */
-public class MessageManager {
-    private final String TAG = "MessageManager";
+class MessageEngnie {
+
+    private final String TAG = this.getClass().getSimpleName();
+
     private Context mContext;
     private Handler mHandler;
 
     static final String SERVICE_NAME = "simba.message";
     static final String ACTION = "action.simba.service.message";
+    static final String PKG = "com.simba.message";
+    static final String CLZ = "com.simba.message.MessageService";
 
-    private static MessageManager mHolder = null;
-    private MessageManager(Context ctx) {
+    private static MessageEngnie mHolder = null;
+    private MessageEngnie(Context ctx) {
         mContext = ctx.getApplicationContext();
 
-        initBinder(false);
+        initBinderIfNeed(false);
     }
 
-    public static MessageManager getInstance(Context ctx) {
+    public static MessageEngnie getInstance(Context ctx) {
         if (mHolder == null) {
-            synchronized (MessageManager.class) {
+            synchronized (MessageEngnie.class) {
                 if (mHolder == null) {
-                    mHolder = new MessageManager(ctx);
+                    mHolder = new MessageEngnie(ctx);
                 }
             }
         }
@@ -52,60 +53,68 @@ public class MessageManager {
     }
 
     private IMessage mService;
+    private boolean mIntentBinder;
     private ServiceConnection mServiceConn = new ServiceConnection() {
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            init(service);
+            initBinder(service, true);
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
             Log.d(TAG, "msg disconnect.");
 
-            mService = null;
             if (mListener != null) {
                 mListener.onServiceDisconnected();
             }
         }
     };
 
-    private void init(IBinder service) {
+    private Runnable mBinderCheckRunnable = new Runnable() {
+        @Override
+        public void run() {
+            initBinderIfNeed(true);
+        }
+    };
+
+    private IBinder.DeathRecipient mDeathRecipient = new IBinder.DeathRecipient() {
+
+        @Override
+        public void binderDied() {
+            Log.i(TAG, "msg binder died.");
+
+            if (mService != null){
+                mService.asBinder().unlinkToDeath(this, 0);
+                mService = null;
+            }
+
+            // rebind
+            rebindService(2000);
+        }
+    };
+
+    private void initBinder(IBinder service, boolean intentBinder) {
+        mIntentBinder = intentBinder;
+
+        try {
+            service.linkToDeath(mDeathRecipient, 0);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
         mService = IMessage.Stub.asInterface(service);
+
         Log.i(TAG, "msg bind ok");
         if (mListener != null) {
             mListener.onServiceConnected();
         }
     }
 
-    public void bindService() {
-        if (isBinder()) {
-            if (mListener != null) {
-                mListener.onServiceConnected();
-            }
-        } else {
-            boolean r = mContext.bindService(new Intent(ACTION), mServiceConn, Context.BIND_AUTO_CREATE);
-            if(!r){
-                if(mHandler == null){
-                    mHandler = new Handler(Looper.getMainLooper());
-                }
-                mHandler.removeCallbacks(mBinderCheckRunnable);
-                mHandler.postDelayed(mBinderCheckRunnable, 5000);
-            }
-        }
-    }
-
-    private Runnable mBinderCheckRunnable = new Runnable() {
-        @Override
-        public void run() {
-            initBinder(true);
-        }
-    };
-
-    private void initBinder(boolean bind){
+    private void initBinderIfNeed(boolean bind){
         IBinder service = ServiceManager.getService(SERVICE_NAME);
         if (service != null) {
-            init(service);
+            initBinder(service, false);
         } else {
             if(bind){
                 bindService();
@@ -115,14 +124,40 @@ public class MessageManager {
         }
     }
 
-    @Deprecated
+    public void bindService() {
+        if (isBinder()) {
+            if (mListener != null) {
+                mListener.onServiceConnected();
+            }
+        } else {
+            boolean r = mContext.bindService(new Intent(ACTION).setClassName(PKG, CLZ), mServiceConn, Context.BIND_AUTO_CREATE);
+            if(!r){
+                Log.e(TAG, "bindService failed and rebind after 5s.");
+                rebindService(5000);
+            }
+        }
+    }
+
+    private void rebindService(long delayMillis){
+        if(mHandler == null){
+            mHandler = new Handler(Looper.getMainLooper());
+        }
+        mHandler.removeCallbacks(mBinderCheckRunnable);
+        mHandler.postDelayed(mBinderCheckRunnable, delayMillis);
+    }
+
     public void unbindService() {
         mListener = null;
-        mService = null;
+
+        if(mService != null){
+            mService.asBinder().unlinkToDeath(mDeathRecipient, 0);
+            if(mIntentBinder) mContext.unbindService(mServiceConn);
+            mService = null;
+        }
     }
 
     /**
-     * TBoxService 是否bind成功
+     * Service 是否bind成功
      *
      * @return 成功/失败
      */
@@ -131,7 +166,7 @@ public class MessageManager {
     }
 
     /**
-     * TBoxService 是否bind成功
+     * Service 是否bind成功
      *
      * @param bind 非binder状态，传入TRUE 则要 bindService，反之亦然
      * @return 成功/失败
@@ -143,7 +178,7 @@ public class MessageManager {
         return mService != null;
     }
 
-    public void registerCallback(IServiceDataCallback cb) {
+    public void registerCallback(IMessageCallback cb) {
         if (isBinder()) {
             try {
                 mService.registerCallback(cb);
@@ -153,7 +188,7 @@ public class MessageManager {
         }
     }
 
-    public void unregisterCallback(IServiceDataCallback cb) {
+    public void unregisterCallback(IMessageCallback cb) {
         if (isBinder()) {
             try {
                 mService.unregisterCallback(cb);
@@ -161,24 +196,6 @@ public class MessageManager {
                 e.printStackTrace();
             }
         }
-    }
-
-    /**
-     * 获取会员中心消息
-     * @return
-     */
-    public MemeberMsgData getMemberMsg() {
-        if (isBinder(true)) {
-            try {
-                DataWrapper dataWrapper = mService.getData(MemeberMsgData.CODE);
-                if (dataWrapper != null) {
-                    return (MemeberMsgData) dataWrapper.getData();
-                }
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
     }
 
 }

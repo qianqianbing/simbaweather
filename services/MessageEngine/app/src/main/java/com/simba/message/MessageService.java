@@ -3,17 +3,16 @@ package com.simba.message;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Message;
 import android.os.SystemClock;
 import android.util.Log;
 
-import com.simba.message.manager.ParserManager;
+import com.simba.base.os.ServiceManager;
+import com.simba.message.impl.MessageImpl;
 import com.simba.message.transport.MessageSocket;
 import com.simba.message.util.DataUtils;
-import com.simba.base.os.ServiceManager;
 import com.simba.message.manager.ProtocolFactory;
+import com.simba.message.util.N;
 
 import java.util.ArrayList;
 
@@ -22,10 +21,10 @@ import java.util.ArrayList;
  */
 public class MessageService extends Service {
 
-    private final String TAG = "MessageService";
+    private final String TAG = this.getClass().getSimpleName();
 
     private Context mContext;
-    private MessageImpl mTBox;
+    private MessageImpl mService;
     private MessageSocket mSocket;
 
     @Override
@@ -35,13 +34,12 @@ public class MessageService extends Service {
         Log.d(TAG, "onCreate().");
         mContext = this.getApplicationContext();
 
-        ProtocolFactory.creat().init(mContext);
+        mService = new MessageImpl();
+        ServiceManager.addService(MessageEngnie.SERVICE_NAME, mService.asBinder());
 
-        mTBox = new MessageImpl(this, mHandler);
-        ServiceManager.addService(MessageManager.SERVICE_NAME, mTBox.asBinder());
+        N.startForeground(this);
 
         mSocket = new MessageSocket();
-
         new Thread(new DispatchThread()).start();
         new Thread(new SendThread()).start();
         new Thread(new ConnectThread()).start();
@@ -50,38 +48,13 @@ public class MessageService extends Service {
     @Override
     public IBinder onBind(Intent arg0) {
         Log.d(TAG, "onBind ok");
-        return mTBox.asBinder();
+        return mService.asBinder();
     }
 
     // 命令处理队列
     private ArrayList<byte[]> mReadList = new ArrayList<byte[]>();
     // 命令发送队列
     private ArrayList<byte[]> mWriteList = new ArrayList<byte[]>();
-
-    private Handler mHandler = new MessageHandler();
-    private class MessageHandler extends Handler {
-
-        public static final int MSG_RCMD = 100;
-
-        @Override
-        public void handleMessage(Message msg) {
-            if (!mSocket.isConnected()) {
-                Log.w(TAG, "socket is not connected, ignore msg of" + msg.what);
-                return;
-            }
-
-            if(msg.what == MSG_RCMD){
-                ParserManager.get().parseCmd((byte[]) msg.obj);
-            }else{
-                byte[] send = ProtocolFactory.creat().getSendCmd(msg);
-                if(send != null){
-                    synchronized (mWriteList) {
-                        mWriteList.add(send);
-                    }
-                }
-            }
-        }
-    };
 
     @Override
     public boolean onUnbind(Intent intent) {
@@ -108,7 +81,7 @@ public class MessageService extends Service {
             for (; ; ) {
                 try {
                     if (!mSocket.isConnected()) {
-                        mTBox.setSocketConnect(false);
+                        mService.setSocketConnect(false);
                         mSocket.waitForConnection();
 
                         // connect succes to query
@@ -119,7 +92,7 @@ public class MessageService extends Service {
                         continue;
                     }
 
-                    mTBox.setSocketConnect(true);
+                    mService.setSocketConnect(true);
                     final byte[] rCmd = mSocket.readCmd();
                     if (rCmd != null && rCmd.length > 0) {
 
@@ -159,9 +132,7 @@ public class MessageService extends Service {
                     }
 
                     for (byte[] cmd : list) {
-//                        ParserManager.get().parseCmd(cmd);
-                        // 抛到消息队列处理
-                        mHandler.sendMessage(mHandler.obtainMessage(MessageHandler.MSG_RCMD, cmd));
+                        mService.parse(cmd);
                     }
 
                     SystemClock.sleep(100);
