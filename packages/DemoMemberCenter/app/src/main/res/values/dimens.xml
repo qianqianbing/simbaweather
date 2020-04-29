@@ -1,8 +1,44 @@
 <resources>
+	<dimen name="cancel_padding_left">0dp</dimen>
+    <dimen name="cancel_padding_top">0dp</dimen>
+    <!-- 消息框的大小  -->
+    <dimen name="message_frame_width">240dp</dimen>
+    <dimen name="message_frame_height">114dp</dimen>
 
-    <dimen name="popup_text_padding_top">48dp</dimen>
+    <dimen name="message_frame_marggin_right">40dp</dimen>
+    <dimen name="message_frame_marggin_top">50dp</dimen>
+    <dimen name="message_frame_marggin_button">20dp</dimen>
+    <dimen name="message_frame_marggin_left">40dp</dimen>
+    <dimen name="more_frame_marggin_left">20dp</dimen>
+    <dimen name="more_icon_width">40dp</dimen>
+    <dimen name="more_icon_height">29dp</dimen>
+    <dimen name="main_info_marggin_top">20dp</dimen>
+    <dimen name="main_info_marggin_button">20dp</dimen>
+
+    <dimen name="head_image_marggin_left">27dp</dimen>
+    <dimen name="head_image_marggin_top">27dp</dimen>
+    <dimen name="head_text_marggin_left">60dp</dimen>
+    <dimen name="message_icon_width">44dp</dimen>
+    <dimen name="message_icon_height">37dp</dimen>
+
+    <dimen name="line_marggin_button">63dp</dimen>
+    <dimen name="line_marggin_left">30dp</dimen>
+    <dimen name="line_marggin_right">30dp</dimen>
+    <dimen name="button_frame_height">62dp</dimen>
+
+    <dimen name="main_frame_marggin_left">40dp</dimen>
+    <dimen name="main_frame_marggin_right">30dp</dimen>
+
+    <dimen name="text_marggin_more_icon">29dp</dimen>
+
+    <dimen name="message_icon_marggin_left">41dp</dimen>
+    <dimen name="message_icon_marggin_button">32dp</dimen>
+    <dimen name="nickname_marggin_left">220dp</dimen>
+    <dimen name="nickname_marggin_top">61dp</dimen>
+
+	<dimen name="popup_text_padding_top">48dp</dimen>
     <dimen name="popup_icon_padding_top">35dp</dimen>
-    <dimen name="popup_icon_padding_right">70dp</dimen>
+    <dimen name="popup_icon_padding_right">65dp</dimen>
 
 
     <dimen name="height_line">1dp</dimen>
