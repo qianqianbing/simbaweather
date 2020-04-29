@@ -4,8 +4,8 @@
     <dimen name="cancel_padding_left">40dp</dimen>
     <dimen name="cancel_padding_top">40dp</dimen>
     <!-- 二维码的大小  -->
-    <dimen name="QRCode_width">160dp</dimen>
-    <dimen name="QRCode_height">160dp</dimen>
+    <dimen name="QRCode_width">120dp</dimen>
+    <dimen name="QRCode_height">120dp</dimen>
 
     <!-- 消息框的大小  -->
     <dimen name="message_frame_width">240dp</dimen>
