@@ -19,6 +19,8 @@ import com.simba.themestore.launch.adapter.theme.ThemeTypeListAdapter;
 import com.simba.themestore.model.PageInfo;
 import com.simba.themestore.model.theme.ThemeDetailBean;
 import com.simba.themestore.net.HttpRequest;
+import com.simba.themestore.view.GridLoadMoreView;
+import com.simba.themestore.view.itemdecoration.SpaceDecoration;
 import com.simba.themestore.view.itemdecoration.SpaceItemDecoration;
 
 import java.util.List;
@@ -73,8 +75,10 @@ public class ThemeDetailListActivity extends EditBaseActivity implements EditBas
 
         themeTypeListAdapter = new ThemeTypeListAdapter();
         recyclerView.setAdapter(themeTypeListAdapter);
-        SpaceItemDecoration commonDecoration = new SpaceItemDecoration(30);
-        recyclerView.addItemDecoration(commonDecoration);
+        SpaceDecoration spaceDecoration = new SpaceDecoration(30);
+        recyclerView.addItemDecoration(spaceDecoration);
+
+        themeTypeListAdapter.getLoadMoreModule().setLoadMoreView(new GridLoadMoreView());
         themeTypeListAdapter.getLoadMoreModule().setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
@@ -100,6 +104,7 @@ public class ThemeDetailListActivity extends EditBaseActivity implements EditBas
                     public void onLoaded(List<ThemeDetailBean> wrapper) {
                         emitter.onNext(wrapper);
                     }
+
                     @Override
                     public void onDataLoadedFailure(Exception e) {
                         emitter.onError(new Exception(e.getMessage()));
