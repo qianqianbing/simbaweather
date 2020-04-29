@@ -3,15 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.simba.simbamedia">
 
-
     <application
-        android:allowBackup="true"
         android:name=".MediaApp"
-        tools:replace="android:name,android:theme"
+        android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
-
+        android:theme="@style/AppTheme"
+        tools:replace="android:name,android:theme">
+        <activity
+            android:name=".Main2Activity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

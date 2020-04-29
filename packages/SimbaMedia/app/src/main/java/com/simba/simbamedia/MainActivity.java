@@ -16,7 +16,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ARouter.init(getApplication());
+
         findViewById(R.id.bt1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,6 +50,40 @@ public class MainActivity extends Activity {
             }
         });
 
+
+
+        findViewById(R.id.bt2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                Intent intent = new Intent(MainActivity.this, KwinterfaceActivity.class);
+                ARouter.getInstance()
+                        .build("/app/hello")
+                        .navigation(MainActivity.this, new NavCallback() {
+                            @Override
+                            public void onFound(Postcard postcard) {
+                                Log.d("ARouter", "找到了");
+                            }
+
+                            @Override
+                            public void onLost(Postcard postcard) {
+                                Log.d("ARouter", "找不到了"+postcard.toString());
+                            }
+
+                            @Override
+                            public void onArrival(Postcard postcard) {
+
+                                Log.d("ARouter", "跳转完了");
+                            }
+
+                            @Override
+                            public void onInterrupt(Postcard postcard) {
+                                Log.d("ARouter", "被拦截了");
+                            }
+
+                        });
+            }
+        });
     }
 
 }

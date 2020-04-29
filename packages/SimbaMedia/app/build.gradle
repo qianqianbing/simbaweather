@@ -52,13 +52,16 @@ dependencies {
     implementation project(path: ':musicmudle')
 
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.navigation:navigation-fragment:2.2.2'
+    implementation 'androidx.navigation:navigation-ui:2.2.2'
     testImplementation 'junit:junit:4.12'
     implementation "com.jakewharton:butterknife:${dependVersion.butterknife}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${dependVersion.butterknife}"
 
     implementation "${depsLibs.arouterapi}"
     annotationProcessor "${depsLibs.aroutercompiler}"
-
 
 
 }
