@@ -1,7 +1,6 @@
 package com.simba.themestore.launch.adapter.personal;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.module.LoadMoreModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.simba.themestore.base.IBaseOption;
 import com.simba.themestore.model.AbstractChoose;
@@ -29,7 +28,7 @@ public abstract class BasePersonalAdapter<T extends AbstractChoose> extends Base
     }
 
     public void setEdit(boolean edit) {
-        getLoadMoreModule().setEnableLoadMore(!edit);
+
         isEdit = edit;
         if (!edit) {
             selectOption(false);//清除选择的数据
