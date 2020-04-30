@@ -5,11 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/base_toast_bg"
     android:gravity="center"
-    android:minWidth="320dp"
-    android:minHeight="66dp"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/intro_margin_40"
-    android:paddingRight="@dimen/intro_margin_40">
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/base_simba_toast_iv_view"

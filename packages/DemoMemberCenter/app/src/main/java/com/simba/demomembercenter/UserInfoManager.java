@@ -18,7 +18,7 @@ public class UserInfoManager {
 
     private static String SP_UserInfoState = "userInfoState";
     private static String SP_DeviceId = "deviceId";
-
+    private static String SP_QRCode = "qrCode";
     private static UserInfoManager userInfoManager;
 
     public static UserInfoManager getInstance(){
@@ -63,4 +63,14 @@ public class UserInfoManager {
          }
          return deviceId;
     }
+
+    public String getQRCodeURL(){
+       String QRCodeURI = sp.getString(SP_QRCode, null);
+        return QRCodeURI;
+    }
+
+    public void setQRCodeURL(String qrCode){
+        sp.edit().putString(SP_QRCode, qrCode).commit();
+    }
+
 }

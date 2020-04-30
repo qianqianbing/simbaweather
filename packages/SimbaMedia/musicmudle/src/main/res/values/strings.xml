@@ -1,7 +1,16 @@
 <resources>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="app_name">SimbaMedia</string>
-    <string name="lrc_label">暂无歌词</string>
+    <string name="music_hello_blank_fragment">Hello blank fragment</string>
+    <string name="music_app_name">SimbaMedia</string>
+    <string name="music_lrc_label">暂无歌词</string>
+    <string name="music_title_activity_recommend_day">RecommendDayAct</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="music_first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="music_next">Next</string>
+    <string name="music_previous">Previous</string>
+
+    <string name="music_hello_first_fragment">Hello first fragment</string>
+    <string name="hmusic_ello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>

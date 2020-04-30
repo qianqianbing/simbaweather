@@ -123,17 +123,17 @@ public class LrcView extends View {
         int defDuration = getResources().getInteger(R.integer.lrc_animation_duration);
         mAnimationDuration = ta.getInt(R.styleable.LrcView_lrcAnimationDuration, defDuration);
         mAnimationDuration = (mAnimationDuration < 0) ? defDuration : mAnimationDuration;
-        mNormalTextColor = ta.getColor(R.styleable.LrcView_lrcNormalTextColor, getResources().getColor(R.color.lrc_normal_text_color));
-        mCurrentTextColor = ta.getColor(R.styleable.LrcView_lrcCurrentTextColor, getResources().getColor(R.color.lrc_current_text_color));
-        mTimelineTextColor = ta.getColor(R.styleable.LrcView_lrcTimelineTextColor, getResources().getColor(R.color.lrc_timeline_text_color));
+        mNormalTextColor = ta.getColor(R.styleable.LrcView_lrcNormalTextColor, getResources().getColor(R.color.music_lrc_normal_text_color));
+        mCurrentTextColor = ta.getColor(R.styleable.LrcView_lrcCurrentTextColor, getResources().getColor(R.color.music_lrc_current_text_color));
+        mTimelineTextColor = ta.getColor(R.styleable.LrcView_lrcTimelineTextColor, getResources().getColor(R.color.music_lrc_timeline_text_color));
         mDefaultLabel = ta.getString(R.styleable.LrcView_lrcLabel);
-        mDefaultLabel = TextUtils.isEmpty(mDefaultLabel) ? getContext().getString(R.string.lrc_label) : mDefaultLabel;
+        mDefaultLabel = TextUtils.isEmpty(mDefaultLabel) ? getContext().getString(R.string.music_lrc_label) : mDefaultLabel;
         mLrcPadding = ta.getDimension(R.styleable.LrcView_lrcPadding, 0);
-        mTimelineColor = ta.getColor(R.styleable.LrcView_lrcTimelineColor, getResources().getColor(R.color.lrc_timeline_color));
+        mTimelineColor = ta.getColor(R.styleable.LrcView_lrcTimelineColor, getResources().getColor(R.color.music_lrc_timeline_color));
         float timelineHeight = ta.getDimension(R.styleable.LrcView_lrcTimelineHeight, getResources().getDimension(R.dimen.lrc_timeline_height));
         mPlayDrawable = ta.getDrawable(R.styleable.LrcView_lrcPlayDrawable);
         mPlayDrawable = (mPlayDrawable == null) ? getResources().getDrawable(R.drawable.lrc_play) : mPlayDrawable;
-        mTimeTextColor = ta.getColor(R.styleable.LrcView_lrcTimeTextColor, getResources().getColor(R.color.lrc_time_text_color));
+        mTimeTextColor = ta.getColor(R.styleable.LrcView_lrcTimeTextColor, getResources().getColor(R.color.music_lrc_time_text_color));
         float timeTextSize = ta.getDimension(R.styleable.LrcView_lrcTimeTextSize, getResources().getDimension(R.dimen.lrc_time_text_size));
         mTextGravity = ta.getInteger(R.styleable.LrcView_lrcTextGravity, LrcEntry.GRAVITY_CENTER);
 

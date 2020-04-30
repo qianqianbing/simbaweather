@@ -14,7 +14,7 @@
     <dimen name="more_icon_height">29dp</dimen>
     <dimen name="main_info_marggin_top">20dp</dimen>
     <dimen name="main_info_marggin_button">20dp</dimen>
-
+    <dimen name="device_marggin_top">8dp</dimen>
     <dimen name="head_image_marggin_left">27dp</dimen>
     <dimen name="head_image_marggin_top">27dp</dimen>
     <dimen name="head_text_marggin_left">60dp</dimen>

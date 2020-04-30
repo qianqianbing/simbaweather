@@ -20,13 +20,7 @@ import org.json.JSONObject;
 
 import java.util.Locale;
 
-import static com.simba.base.network.ConstantDefine.QRTYPE_ACTIVATION;
-import static com.simba.base.network.ConstantDefine.QRTYPE_LOGIN;
-import static com.simba.base.network.SimbaUrl.ACCOUNT_GET_QRCODE;
-import static com.simba.base.network.SimbaUrl.ACCOUNT_GET_VEHICLEINFO;
-import static com.simba.base.network.SimbaUrl.ACCOUNT_LOGIN;
-import static com.simba.base.network.SimbaUrl.ACCOUNT_USER_INFO;
-import static com.simba.base.network.SimbaUrl.VEHICLE_CERTIFICATION;
+
 
 public class HttpRequest {
 
