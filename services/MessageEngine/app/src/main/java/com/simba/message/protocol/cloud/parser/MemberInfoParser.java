@@ -4,12 +4,11 @@ import android.content.Context;
 import android.util.Log;
 
 import com.simba.message.bean.MemeberInfoData;
-import com.simba.message.contant.MessageDef;
 import com.simba.message.protocol.BaseParser;
-import com.simba.message.protocol.cloud.SimbaCloudCmd;
-import com.simba.message.protocol.cloud.SimbaCloudUtils;
-import com.simba.message.util.DataUtils;
 import com.simba.service.data.DataWrapper;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * 会员信息 解析器
@@ -21,28 +20,43 @@ public class MemberInfoParser extends BaseParser {
     }
 
     @Override
-    public void parse(byte[] cmdBytes) {
+    public void parse(int cmdType, String jsonData) {
+        Log.i(TAG, jsonData);
 
-        byte msgOwner = cmdBytes[4];
-        byte msgLevel = cmdBytes[5];
+        try {
+            JSONObject obj = new JSONObject(jsonData);
 
-        int len = DataUtils.getUnsignedByte(cmdBytes[7]);
-        String token = new String(cmdBytes, 8, len);
-        Log.i(TAG, "token="+token);
+            int code = obj.getInt("code");
+            if(code == 200){
+                JSONObject dataObj = obj.getJSONObject("data");
+                String token = dataObj.getString("token");
+                String openid = dataObj.getString("openid");
+                String userid = dataObj.getString("userId");
+                String message = obj.getString("message");
 
-        switch (msgOwner){
-            case SimbaCloudCmd.MessageOwner.App:
-            default:
-                final MemeberInfoData data = new MemeberInfoData("", token, "");
+                final MemeberInfoData data = new MemeberInfoData(token, openid, userid, message);
                 final DataWrapper dataWrapper = new DataWrapper(data, MemeberInfoData.CODE);
                 mCallBack.handleCallback(dataWrapper);
                 mCallBack.cache(dataWrapper);
-                break;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
-    @Override
-    public boolean check(byte[] cmdBytes) {
-        return SimbaCloudUtils.getCmdType(cmdBytes) == MessageDef.Message.MEMBER_INFO;
-    }
 }
+
+/*
+
+{
+	"message": null,
+	"code": 200,
+	"data": {
+		"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE1OTAzMDEyNDgsInVzZXJJZCI6IjEiLCJzdXBwb3J0IjpmYWxzZX0.YFT_mV6MEemccIzypGmnpbr-jKFjicAki8LE5GasBCXN0xS7BgxZpZtbRhvzSpGFszirTNzxKc-GzOrXMqex8A",
+		"openid": null,
+		"userId": null
+	},
+	"success": true
+}
+
+*/

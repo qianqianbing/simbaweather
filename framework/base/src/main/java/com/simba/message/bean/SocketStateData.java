@@ -15,7 +15,7 @@ public class SocketStateData implements Parcelable {
 
     boolean connect;
 
-    public static final int CODE = MessageDef.Message.DEFAULT;
+    public static final int CODE = MessageDef.Message.SOCKET_STATE;
 
     public SocketStateData(boolean connect) {
         this.connect = connect;

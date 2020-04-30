@@ -7,6 +7,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.adapter.Call;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
+import com.lzy.okgo.convert.FileConvert;
 import com.lzy.okgo.cookie.CookieJarImpl;
 import com.lzy.okgo.cookie.store.SPCookieStore;
 import com.lzy.okgo.https.HttpsUtils;
@@ -18,6 +19,7 @@ import com.simba.base.network.utils.JsonConvert;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.lang.reflect.Type;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -197,6 +199,17 @@ public class OkGoUtil<T> {
                 .converter(new JsonConvert<T>(type))
                 .adapt();
         Response<T> response = call.execute();
+        if (response.isSuccessful()) {
+            return response.body();
+        }
+        throw ExceptionHelper.handleException(response.getException());
+    }
+
+    public static File downloadFile(Context cxt, String sdPath, String url, String name) throws Exception {
+        Call<File> call = OkGo.<File>get(url)
+                .tag(cxt)
+                .converter(new FileConvert(sdPath, name)).adapt();
+        Response<File> response = call.execute();
         if (response.isSuccessful()) {
             return response.body();
         }

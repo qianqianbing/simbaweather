@@ -22,6 +22,10 @@ public interface IProtocol {
 
     int getCmdType(byte[] cmdBytes);
 
+    int getCmdLength(byte[] cmdBytes);
+
+    int getCmdStart();
+
     byte[] getDefaultCmd();
 
     byte[] getAckCmd();

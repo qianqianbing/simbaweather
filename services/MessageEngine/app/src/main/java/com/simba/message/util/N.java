@@ -2,16 +2,21 @@ package com.simba.message.util;
 
 import android.app.ActivityManager;
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -23,7 +28,26 @@ import java.util.Random;
 
 public class N {
 
-    public static final String ChannelId = "MessageService";
+    public static String ChannelId = "Message";
+
+    public static void startForeground(Service context) {
+        ChannelId = context.getClass().getSimpleName();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createNotificationChannel(context, N.ChannelId, "MessageService needs to be running forever.");
+        }
+
+        context.startForeground(N.ChannelId.hashCode(), new NotificationCompat.Builder(context, N.ChannelId).build());
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    static void createNotificationChannel(Context context, String channelId, String channelDesc){
+        NotificationChannel channel = new NotificationChannel(channelId, channelDesc, NotificationManager.IMPORTANCE_DEFAULT);
+        channel.setDescription(channelId);
+        channel.enableLights(true);
+        // Register the channel with system; you can't change the importance
+        // or other notification behaviors after this
+        NotificationManagerCompat.from(context).createNotificationChannel(channel);
+    }
 
     public static void show(Context context) {
         N.show(context, "标题", "我是一个通知我是一个通知我是一个通知我是一个通知我是一个通知我是一个通知我是一个通知我是一个通知我是一个通知我是一个通知", R.drawable.icon_news_wy);

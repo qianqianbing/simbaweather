@@ -16,7 +16,7 @@ public class MemeberInfoData implements Parcelable {
     /**
      * 会员ID
      */
-    String id;
+    String openid, userid;
 
     /**
      * 会员登录Token
@@ -30,14 +30,19 @@ public class MemeberInfoData implements Parcelable {
 
     public static final int CODE = MessageDef.Message.MEMBER_INFO;
 
-    public MemeberInfoData(String id, String token, String description) {
-        this.id = id;
+    public MemeberInfoData(String token, String openid, String userid, String description) {
         this.token = token;
+        this.openid = openid;
+        this.userid = userid;
         this.description = description;
     }
 
-    public String getId() {
-        return id;
+    public String getOpenid() {
+        return openid;
+    }
+
+    public String getUserid() {
+        return userid;
     }
 
     public String getToken() {
@@ -50,8 +55,10 @@ public class MemeberInfoData implements Parcelable {
 
     @Override
     public String toString() {
-        return "MemeberInfo{" + "id='" + id + '\'' +
-                ", token='" + token + '\'' +
+        return "MemeberInfo{" +
+                "token='" + token + '\'' +
+                ", openid='" + openid + '\'' +
+                ", userid='" + userid + '\'' +
                 ", description='" + description + '\'' +
                 '}';
     }
@@ -61,15 +68,17 @@ public class MemeberInfoData implements Parcelable {
     }
 
     public void readFromParcel(Parcel in) {
-        id = in.readString();
         token = in.readString();
+        openid = in.readString();
+        userid = in.readString();
         description = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
         dest.writeString(token);
+        dest.writeString(openid);
+        dest.writeString(userid);
         dest.writeString(description);
     }
 

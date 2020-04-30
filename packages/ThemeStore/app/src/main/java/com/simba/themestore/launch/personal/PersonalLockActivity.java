@@ -45,25 +45,11 @@ public class PersonalLockActivity extends EditBaseActivity implements EditBaseAc
         recyclerView.setAdapter(lockAdapter);
         CommonDecoration commonDecoration = new CommonDecoration(30);
         recyclerView.addItemDecoration(commonDecoration);
-        lockAdapter.getLoadMoreModule().setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                loadMore();
-            }
-        });
 
         setOptionListener(this);
     }
 
-    private void loadMore() {
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                lockAdapter.getLoadMoreModule().loadMoreEnd();
-            }
-        }, 10000);
-    }
 
     @Override
     public void onDelete() {
