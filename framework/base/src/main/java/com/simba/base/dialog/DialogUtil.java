@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.blankj.utilcode.util.ResourceUtils;
+import com.blankj.utilcode.util.SizeUtils;
 import com.simba.base.R;
 
 import java.util.HashMap;
@@ -57,13 +57,14 @@ public class DialogUtil extends Dialog implements View.OnClickListener {
 
     Context context;
     TextView tv_title;
-    View title_divider;
     TextView tv_content;
     TextView tv_negative;
     TextView tv_positive;
+    //    TextView progressBarText;
     ProgressBar progressBar;
     View divider_line1, divider_line2;
     LinearLayout append_layout;
+    //    LinearLayout ll_progress_group;
     boolean autoDismiss = true;
     long delayTimeShow;//延迟指定时长显示
     long delayTimeDismiss;//延迟指定时长关闭
@@ -81,8 +82,6 @@ public class DialogUtil extends Dialog implements View.OnClickListener {
     protected SingleButtonCallback onKeyBackCallback;
     protected SingleButtonCallback onDelayTimeDismissCallback;
 
-    private LinearLayout rootLayout;
-
     public interface SingleButtonCallback {
         void onClick(DialogUtil dialogUtil, DialogAction dialogAction);
     }
@@ -93,21 +92,18 @@ public class DialogUtil extends Dialog implements View.OnClickListener {
         this.context = context;
         setContentView(R.layout.base_dialog);
         tv_title = ((TextView) findViewById(R.id.tv_title));
-        title_divider = ((View) findViewById(R.id.title_divider));
-        progressBar = ((ProgressBar) findViewById(R.id.progress));
         tv_content = ((TextView) findViewById(R.id.tv_content));
         append_layout = ((LinearLayout) findViewById(R.id.content_layout));
         tv_negative = ((TextView) findViewById(R.id.tv_negative));
         tv_positive = ((TextView) findViewById(R.id.tv_positive));
+        progressBar = ((ProgressBar) findViewById(R.id.progress));
         divider_line1 = findViewById(R.id.divider_line1);
         divider_line2 = findViewById(R.id.divider_line2);
-        rootLayout = findViewById(R.id.ll_layout);
         tv_negative.setTag(DialogAction.NEGATIVE);
         tv_positive.setTag(DialogAction.POSITIVE);
         tv_negative.setOnClickListener(this);
         tv_positive.setOnClickListener(this);
         setCanceledOnTouchOutside(true);
-
     }
 
     private DialogUtil(Context context) {
@@ -126,26 +122,31 @@ public class DialogUtil extends Dialog implements View.OnClickListener {
 
     //进度条弹框
     public static DialogUtil buildProgress(Context context, String content) {
-        DialogUtil dialogUtil = new DialogUtil(context,R.style.baseProgress_BaseDialog);
-        dialogUtil.progress();
 
-        // dialogUtil.content(content);
-        dialogUtil.setCanceledOnTouchOutside(false);
-//        ecgDialog.disableKeyBack();
+        DialogUtil dialogUtil = new DialogUtil(context, R.style.base_progress_dialog);
+        View root = dialogUtil.findViewById(R.id.ll_root_layout);
+        root.setMinimumHeight(240);
+        root.setMinimumWidth(SizeUtils.dp2px(320));
+        root.setBackgroundResource(R.drawable.base_toast_bg);
+        int size = SizeUtils.dp2px(40);
+        dialogUtil.append_layout.setPadding(size, size, size, size);
+        dialogUtil.progressBar.setVisibility(View.VISIBLE);
+        dialogUtil.setCancelOnTouchOutside(false);
+        dialogUtil.content(content);
         return dialogUtil;
     }
 
     public DialogUtil title(String titleName) {
         tv_title.setText(titleName);
         tv_title.setVisibility(View.VISIBLE);
-        title_divider.setVisibility(View.VISIBLE);
+        append_layout.setPadding(SizeUtils.dp2px(40), SizeUtils.dp2px(66), SizeUtils.dp2px(40), SizeUtils.dp2px(88));
         return this;
     }
 
     public DialogUtil title(int titleNameId) {
         tv_title.setText(titleNameId);
         tv_title.setVisibility(View.VISIBLE);
-        title_divider.setVisibility(View.VISIBLE);
+        append_layout.setPadding(SizeUtils.dp2px(40), SizeUtils.dp2px(66), SizeUtils.dp2px(40), SizeUtils.dp2px(88));
         return this;
     }
 
@@ -382,13 +383,15 @@ public class DialogUtil extends Dialog implements View.OnClickListener {
 
 
     public DialogUtil progress(int maxProgress) {
-        progressBar.setVisibility(View.VISIBLE);
         return this;
     }
 
     public DialogUtil progress() {
-        rootLayout.setBackground(ResourceUtils.getDrawable(R.mipmap.dialog_loading_bg));
-        progressBar.setVisibility(View.VISIBLE);
+        return this;
+    }
+
+    public DialogUtil progressText(String progressBarText) {
+//        this.progressBarText.setText(progressBarText);
         return this;
     }
 

@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
@@ -29,6 +30,8 @@ import butterknife.BindView;
 
 
 public class MainActivity extends BaseActivity {
+
+    String TAG = "CleanMainActivity";
 
     @BindView(R.id.iv_loading_memory)
     ImageView iv_loading_memory;
@@ -122,6 +125,7 @@ public class MainActivity extends BaseActivity {
 
                             @Override
                             public void onAnimationEnd(Animator animator) {
+                                Log.i(TAG,"onAnimationEnd..");
                                 bt_clean.setBackgroundResource(R.drawable.selector_clean);
                                 bt_clean.setEnabled(true);
                                 tv_cpu.setText("50%");
@@ -185,8 +189,8 @@ public class MainActivity extends BaseActivity {
 
         animator2 = ObjectAnimator.ofFloat(iv_loading_memory, "rotation", 0f, 360f);//旋转360度
         animator2.setInterpolator(new LinearInterpolator());
-        animator2.setRepeatCount(3);//无限循环
-        animator2.setDuration(1500);//设置持续时间
+        animator2.setRepeatCount(-1);//无限循环
+        animator2.setDuration(2000);//设置持续时间
 
         animator2.addListener(new Animator.AnimatorListener() {
             @Override
@@ -196,14 +200,15 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animator animator) {
-                view_memcounting.setVisibility(View.GONE);
-                view_memchart.setVisibility(View.VISIBLE);
-                iv_loading_memory.setVisibility(View.GONE);
-                ll_memcountnum.setVisibility(View.GONE);
-                ll_remainmemcount.setVisibility(View.VISIBLE);
-                mPieChart.animateX(1400);
-                tv_remainmem.setText("3GB");
-                mMemoryAdapter.updateData();
+                Log.i(TAG,"onAnimationEnd2..");
+                if(view_memcounting!=null)view_memcounting.setVisibility(View.GONE);
+                if(view_memchart!=null)view_memchart.setVisibility(View.VISIBLE);
+                if(iv_loading_memory!=null)iv_loading_memory.setVisibility(View.GONE);
+                if(ll_memcountnum!=null)ll_memcountnum.setVisibility(View.GONE);
+                if(ll_remainmemcount!=null) ll_remainmemcount.setVisibility(View.VISIBLE);
+                if(mPieChart!=null)mPieChart.animateX(1400);
+                if(tv_remainmem!=null)tv_remainmem.setText("3GB");
+                if(mMemoryAdapter!=null) mMemoryAdapter.updateData();
             }
 
             @Override
@@ -219,6 +224,7 @@ public class MainActivity extends BaseActivity {
         animator2.start();//动画开始
 
     }
+
 
     public void showCPUCountingView() {
 
@@ -252,8 +258,8 @@ public class MainActivity extends BaseActivity {
 
                     @Override
                     public void onAnimationEnd(Animator animator) {
-                        bt_clean.setBackgroundResource(R.drawable.selector_clean);
-                        bt_clean.setEnabled(true);
+                       if(bt_clean !=null )  bt_clean.setBackgroundResource(R.drawable.selector_clean);
+                       if(bt_clean !=null ) bt_clean.setEnabled(true);
 
                     }
 
@@ -320,5 +326,11 @@ public class MainActivity extends BaseActivity {
         mPieChart.invalidate();
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(mHandler != null) mHandler.removeCallbacksAndMessages(null);
+        if(animator!=null)animator.cancel();
+        if(animator2!=null)animator.cancel();
+    }
 }

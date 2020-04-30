@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <solid android:color="@color/base_dialog_bg" />
-
+    <gradient
+        android:angle="270"
+        android:endColor="#464c55"
+        android:startColor="#4f5660" />
     <corners
-        android:bottomLeftRadius="@dimen/base_dialog_radius"
-        android:bottomRightRadius="@dimen/base_dialog_radius"
-        android:topLeftRadius="@dimen/base_dialog_radius"
-        android:topRightRadius="@dimen/base_dialog_radius" />
-
+        android:bottomLeftRadius="@dimen/intro_margin_20"
+        android:bottomRightRadius="@dimen/intro_margin_20"
+        android:topLeftRadius="@dimen/intro_margin_20"
+        android:topRightRadius="@dimen/intro_margin_20" />
+    <stroke
+        android:width="0.5dp"
+        android:color="#464c56" />
 </shape>

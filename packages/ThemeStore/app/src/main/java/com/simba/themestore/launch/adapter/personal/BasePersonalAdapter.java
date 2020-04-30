@@ -1,7 +1,6 @@
 package com.simba.themestore.launch.adapter.personal;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.module.LoadMoreModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.simba.themestore.base.IBaseOption;
 import com.simba.themestore.model.AbstractChoose;
@@ -13,7 +12,7 @@ import java.util.List;
  * @Date : 2020/4/22
  * @Desc :默认添加加载更多
  */
-public abstract class BasePersonalAdapter<T extends AbstractChoose> extends BaseQuickAdapter<T, BaseViewHolder> implements LoadMoreModule, IBaseOption {
+public abstract class BasePersonalAdapter<T extends AbstractChoose> extends BaseQuickAdapter<T, BaseViewHolder> implements IBaseOption {
     private boolean isEdit = false;
 
     public BasePersonalAdapter(int layoutResId, List<T> data) {
@@ -29,7 +28,7 @@ public abstract class BasePersonalAdapter<T extends AbstractChoose> extends Base
     }
 
     public void setEdit(boolean edit) {
-        getLoadMoreModule().setEnableLoadMore(!edit);
+
         isEdit = edit;
         if (!edit) {
             selectOption(false);//清除选择的数据

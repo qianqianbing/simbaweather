@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -76,8 +77,9 @@ public class HttpRequest {
     public void requestLoginQRCode(Context context,  QRCodeCallback qrCodeCallback) {
         JSONObject jsonObject = new JSONObject();
         try {
-
-            jsonObject.put(ConstantDefine.DEVICEID, DeviceAccountManager.getInstance(MyApplication.getMyApplication().getApplicationContext()).getDeviceId());
+            String deviceId = UserInfoManager.getInstance().getDeviceId();
+            Log.e(TAG, "deviceId is " + deviceId);
+            jsonObject.put(ConstantDefine.DEVICEID, deviceId);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -101,7 +103,7 @@ public class HttpRequest {
         JSONObject jsonObject = new JSONObject();
         try {
 
-            jsonObject.put(ConstantDefine.DEVICEID, DeviceAccountManager.getInstance(MyApplication.getMyApplication().getApplicationContext()).getDeviceId());
+            jsonObject.put(ConstantDefine.DEVICEID,  UserInfoManager.getInstance().getDeviceId());
         } catch (JSONException e) {
             e.printStackTrace();
         }

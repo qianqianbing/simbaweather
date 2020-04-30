@@ -39,4 +39,26 @@
 
     <dimen name="base_text_size_dialog">36sp</dimen>
     <dimen name="base_dialog_margin">50px</dimen>
+
+
+    <!--    以下为辛巴标准-->
+    <!--    以下为辛巴标准-->
+    <!--    以下为辛巴标准-->
+
+    <!--    组件属性-->
+    <dimen name="simba_title_height">100px</dimen>
+    <dimen name="simba_title_width">1800px</dimen>
+    <dimen name="simba_left_bar_height">660px</dimen>
+    <dimen name="simba_left_bar_width">160px</dimen>
+
+    <!--    字号大小-->
+    <dimen name="simba_text_size_72">72px</dimen>
+    <dimen name="simba_text_size_42">42px</dimen>
+    <dimen name="simba_text_size_36">36px</dimen>
+    <dimen name="simba_text_size_32">32px</dimen>
+    <dimen name="simba_text_size_28">28px</dimen>
+    <dimen name="simba_text_size_24">24px</dimen>
+    <dimen name="simba_text_size_22">22px</dimen>
+    <dimen name="simba_text_size_20">20px</dimen>
+
 </resources>

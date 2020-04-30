@@ -1,11 +1,8 @@
 package com.simba.themestore.launch.personal;
 
-import android.os.Handler;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.simba.themestore.R;
 import com.simba.themestore.base.EditBaseActivity;
 import com.simba.themestore.launch.adapter.personal.PersonalThemeAdapter;
@@ -45,25 +42,10 @@ public class PersonalThemeActivity extends EditBaseActivity implements EditBaseA
         recyclerView.setAdapter(themeAdapter);
         CommonDecoration commonDecoration = new CommonDecoration(30);
         recyclerView.addItemDecoration(commonDecoration);
-        themeAdapter.getLoadMoreModule().setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                loadMore();
-            }
-        });
 
         setOptionListener(this);
     }
 
-    private void loadMore() {
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                themeAdapter.getLoadMoreModule().loadMoreEnd();
-            }
-        }, 10000);
-    }
 
     @Override
     public void onDelete() {

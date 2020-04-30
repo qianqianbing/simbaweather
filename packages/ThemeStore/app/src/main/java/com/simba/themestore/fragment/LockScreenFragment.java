@@ -17,6 +17,8 @@ import com.simba.themestore.base.BaseMainFragment;
 import com.simba.themestore.fragment.adapter.LockScreenAdapter;
 import com.simba.themestore.launch.theme.ThemeDetailActivity;
 import com.simba.themestore.model.LockScreenBean;
+import com.simba.themestore.view.GridLoadMoreView;
+import com.simba.themestore.view.itemdecoration.SpaceDecoration;
 import com.simba.themestore.view.itemdecoration.SpaceItemDecoration;
 
 import java.util.ArrayList;
@@ -52,7 +54,7 @@ public class LockScreenFragment extends BaseMainFragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         gridLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setLayoutManager(gridLayoutManager);
-        Log.e(TAG,"initView");
+        Log.e(TAG, "initView");
     }
 
     @Override
@@ -63,14 +65,18 @@ public class LockScreenFragment extends BaseMainFragment {
         }
         lockScreenAdapter = new LockScreenAdapter(R.layout.item_fragment_lockscreen, mData);
         recyclerView.setAdapter(lockScreenAdapter);
-        SpaceItemDecoration commonDecoration = new SpaceItemDecoration(30);
+        SpaceDecoration commonDecoration = new SpaceDecoration(30);
         recyclerView.addItemDecoration(commonDecoration);
+
+        lockScreenAdapter.getLoadMoreModule().setLoadMoreView(new GridLoadMoreView());
         lockScreenAdapter.getLoadMoreModule().setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
                 loadMore();
             }
         });
+
+
         lockScreenAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
@@ -84,7 +90,12 @@ public class LockScreenFragment extends BaseMainFragment {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                lockScreenAdapter.getLoadMoreModule().loadMoreFail();
+                List<LockScreenBean> mData = new ArrayList<>();
+                for (int i = 0; i < 6; i++) {
+                    mData.add(new LockScreenBean());
+                }
+                lockScreenAdapter.addData(mData);
+                lockScreenAdapter.getLoadMoreModule().loadMoreEnd();
             }
         }, 10000);
     }
