@@ -54,7 +54,14 @@ public class SimbaToast {
 
     private static View showInfo(Context context, int type, String info) {
         View view = LayoutInflater.from(context).inflate(R.layout.base_simba_toast_layout, null);
-        if (type != -1) {
+        TextView base_simba_toast_tv_text = view.findViewById(R.id.base_simba_toast_tv_text);
+
+        if (type == -1) {
+            view.findViewById(R.id.base_simba_toast_ll_root).setBackgroundResource(R.drawable.base_toast_bg_two);
+            base_simba_toast_tv_text.setPadding(SizeUtils.dp2px(40), SizeUtils.dp2px(15), SizeUtils.dp2px(40), SizeUtils.dp2px(15));
+        } else {
+            view.findViewById(R.id.base_simba_toast_ll_root).setBackgroundResource(R.drawable.base_toast_bg);
+
             ImageView base_simba_toast_iv_view = view.findViewById(R.id.base_simba_toast_iv_view);
             if (type == 1) {
                 base_simba_toast_iv_view.setImageResource(R.drawable.base_toast_succeed_icon);
@@ -63,18 +70,11 @@ public class SimbaToast {
             }
             base_simba_toast_iv_view.setPadding(0, SizeUtils.dp2px(50), 0, 0);
             base_simba_toast_iv_view.setVisibility(View.VISIBLE);
+
+            base_simba_toast_tv_text.setPadding(SizeUtils.dp2px(40), SizeUtils.dp2px(32), SizeUtils.dp2px(40), SizeUtils.dp2px(50));
         }
 
-        TextView base_simba_toast_tv_text = view.findViewById(R.id.base_simba_toast_tv_text);
-        if (type == -1) {
-            view.findViewById(R.id.base_simba_toast_ll_root).setBackgroundResource(R.drawable.base_toast_bg_two);
-            base_simba_toast_tv_text.setPadding(0, SizeUtils.dp2px(15), 0, SizeUtils.dp2px(15));
-        } else {
-            view.findViewById(R.id.base_simba_toast_ll_root).setBackgroundResource(R.drawable.base_toast_bg);
-            base_simba_toast_tv_text.setPadding(0, SizeUtils.dp2px(32), 0, SizeUtils.dp2px(50));
-        }
         base_simba_toast_tv_text.setText(info);
-
         ToastUtils.setGravity(Gravity.CENTER, 0, 0);
         return ToastUtils.showCustomLong(view);
     }
