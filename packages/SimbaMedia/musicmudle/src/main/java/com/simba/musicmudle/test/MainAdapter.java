@@ -51,7 +51,7 @@ public class MainAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        View contentView = View.inflate(viewGroup.getContext(), R.layout.adapter_mainitem, null);
+        View contentView = View.inflate(viewGroup.getContext(), R.layout.music_adapter_mainitem, null);
         TextView textView = contentView.findViewById(R.id.tv);
         textView.setText(strs[i]);
         return contentView;

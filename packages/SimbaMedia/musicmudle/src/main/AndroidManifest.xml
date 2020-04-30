@@ -3,13 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.simba.musicmudle">
 
-
     <application
         android:name=".test.MusicApplication"
         android:theme="@style/Theme.AppCompat"
-        tools:replace="android:theme"
-        >
-        <activity android:name=".test.KwinterfaceActivity"></activity>
+        tools:replace="android:theme">
+        <activity android:name=".view.RecommendDay"></activity>
+        <activity android:name=".test.KwinterfaceActivity" />
     </application>
 
 </manifest>
