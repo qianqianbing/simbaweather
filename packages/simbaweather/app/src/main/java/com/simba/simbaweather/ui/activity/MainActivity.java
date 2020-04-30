@@ -1,15 +1,12 @@
 package com.simba.simbaweather.ui.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
@@ -19,8 +16,8 @@ import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.tabs.TabLayout;
 import com.simba.base.base.BaseActivity;
-import com.simba.base.utils.LogUtil;
-import com.simba.base.utils.Toasty;
+import com.simba.base.dialog.DialogUtil;
+import com.simba.base.utils.SimbaToast;
 import com.simba.simbaweather.CityInfoManager;
 import com.simba.simbaweather.ICityChangeView;
 import com.simba.simbaweather.R;
@@ -35,7 +32,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
@@ -65,11 +61,6 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
     private WeatherPagerAdapter weatherPagerAdapter;
     int position;
     private boolean connected;
-    private int year;
-    private int month;
-    private int day;
-    private int hour;
-    private int minute;
     private WeatherBean weatherBean;
 
     @Override
@@ -85,13 +76,14 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
             tvRefreshtime.setVisibility(View.VISIBLE);
             tvRefreshthread.setVisibility(View.INVISIBLE);
             CityInfoManager.getInstance().requestWeatherInfo();
-            // HH:mm:ss
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");// HH:mm:ss
             //获取当前时间
             Date date = new Date(System.currentTimeMillis());
             tvTime.setText("中国天气  更新于：" + simpleDateFormat.format(date));
+            DialogUtil.buildProgress(getApplicationContext(), "加载中").setCancelOnTouchOutside(true).show();
+
         } else {
-            ToastUtils.setBgResource(R.mipmap.bg_back);
+            SimbaToast.showInfo(getApplicationContext(), "当前无网络,请稍后重试");
         }
         showVp = findViewById(R.id.show_vp);
         CityInfoManager.getInstance().registerCityChangeView(this, this);
@@ -125,10 +117,8 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
-
     }
 
     private void setTab(int position) {
@@ -163,12 +153,11 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
 
             if (weatherBeanMap != null) {
                 int cityId = cityManagerBeanList.get(position).getCityId();
-                if (position == cityId) {
+                if (position == 0) {
                     return weatherBeanMap.get(cityId).getCity().getCity() + "·" + weatherBeanMap.get(cityId).getCity().getDistrict();
                 } else {
                     return weatherBeanMap.get(cityId).getCity().getDistrict();
                 }
-
             }
             return "";
         }
@@ -207,7 +196,7 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
 
                     ((TextView) mRootView.findViewById(R.id.tv_temperature)).setText(weatherBean.getWeatherToday().getTemp() + "°");
                     ((TextView) mRootView.findViewById(R.id.tv_climate)).setText(weatherBean.getWeatherToday().getCondition());
-                    ((TextView) mRootView.findViewById(R.id.tv_windspeed)).setText(weatherBean.getWeatherToday().getWindDir() + " " + weatherBean.getWeatherToday().getWindLevel());
+                    ((TextView) mRootView.findViewById(R.id.tv_windspeed)).setText(weatherBean.getWeatherToday().getWindDir() + " " + weatherBean.getWeatherToday().getWindLevel() + "级");
                     ((TextView) mRootView.findViewById(R.id.tv_max_min)).setText(weatherBean.getWeatherToday().getTempDay() + "°/" + weatherBean.getWeatherToday().getTempNight() + "°");
                     ((TextView) mRootView.findViewById(R.id.tv_airquality)).setText(weatherBean.getWeatherToday().getAqi() + "  " + weatherBean.getWeatherToday().getAqiValue());
                     ((TextView) mRootView.findViewById(R.id.tv_airhumidity)).setText("湿度   " + weatherBean.getWeatherToday().getHumidity() + "%");
@@ -277,6 +266,7 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
 
     @Override
     protected void initData() {
+        //  SimbaToast.showInfo(getApplicationContext(),"cityinfomanger");
     }
 
     @Override
@@ -286,7 +276,13 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
 
     @Override
     public void onCityChange(List<CityInfoManager.CityManagerBean> cityManagerBeanList, Map<Integer, WeatherBean> weatherBeanMap) {
-        weatherPagerAdapter.setWeatherInfoList(cityManagerBeanList, weatherBeanMap);
+        if (weatherPagerAdapter == null) {
+            SimbaToast.showInfo(getApplicationContext(), "当前无网络,请稍后重试");
+        } else {
+            weatherPagerAdapter.setWeatherInfoList(cityManagerBeanList, weatherBeanMap);
+        }
+
+
     }
 
 
@@ -296,18 +292,20 @@ public class MainActivity extends BaseActivity implements ICityChangeView {
             case R.id.tv_refreshtime:
                 tvRefreshthread.setVisibility(View.VISIBLE);
                 tvRefreshtime.setVisibility(View.INVISIBLE);
-                tvTime.setText("天气刷新中，请稍等");
+                //网络状态判断
                 connected = NetworkUtils.isConnected();
                 if (connected) {
                     tvRefreshtime.setVisibility(View.VISIBLE);
                     tvRefreshthread.setVisibility(View.INVISIBLE);
                     CityInfoManager.getInstance().requestWeatherInfo();
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");// HH:mm:ss
-//获取当前时间
+                    //获取当前时间
                     Date date = new Date(System.currentTimeMillis());
                     tvTime.setText("中国天气  更新于：" + simpleDateFormat.format(date));
+                    DialogUtil.buildProgress(getApplicationContext(), "加载中").setCancelOnTouchOutside(true).show();
+
                 } else {
-                    ToastUtils.setBgResource(R.mipmap.bg_back);
+                    SimbaToast.showInfo(getApplicationContext(), "当前无网络,请稍后重试");
                 }
                 break;
             case R.id.tv_runacity:

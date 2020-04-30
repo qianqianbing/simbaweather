@@ -14,7 +14,7 @@ public class SimbaUrl {
 
 
     //环境类型
-    private static String SERVER_TYPE = "gray";
+    private static String SERVER_TYPE = "debug";
 
     //主机 结尾不要带"/"
     public static String BASE_HOST;

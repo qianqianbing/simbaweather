@@ -2,22 +2,18 @@ package com.simba.simbaweather.data;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.widget.ImageView;
 
 import com.simba.simbaweather.R;
 
 //通过天气类型来获取显示天气的图标
 public class WeatherIconUtil {
 
-
-
-    public static Drawable getWeatherIconByType(Context context, String conditionId){
-
+    public static Drawable getWeatherIconByType(Context context, String conditionId) {
 
         //进行天气的判断是晴天还是其他的一些天气
         if (conditionId.equals("1")) {
             //晴天
-            return  context.getResources().getDrawable(R.mipmap.sunny);
+            return context.getResources().getDrawable(R.mipmap.sunny);
         } else if (conditionId.equals("3")) {
             //大部晴朗
             return context.getResources().getDrawable(R.mipmap.mostlysunny);
@@ -59,120 +55,92 @@ public class WeatherIconUtil {
             return context.getResources().getDrawable(R.mipmap.sandstorm);
         } else if (conditionId.equals("16")) {
             //浮尘
-            return  context.getResources().getDrawable(R.mipmap.floatingdust);
+            return context.getResources().getDrawable(R.mipmap.floatingdust);
         } else if (conditionId.equals("17")) {
             //尘卷风
-            return  context.getResources().getDrawable(R.mipmap.dustdevil);
-        }
-        else if (conditionId.equals("18")) {
+            return context.getResources().getDrawable(R.mipmap.dustdevil);
+        } else if (conditionId.equals("18")) {
             //扬沙
             return context.getResources().getDrawable(R.mipmap.sanddust);
-        }
-        else if (conditionId.equals("19")) {
+        } else if (conditionId.equals("19")) {
             //强沙尘暴
             return context.getResources().getDrawable(R.mipmap.strongsandstrong);
-        }
-        else if (conditionId.equals("20")) {
+        } else if (conditionId.equals("20")) {
             //霾
             return context.getResources().getDrawable(R.mipmap.smog);
-        }
-        else if (conditionId.equals("21")) {
+        } else if (conditionId.equals("21")) {
             //雷阵雨
             return context.getResources().getDrawable(R.mipmap.thundershower);
-        }
-        else if (conditionId.equals("22")) {
+        } else if (conditionId.equals("22")) {
             //雷电
             return context.getResources().getDrawable(R.mipmap.thunder);
-        }
-        else if (conditionId.equals("23")) {
+        } else if (conditionId.equals("23")) {
             //雷暴
             return context.getResources().getDrawable(R.mipmap.thunderstorm);
-        }
-        else if (conditionId.equals("24")) {
+        } else if (conditionId.equals("24")) {
             //雷阵雨伴有冰雹
             return context.getResources().getDrawable(R.mipmap.thundershowerwithhail);
-        }
-        else if (conditionId.equals("25")) {
+        } else if (conditionId.equals("25")) {
             //冰雹
             return context.getResources().getDrawable(R.mipmap.hail);
-        }
-        else if (conditionId.equals("26")) {
+        } else if (conditionId.equals("26")) {
             //冰针
             return context.getResources().getDrawable(R.mipmap.iceneedle);
-        }
-        else if (conditionId.equals("27")) {
+        } else if (conditionId.equals("27")) {
             //冰粒
             return context.getResources().getDrawable(R.mipmap.ice);
-        }
-        else if (conditionId.equals("28")) {
+        } else if (conditionId.equals("28")) {
             //雨夹雪
             return context.getResources().getDrawable(R.mipmap.sleet);
-        }
-        else if (conditionId.equals("29")) {
+        } else if (conditionId.equals("29")) {
             //小雨
             return context.getResources().getDrawable(R.mipmap.lightrain);
-        }
-        else if (conditionId.equals("30")) {
+        } else if (conditionId.equals("30")) {
             //中雨
             return context.getResources().getDrawable(R.mipmap.moderaterain);
-        }
-        else if (conditionId.equals("31")) {
+        } else if (conditionId.equals("31")) {
             //大雨
             return context.getResources().getDrawable(R.mipmap.heavyrain);
-        }
-        else if (conditionId.equals("32")) {
+        } else if (conditionId.equals("32")) {
             //暴雨
             return context.getResources().getDrawable(R.mipmap.rainstorm);
-        }
-        else if (conditionId.equals("33")) {
+        } else if (conditionId.equals("33")) {
             //特大暴雨
             return context.getResources().getDrawable(R.mipmap.heavy);
-        }
-        else if (conditionId.equals("34")) {
+        } else if (conditionId.equals("34")) {
             //小雪
             return context.getResources().getDrawable(R.mipmap.lightsnow);
-        }
-        else if (conditionId.equals("35")) {
+        } else if (conditionId.equals("35")) {
             //中雪
             return context.getResources().getDrawable(R.mipmap.modeatesnow);
-        }
-        else if (conditionId.equals("36")) {
+        } else if (conditionId.equals("36")) {
             //大雪
             return context.getResources().getDrawable(R.mipmap.heavysnow);
-        }
-        else if (conditionId.equals("37")) {
+        } else if (conditionId.equals("37")) {
             //暴雪
             return context.getResources().getDrawable(R.mipmap.snowstorm);
-        }
-        else if (conditionId.equals("38")) {
+        } else if (conditionId.equals("38")) {
             //冻雨
             return context.getResources().getDrawable(R.mipmap.freezingrain);
-        }
-        else if (conditionId.equals("39")) {
+        } else if (conditionId.equals("39")) {
             //大暴雨
             return context.getResources().getDrawable(R.mipmap.heavyrainstorm);
-        }
-        else if (conditionId.equals("40")) {
+        } else if (conditionId.equals("40")) {
             //雪
             return context.getResources().getDrawable(R.mipmap.snow);
-        }
-        else if (conditionId.equals("41")) {
+        } else if (conditionId.equals("41")) {
             //雨
             return context.getResources().getDrawable(R.mipmap.rain);
-        }
-        else if (conditionId.equals("42")) {
+        } else if (conditionId.equals("42")) {
             //小到中雨
             return context.getResources().getDrawable(R.mipmap.lighttomoderaterain);
-        }
-        else if (conditionId.equals("43")) {
+        } else if (conditionId.equals("43")) {
             //中到大雨
             return context.getResources().getDrawable(R.mipmap.moderatetoheavyrain);
-        }
-        else if (conditionId.equals("44")) {
+        } else if (conditionId.equals("44")) {
             //大到暴雨
             return context.getResources().getDrawable(R.mipmap.heavytostormrain);
-        }
-        else if (conditionId.equals("45")) {
+        } else if (conditionId.equals("45")) {
             //小到中雪
             return context.getResources().getDrawable(R.mipmap.lighttomoderatesnow);
         }

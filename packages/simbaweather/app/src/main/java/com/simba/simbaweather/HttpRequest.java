@@ -1,6 +1,5 @@
 package com.simba.simbaweather;
 
-import android.app.Activity;
 import android.content.Context;
 
 import com.lzy.okgo.OkGo;
@@ -8,7 +7,6 @@ import com.lzy.okgo.model.Response;
 import com.simba.base.network.JsonCallback;
 import com.simba.base.network.SimbaUrl;
 import com.simba.simbaweather.data.bean.WeatherBean;
-
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,7 +25,8 @@ public class HttpRequest {
     public HttpRequest() {
 
     }
-    public interface WeatherHandler{
+
+    public interface WeatherHandler {
         void handleWeatherResult(int cityId, Response<WeatherBean> response);
     }
 
@@ -66,22 +65,22 @@ public class HttpRequest {
         JSONObject jsonObject = new JSONObject();
 
 
-            try {
-                jsonObject.put("cityid", ""+cityId);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            OkGo.<WeatherBean>post(SimbaUrl.WEATHER_GET_WEATHER_INDEXCITY)
-                    .tag(mContext)
-                    .upJson(jsonObject)
-                    .execute(new JsonCallback<WeatherBean>() {
-                        @Override
-                        public void onSuccess(Response<WeatherBean> response) {
-                            if (isCode200()) {
-                                weatherHandler.handleWeatherResult(cityId, response);
-                            }
-                        }
-                    });
+        try {
+            jsonObject.put("cityid", "" + cityId);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+        OkGo.<WeatherBean>post(SimbaUrl.WEATHER_GET_WEATHER_INDEXCITY)
+                .tag(mContext)
+                .upJson(jsonObject)
+                .execute(new JsonCallback<WeatherBean>() {
+                    @Override
+                    public void onSuccess(Response<WeatherBean> response) {
+                        if (isCode200()) {
+                            weatherHandler.handleWeatherResult(cityId, response);
+                        }
+                    }
+                });
+    }
 
 }

@@ -19,8 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
-            android:src="@mipmap/location"
-            />
+            android:src="@mipmap/location" />
 
         <TextView
             android:id="@+id/tv_city"
@@ -40,7 +39,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="22dp"
             android:layout_toRightOf="@id/tv_city"
-            android:text="中国天气  更新于："
+            android:text="中国天气  更新于：--"
             android:textColor="#FF7C7E82"
             android:textSize="24dp" />
 
@@ -50,9 +49,9 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:visibility="gone"
             android:layout_toRightOf="@id/tv_time"
-            android:src="@mipmap/refreshthread" />
+            android:src="@mipmap/refreshthread"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/tv_refreshtime"

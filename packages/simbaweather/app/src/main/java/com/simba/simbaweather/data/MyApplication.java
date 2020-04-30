@@ -13,16 +13,16 @@ import com.simba.simbaweather.CityInfoManager;
 public class MyApplication extends BaseApplication {
 
     private static MyApplication mApplication;
+
     @Override
     public void onCreate() {
         super.onCreate();
         mApplication = this;
-        SPStaticUtils.setDefaultSPUtils(SPUtils.getInstance( "mysp"));
+        SPStaticUtils.setDefaultSPUtils(SPUtils.getInstance("mysp"));
         CityInfoManager.getInstance();
     }
 
-
-    public static MyApplication getMyApplication(){
+    public static MyApplication getMyApplication() {
         return mApplication;
     }
 }

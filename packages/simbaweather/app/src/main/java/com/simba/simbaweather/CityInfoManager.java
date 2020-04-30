@@ -7,7 +7,6 @@ import android.location.Location;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.gson.internal.$Gson$Preconditions;
 import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.model.Response;
 import com.simba.base.utils.LocationUtil;
@@ -25,10 +24,8 @@ public class CityInfoManager implements HttpRequest.WeatherHandler {
     List<ICityChangeView> iCityChangeViewList;
     List<CityManagerBean> cityList;
     Map<Integer, WeatherBean> weatherBeanMap;
-
     private static CityInfoManager cityManager;
     private static String CITY_STATE = "cityState";
-
 
     public static CityInfoManager getInstance() {
         if (cityManager == null) {
@@ -38,15 +35,12 @@ public class CityInfoManager implements HttpRequest.WeatherHandler {
     }
 
     public CityInfoManager() {
-
         sp = MyApplication.getMyApplication().getSharedPreferences("mysp", Context.MODE_PRIVATE);
-
         cityList = getDataList(CITY_STATE);
         if (cityList == null || cityList.size() == 0) {
             cityList.add(new CityManagerBean(true, 0, ""));
             setDataList(CITY_STATE, cityList);
         }
-
         List<CityManagerBean> getList = getDataList(CITY_STATE);
         for (CityManagerBean cityBean : getList) {
             Log.e(TAG, "city id  " + cityBean.getCityId() + " city name " + cityBean.getCityName());
@@ -59,9 +53,6 @@ public class CityInfoManager implements HttpRequest.WeatherHandler {
 
     public void updateCityState(boolean isAdd, int cityId) {
         //增加城市
-        //情况是如果第一次添加城市是天津
-        //第二次是其他城市这个是没有问题
-        //但是如果第二城市是北京的话就会有问题
         if (isAdd) {
             boolean isContained = false;
             for (CityManagerBean cityBean : cityList) {
@@ -73,7 +64,6 @@ public class CityInfoManager implements HttpRequest.WeatherHandler {
             if (!isContained) {
                 cityList.add(new CityManagerBean(false, cityId, ""));
             }
-
         } else {
             boolean isContained = false;
             for (CityManagerBean cityBean : cityList) {
@@ -83,12 +73,10 @@ public class CityInfoManager implements HttpRequest.WeatherHandler {
                     break;
                 }
             }
-
         }
         setDataList(CITY_STATE, cityList);
         requestWeatherInfo();
     }
-
 
     public void registerCityChangeView(ICityChangeView iCityChangeView, Activity context) {
         if (iCityChangeViewList == null) {
@@ -97,7 +85,6 @@ public class CityInfoManager implements HttpRequest.WeatherHandler {
         if (!iCityChangeViewList.contains(iCityChangeView)) {
             iCityChangeViewList.add(iCityChangeView);
         }
-
         //如果天气的列表为空或者和城市列表个数不一样，需要请求网络
         Log.e(TAG, "city size is " + cityList.size());
         if (weatherBeanMap == null || weatherBeanMap.size() != cityList.size()) {
@@ -140,7 +127,6 @@ public class CityInfoManager implements HttpRequest.WeatherHandler {
     public void setDataList(String tag, List<CityManagerBean> datalist) {
         if (null == datalist || datalist.size() <= 0)
             return;
-
         Gson gson = new Gson();
         //转换成json数据，再保存
         String strJson = gson.toJson(datalist);
@@ -163,19 +149,15 @@ public class CityInfoManager implements HttpRequest.WeatherHandler {
         datalist = gson.fromJson(strJson, new TypeToken<List<CityManagerBean>>() {
         }.getType());
         return datalist;
-
     }
 
     @Override
     public synchronized void handleWeatherResult(int cityId, Response<WeatherBean> response) {
-
         WeatherBean weatherBean = response.body();
         weatherBeanMap.put(cityId, weatherBean);
         Log.e(TAG, "cityId " + cityId + " weatherBeanMap size is " + weatherBeanMap.size());
-
         //说明所有的请求都已经完成
         if (weatherBeanMap.size() == cityList.size()) {
-
             for (ICityChangeView iCityChangeView : iCityChangeViewList) {
                 iCityChangeView.onCityChange(cityList, weatherBeanMap);
             }

@@ -19,13 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.simba.base.base.BaseActivity;
 import com.simba.base.dialog.DialogUtil;
 import com.simba.base.utils.LogUtil;
+import com.simba.base.utils.SimbaToast;
 import com.simba.simbaweather.CityInfoManager;
 import com.simba.simbaweather.ICityChangeView;
 import com.simba.simbaweather.R;
 import com.simba.simbaweather.data.MyApplication;
 import com.simba.simbaweather.data.WeatherIconUtil;
 import com.simba.simbaweather.data.bean.WeatherBean;
-
 
 import java.util.List;
 import java.util.Map;
@@ -40,10 +40,10 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
     private ImageView iv_back;
     //是否处在编辑状态
     private boolean isEditState = false;
+    private int positionn;
 
     @Override
     protected void initData() {
-
     }
 
     @Override
@@ -53,7 +53,6 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
 
     @Override
     protected void initView() {
-
         iv_back = findViewById(R.id.iv_back);
         iv_back.setOnClickListener(this);
         mTvCompileon = findViewById(R.id.tv_compileon);
@@ -63,11 +62,8 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
         rcv_cityweather = findViewById(R.id.rcv_cityweather);
         rcv_cityweather.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         myRecyclerViewAdapter = new MyRecyclerViewAdapter(this);
-
         myRecyclerViewAdapter.setData(CityInfoManager.getInstance().getCityList(), null);
-
         rcv_cityweather.setAdapter(myRecyclerViewAdapter);
-
         CityInfoManager.getInstance().registerCityChangeView(this, this);
     }
 
@@ -83,6 +79,7 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
                 break;
             case R.id.tv_compileoff:
                 //关闭
+
                 isEditState = false;
                 mTvCompileoff.setVisibility(View.INVISIBLE);
                 mTvCompileon.setVisibility(View.VISIBLE);
@@ -95,7 +92,6 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
     }
 
     class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.RecyclerHolder> {
-
         private Context mContext;
         private List<CityInfoManager.CityManagerBean> cityManagerBeanList;
         private Map<Integer, WeatherBean> weatherBeanMap;
@@ -140,18 +136,14 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
                 holder.Location.setVisibility(View.VISIBLE);
             }
             //从管理城市页面一个点击跳转到首页
-//            holder.itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    int cityId = cityManagerBeanList.get(position).getCityId();
-//                    //  Toast.makeText(mContext, "跳转成功"+weatherBeanMap.get(position).getWeatherToday().getAqi(), Toast.LENGTH_SHORT).show();
-//                    CityInfoManager.getInstance().updateCityState(true, cityId);
-//                    Toast.makeText(mContext, "" + cityId, Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(CityManagerActivity.this, MainActivity.class);
-//                    startActivity(intent);
-//                }
-//            });
-// 最后一个 跳转的item
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //  Toast.makeText(mContext, "跳转成功"+weatherBeanMap.get(position).getWeatherToday().getAqi(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "" + position, Toast.LENGTH_SHORT).show();
+                }
+            });
+            // 最后一个 跳转的item
             if (position == getItemCount() - 1) {
                 holder.rl_weather.setVisibility(View.GONE);
                 holder.rl_jump.setVisibility(View.VISIBLE);
@@ -161,10 +153,9 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
                     public void onClick(View v) {
                         if (getItemCount() >= 6) {
 
-                            Toast toast = Toast.makeText(getApplicationContext(),
-                                    "本功能只能添加五个页面", Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.show();
+//                            Toast toast = Toast.makeText(getApplicationContext(), "本功能只能添加五个页面", Toast.LENGTH_LONG);
+//                            toast.setGravity(Gravity.CENTER, 0, 0);
+//                            toast.show();
 
                         } else {
                             Intent intent = new Intent(CityManagerActivity.this, AddCityActivity.class);
@@ -200,7 +191,6 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
                                                 mTvCompileoff.setVisibility(View.VISIBLE);
                                                 mTvCompileon.setVisibility(View.INVISIBLE);
                                                 LogUtil.e(dialogAction + "删除成功");
-                                                // Toast.makeText(CityManagerActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
                                                 CityInfoManager.getInstance().updateCityState(false, cityId);
                                                 myRecyclerViewAdapter.notifyDataSetChanged();
                                             }
@@ -212,8 +202,7 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
                                                 mTvCompileon.setVisibility(View.INVISIBLE);
                                                 LogUtil.e(dialogAction + "取消");
                                             }
-                                        })
-                                        .show();
+                                        }).show();
                             }
                         });
                     }
@@ -226,13 +215,11 @@ public class CityManagerActivity extends BaseActivity implements ICityChangeView
                         e.printStackTrace();
                     }
                 }
-
             }
         }
 
         @Override
         public int getItemCount() {
-
             int size = 0;
             size = cityManagerBeanList.size() + 1;
             Log.e(TAG, "size is " + size);

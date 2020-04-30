@@ -88,9 +88,7 @@ public class AddCityActivity extends BaseActivity {
         localCity.setCity(cityname);
         localCity.setDistrict(cityname);
         localCity.setProvince(cityname);
-
         cityplanningAdapter = new CityplanningAdapter(R.layout.item_add_city_recommend);
-
         //获取推荐城市列表
         recommendCityList();
     }
@@ -175,7 +173,6 @@ public class AddCityActivity extends BaseActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         OkGo.<List<CityInfo>>post(SimbaUrl.WEATHER_GET_WEATHER_MATCHINGCITY)
                 .tag(this)
                 .upJson(jsonObject)
