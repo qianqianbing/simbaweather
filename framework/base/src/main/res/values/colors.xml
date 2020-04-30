@@ -23,4 +23,34 @@
     <color name="base_grey_trans_00">#00EEEEEE</color>
     <color name="base_grey_eeeeee">#EEEEEE</color>
     <color name="base_white_trans_4d">#4DFFFFFF</color>
+
+
+    <!--    以下为辛巴标准色-->
+    <!--    以下为辛巴标准色-->
+    <!--    以下为辛巴标准色-->
+
+    <!--    主题色-->
+    <color name="simba_theme_color_start">#00000000</color>
+    <color name="simba_theme_color">#6CF8FC</color>
+    <color name="simba_theme_color_end">#00000000</color>
+
+    <!--    #功能色：功能状态-->
+    <color name="simba_succeed">#4CD964</color>//成功提示
+    <color name="simba_failed">#FF3B30</color>//失败、未接电话
+    <color name="simba_info">#FF2C54</color>//提示、警示、喜爱收藏
+
+    <!--    通用色-->
+    <color name="simba_text_color0">#FFFFFF</color>//主要信息
+    <color name="simba_text_color1">#B3FFFFFF</color>//次要信息
+    <color name="simba_text_color2">#80FFFFFF</color>//再次要信息
+    <color name="simba_toast_bg_start">#4F5660</color>//toast背景开始色
+    <color name="simba_toast_bg_end">#464C55</color>//toast背景结束色
+    <color name="simba_list_bg">#0AFFFFFF</color>//列表背板
+
+    <!--    状态等级-->
+    <color name="simba_state_level_1">#00C900</color>
+    <color name="simba_state_level_2">#FF8610</color>
+    <color name="simba_state_level_3">#FF3B30</color>
+
+
 </resources>
