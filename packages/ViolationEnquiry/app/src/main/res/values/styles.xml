@@ -24,4 +24,8 @@
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:backgroundDimAmount">0.6</item>
     </style>
+
+    <style name="edit_text_style">
+        <item name="android:textCursorDrawable">@drawable/icon_cursor</item>
+    </style>
 </resources>
