@@ -61,7 +61,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                     .fallback(R.drawable.icon_wechat) //url为空的时候,显示的图片
                     .error(R.drawable.icon_wechat);//图片加载失败后，显示的图片
             Glide.with(this).load(userInfoBean.getHeadimgurl()).apply(options).into(iv_userimage);
-            String strLevel = "成长等级 LV" + userInfoBean.getLevel() + " ("+ userInfoBean.getCurrentLevelPoint() + "\\" + userInfoBean.getNextLevelPoint() +  ")";
+            String strLevel = "成长等级 LV" + userInfoBean.getLevel() + " ("+ userInfoBean.getCurrentLevelPoint() + " /" + userInfoBean.getNextLevelPoint() +  ")";
             tv_level.setText(strLevel);
 
             int curLevel = Integer.parseInt( userInfoBean.getCurrentLevelPoint());

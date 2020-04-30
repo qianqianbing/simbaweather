@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 import com.simba.base.utils.QRCodeUtil;
 
 public class LoginActivity extends Activity implements HttpRequest.QRCodeCallback, HttpRequest.UserInfoCallback, View.OnClickListener {
-    private static String TAG = "MainActivity";
+    private static String TAG = "LoginActivity";
     private ImageView iv_QRCode , iv_cancel ;
     //喜欢查询二维码扫码登陆的结果
     private final static int CheckQRLoginResult = 100;
@@ -37,7 +37,13 @@ public class LoginActivity extends Activity implements HttpRequest.QRCodeCallbac
         iv_cancel.setOnClickListener(this);
         //iv_QRCode.setImageBitmap(QRCodeUtil.createDefaultCodeBitmap("www.baidu.com", (int)getResources().getDimension(R.dimen.QRCode_width),(int)getResources().getDimension(R.dimen.QRCode_width)));
         Log.e(TAG,"QRCode request begin " );
-        HttpRequest.getIntance().requestLoginQRCode(this, this);
+        String qrCodeURI = UserInfoManager.getInstance().getQRCodeURL();
+        if(qrCodeURI == null){
+            HttpRequest.getIntance().requestLoginQRCode(this, this);
+        }else {
+            iv_QRCode.setImageBitmap(QRCodeUtil.createDefaultCodeBitmap(qrCodeURI, (int)getResources().getDimension(R.dimen.QRCode_width),(int)getResources().getDimension(R.dimen.QRCode_width)));
+        }
+
         handler.sendEmptyMessageDelayed(CheckQRLoginResult, 2000);
     }
 
@@ -67,6 +73,7 @@ public class LoginActivity extends Activity implements HttpRequest.QRCodeCallbac
         int imageWidth = para.width;
         Log.e(TAG,"QRCode request begin middle " + isSucceed  + " width is ：" + (int)getResources().getDimension(R.dimen.QRCode_width)  + " " + imageWidth + " QRCodeURI is " + QRCodeURI);
         iv_QRCode.setImageBitmap(QRCodeUtil.createDefaultCodeBitmap(QRCodeURI, (int)getResources().getDimension(R.dimen.QRCode_width),(int)getResources().getDimension(R.dimen.QRCode_width)));
+        UserInfoManager.getInstance().setQRCodeURL(QRCodeURI);
         Log.e(TAG,"QRCode request end " );
     }
 

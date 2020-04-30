@@ -12,7 +12,7 @@
     <dimen name="message_frame_height">150dp</dimen>
 
     <dimen name="message_frame_marggin_right">40dp</dimen>
-    <dimen name="message_frame_marggin_top">50dp</dimen>
+    <dimen name="message_frame_marggin_top">40dp</dimen>
     <dimen name="message_frame_marggin_button">30dp</dimen>
 
     <dimen name="main_frame_marggin_left">40dp</dimen>
@@ -30,4 +30,6 @@
 
     <dimen name="nickname_marggin_left">220dp</dimen>
     <dimen name="nickname_marggin_top">61dp</dimen>
+
+    <dimen name="device_marggin_top">8dp</dimen>
 </resources>
