@@ -47,7 +47,7 @@ import cn.kuwo.open.base.SearchType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kwinterface);
+        setContentView(R.layout.music_activity_kwinterface);
         et_music = findViewById(R.id.et_music);
         et_singer = findViewById(R.id.et_singer);
 
@@ -370,7 +370,7 @@ import cn.kuwo.open.base.SearchType;
             public void onFetch(QukuRequestState state, String message, List<Music> musics) {
                 if (state == QukuRequestState.SUCCESS) {
                     for (Music mMusic : musics) {
-                        Log.i(TAG, "musics:" + mMusic.name + "  :   " + mMusic.rid +" "+mMusic.source);
+                        Log.i(TAG, "musics:" + mMusic.name + "  :   " + mMusic.rid +" "+mMusic.artist);
                         if ("一路向北".equals(mMusic.name)) {
                             music = mMusic;
                         }

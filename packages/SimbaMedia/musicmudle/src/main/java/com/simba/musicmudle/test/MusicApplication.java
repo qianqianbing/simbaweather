@@ -2,22 +2,21 @@ package com.simba.musicmudle.test;
 
 import android.app.Application;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 
 import cn.kuwo.application.App;
 
 
-public class MusicApplication extends Application {
-    App kwApp;
+public class MusicApplication extends cn.kuwo.application.App {
+//    App kwApp;
 
     public MusicApplication(){
-        kwApp =  new App();
+//        kwApp =  new App();
     }
 
 
     @Override
     public void onCreate() {
         super.onCreate();
-        kwApp.onCreate();
+//        kwApp.onCreate();
     }
 }
